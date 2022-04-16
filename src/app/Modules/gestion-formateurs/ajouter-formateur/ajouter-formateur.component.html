@@ -1,0 +1,136 @@
+<p-toast></p-toast>
+<div class="row">
+    <div class="container">
+        <div class="title">Ajouter un Formateur</div>
+        <div class="content">
+          <p-dialog  [(visible)]="formateurAjoute" [style]="{width: '400px', height: '400px'}">
+            <ng-template pTemplate="content">
+          <div class ="myForm">
+            <br>
+            <h3>
+              <mat-icon>check_circle_outline</mat-icon> Ajout avec succées 
+            </h3>
+          <hr>
+            <p> Le Formateur <strong>Foulen </strong>a été bien inscrit à notre plateform : <!--{{formateur.lastName}} {{formateur.name}} -->
+                un mail a été envoyer à ce formateur | (son adresse e-mail) pour son authentification
+            </p>
+            <hr>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Retour" icon="pi pi-arrow-circle-left" class="p-button-text"  routerLink="/formateurs/list"></button> <!--(click)="retour()"-->
+            <button pButton pRipple label="Ajouter un autre formateur" icon="pi pi-user-plus" class="p-button-text" (click)="ajouterFormateur()"></button>
+        
+      </ng-template>
+          </p-dialog>
+          <form action="#"> 
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">Nom</span>
+                <input type="text" placeholder="Entrer son nom" [(ngModel)]=" formateur.name">
+              </div>
+              <div class="input-box">
+                <span class="details">Prenom</span>
+                <input type="text" placeholder="Entrer son prenom" [(ngModel)]=" formateur.lastName">
+              </div>
+              <div class="input-box">
+                <span class="details">Email</span>
+                <input type="text" placeholder="Enter son email" required [(ngModel)]=" formateur.email">
+              </div>
+              <div class="input-box">
+                <span class="details">Carte d'identité</span>
+                <input type="text" placeholder="Entrer son code cin" required [(ngModel)]=" formateur.username">
+              </div>
+              <div class="input-box">
+                <span class="details">Numero de telephone</span>
+                <input type="text" placeholder="Entrer son numero de telephone" [(ngModel)]=" formateur.numTel">
+              </div>
+              <div class="input-box">
+                <span class="details">Specialité</span>
+                <p-multiSelect [options]="listSpecialites" [(ngModel)]="formateur.specialites" defaultLabel="Selectionner specialité(s)" optionLabel="titre" selectedItemsLabel="{0} items selected" required></p-multiSelect>
+              </div>
+              <div class="gender-details">
+                <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="formateur.genre">
+                <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="formateur.genre">
+                <span class="gender-title">Genre</span>
+                <div class="category">
+                  <label for="dot-1">
+                  <span class="dot one"></span>
+                  <span class="gender">Homme</span>
+                </label> 
+                <label for="dot-2">
+                  <span class="dot two"></span>
+                  <span class="gender">Femme</span>
+                </label>
+                </div>
+              </div>
+            
+            <div class="input-box">
+              <span class="details">Date de naissance</span>
+              <input type="date" placeholder="Entrer son date de naissance" [(ngModel)]=" formateur.dateNaiss">
+            </div>
+            <div class="input-box">
+              <input pFileUpload type="file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo" class="custom-file-upload">
+                <img [src]="'assets/img/formation/' + file.name" height="150" *ngIf="imgURL">    
+            </div>       
+        </div>
+            <div class="button">
+              <input type="submit" value="Register" (click)="saveFormateur()">
+            </div>
+          </form>
+
+        </div>
+      </div>
+      <img id="imgStyle" src="../../../../assets/img/ajoutform1.png">
+    </div>
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<!--
+    .myForm{
+    width: 100%;
+    margin-left: 320px;
+    margin-right: 500px;
+    padding: 30px 0px 30px 50px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+input {
+    width: 300px;
+}
+<div class ="myForm" *ngIf="formateurAjoute == false">
+    <h2>
+        Details formateurs :
+    </h2>
+    <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]=" formateur.username"> 
+        <label for="float-input">CIN</label>
+    </span><br><br>
+    <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]=" formateur.email"> 
+        <label for="float-input">Email</label>
+    </span><br><br>
+    <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]=" formateur.name"> 
+        <label for="float-input">Prenom</label>
+    </span><br><br>
+    <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]=" formateur.lastName"> 
+        <label for="float-input">Nom</label>
+    </span><br><br>
+    <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]=" formateur.numTel"> 
+        <label for="float-input">Numero de telephone</label>
+    </span><br><br>
+    <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]=" formateur.photo"> 
+        <label for="float-input">Photo</label>
+    </span><br><br>
+    <span class="p-float-label">
+    <label class="mb-3">Specialite</label>
+    <!--<input type="text" pInputText id="categorie" [(ngModel)]="cat" required autofocus />
+    <p-multiSelect [options]="listSpecialites" [(ngModel)]="formateur.specialites" defaultLabel="Select a specialite" optionLabel="titre" selectedItemsLabel="{0} items selected" required style="width: 500px;"></p-multiSelect>
+</span><br><br>
+    <!--specialité w cv
+
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="cancel()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveFormateur()"></button>
+</div>-->
+
