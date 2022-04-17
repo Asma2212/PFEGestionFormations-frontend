@@ -10,10 +10,9 @@
 }
 .container{
   max-width: 700px;
-  background-color: rgba(255, 255, 255, 0.792);
   padding: 25px 30px;
   border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  
 }
 .container .title{
   font-size: 25px;
@@ -47,19 +46,20 @@ form .input-box span.details{
   margin-bottom: 5px;
 }
 .user-details .input-box input{
+
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
   height: 45px;
   width: 100%;
   outline: none;
   font-size: 16px;
-  border-radius: 5px;
   padding-left: 15px;
-  border: 1px solid #ccc;
+  border: 1px rgba(204, 204, 204, 0);
   border-bottom-width: 2px;
   transition: all 0.3s ease;
 }
 .user-details .input-box input:focus,
 .user-details .input-box input:valid{
-  border-color: #9b59b6;
+  border-color: #534e55;
 }
  form .gender-details .gender-title{
   font-size: 20px;
