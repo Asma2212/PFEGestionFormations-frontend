@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Candidat } from 'app/models/Candidat';
+import { Classe } from 'app/models/Classe';
+import { Department } from 'app/models/Departement';
 import { CandidatService } from 'app/services/candidat.service';
-import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
+import { DepartementService } from 'app/services/departement.service';
+import { ConfirmationService, MessageService, SelectItem, SelectItemGroup } from 'primeng/api';
 
 @Component({
   selector: 'app-liste-candidats',
@@ -10,11 +13,17 @@ import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
   styleUrls: ['./liste-candidats.component.css']
 })
 export class ListeCandidatsComponent implements OnInit {
+
+  depSelected : boolean = false ;
   candidats: Candidat[];
-  candidat : Candidat ;
-
+  candidat : Candidat ; 
+  listDep : Department[];
+  listClass : Classe[];
   sortOptions: SelectItem[];
-
+  groupedSpecialites: SelectItemGroup[];
+  depItem : SelectItemGroup ;
+  classItem : SelectItem ;
+  listclass : SelectItem[];
   sortOrder: number;
 
   sortField: string;
@@ -27,14 +36,54 @@ export class ListeCandidatsComponent implements OnInit {
   imgURL: any;
   public message: string;
 
-  constructor(private candidatService : CandidatService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
+  constructor(private candidatService : CandidatService ,private departementService : DepartementService, private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
   ngOnInit() {
-  
-    
+    this.departementService.getAllDepartements().toPromise().then( data =>{
+      this.listDep = data ; 
+      console.log("departement :",data) });
+
+  /*    this.listDep.forEach(dep => {
+        this.depItem.label = dep.name ;
+        console.log("deep 1 ",dep.name)
+        dep.classes.forEach(c =>
+          {
+            this.classItem.label = c.Name ;
+            this.listclass.push(this.classItem);
+          })
+          this.depItem.items = this.listclass ;
+          this.groupedSpecialites.push(this.depItem);
+      });
+    this.groupedSpecialites = [
+      {
+          label: 'Developpement web', value: 'angular.png', 
+          items: [
+              {label: 'Angular', value: 'Angular'},
+              {label: 'React', value: 'React'},
+              {label: 'Spring Boot', value: 'Spring Boot'},
+              {label: 'Node JS', value: 'Node JS'}
+          ]
+      },
+      {
+        label: 'Developpement mobile', value: 'favicon.png', 
+        items: [
+            {label: 'Android', value: 'Android'},
+            {label: 'Flutter', value: 'Flutter'},
+            {label: 'IOS', value: 'IOS'},
+            {label: 'Xamarin', value: 'Xamarin'}
+        ]
+    }
+  ];*/
     /*     
      this.candidatService.getAllCandidats().then(data => this.candidats = data);
 */
+  }
+
+  departementSelected(dep : Department){
+    console.log("hhheeey",dep[0].classes);
+    //console.log("cc",this.candidat.department.id);
+    this.depSelected = true ;
+    this.listClass = dep[0].classes ;
   }
  ajouter(){
     this.router.navigateByUrl('/candidats/ajouter');
@@ -95,21 +144,40 @@ deleteCandidat(candidat: Candidat) {
 
 saveCandidat() {
   this.submitted = true;
-  if(this.file)
+ // if(this.file)
   //this.formateur.photo=this.file.name ;
-  
-          this.candidatService.updateCandidat(this.candidat).subscribe( data => {
-            console.log("data update candidat",data)
-          });
+  if (this.candidat.id) {
+    this.candidatService.updateCandidat(this.candidat).subscribe( data => {
+      console.log("data update candidat",data)
+    });
+    this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
+}
+else {
+    console.log("heeedhyyy",this.candidat)
+    this.candidatService.saveCandidat(this.candidat).subscribe( data => {
+      console.log("data save candidat",data)
+    },
+    error =>
+   {
+  console.log("exception occured");});
+   }
           this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
       this.candidats = [...this.candidats];
       this.candidatDialog = false;
       this.imgURL = false ;
       this.candidat = null;
+      this.depSelected = false ;
 }
 
 counter(i: number) {
   return new Array(i);
+}
+
+openNew(candidat: Candidat) {
+  this.candidat = {...candidat};
+  //this.imgURL = candidat.photo ;
+  this.candidatDialog = true;
+
 }
 }
 

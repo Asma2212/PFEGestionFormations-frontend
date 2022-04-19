@@ -1,3 +1,5 @@
+<div class="main-content">
+  <div class="container-fluid">
 <div class="row">
   <div class="container">
       <div class="title">Ajouter un candidat</div>
@@ -37,9 +39,9 @@
               <span class="details">numero de telephone</span>
               <input type="text" placeholder="Entrer son numero de telephone" [(ngModel)]=" candidat.numTel">
             </div>
-            <div class="input-box">
+            <div class="input-box" >
               <span class="details">Specialité</span>
-              <p-multiSelect [options]="listSpecialites" [(ngModel)]="candidat.specialites" defaultLabel="Selectionner specialité(s)" optionLabel="titre" selectedItemsLabel="{0} items selected" required style="width: 500px;"></p-multiSelect>
+              <p-multiSelect [options]="listSpecialites" [(ngModel)]="candidat.specialites" defaultLabel="Selectionner specialité(s)" optionLabel="titre" selectedItemsLabel="{0} items selected" required ></p-multiSelect>
             </div>
           
           <div class="gender-details">
@@ -66,3 +68,4 @@
       </div>
     </div>
   </div>
+  </div></div>

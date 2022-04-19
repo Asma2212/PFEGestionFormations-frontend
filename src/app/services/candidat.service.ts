@@ -18,7 +18,7 @@ import { Observable } from "rxjs";
   
     saveCandidat(candidat : Candidat) : Observable<any>{
   
-      return this.http.post<any>(this.url + 'save1',candidat);
+      return this.http.post<any>(this.url + 'signup',candidat);
     }
     updateCandidat(candidat : Candidat) : Observable<any>{
   

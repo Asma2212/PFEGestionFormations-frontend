@@ -1,8 +1,8 @@
 import { Formateur } from "./Formateur";
 
 export class Specialite{
-    idSp : number ;
+    id : number ;
     titre : string ;
-    niveauEtude : string ;
+    //niveauEtude : string ;
     listFormateur : Formateur[];
 }

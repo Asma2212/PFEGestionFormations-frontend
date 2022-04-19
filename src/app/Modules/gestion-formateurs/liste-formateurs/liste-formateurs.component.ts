@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Formateur } from 'app/models/Formateur';
+import { Specialite } from 'app/models/Specialite';
 import { FormateurService } from 'app/services/formateur.service';
-import { ConfirmationService, MenuItem, MessageService, SelectItem } from 'primeng/api';
+import { SpecialiteService } from 'app/services/specialite.service';
+import { ConfirmationService, MenuItem, MessageService, SelectItem, SelectItemGroup } from 'primeng/api';
 
 @Component({
   selector: 'app-liste-formateurs',
@@ -13,7 +15,8 @@ export class ListeFormateursComponent implements OnInit {
   items: MenuItem[];
   formateurs: Formateur[];
   formateur : Formateur ;
-
+  specialites : Specialite[];
+  groupedSpecialites: SelectItemGroup[];
   sortOptions: SelectItem[];
 
   sortOrder: number;
@@ -28,7 +31,7 @@ export class ListeFormateursComponent implements OnInit {
   imgURL: any;
   public message: string;
 //private formateurService: FormateurService
-  constructor(private formateurService : FormateurService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
+  constructor(private formateurService : FormateurService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
   ngOnInit() {
     this.items = [
@@ -40,14 +43,38 @@ export class ListeFormateursComponent implements OnInit {
       {separator: true},
       {label: 'Parametre', icon: 'pi pi-cog', routerLink: ['/setup']}
   ];
-  
+  this.groupedSpecialites = [
+    {
+        label: 'Developpement web', value: 'angular.png', 
+        items: [
+            {label: 'Angular', value: 'Angular'},
+            {label: 'React', value: 'React'},
+            {label: 'Spring Boot', value: 'Spring Boot'},
+            {label: 'Node JS', value: 'Node JS'}
+        ]
+    },
+    {
+      label: 'Developpement mobile', value: 'favicon.png', 
+      items: [
+          {label: 'Android', value: 'Android'},
+          {label: 'Flutter', value: 'Flutter'},
+          {label: 'IOS', value: 'IOS'},
+          {label: 'Xamarin', value: 'Xamarin'}
+      ]
+  }
+];
     
-    /*       this.spacialiteService.getAllSpecialite().toPromise().then( data => {
+     /*    this.specialiteService.getAllSpecialite().toPromise().then( data => {
         this.specialites = data ;
           console.log("everthing is okay geet categorie",data)
-        });
-     this.formateurService.getAllFormateurs().then(data => this.formateurs = data);
-*/
+        });*/
+        this.formateurService.getAllFormateurs().toPromise().then( data => {
+          this.formateurs = data ;
+            console.log("everthing is okay geet",data)
+          });
+          this.specialiteService.getAllSpecialites().toPromise().then( data =>{
+            this.specialites = data ; 
+            console.log("speciaalie :",data) });
   }
  ajouter(){
     this.router.navigateByUrl('/formateurs/ajouter');
@@ -69,7 +96,7 @@ export class ListeFormateursComponent implements OnInit {
       this.imgURL = reader.result;
       console.log("imaage",this.imgURL) 
     }
-    //this.formateur.photo=this.file.name ;
+    this.formateur.photo=this.file.name ;
   }
   onSortChange(event) {
       let value = event.value;
@@ -109,13 +136,31 @@ deleteFormateur(formateur: Formateur) {
 
 saveFormateur() {
   this.submitted = true;
-  if(this.file)
   //this.formateur.photo=this.file.name ;
   
-          this.formateurService.updateFormateur(this.formateur).subscribe( data => {
-            console.log("data update Formateur",data)
-          });
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
+  if (this.formateur.id) {
+    this.formateurService.updateFormateur(this.formateur).subscribe( data => {
+      console.log("data update Formateur",data)
+    });
+    this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
+}
+else {
+   // this.formateurs.push(this.formateur);
+ /*   this.formateurService.saveFormateurData(formData).subscribe( data => {
+    
+      console.log("data type",data.type)
+      console.log("data get",data.get)
+      console.log("data",data)
+    }); */
+    console.log("heeedhyyy",this.formateur)
+    this.formateurService.saveFormateur(this.formateur).subscribe( data => {
+      console.log("data save Formateur",data)
+    },
+    error =>
+   {
+  console.log("exception occured");});
+    this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
+}
       this.formateurs = [...this.formateurs];
       this.formateurDialog = false;
       this.imgURL = false ;
@@ -124,5 +169,11 @@ saveFormateur() {
 
 counter(i: number) {
   return new Array(i);
+}
+openNew(formateur: Formateur) {
+  this.formateur = {...formateur};
+  //this.imgURL = formateur.photo ;
+  this.formateurDialog = true;
+
 }
 }

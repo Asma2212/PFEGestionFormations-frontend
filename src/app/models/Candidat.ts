@@ -1,14 +1,19 @@
+import { Classe } from "./Classe";
+import { Department } from "./Departement";
+
 export class Candidat {
     id : number ;
     username : string ; //cin
-    email : string ;
     password : string ;
     name : string ;
+    email : string ;
+    role : string[];
     lastName : string ;
     numTel : number ;
-    photo : string ;
-   // departement : string ; // TI , GC , GM , GE (enum)
-   // niveauEtude : string ; // licence / master (enum)
-   // classe : string ;
-   // genre : string ;
+    dateNaiss : Date ;
+    genre : string;
+    bio : string ;
+    photo : string ; 
+    department : Department ; // TI , GC , GM , GE (enum) // niveauEtude : string ; // licence / master (enum)
+    classe : Classe ; // genre : string ;
 }

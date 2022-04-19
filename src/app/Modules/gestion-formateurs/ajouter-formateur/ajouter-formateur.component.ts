@@ -33,7 +33,7 @@ export class AjouterFormateurComponent implements OnInit {
 
   ngOnInit(): void {
     this.formateurAjoute = false;
-    this.formateur = 
+   /* this.formateur = 
     {  id : 0,
     username : "" ,
     password : "AAA" ,
@@ -54,7 +54,7 @@ export class AjouterFormateurComponent implements OnInit {
       titre : "" ,
       niveauEtude : "" ,
       listFormateur : null };
-      this.listSpecialites.push(this.specialite);
+      this.listSpecialites.push(this.specialite);*/
 
     
   }

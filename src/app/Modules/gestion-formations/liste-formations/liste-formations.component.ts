@@ -204,7 +204,7 @@ onUpload(event){
                 console.log("data get",data.get)
                 console.log("data",data)
               }); */
-
+              console.log("heeedhyyy",this.formation)
               this.formationService.saveFormation(this.formation).subscribe( data => {
                 console.log("data save Formation",data)
               });

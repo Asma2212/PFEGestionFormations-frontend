@@ -1,6 +1,7 @@
 .container{
+
     max-width: 700px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     padding: 25px 30px;
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.15);
@@ -19,7 +20,7 @@
     height: 3px;
     width: 55px;
     border-radius: 7px;
-    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    background: linear-gradient(200deg, #e2c09a,  #f4e396);
   }
   .content form .user-details{
     display: flex;
@@ -37,15 +38,19 @@
     margin-bottom: 5px;
   }
   .user-details .input-box input{
+    background: linear-gradient(200deg, #e2c09aae,  #f4e3969d);
     height: 45px;
     width: 100%;
     outline: none;
     font-size: 16px;
     border-radius: 5px;
     padding-left: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(114, 85, 28);
     border-bottom-width: 2px;
     transition: all 0.3s ease;
+  }
+  p-multiselect{
+    background-color:rgba(255, 255, 255, 0.363);
   }
   .user-details .input-box input:focus,
   .user-details .input-box input:valid{
@@ -99,7 +104,7 @@
      letter-spacing: 1px;
      cursor: pointer;
      transition: all 0.3s ease;
-     background: linear-gradient(135deg, #71b7e6, #9b59b6);
+     background: linear-gradient(200deg, #fad2a4,  #cea146);
    }
    form .button input:hover{
     /* transform: scale(0.99); */

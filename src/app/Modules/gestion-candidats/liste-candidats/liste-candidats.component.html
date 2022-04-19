@@ -1,5 +1,8 @@
+
 <p-toast></p-toast> 
-<button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-warning p-button-outlined" (click)="ajouter()"></button>
+<div class="main-content">
+  <div class="container-fluid">
+<button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-warning p-button-outlined" (click)="openNew(candidat)"></button><!--ajouter()-->
    <!--    <p-splitButton icon="pi pi-user-plus" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton> --> 
         <br><br>
         <div class="row">
@@ -169,16 +172,21 @@
                     </div><br>
             
                     <div class="field">
-                        <label class="mb-3">Specialite</label>
-                        <p-multiSelect [options]="specialites" [(ngModel)]="candidat.specialites" defaultLabel="Select specialité" optionLabel="titre" selectedItemsLabel="{0} items selected" required></p-multiSelect>
-                        <small class="p-error" *ngIf="submitted && !candidat.specialites">specialité is required.</small>
+                      <!--<p-multiSelect [options]="groupedSpecialites" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select specialité" scrollHeight="250px" display="chip">
+                                              <ng-template let-group pTemplate="group">
+                                                  <div class="flex align-items-center">
+                                                      <img src="../../../../assets/img/{{group.value}} " style="width: 20px"/>
+                                                      <span>{{group.label}}</span>
+                                                  </div>
+                                              </ng-template>
+                                          </p-multiSelect>-->
+
+                      <p-multiSelect [options]="listDep" [(ngModel)]="candidat.department" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(candidat.department)" ></p-multiSelect>
+                       <p-multiSelect [options]="listClass" [(ngModel)]="candidat.classe" defaultLabel="Select classe" optionLabel="name" display="chip" *ngIf="depSelected"></p-multiSelect>
+                      <small class="p-error" *ngIf="submitted && !candidat.specialites">specialité is required.</small>
                     </div>
             
-                        <div class="field">
-                            <label for="chargeHorraire">charge Horraire</label>
-                            <input type="text" pInputText id="chargeHorraire" [(ngModel)]="candidat.charge_horaire" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !candidat.charge_horaire">charge Horraire is required.</small>
-                        </div>
+
                 </ng-template>
             
                 <ng-template pTemplate="footer">
@@ -188,6 +196,7 @@
             </p-dialog>
         </div>
         <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  </div></div>
 <!--<p-toast></p-toast>
 <button pButton pRipple type="button" icon="pi pi-user-plus" class="p-button-raised p-button-secondary" (click)="ajouter()"></button>
 <br>

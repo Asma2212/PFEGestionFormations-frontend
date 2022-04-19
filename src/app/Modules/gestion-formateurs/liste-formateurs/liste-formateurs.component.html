@@ -1,5 +1,5 @@
 <p-toast></p-toast> 
-<button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-help p-button-outlined" (click)="ajouter()"></button>
+<button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-help p-button-outlined" (click)="openNew(formateur)"></button> <!--(click)="ajouter()"-->
    <!--    <p-splitButton icon="pi pi-user-plus" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton> --> 
         <br><br>
         <div class="row">
@@ -38,7 +38,41 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let i of counter(5)">
+                  <tr *ngFor="let formateur of formateurs">
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <img
+                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                            alt=""
+                            style="width: 65px; height: 65px;margin: 10px;margin-right: 20px;"
+                            class="rounded-circle"
+                            />
+                        <div class="ms-3">
+                          <p class="fw-bold mb-1"> {{formateur.name}} {{formateur.lastName}}</p>
+                          <p class="text-muted mb-0"> {{formateur.email}}</p>
+                          <p class="text-muted mb-0"> {{formateur.username}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <ul *ngFor="let sp of formateur.lesSpecialites">
+                        <li>{{sp.titre}}</li>
+                      </ul>
+                      <!--<p class="fw-normal mb-1">{{formateur.specialites.titre}}</p>
+                      <p class="text-muted mb-0">IT department</p>-->
+                    </td>
+                    <td> {{formateur.dateNaiss}}</td>
+<!--                    <td>
+                      <span class="badge badge-success rounded-pill d-inline">Active</span>
+                    </td>-->
+                    <td>{{formateur.etablissement}}</td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-user-edit" class="p-button-rounded p-button-help p-button-text" (click)="editFormateur(formateur)"></button>
+                        <button pButton pRipple icon="pi pi-user-minus" class="p-button-rounded p-button-danger p-button-text"  (click)="deleteFormateur(formateur)"></button>
+                    
+                    </td>
+                  </tr>
+<!--                  <tr *ngFor="let i of counter(5)">
                     <td>
                       <div class="d-flex align-items-center">
                         <img
@@ -61,14 +95,14 @@
                     <td> 22 dec 2000</td>
 <!--                    <td>
                       <span class="badge badge-success rounded-pill d-inline">Active</span>
-                    </td>-->
+                    </td>
                     <td>Senior</td>
                     <td>
                         <button pButton pRipple icon="pi pi-user-edit" class="p-button-rounded p-button-help p-button-text" (click)="editFormateur(formateur)"></button>
                         <button pButton pRipple icon="pi pi-user-minus" class="p-button-rounded p-button-danger p-button-text" (click)="deleteFormateur(formateur)"></button>
                     
                     </td>
-                  </tr>
+                  </tr>-->
 <!--                  <tr>
                     <td>
                       <div class="d-flex align-items-center">
@@ -139,57 +173,86 @@
                   </tr>-->
                 </tbody>
               </table>
-              <p-dialog [(visible)]="formateurDialog" [style]="{width: '450px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid">
+              <p-dialog [(visible)]="formateurDialog" [style]="{width: '490px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" >
                 <ng-template pTemplate="content">
                     <div class="field">
+                      <label for="photo">Photo</label><br>
                         <input pFileUpload type="file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo" class="custom-file-upload">
                         <br><br>
                         </div>
                     <div *ngIf="imgURL">
-                        <img [src]="'assets/img/formateur/' + formateur.photo" height="150">    
+                        <img [src]="'assets/img/' + formateur.photo" height="150">    
                     </div>
                     <div class="field">
-                        <label for="name">CIN</label>
+                        <label for="cin">CIN</label>
                         <input type="text" pInputText id="cin" [(ngModel)]="formateur.username" required autofocus />
                         <small class="p-error" *ngIf="submitted && !formateur.username">cin is required.</small>
                     </div><br>
                     <div class="field">
-                        <label for="name">Nom</label>
+                        <label for="nom">Nom</label>
                         <input type="text" pInputText id="nom" [(ngModel)]="formateur.lastName" required autofocus />
                         <small class="p-error" *ngIf="submitted && !formateur.lastname">nom is required.</small>
                     </div><br>
                     <div class="field">
-                        <label for="name">Prenom</label>
+                        <label for="prenom">Prenom</label>
                         <input type="text" pInputText id="prenom" [(ngModel)]="formateur.name" required autofocus />
                         <small class="p-error" *ngIf="submitted && !formateur.name">prenom is required.</small>
                     </div><br>
                     <div class="field">
-                        <label for="name">Email</label>
+                        <label for="email">Email</label>
                         <input type="email" pInputText id="email" [(ngModel)]="formateur.email" required autofocus />
                         <small class="p-error" *ngIf="submitted && !formateur.email">email is required.</small>
                     </div><br>
                     <div class="field">
-                        <label for="name">N° téléphone</label>
+                        <label for="numTel">N° téléphone</label>
                         <input type="tel" pInputText id="numTel" [(ngModel)]="formateur.numTel" required autofocus />
                         <small class="p-error" *ngIf="submitted && !formateur.numTel">num tel is required.</small>
                     </div><br>
-            
-                    <div class="field">
+                  <div class="field">
+                    <div class="gender-details">
+                      <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="formateur.genre">
+                      <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="formateur.genre">
+                      <span class="gender-title">Genre</span>
+                      <div class="category">
+                        <label for="dot-1">
+                        <span class="dot one"></span>
+                        <span class="gender">Homme</span>
+                      </label> 
+                      <label for="dot-2">
+                        <span class="dot two"></span>
+                        <span class="gender">Femme</span>
+                      </label>
+                      </div>
+                    </div>
+                  </div>           
+<!--                    <div class="field">
                         <label class="mb-3">Specialite</label>
                         <p-multiSelect [options]="specialites" [(ngModel)]="formateur.specialites" defaultLabel="Select specialité" optionLabel="titre" selectedItemsLabel="{0} items selected" required></p-multiSelect>
                         <small class="p-error" *ngIf="submitted && !formateur.specialites">specialité is required.</small>
-                    </div>
-            
-                        <div class="field">
-                            <label for="chargeHorraire">charge Horraire</label>
-                            <input type="text" pInputText id="chargeHorraire" [(ngModel)]="formateur.charge_horaire" required autofocus />
-                            <small class="p-error" *ngIf="submitted && !formateur.charge_horaire">charge Horraire is required.</small>
-                        </div>
+                    </div>-->
+                    <div class="field">
+<!--                                           <p-multiSelect [options]="groupedSpecialites" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select specialité" scrollHeight="250px" display="chip">
+                                              <ng-template let-group pTemplate="group">
+                                                  <div class="flex align-items-center">
+                                                      <img src="../../../../assets/img/{{group.value}} " style="width: 20px"/>
+                                                      <span>{{group.label}}</span>
+                                                  </div>
+                                              </ng-template>
+                                          </p-multiSelect>-->
+
+                      <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip"></p-multiSelect>
+                      
+                      </div>
+                    <!--<div class="field">
+                      <label for="cv">CV</label><br>
+                        <input pFileUpload type="file" accept="application/pdf" label="Import" chooseLabel="Ajouter CV" (change)="onUpload($event)" [(ngModel)]="formateur.cv" class="custom-file-upload">
+                        <br><br>
+                        </div>-->
                 </ng-template>
             
                 <ng-template pTemplate="footer">
-                    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-                    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveFormateur()"></button>
+                    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-help p-button-text" (click)="hideDialog()"></button>
+                    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-help p-button-text" (click)="saveFormateur()"></button>
                 </ng-template>
             </p-dialog>
         </div>

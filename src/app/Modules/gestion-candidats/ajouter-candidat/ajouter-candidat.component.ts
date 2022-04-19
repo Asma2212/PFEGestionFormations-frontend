@@ -14,14 +14,14 @@ export class AjouterCandidatComponent implements OnInit {
   constructor(private router : Router) { }
 
   ngOnInit(): void {
-    this.candidat = {  id : 0,
+    /*this.candidat = {  id : 0,
       username : "" ,
       email : "" ,
       password : "" ,
       name : "" ,
       lastName : "" ,
       numTel : 0 ,
-      photo : "" };
+      photo : "" };*/
   } 
   saveCandidat(){
     this.candidatAjoute = true ; 
