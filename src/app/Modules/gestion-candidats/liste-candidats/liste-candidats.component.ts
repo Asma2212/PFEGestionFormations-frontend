@@ -13,7 +13,10 @@ import { ConfirmationService, MessageService, SelectItem, SelectItemGroup } from
   styleUrls: ['./liste-candidats.component.css']
 })
 export class ListeCandidatsComponent implements OnInit {
-
+  listC : Classe[] ; 
+  listD : Department[];
+  d: Department ;
+  c:Classe ;
   depSelected : boolean = false ;
   candidats: Candidat[];
   candidat : Candidat ; 
@@ -42,6 +45,7 @@ export class ListeCandidatsComponent implements OnInit {
     this.departementService.getAllDepartements().toPromise().then( data =>{
       this.listDep = data ; 
       console.log("departement :",data) });
+
 
   /*    this.listDep.forEach(dep => {
         this.depItem.label = dep.name ;
@@ -74,16 +78,29 @@ export class ListeCandidatsComponent implements OnInit {
         ]
     }
   ];*/
-    /*     
-     this.candidatService.getAllCandidats().then(data => this.candidats = data);
-*/
+      
+     this.candidatService.getAllCandidats().toPromise().then(
+       data => this.candidats = data);
+
   }
 
-  departementSelected(dep : Department){
-    console.log("hhheeey",dep[0].classes);
+  departementSelected(dep){
+    if(dep){
+    this.d = dep[0];
+    console.log("hhheeey",this.d);
     //console.log("cc",this.candidat.department.id);
     this.depSelected = true ;
     this.listClass = dep[0].classes ;
+   // this.candidat.department = dep[0];
+  }}
+
+  classeSelected(classe : Classe){
+    if(classe){
+    console.log("classssseeee",classe[0].name);
+    this.c = classe[0];
+    //console.log("cc",this.candidat.department.id);
+   // this.candidat.classe = classe[0];
+  }
   }
  ajouter(){
     this.router.navigateByUrl('/candidats/ajouter');
@@ -146,6 +163,8 @@ saveCandidat() {
   this.submitted = true;
  // if(this.file)
   //this.formateur.photo=this.file.name ;
+  this.candidat.department = this.listD[0];
+  this.candidat.classe = this.listC[0];
   if (this.candidat.id) {
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {
       console.log("data update candidat",data)
@@ -156,17 +175,24 @@ else {
     console.log("heeedhyyy",this.candidat)
     this.candidatService.saveCandidat(this.candidat).subscribe( data => {
       console.log("data save candidat",data)
-    },
-    error =>
-   {
-  console.log("exception occured");});
-   }
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
-      this.candidats = [...this.candidats];
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
+
       this.candidatDialog = false;
       this.imgURL = false ;
       this.candidat = null;
       this.depSelected = false ;
+
+    },
+    error =>
+   {
+  console.log(error.error.message);
+  this.messageService.add({severity:'Error', summary: 'Error', detail: error.error.message, life: 3000});
+});
+   }
+          
+      //this.candidats = [...this.candidats];
+      
+
 }
 
 counter(i: number) {

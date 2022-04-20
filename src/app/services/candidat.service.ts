@@ -13,7 +13,7 @@ import { Observable } from "rxjs";
     constructor(private http: HttpClient) {}
   
     getAllCandidats(): Observable<Candidat[]> {
-      return this.http.get<Candidat[]>(this.url + 'All');
+      return this.http.get<Candidat[]>(this.url + 'all');
     }
   
     saveCandidat(candidat : Candidat) : Observable<any>{
