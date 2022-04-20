@@ -20,13 +20,13 @@ export class AjouterFormateurComponent implements OnInit {
   formateurAjoute : boolean = false;
   
   submitted: boolean;
-  uploadedFiles: any[] = [];
+
   file: File = null;
   public imagePath;
   imgURL: any;
   roles : string[]
   public message: string;
-  
+
   constructor(private router: Router, private formateurService : FormateurService,private messageService : MessageService) {
     this.formateurAjoute = false;
    }
@@ -98,6 +98,7 @@ export class AjouterFormateurComponent implements OnInit {
     }
     this.formateur.photo=this.file.name ;
   }
+
 
 
 }

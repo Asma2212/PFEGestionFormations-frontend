@@ -36,6 +36,7 @@ import { PanelModule } from 'primeng/panel';
 import { MessagesModule } from 'primeng/messages';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { MultiSelectModule } from 'primeng/multiselect';
+import {NgxFileDropModule} from 'ngx-file-drop';
 
 //import {} from 'primeng/';
 
@@ -70,7 +71,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ToolbarModule,
     ConfirmDialogModule,
     FormsModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -82,7 +83,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     SplitButtonModule,
     ConfirmDialogModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    NgxFileDropModule
   ]
 })
 export class GestionFormationsModule { }

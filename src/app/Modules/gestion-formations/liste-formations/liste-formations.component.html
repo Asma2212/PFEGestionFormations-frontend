@@ -27,11 +27,13 @@
         </ng-template>
 
         <ng-template pTemplate="right">
-            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-sm p-button-help"></button>
+            <button pButton pRipple label="Export Excel" (click)="exportexcel()" icon="pi pi-upload" class="p-button-sm p-button-help mr-2"></button>
+            <button  pButton pRipple label="Export PDF" (click)=" exportoPdf()" icon="pi pi-upload" class="p-button-sm p-button-danger"></button>
+
         </ng-template>
     </p-toolbar>
 
-        <p-table #dt [value]="formations" [rows]="10" [paginator]="true" [globalFilterFields]="['titre','chargeHorraire','categorie']" responsiveLayout="scroll"
+        <p-table id="excel-table" #dt [value]="formations" [rows]="10" [paginator]="true" [globalFilterFields]="['titre','chargeHorraire','categorie']" responsiveLayout="scroll"
         [(selection)]="selectedFormations" [rowHover]="true" dataKey="idFormation"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -75,9 +77,12 @@
                      <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editFormation(formation)"></button>
                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteFormation(formation)"></button>
                    </td>
-               </tr> 
+               </tr>
 
-     </ng-template>
+
+
+
+                </ng-template>
        
         <!--
                 <ng-template pTemplate="body" let-formation>
@@ -245,3 +250,28 @@
         <p-button icon="pi pi-check" (click)="displayReadMore=false" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
+<!-- -->
+<div class="center">
+    <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+                   (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+            Optional custom content that replaces the the entire default content.
+            <button type="button" (click)="openFileSelector()">Browse Files</button>
+        </ng-template>
+    </ngx-file-drop>
+    <div class="upload-table">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody class="upload-name-style">
+            <tr *ngFor="let item of files; let i=index">
+                <td><strong>{{ item.relativePath }}</strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <button mat-button (click)="uploadVideo()" >Upload Video</button>
+</div>

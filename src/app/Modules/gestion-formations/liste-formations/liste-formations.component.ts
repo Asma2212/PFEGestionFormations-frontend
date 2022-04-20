@@ -7,7 +7,10 @@ import { CategorieService } from 'app/services/categorie.service';
 import { FormationService } from 'app/services/formation.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import * as XLSX from 'xlsx';
+import * as html2pdf from 'html2pdf.js' ;
 
+import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 @Component({
   selector: 'app-liste-formations',
   templateUrl: './liste-formations.component.html',
@@ -21,8 +24,10 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./liste-formations.component.css']
 })
 export class ListeFormationsComponent implements OnInit {
+    uploadedFiles: any[] = [];
+    fileEntry :FileSystemFileEntry | undefined ;
 
-  detailForm : string ;
+    detailForm : string ;
     displayReadMore : boolean ;
     categories : Categorie[];
     selectedCategorie :  Categorie ;
@@ -35,12 +40,12 @@ export class ListeFormationsComponent implements OnInit {
   selectedFormations: Formation[];
 
   submitted: boolean;
-  uploadedFiles: any[] = [];
   file: File = null;
   public imagePath;
   imgURL: any;
   public message: string;
   categorie : Categorie ;
+    fileName = 'ExcelSheet.xlsx';
 
   //statuses: any[]; , private messageService: MessageService, private confirmationService: ConfirmationService
 
@@ -244,4 +249,91 @@ onUpload(event){
       return id;
   }
   */
+    exportexcel(): void {
+        /* pass here the table id */
+        const element = document.getElementById('excel-table');
+        const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+        /* generate workbook and add the worksheet */
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        /* save to file */
+        XLSX.writeFile(wb, this.fileName);}
+
+    exportoPdf (): void{
+    const options={
+        filename: 'Formationfile.pdf',
+    image: { type: 'jpeg' },
+        html2canvas: {},
+        jsPDF: {orientation: 'landscape'}
+    }
+    const  content = document.getElementById('excel-table') ;
+    html2pdf().from(content).set(options).save();
+
+
+}
+    /******/
+    /************************/
+    public files: NgxFileDropEntry[] = [];
+
+    public dropped(files: NgxFileDropEntry[]) {
+        this.files = files;
+        for (const droppedFile of files) {
+
+            // Is it a file?
+            if (droppedFile.fileEntry.isFile) {
+                this.fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+                this.fileEntry.file((file: File) => {
+
+                    // Here you can access the real file
+                    console.log(droppedFile.relativePath, file);
+
+                    /**
+                     // You could upload it like this:
+                     const formData = new FormData()
+                     formData.append('logo', file, relativePath)
+
+                     // Headers
+                     const headers = new HttpHeaders({
+            'security-token': 'mytoken'
+          })
+
+                     this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
+                     .subscribe(data => {
+            // Sanitized logo returned from backend
+          })
+                     **/
+
+                });
+            } else {
+                // It was a directory (empty directories are added, otherwise only files)
+                const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+                console.log(droppedFile.relativePath, fileEntry);
+            }
+        }
+    }
+
+    public fileOver(event){
+        console.log(event);
+    }
+
+    public fileLeave(event){
+        console.log(event);
+    }
+    uploadVideo() {
+
+        if (this.fileEntry !== undefined) {
+            console.log(this.fileEntry);
+            this.fileEntry.file(  file => {
+                this.categorieService.uploadVideo(file).subscribe(data =>{
+                    console.log("Video uploaded succesfuly !")
+
+                })
+
+
+            })
+
+
+        }}
 }
