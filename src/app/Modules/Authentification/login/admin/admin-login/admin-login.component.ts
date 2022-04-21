@@ -17,9 +17,8 @@ export class AdminLoginComponent implements OnInit {
     loginRequestPayload: loginRequestPayload;
 
     constructor(private authService: AuthService ,private  router:Router) {
-    
-       
-        
+
+
         this.loginRequestPayload = {
             username: '',
             email: '',
