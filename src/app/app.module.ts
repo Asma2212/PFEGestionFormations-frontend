@@ -34,7 +34,7 @@ import { AdminLoginComponent } from './Modules/Authentification/login/admin/admi
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {AuthService} from './services/auth.service';
 import {BrowserModule} from '@angular/platform-browser';
-import {TokenInterceptor} from 'ng2-smart-auth';
+import {TokenInterceptor} from "./Modules/Authentification/login/admin/admin-login/TokenInterceptor";
 
 @NgModule({
   imports: [BrowserModule,
@@ -76,11 +76,11 @@ import {TokenInterceptor} from 'ng2-smart-auth';
 
   ],
   providers: [ MessageService ,
-  ConfirmationService ,    {
+  ConfirmationService ,   [ {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    }]
   ],
   bootstrap: [AppComponent]
 })

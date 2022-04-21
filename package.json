@@ -45,7 +45,6 @@
     "html2pdf.js": "^0.10.1",
     "jquery": "3.6.0",
     "moment": "^2.29.3",
-    "ng2-smart-auth": "^0.1.8",
     "ngx-file-drop": "^13.0.0",
     "ngx-webstorage": "^9.0.0",
     "perfect-scrollbar": "1.5.0",
@@ -54,6 +53,7 @@
     "primeng": "^13.3.2",
     "rxjs": "6.6.3",
     "rxjs-compat": "6.6.3",
+    "token-interceptor": "^1.1.4",
     "web-animations-js": "2.3.2",
     "xlsx": "^0.18.5",
     "zone.js": "0.11.4"

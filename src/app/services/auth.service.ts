@@ -17,6 +17,7 @@ export class AuthService {
         .pipe(map(data => {
           this.localStorage.store('authenticationToken', data.accessToken);
           this.localStorage.store('username', data.username);
+          // to be continue
           return true;
         }));
   }
@@ -27,4 +28,7 @@ export class AuthService {
   getUserName() {
     return this.localStorage.retrieve('username');
   }
+    isLoggedIn() {
+        return !!this.getJwtToken();
+    }
 }

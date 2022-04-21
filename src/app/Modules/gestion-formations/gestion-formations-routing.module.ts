@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListeFormationsComponent } from './liste-formations/liste-formations.component';
+import {AuthGuradGuard} from "../Authentification/services/auth-gurad.guard";
 
 export const formationsRoutes : Routes = [
   {

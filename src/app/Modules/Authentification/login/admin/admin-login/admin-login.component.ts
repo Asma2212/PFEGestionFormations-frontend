@@ -62,9 +62,10 @@ export class AdminLoginComponent implements OnInit {
         this.loginRequestPayload.password = this.loginForm.get('password').value;
         this.authService.login(this.loginRequestPayload).subscribe(data => {
             console.log('Login successful');
-           
+
+                this.router.navigate(['/dashboard']);
+
         });
-        this.router.navigate(["/formateurs/list"]);
     }
         signup(){
 

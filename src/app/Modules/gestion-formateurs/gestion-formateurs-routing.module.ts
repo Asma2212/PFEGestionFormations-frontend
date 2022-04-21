@@ -4,9 +4,10 @@ import { AjouterFormateurComponent } from './ajouter-formateur/ajouter-formateur
 import { GestionFormateursModule } from './gestion-formateurs.module';
 import { GestionFormateursComponent } from './gestion-formateurs/gestion-formateurs.component';
 import { ListeFormateursComponent } from './liste-formateurs/liste-formateurs.component';
+import {AuthGuradGuard} from "../Authentification/services/auth-gurad.guard";
 
 const routes: Routes = [{
-  path: 'formateurs',
+  path: 'formateurs',canActivate: [AuthGuradGuard],
   component : GestionFormateursComponent,
   children: [
     {
