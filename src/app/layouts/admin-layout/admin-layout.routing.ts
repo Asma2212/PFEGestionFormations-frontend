@@ -60,7 +60,7 @@ export const AdminLayoutRoutes: Routes = [
         ,canActivate: [AuthGuradGuard]},
     {
         path: 'candidats',
-          loadChildren: () => import('../../Modules/gestion-formateurs/gestion-formateurs.module').then(m => m.GestionFormateursModule)
+          loadChildren: () => import('../../Modules/gestion-candidats/gestion-candidats.module').then(m => m.GestionCandidatsModule)
         ,canActivate: [AuthGuradGuard]}
       
 ];

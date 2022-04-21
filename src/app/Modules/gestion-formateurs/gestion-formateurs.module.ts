@@ -26,7 +26,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import {InputMaskModule} from 'primeng/inputmask';
-import {NgxFileDropModule} from 'ngx-file-drop';
+import { NgxFileDropModule } from 'ngx-file-drop';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {NgxFileDropModule} from 'ngx-file-drop';
   ],
     imports: [
         CommonModule,
+        GestionFormateursRoutingModule,
         MultiSelectModule,
         DataViewModule,
         DropdownModule,
@@ -59,6 +61,7 @@ import {NgxFileDropModule} from 'ngx-file-drop';
         ToolbarModule,
         ToastModule,
         RadioButtonModule,
+        InputMaskModule,
         NgxFileDropModule
     ]
 })

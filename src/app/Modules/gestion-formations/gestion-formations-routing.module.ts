@@ -11,7 +11,7 @@ export const formationsRoutes : Routes = [
       {
         path: 'list',
         component: ListeFormationsComponent,
-      }
+      } 
     ]
   }
 ];

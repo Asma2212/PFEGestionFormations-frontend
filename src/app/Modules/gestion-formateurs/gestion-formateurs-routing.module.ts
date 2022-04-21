@@ -7,7 +7,7 @@ import { ListeFormateursComponent } from './liste-formateurs/liste-formateurs.co
 import {AuthGuradGuard} from "../Authentification/services/auth-gurad.guard";
 
 const routes: Routes = [{
-  path: 'formateurs',canActivate: [AuthGuradGuard],
+  path: 'formateurs',
   component : GestionFormateursComponent,
   children: [
     {

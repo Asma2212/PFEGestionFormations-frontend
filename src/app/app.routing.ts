@@ -25,10 +25,10 @@ const routes: Routes =[
     }]
   },
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},
+  
   { path: '**', pathMatch: 'full',
-    component: PagenotfoundComponent
-  },
-
+  component: PagenotfoundComponent
+},
 ];
 
 @NgModule({

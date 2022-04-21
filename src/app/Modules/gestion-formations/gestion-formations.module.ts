@@ -85,7 +85,7 @@ import {NgxFileDropModule} from 'ngx-file-drop';
     ConfirmDialogModule,
     ButtonModule,
     RippleModule,
-    InputMaskModule
+    InputMaskModule,
     NgxFileDropModule
   ]
 })
