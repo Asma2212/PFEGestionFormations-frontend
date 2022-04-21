@@ -25,6 +25,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import {InputMaskModule} from 'primeng/inputmask';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     ConfirmDialogModule,
     ToolbarModule,
     ToastModule,
-    RadioButtonModule
+    RadioButtonModule,
+    InputMaskModule
   ]
 })
 export class GestionFormateursModule { }

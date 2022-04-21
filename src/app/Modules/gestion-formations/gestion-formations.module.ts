@@ -36,6 +36,7 @@ import { PanelModule } from 'primeng/panel';
 import { MessagesModule } from 'primeng/messages';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { MultiSelectModule } from 'primeng/multiselect';
+import {InputMaskModule} from 'primeng/inputmask';
 
 //import {} from 'primeng/';
 
@@ -82,7 +83,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     SplitButtonModule,
     ConfirmDialogModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    InputMaskModule
   ]
 })
 export class GestionFormationsModule { }

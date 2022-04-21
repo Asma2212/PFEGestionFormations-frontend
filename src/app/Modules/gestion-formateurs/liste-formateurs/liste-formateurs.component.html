@@ -48,7 +48,7 @@
                             class="rounded-circle"
                             />
                         <div class="ms-3">
-                          <p class="fw-bold mb-1"> {{formateur.name}} {{formateur.lastName}}</p>
+                          <p class="fw-bold mb-1"> {{formateur.firstName}} {{formateur.lastName}}</p>
                           <p class="text-muted mb-0"> {{formateur.email}}</p>
                           <p class="text-muted mb-0"> {{formateur.username}}</p>
                         </div>
@@ -190,24 +190,30 @@
                     </div><br>
                     <div class="field">
                         <label for="nom">Nom</label>
-                        <input type="text" pInputText id="nom" [(ngModel)]="formateur.lastName" required autofocus />
+                        <input type="text" pInputText id="nom" [(ngModel)]="formateur.lastName" required  />
                         <small class="p-error" *ngIf="submitted && !formateur.lastname">nom is required.</small>
                     </div><br>
                     <div class="field">
                         <label for="prenom">Prenom</label>
-                        <input type="text" pInputText id="prenom" [(ngModel)]="formateur.name" required autofocus />
+                        <input type="text" pInputText id="prenom" [(ngModel)]="formateur.firstName" required  />
                         <small class="p-error" *ngIf="submitted && !formateur.name">prenom is required.</small>
                     </div><br>
                     <div class="field">
                         <label for="email">Email</label>
-                        <input type="email" pInputText id="email" [(ngModel)]="formateur.email" required autofocus />
+                        <input type="email" pInputText id="email" [(ngModel)]="formateur.email" required />
                         <small class="p-error" *ngIf="submitted && !formateur.email">email is required.</small>
                     </div><br>
-                    <div class="field">
+                    <div class="field" >
                         <label for="numTel">N° téléphone</label>
-                        <input type="tel" pInputText id="numTel" [(ngModel)]="formateur.numTel" required autofocus />
+                          <p-inputMask mask="99-999-999" [(ngModel)]="formateur.numTel" placeholder="99-999-999"></p-inputMask>
                         <small class="p-error" *ngIf="submitted && !formateur.numTel">num tel is required.</small>
                     </div><br>
+                    <div class="field">
+                      <label for="dateNaiss">Date de naissance</label>
+                        <input type="date" pInputText id="dateNaiss" [(ngModel)]="formateur.dateNaiss" />
+                        <small class="p-error" *ngIf="submitted && !formateur.dateNaiss">date naissance is required.</small>
+                    
+                    </div>
                   <div class="field">
                     <div class="gender-details">
                       <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="formateur.genre">

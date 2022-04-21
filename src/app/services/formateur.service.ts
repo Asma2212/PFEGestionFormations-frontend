@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class FormateurService {
   //url = environment.urls.auth.endpoint + environment.urls.plateform.endpoint + environment.urls.plateform.formationApi;
   url = 'http://localhost:8080/formateur/';
+  private id:number ;
   constructor(private http: HttpClient) {}
 
   getAllFormateurs(): Observable<Formateur[]> {
@@ -21,7 +22,8 @@ export class FormateurService {
   }
 
   updateFormateur(formateur : Formateur) : Observable<any>{
-    return this.http.post<any>(this.url + 'update/'+formateur.id,formateur);
+    
+    return this.http.post<any>(this.url + 'update1/'+formateur.id,formateur);
   }
 
   deleteFormateur(idf : number) : Observable<any>{

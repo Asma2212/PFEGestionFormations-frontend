@@ -4,12 +4,12 @@ export class Formateur{
     id : number ;
     username : string ; //cin
     password : string ;
-    name : string ;
+    firstName : string ;
     email : string ;
     lesSpecialites : Specialite[];
     role : string[];
     lastName : string ;
-    numTel : number ;
+    numTel : string ;
     dateNaiss : Date ;
     genre : string;
     bio : string ;

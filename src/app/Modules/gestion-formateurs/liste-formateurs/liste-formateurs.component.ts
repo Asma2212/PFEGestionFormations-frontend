@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Formateur } from 'app/models/Formateur';
+import { Genre } from 'app/models/Genre';
 import { Specialite } from 'app/models/Specialite';
 import { FormateurService } from 'app/services/formateur.service';
 import { SpecialiteService } from 'app/services/specialite.service';
@@ -12,6 +13,9 @@ import { ConfirmationService, MenuItem, MessageService, SelectItem, SelectItemGr
   styleUrls: ['./liste-formateurs.component.css']
 })
 export class ListeFormateursComponent implements OnInit {
+  genre : Genre;
+  femme : boolean ;
+  homme : boolean ;
   items: MenuItem[];
   formateurs: Formateur[];
   formateur : Formateur ;
@@ -114,6 +118,7 @@ export class ListeFormateursComponent implements OnInit {
     this.formateur = {...formateur};
     //this.imgURL = formateur.photo ;
     this.formateurDialog = true;
+   // this.setGenre();
 
 }
 
@@ -137,8 +142,19 @@ deleteFormateur(formateur: Formateur) {
 saveFormateur() {
   this.submitted = true;
   //this.formateur.photo=this.file.name ;
-  
+/*  if(this.femme){
+    this.genre.id = 2 ; 
+    this.genre.name = "FEMME" ;
+    this.formateur.genre = this.genre ;
+ }
+ if(this.homme){
+   this.genre.id = 1 ; 
+   this.genre.name = "HOMME" ;
+   this.formateur.genre = this.genre ;
+} */
   if (this.formateur.id) {
+    //this.genre = this.formateur.genre ;
+    console.log("before update",this.formateur);
     this.formateurService.updateFormateur(this.formateur).subscribe( data => {
       console.log("data update Formateur",data)
     });
@@ -176,4 +192,13 @@ openNew(formateur: Formateur) {
   this.formateurDialog = true;
 
 }
+
+/*setGenre(){
+
+ if(this.formateur.genre.id == 2)
+ {
+   this.femme = true ;
+   console.log(this.formateur.genre)
+ }
+}*/
 }

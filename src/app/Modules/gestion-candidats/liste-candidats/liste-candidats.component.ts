@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Candidat } from 'app/models/Candidat';
 import { Classe } from 'app/models/Classe';
 import { Department } from 'app/models/Departement';
+import { Genre } from 'app/models/Genre';
 import { CandidatService } from 'app/services/candidat.service';
 import { DepartementService } from 'app/services/departement.service';
 import { ConfirmationService, MessageService, SelectItem, SelectItemGroup } from 'primeng/api';
@@ -13,6 +14,7 @@ import { ConfirmationService, MessageService, SelectItem, SelectItemGroup } from
   styleUrls: ['./liste-candidats.component.css']
 })
 export class ListeCandidatsComponent implements OnInit {
+
   listC : Classe[] ; 
   listD : Department[];
   d: Department ;
@@ -205,5 +207,8 @@ openNew(candidat: Candidat) {
   this.candidatDialog = true;
 
 }
+
+
+
 }
 
