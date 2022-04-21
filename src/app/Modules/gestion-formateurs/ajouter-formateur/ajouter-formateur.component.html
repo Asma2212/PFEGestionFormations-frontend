@@ -39,7 +39,9 @@
               </div>
               <div class="input-box">
                 <span class="details">Carte d'identité</span>
-                <input type="text" placeholder="Entrer son code cin" required [(ngModel)]=" formateur.username">
+                <input type="text" placeholder="Entrer son code cin" required [(ngModel)]=" formateur.username"     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                       type = "number"
+                       maxlength = "6">
               </div>
               <div class="input-box">
                 <span class="details">Numero de telephone</span>
@@ -83,7 +85,9 @@
       </div>
       <img id="imgStyle" src="../../../../assets/img/ajoutform1.png">
     </div>
+
     <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
 <!--
     .myForm{
     width: 100%;

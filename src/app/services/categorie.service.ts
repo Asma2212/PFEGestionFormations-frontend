@@ -20,4 +20,12 @@ saveCategorie(categorie : Categorie) : Observable<any>{
 
     return this.http.post<any>(this.url + '/savec1',categorie);
   }
+
+  uploadVideo(fileEntry: File) : Observable<any> {
+    const formData = new FormData()
+    formData.append(  'file', fileEntry, fileEntry.name);
+// HTTP Post call to upload the video
+
+    return this.http.post("http://localhost:8080/api/videos", formData)
+  }
 }

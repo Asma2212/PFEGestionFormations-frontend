@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Formateur } from 'app/models/Formateur';
 import { Observable } from 'rxjs';
+import {FileSystemFileEntry} from 'ngx-file-drop';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,9 @@ export class FormateurService {
   /*deleteAllFormateur(formateurs : Formateur[] ) : Observable<any> {		
 		return this.http.post<any>(this.url + 'deleteAllFormateurs', formateurs)
   } */
+
+
+
+
 
 }

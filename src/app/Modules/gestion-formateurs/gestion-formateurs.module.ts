@@ -26,6 +26,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import {InputMaskModule} from 'primeng/inputmask';
+import {NgxFileDropModule} from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
@@ -33,33 +34,32 @@ import {InputMaskModule} from 'primeng/inputmask';
     AjouterFormateurComponent,
     GestionFormateursComponent
   ],
-  imports: [
-    CommonModule,
-    GestionFormateursRoutingModule,
-    MultiSelectModule,
-    DataViewModule,
-    DropdownModule,
-    SplitButtonModule,
-    CardModule,
-    SharedModule,
-    FormsModule,
-    InputTextareaModule,
-    InputTextModule,
-    LayoutModule,
-    CommonModule,
-    FormsModule,
-    PanelModule,
-    TabViewModule,
-    InputTextModule,
-    DialogModule,
-    RatingModule,
-    ButtonModule,
-    MatIconModule,
-    ConfirmDialogModule,
-    ToolbarModule,
-    ToastModule,
-    RadioButtonModule,
-    InputMaskModule
-  ]
+    imports: [
+        CommonModule,
+        MultiSelectModule,
+        DataViewModule,
+        DropdownModule,
+        SplitButtonModule,
+        CardModule,
+        SharedModule,
+        FormsModule,
+        InputTextareaModule,
+        InputTextModule,
+        LayoutModule,
+        CommonModule,
+        FormsModule,
+        PanelModule,
+        TabViewModule,
+        InputTextModule,
+        DialogModule,
+        RatingModule,
+        ButtonModule,
+        MatIconModule,
+        ConfirmDialogModule,
+        ToolbarModule,
+        ToastModule,
+        RadioButtonModule,
+        NgxFileDropModule
+    ]
 })
 export class GestionFormateursModule { }

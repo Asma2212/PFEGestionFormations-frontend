@@ -13,6 +13,7 @@ import { ConfirmationService, MenuItem, MessageService, SelectItem, SelectItemGr
   styleUrls: ['./liste-formateurs.component.css']
 })
 export class ListeFormateursComponent implements OnInit {
+  dateN : Date;
   genre : Genre;
   femme : boolean ;
   homme : boolean ;
