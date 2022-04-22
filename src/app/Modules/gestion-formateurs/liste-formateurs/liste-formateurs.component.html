@@ -41,12 +41,15 @@
                   <tr *ngFor="let formateur of formateurs">
                     <td>
                       <div class="d-flex align-items-center">
-                        <img
-                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                        <div *ngFor="let file of fileInfos | async">
+                          <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
+                            <img [src]="file.url"
                             alt=""
-                            style="width: 65px; height: 65px;margin: 10px;margin-right: 20px;"
+                            style="width: 85px; height:85px;"
                             class="rounded-circle"
                             />
+                          </p>
+                        </div>
                         <div class="ms-3">
                           <p class="fw-bold mb-1"> {{formateur.firstName}} {{formateur.lastName}}</p>
                           <p class="text-muted mb-0"> {{formateur.email}}</p>
@@ -58,8 +61,12 @@
                       <ul *ngFor="let sp of formateur.lesSpecialites">
                         <li>{{sp.titre}}</li>
                       </ul>
-                      <!--<p class="fw-normal mb-1">{{formateur.specialites.titre}}</p>
-                      <p class="text-muted mb-0">IT department</p>-->
+                      <div *ngFor="let file of fileInfos | async">
+                          <p class="list-group-item" *ngIf="file.name == formateur.cv">
+                            <strong>CV Link : </strong>  <a href="{{ file.url }}">{{ file.name }}</a>
+                          </p>
+                        </div>
+                      <!--<p *ngIf="cvPDF(formateur)"><a href="{{ fileCV.url }}">{{ fileCV.name }}</a></p>-->
                     </td>
                     <td> {{formateur.dateNaiss}}</td>
 <!--                    <td>
@@ -176,16 +183,37 @@
               <p-dialog [(visible)]="formateurDialog" [style]="{width: '490px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" >
                 <ng-template pTemplate="content">
                     <div class="field">
-                      <label for="photo">Photo</label><br>
-                        <input pFileUpload type="file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
-                        <br><br>
+                      <label for="file" class="label-file">Ajouter une photo</label>
+                        <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
+                        <br>
                         </div>
                     <div *ngIf="imgURL">
                         <img [src]="imgURL" height="150">    
                     </div>
+                    <div *ngIf="formateur.photo">
+                      <div *ngFor="let file of fileInfos | async">
+                        <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
+                          <img [src]="file.url" height="150">
+                        </p></div>   
+                  </div>
+                    <div *ngIf="currentFile1" class="progress">
+                      <div
+                        class="progress-bar progress-bar-info progress-bar-striped"
+                        role="progressbar"
+                        attr.aria-valuenow="{{ progress1 }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        [ngStyle]="{ width: progress1 + '%' }">
+                        {{ progress1 }}%
+                      </div>
+                    </div>
+                    <button class="btn btn-success" [disabled]="!selectedFiles1" (click)="upload1()">
+                      Upload
+                    </button>
+                    <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div>
                     <div class="field">
                         <label for="cin">CIN</label>
-                        <input type="text" pInputText id="cin" [(ngModel)]="formateur.username" required autofocus />
+                        <input type="number" pInputText id="cin" [(ngModel)]="formateur.username" required maxlength="8"/>
                         <small class="p-error" *ngIf="submitted && !formateur.username">cin is required.</small>
                     </div><br>
                     <div class="field">
@@ -232,7 +260,7 @@
                     </div>
                   </div>   
                   <div class="field" *ngIf="formateur.id == null && !autre ">
-                    <p-multiSelect [options]="listEtablissement" [(ngModel)]="selectedEtablissement" optionLabel="name" defaultLabel="Choisir l'etablissement" display="chip" (click)="selectEtab()">
+                    <p-multiSelect [options]="listEtablissement" [(ngModel)]="selectedEtablissement" [selectionLimit]="1" optionLabel="name" defaultLabel="Choisir l'etablissement" display="chip" (click)="selectEtab()">
 <!--                      <ng-template let-value pTemplate="selectedItems">
                           <div class="country-item country-item-value" *ngFor="let option of selectedEtablissement">
                               <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.toLowerCase()" />
@@ -263,11 +291,40 @@
                  <br>   <div class="field">
                       <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip"></p-multiSelect>
                       <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité is required.</small>
-                      </div>
+                      </div><br>
                     <div class="field">
-                      <label for="cv">CV</label><br>
-                        <input pFileUpload type="file" accept="application/pdf" label="Import" chooseLabel="Ajouter CV" (change)="onUpload($event)" [(ngModel)]="formateur.cv">
-                        <br><br>
+                      <div *ngIf="formateur.cv">
+                        <p>{{formateur.cv}}</p>
+                      </div>
+                      <div *ngIf="currentFile" class="progress">
+                        <div
+                          class="progress-bar progress-bar-info progress-bar-striped"
+                          role="progressbar"
+                          attr.aria-valuenow="{{ progress }}"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          [ngStyle]="{ width: progress + '%' }">
+                          {{ progress }}%
+                        </div>
+                      </div>
+                      <label class = "label-file">  Ajouter son CV
+                        <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)" />
+                      </label>
+                      <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+                        Upload
+                      </button>
+                      <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
+
+                      <div class="card">
+                        <div class="card-header">List of Files</div>
+                        <ul
+                          class="list-group list-group-flush"
+                          *ngFor="let file of fileInfos | async">
+                          <li class="list-group-item">
+                         <a href="{{ file.url }}">{{ file.name }}</a>
+                          </li>
+                        </ul>
+                      </div><br>
                         </div>
 
                 </ng-template>

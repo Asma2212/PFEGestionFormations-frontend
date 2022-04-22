@@ -9,6 +9,9 @@ import { Specialite } from 'app/models/Specialite';
 import { FormateurService } from 'app/services/formateur.service';
 import { SpecialiteService } from 'app/services/specialite.service';
 import { ConfirmationService, MenuItem, MessageService, SelectItem, SelectItemGroup } from 'primeng/api';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { UploadFileService } from 'app/services/upload-file.service';
 
 @Component({
   selector: 'app-liste-formateurs',
@@ -22,8 +25,6 @@ export class ListeFormateursComponent implements OnInit {
   listEtablissement : Etablissement[];
   dateN : Date;
   genre : genreModel;
-  eg :Egenre ;
-  egh: Egenre.HOMME ;
   femme : string ;
   homme : string ;
   items: MenuItem[];
@@ -41,13 +42,23 @@ export class ListeFormateursComponent implements OnInit {
   submitted: boolean;
   uploadedFiles: any[] = [];
   file: File = null;
+  fileCV: File = null;
   public imagePath;
   imgURL: any;
-  public message: string;
+  selectedFiles: FileList;
+  currentFile: File;
+  progress = 0;
+  message = '';
+  selectedFiles1: FileList;
+  currentFile1: File;
+  progress1 = 0;
+  message1 = '';
+  fileInfos: Observable<any>;
 //private formateurService: FormateurService
-  constructor(private formateurService : FormateurService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
+  constructor(private formateurService : FormateurService ,private uploadService: UploadFileService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
   ngOnInit() {
+    this.fileInfos = this.uploadService.getFiles();
     this.listEtablissement = [
       {code : "IR.png",name:"ISET Rades"},
       {code:"IN.jpg",name : "ISET Nabeul"},
@@ -99,6 +110,53 @@ export class ListeFormateursComponent implements OnInit {
             console.log("speciaalie :",data) });
            
   }
+testImage(t : string){
+   return t.includes("image") ;
+}
+  upload() {
+    this.progress = 0;
+    this.currentFile = this.selectedFiles.item(0);
+    console.log("current file",this.currentFile);
+    this.formateur.cv=this.currentFile.name ;
+    this.uploadService.upload(this.currentFile).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message = event.body.message;
+          this.fileInfos = this.uploadService.getFiles();
+        }
+      },
+      err => {
+        this.progress = 0;
+        this.message = 'Could not upload the file!';
+        this.currentFile = undefined;
+      });
+      this.formateur.cv = this.currentFile.name ;
+    this.selectedFiles = undefined;
+  }
+  upload1() {
+    this.progress1 = 0;
+    this.currentFile1 = this.selectedFiles1.item(0);
+    console.log("current file",this.currentFile1);
+    this.uploadService.upload(this.currentFile1).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress1 = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message1 = event.body.message;
+        }
+      },
+      err => {
+        this.progress1 = 0;
+        this.message1 = 'Could not upload the file!';
+        this.currentFile1 = undefined;
+      });
+    this.selectedFiles1 = undefined;
+  }
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
   selectEtab(){
     if((this.selectedEtablissement)&&(this.selectedEtablissement[0].name == "Autre")){
       this.autre = true ;
@@ -108,6 +166,7 @@ export class ListeFormateursComponent implements OnInit {
     this.router.navigateByUrl('/formateurs/ajouter');
  }
   onUpload(event){
+    this.selectedFiles1 = event.target.files;
     this.file = <File>event.target.files[0]
     console.log(this.file)
     var mimeType = event.target.files[0].type;
@@ -189,10 +248,11 @@ saveFormateur() {
     //this.genre = this.formateur.genre ;
     console.log("before update",this.formateur);
     this.formateurService.updateFormateur(this.formateur).subscribe( data => {
-      console.log("data update Formateur",data)
-    });
-    this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
+      console.log("data update Formateur",data);
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
     window.location.reload();
+    });
+    
 }
 else {
    // this.formateurs.push(this.formateur);
@@ -206,13 +266,13 @@ else {
     this.formateur.etablissement=this.selectedEtablissement[0].name ;
     console.log("heeedhyyy",this.formateur)
     this.formateurService.saveFormateur(this.formateur).subscribe( data => {
-      console.log("data save Formateur",data)
+      console.log("data save Formateur",data);
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
+      window.location.reload();
     },
     error =>
    {
   console.log("exception occured");});
-    this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
-    window.location.reload();
 }
 
 }
@@ -232,6 +292,18 @@ hideDialog() {
   this.submitted = false;
   this.imgURL = null ;
   this.autre = false ;
+  this.uploadedFiles = [];
+  this.file  = null;
+  this.fileCV  = null;
+  this.progress = 0;
+  this.message = '';
+  this.selectedFiles1 = null;
+  this.currentFile1=null;
+  this.selectedFiles = null;
+  this.currentFile=null;
+  this.progress1 = 0;
+  this.message1 = '';
+
 }
 
 /*setGenre(){
