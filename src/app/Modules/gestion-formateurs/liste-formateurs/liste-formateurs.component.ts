@@ -1,7 +1,10 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Etablissement } from 'app/models/Etablissement';
 import { Formateur } from 'app/models/Formateur';
-import { Genre } from 'app/models/Genre';
+import { genreModel } from 'app/models/Genre';
+import { Egenre } from 'app/models/GenreEnum';
 import { Specialite } from 'app/models/Specialite';
 import { FormateurService } from 'app/services/formateur.service';
 import { SpecialiteService } from 'app/services/specialite.service';
@@ -13,10 +16,16 @@ import { ConfirmationService, MenuItem, MessageService, SelectItem, SelectItemGr
   styleUrls: ['./liste-formateurs.component.css']
 })
 export class ListeFormateursComponent implements OnInit {
+  autre : boolean = false;
+  etab:Etablissement ;
+  selectedEtablissement: Etablissement;
+  listEtablissement : Etablissement[];
   dateN : Date;
-  genre : Genre;
-  femme : boolean ;
-  homme : boolean ;
+  genre : genreModel;
+  eg :Egenre ;
+  egh: Egenre.HOMME ;
+  femme : string ;
+  homme : string ;
   items: MenuItem[];
   formateurs: Formateur[];
   formateur : Formateur ;
@@ -39,6 +48,14 @@ export class ListeFormateursComponent implements OnInit {
   constructor(private formateurService : FormateurService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
   ngOnInit() {
+    this.listEtablissement = [
+      {code : "IR.png",name:"ISET Rades"},
+      {code:"IN.jpg",name : "ISET Nabeul"},
+      {code:"IK.jfif",name:"ISET Klibia"},
+      {code:"ESP.jpg",name:"Esprit"},
+      {code:"p.png",name:"Autre"}
+    ]
+
     this.items = [
       {label: 'Modifier', icon: 'pi pi-user-edit',routerLink: ['/formateurs/ajouter'] //entrer l id du formateur à modifier
       },
@@ -80,6 +97,12 @@ export class ListeFormateursComponent implements OnInit {
           this.specialiteService.getAllSpecialites().toPromise().then( data =>{
             this.specialites = data ; 
             console.log("speciaalie :",data) });
+           
+  }
+  selectEtab(){
+    if((this.selectedEtablissement)&&(this.selectedEtablissement[0].name == "Autre")){
+      this.autre = true ;
+    }
   }
  ajouter(){
     this.router.navigateByUrl('/formateurs/ajouter');
@@ -119,6 +142,10 @@ export class ListeFormateursComponent implements OnInit {
     this.formateur = {...formateur};
     //this.imgURL = formateur.photo ;
     this.formateurDialog = true;
+    if(formateur.genre.name == "FEMME")
+    this.femme = "Femme" ;
+    else
+    this.homme = "Homme"
    // this.setGenre();
 
 }
@@ -135,24 +162,29 @@ deleteFormateur(formateur: Formateur) {
               console.log("data Formateur deleted",data)
             });
             this.formateur = null;
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formation Deleted', life: 3000});
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
+            window.location.reload();
         }
     });
+    
 }
 
 saveFormateur() {
+  console.log(this.femme);
   this.submitted = true;
   //this.formateur.photo=this.file.name ;
-/*  if(this.femme){
-    this.genre.id = 2 ; 
-    this.genre.name = "FEMME" ;
-    this.formateur.genre = this.genre ;
+
+  if(this.femme){
+   // this.genre.id = 2 ;
+  // this.genre.name = this.egf;
+   console.log("geenre",Egenre.FEMME);
+    this.formateur.genre = {id : 2 , name : Egenre.FEMME} ;
  }
  if(this.homme){
-   this.genre.id = 1 ; 
-   this.genre.name = "HOMME" ;
-   this.formateur.genre = this.genre ;
-} */
+   //this.genre.id = 1 ; 
+   //this.genre.name = this.egh ;
+   this.formateur.genre = null ;
+} 
   if (this.formateur.id) {
     //this.genre = this.formateur.genre ;
     console.log("before update",this.formateur);
@@ -160,6 +192,7 @@ saveFormateur() {
       console.log("data update Formateur",data)
     });
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
+    window.location.reload();
 }
 else {
    // this.formateurs.push(this.formateur);
@@ -169,6 +202,8 @@ else {
       console.log("data get",data.get)
       console.log("data",data)
     }); */
+    if(this.selectedEtablissement[0].name!="Autre")
+    this.formateur.etablissement=this.selectedEtablissement[0].name ;
     console.log("heeedhyyy",this.formateur)
     this.formateurService.saveFormateur(this.formateur).subscribe( data => {
       console.log("data save Formateur",data)
@@ -177,11 +212,9 @@ else {
    {
   console.log("exception occured");});
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
+    window.location.reload();
 }
-      this.formateurs = [...this.formateurs];
-      this.formateurDialog = false;
-      this.imgURL = false ;
-      this.formateur = null;
+
 }
 
 counter(i: number) {
@@ -192,6 +225,13 @@ openNew(formateur: Formateur) {
   //this.imgURL = formateur.photo ;
   this.formateurDialog = true;
 
+}
+hideDialog() {
+  this.formateurDialog = false;
+  this.formateur = null ;
+  this.submitted = false;
+  this.imgURL = null ;
+  this.autre = false ;
 }
 
 /*setGenre(){

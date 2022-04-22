@@ -177,11 +177,11 @@
                 <ng-template pTemplate="content">
                     <div class="field">
                       <label for="photo">Photo</label><br>
-                        <input pFileUpload type="file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo" class="custom-file-upload">
+                        <input pFileUpload type="file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
                         <br><br>
                         </div>
                     <div *ngIf="imgURL">
-                        <img [src]="'assets/img/' + formateur.photo" height="150">    
+                        <img [src]="imgURL" height="150">    
                     </div>
                     <div class="field">
                         <label for="cin">CIN</label>
@@ -216,8 +216,8 @@
                     </div>
                   <div class="field">
                     <div class="gender-details">
-                      <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="formateur.genre">
-                      <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="formateur.genre">
+                      <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="homme">
+                      <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="femme">
                       <span class="gender-title">Genre</span>
                       <div class="category">
                         <label for="dot-1">
@@ -230,30 +230,46 @@
                       </label>
                       </div>
                     </div>
-                  </div>           
+                  </div>   
+                  <div class="field" *ngIf="formateur.id == null && !autre ">
+                    <p-multiSelect [options]="listEtablissement" [(ngModel)]="selectedEtablissement" optionLabel="name" defaultLabel="Choisir l'etablissement" display="chip" (click)="selectEtab()">
+<!--                      <ng-template let-value pTemplate="selectedItems">
+                          <div class="country-item country-item-value" *ngFor="let option of selectedEtablissement">
+                              <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.toLowerCase()" />
+                              <div>{{option}}</div>
+                          </div>
+                          <div *ngIf="!selectedCountries1 || selectedCountries1.length === 0" class="country-placeholder">
+                              Select Countries
+                          </div>
+                      </ng-template>-->
+                      <ng-template let-etab pTemplate="item">
+                          <div style="display:flex;">
+                              <img src="../../../../assets/img/etablissement/{{etab.code}} " style="width: 25px; margin-right: 10px;margin-left: 5px;"/>
+                              <div>{{etab.name}}</div>
+                          </div>
+                      </ng-template>
+                  </p-multiSelect>
+                  </div>     
+                  <div class="field" *ngIf="formateur.id || autre">
+                    <label for="etab">Etablissement</label>
+                        <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="Entrer son etablissement"/>
+                        <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement is required.</small>
+                  </div>  
 <!--                    <div class="field">
                         <label class="mb-3">Specialite</label>
                         <p-multiSelect [options]="specialites" [(ngModel)]="formateur.specialites" defaultLabel="Select specialité" optionLabel="titre" selectedItemsLabel="{0} items selected" required></p-multiSelect>
                         <small class="p-error" *ngIf="submitted && !formateur.specialites">specialité is required.</small>
                     </div>-->
-                    <div class="field">
-<!--                                           <p-multiSelect [options]="groupedSpecialites" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select specialité" scrollHeight="250px" display="chip">
-                                              <ng-template let-group pTemplate="group">
-                                                  <div class="flex align-items-center">
-                                                      <img src="../../../../assets/img/{{group.value}} " style="width: 20px"/>
-                                                      <span>{{group.label}}</span>
-                                                  </div>
-                                              </ng-template>
-                                          </p-multiSelect>-->
-
+                 <br>   <div class="field">
                       <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip"></p-multiSelect>
-                      
+                      <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité is required.</small>
                       </div>
-                    <!--<div class="field">
+                    <div class="field">
                       <label for="cv">CV</label><br>
-                        <input pFileUpload type="file" accept="application/pdf" label="Import" chooseLabel="Ajouter CV" (change)="onUpload($event)" [(ngModel)]="formateur.cv" class="custom-file-upload">
+                        <input pFileUpload type="file" accept="application/pdf" label="Import" chooseLabel="Ajouter CV" (change)="onUpload($event)" [(ngModel)]="formateur.cv">
                         <br><br>
-                        </div>-->
+                        </div>
+
                 </ng-template>
             
                 <ng-template pTemplate="footer">

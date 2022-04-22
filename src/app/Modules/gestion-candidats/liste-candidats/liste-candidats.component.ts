@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Candidat } from 'app/models/Candidat';
 import { Classe } from 'app/models/Classe';
 import { Department } from 'app/models/Departement';
-import { Genre } from 'app/models/Genre';
 import { CandidatService } from 'app/services/candidat.service';
 import { DepartementService } from 'app/services/departement.service';
 import { ConfirmationService, MessageService, SelectItem, SelectItemGroup } from 'primeng/api';

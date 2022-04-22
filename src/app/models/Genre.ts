@@ -1,4 +1,6 @@
-export class Genre{
-    id:number ;
-    name : string ;
+import { Egenre } from "./GenreEnum";
+
+export class genreModel{
+    id : number ;
+    name : Egenre ;
 }

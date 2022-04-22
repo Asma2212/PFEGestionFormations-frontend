@@ -1,3 +1,4 @@
+import { genreModel } from "./Genre";
 import { Specialite } from "./Specialite";
 
 export class Formateur{
@@ -11,7 +12,7 @@ export class Formateur{
     lastName : string ;
     numTel : string ;
     dateNaiss : Date ;
-    genre : string;
+    genre : genreModel;
     bio : string ;
     photo : string ;
     cv : string ;

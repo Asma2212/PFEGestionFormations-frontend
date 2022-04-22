@@ -19,7 +19,7 @@ export class FormateurService {
   }
 
   saveFormateur(formateur : Formateur) : Observable<any>{
-    return this.http.post<any>(this.url + 'signup',formateur);
+    return this.http.post<any>(this.url + 'signup1',formateur);
   }
 
   updateFormateur(formateur : Formateur) : Observable<any>{
