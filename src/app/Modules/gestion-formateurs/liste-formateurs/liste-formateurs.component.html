@@ -41,12 +41,15 @@
                   <tr *ngFor="let formateur of formateurs">
                     <td>
                       <div class="d-flex align-items-center">
-                        <img
-                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                        <div *ngFor="let file of fileInfos | async">
+                          <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
+                            <img [src]="file.url"
                             alt=""
-                            style="width: 65px; height: 65px;margin: 10px;margin-right: 20px;"
+                            style="width: 85px; height:85px;"
                             class="rounded-circle"
                             />
+                          </p>
+                        </div>
                         <div class="ms-3">
                           <p class="fw-bold mb-1"> {{formateur.firstName}} {{formateur.lastName}}</p>
                           <p class="text-muted mb-0"> {{formateur.email}}</p>
@@ -187,6 +190,21 @@
                     <div *ngIf="imgURL">
                         <img [src]="imgURL" height="150">    
                     </div>
+                    <div *ngIf="currentFile1" class="progress">
+                      <div
+                        class="progress-bar progress-bar-info progress-bar-striped"
+                        role="progressbar"
+                        attr.aria-valuenow="{{ progress1 }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        [ngStyle]="{ width: progress1 + '%' }">
+                        {{ progress1 }}%
+                      </div>
+                    </div>
+                    <button class="btn btn-success" [disabled]="!selectedFiles1" (click)="upload1()">
+                      Upload
+                    </button>
+                    <div class="alert alert-light" role="alert">{{ message1 }}</div>
                     <div class="field">
                         <label for="cin">CIN</label>
                         <input type="text" pInputText id="cin" [(ngModel)]="formateur.username" required autofocus />
