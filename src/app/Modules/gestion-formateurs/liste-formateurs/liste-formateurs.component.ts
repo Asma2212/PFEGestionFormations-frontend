@@ -9,6 +9,9 @@ import { Specialite } from 'app/models/Specialite';
 import { FormateurService } from 'app/services/formateur.service';
 import { SpecialiteService } from 'app/services/specialite.service';
 import { ConfirmationService, MenuItem, MessageService, SelectItem, SelectItemGroup } from 'primeng/api';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { UploadFileService } from 'app/services/upload-file.service';
 
 @Component({
   selector: 'app-liste-formateurs',
@@ -43,11 +46,16 @@ export class ListeFormateursComponent implements OnInit {
   file: File = null;
   public imagePath;
   imgURL: any;
-  public message: string;
+  selectedFiles: FileList;
+  currentFile: File;
+  progress = 0;
+  message = '';
+  fileInfos: Observable<any>;
 //private formateurService: FormateurService
-  constructor(private formateurService : FormateurService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
+  constructor(private formateurService : FormateurService ,private uploadService: UploadFileService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
   ngOnInit() {
+    this.fileInfos = this.uploadService.getFiles();
     this.listEtablissement = [
       {code : "IR.png",name:"ISET Rades"},
       {code:"IN.jpg",name : "ISET Nabeul"},
@@ -98,6 +106,31 @@ export class ListeFormateursComponent implements OnInit {
             this.specialites = data ; 
             console.log("speciaalie :",data) });
            
+  }
+
+  upload() {
+    this.progress = 0;
+    this.currentFile = this.selectedFiles.item(0);
+    console.log("current file",this.currentFile);
+    this.formateur.cv=this.currentFile.name ;
+    this.uploadService.upload(this.currentFile).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message = event.body.message;
+          this.fileInfos = this.uploadService.getFiles();
+        }
+      },
+      err => {
+        this.progress = 0;
+        this.message = 'Could not upload the file!';
+        this.currentFile = undefined;
+      });
+    this.selectedFiles = undefined;
+  }
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
   }
   selectEtab(){
     if((this.selectedEtablissement)&&(this.selectedEtablissement[0].name == "Autre")){
