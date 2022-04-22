@@ -25,8 +25,6 @@ export class ListeFormateursComponent implements OnInit {
   listEtablissement : Etablissement[];
   dateN : Date;
   genre : genreModel;
-  eg :Egenre ;
-  egh: Egenre.HOMME ;
   femme : string ;
   homme : string ;
   items: MenuItem[];
@@ -61,9 +59,6 @@ export class ListeFormateursComponent implements OnInit {
 
   ngOnInit() {
     this.fileInfos = this.uploadService.getFiles();
-    this.fileInfos.forEach(f =>{
-      console.log(f.name);
-    })
     this.listEtablissement = [
       {code : "IR.png",name:"ISET Rades"},
       {code:"IN.jpg",name : "ISET Nabeul"},
@@ -297,6 +292,18 @@ hideDialog() {
   this.submitted = false;
   this.imgURL = null ;
   this.autre = false ;
+  this.uploadedFiles = [];
+  this.file  = null;
+  this.fileCV  = null;
+  this.progress = 0;
+  this.message = '';
+  this.selectedFiles1 = null;
+  this.currentFile1=null;
+  this.selectedFiles = null;
+  this.currentFile=null;
+  this.progress1 = 0;
+  this.message1 = '';
+
 }
 
 /*setGenre(){

@@ -183,13 +183,19 @@
               <p-dialog [(visible)]="formateurDialog" [style]="{width: '490px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" >
                 <ng-template pTemplate="content">
                     <div class="field">
-                      <label for="photo">Photo</label><br>
-                        <input pFileUpload type="file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
-                        <br><br>
+                      <label for="file" class="label-file">Ajouter une photo</label>
+                        <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
+                        <br>
                         </div>
                     <div *ngIf="imgURL">
                         <img [src]="imgURL" height="150">    
                     </div>
+                    <div *ngIf="formateur.photo">
+                      <div *ngFor="let file of fileInfos | async">
+                        <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
+                          <img [src]="file.url" height="150">
+                        </p></div>   
+                  </div>
                     <div *ngIf="currentFile1" class="progress">
                       <div
                         class="progress-bar progress-bar-info progress-bar-striped"
@@ -204,10 +210,10 @@
                     <button class="btn btn-success" [disabled]="!selectedFiles1" (click)="upload1()">
                       Upload
                     </button>
-                    <div class="alert alert-light" role="alert">{{ message1 }}</div>
+                    <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div>
                     <div class="field">
                         <label for="cin">CIN</label>
-                        <input type="text" pInputText id="cin" [(ngModel)]="formateur.username" required autofocus />
+                        <input type="number" pInputText id="cin" [(ngModel)]="formateur.username" required maxlength="8"/>
                         <small class="p-error" *ngIf="submitted && !formateur.username">cin is required.</small>
                     </div><br>
                     <div class="field">
@@ -254,7 +260,7 @@
                     </div>
                   </div>   
                   <div class="field" *ngIf="formateur.id == null && !autre ">
-                    <p-multiSelect [options]="listEtablissement" [(ngModel)]="selectedEtablissement" optionLabel="name" defaultLabel="Choisir l'etablissement" display="chip" (click)="selectEtab()">
+                    <p-multiSelect [options]="listEtablissement" [(ngModel)]="selectedEtablissement" [selectionLimit]="1" optionLabel="name" defaultLabel="Choisir l'etablissement" display="chip" (click)="selectEtab()">
 <!--                      <ng-template let-value pTemplate="selectedItems">
                           <div class="country-item country-item-value" *ngFor="let option of selectedEtablissement">
                               <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.toLowerCase()" />
@@ -287,7 +293,9 @@
                       <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité is required.</small>
                       </div><br>
                     <div class="field">
-                      <label>CV</label>
+                      <div *ngIf="formateur.cv">
+                        <p>{{formateur.cv}}</p>
+                      </div>
                       <div *ngIf="currentFile" class="progress">
                         <div
                           class="progress-bar progress-bar-info progress-bar-striped"
@@ -299,13 +307,14 @@
                           {{ progress }}%
                         </div>
                       </div>
-                      <label class="btn btn-default">
-                        <input type="file" (change)="selectFile($event)" />
+                      <label class = "label-file">  Ajouter son CV
+                        <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)" />
                       </label>
                       <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
                         Upload
                       </button>
-                      <div class="alert alert-light" role="alert">{{ message }}</div>
+                      <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
+
                       <div class="card">
                         <div class="card-header">List of Files</div>
                         <ul
