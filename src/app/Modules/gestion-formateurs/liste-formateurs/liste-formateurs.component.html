@@ -58,8 +58,12 @@
                       <ul *ngFor="let sp of formateur.lesSpecialites">
                         <li>{{sp.titre}}</li>
                       </ul>
-                      <!--<p class="fw-normal mb-1">{{formateur.specialites.titre}}</p>
-                      <p class="text-muted mb-0">IT department</p>-->
+                      <div *ngFor="let file of fileInfos | async">
+                          <p class="list-group-item" *ngIf="file.name == formateur.cv">
+                            <strong>CV Link : </strong>  <a href="{{ file.url }}">{{ file.name }}</a>
+                          </p>
+                        </div>
+                      <!--<p *ngIf="cvPDF(formateur)"><a href="{{ fileCV.url }}">{{ fileCV.name }}</a></p>-->
                     </td>
                     <td> {{formateur.dateNaiss}}</td>
 <!--                    <td>
@@ -273,8 +277,7 @@
                           attr.aria-valuenow="{{ progress }}"
                           aria-valuemin="0"
                           aria-valuemax="100"
-                          [ngStyle]="{ width: progress + '%' }"
-                        >
+                          [ngStyle]="{ width: progress + '%' }">
                           {{ progress }}%
                         </div>
                       </div>
@@ -289,10 +292,9 @@
                         <div class="card-header">List of Files</div>
                         <ul
                           class="list-group list-group-flush"
-                          *ngFor="let file of fileInfos | async"
-                        >
+                          *ngFor="let file of fileInfos | async">
                           <li class="list-group-item">
-                            <a href="{{ file.url }}">{{ file.name }}</a>
+                         <a href="{{ file.url }}">{{ file.name }}</a>
                           </li>
                         </ul>
                       </div><br>

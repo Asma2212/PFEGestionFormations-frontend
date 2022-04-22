@@ -44,6 +44,7 @@ export class ListeFormateursComponent implements OnInit {
   submitted: boolean;
   uploadedFiles: any[] = [];
   file: File = null;
+  fileCV: File = null;
   public imagePath;
   imgURL: any;
   selectedFiles: FileList;
@@ -56,6 +57,9 @@ export class ListeFormateursComponent implements OnInit {
 
   ngOnInit() {
     this.fileInfos = this.uploadService.getFiles();
+    this.fileInfos.forEach(f =>{
+      console.log(f.name);
+    })
     this.listEtablissement = [
       {code : "IR.png",name:"ISET Rades"},
       {code:"IN.jpg",name : "ISET Nabeul"},
@@ -127,6 +131,7 @@ export class ListeFormateursComponent implements OnInit {
         this.message = 'Could not upload the file!';
         this.currentFile = undefined;
       });
+      this.formateur.cv = this.currentFile.name ;
     this.selectedFiles = undefined;
   }
   selectFile(event) {
@@ -222,10 +227,11 @@ saveFormateur() {
     //this.genre = this.formateur.genre ;
     console.log("before update",this.formateur);
     this.formateurService.updateFormateur(this.formateur).subscribe( data => {
-      console.log("data update Formateur",data)
-    });
-    this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
+      console.log("data update Formateur",data);
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
     window.location.reload();
+    });
+    
 }
 else {
    // this.formateurs.push(this.formateur);
@@ -239,13 +245,13 @@ else {
     this.formateur.etablissement=this.selectedEtablissement[0].name ;
     console.log("heeedhyyy",this.formateur)
     this.formateurService.saveFormateur(this.formateur).subscribe( data => {
-      console.log("data save Formateur",data)
+      console.log("data save Formateur",data);
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
+      window.location.reload();
     },
     error =>
    {
   console.log("exception occured");});
-    this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
-    window.location.reload();
 }
 
 }
