@@ -27,6 +27,7 @@ import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import {InputMaskModule} from 'primeng/inputmask';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import {HttpClientModule ,HttpClient} from "@angular/common/http";
 
 
 @NgModule({
@@ -59,10 +60,11 @@ import { NgxFileDropModule } from 'ngx-file-drop';
         MatIconModule,
         ConfirmDialogModule,
         ToolbarModule,
-        ToastModule,
+        ToastModule,HttpClientModule,
         RadioButtonModule,
         InputMaskModule,
         NgxFileDropModule
-    ]
+    ],  providers: [HttpClient]
+
 })
 export class GestionFormateursModule { }

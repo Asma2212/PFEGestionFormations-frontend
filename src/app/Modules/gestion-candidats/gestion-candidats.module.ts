@@ -22,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import {HttpClientModule,HttpClient} from "@angular/common/http";
 
 
 @NgModule({
@@ -51,10 +52,11 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     DialogModule,
     RatingModule,
-    ButtonModule,
+    ButtonModule,HttpClientModule,
     ConfirmDialogModule,
     ToastModule,
     FormsModule
-  ]
+  ],  providers: [HttpClient]
+
 })
 export class GestionCandidatsModule { }

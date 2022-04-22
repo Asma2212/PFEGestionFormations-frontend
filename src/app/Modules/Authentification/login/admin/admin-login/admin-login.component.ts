@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../../../services/auth.service';
 import {loginRequestPayload} from '../../../payload/login-request-payload';
 import { Router } from '@angular/router';
+import {MessageService} from "primeng/api";
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
@@ -15,8 +16,9 @@ export class AdminLoginComponent implements OnInit {
     isError :boolean;
 
     loginRequestPayload: loginRequestPayload;
+  validateEmail=true ;
 
-    constructor(private authService: AuthService ,private  router:Router) {
+    constructor(private authService: AuthService ,private  router:Router,private messageService : MessageService) {
 
 
         this.loginRequestPayload = {
@@ -24,6 +26,7 @@ export class AdminLoginComponent implements OnInit {
             email: '',
             password: ''
         };
+
     }
 
   ngOnInit(): void { $(document).ready(function(){
@@ -52,7 +55,7 @@ export class AdminLoginComponent implements OnInit {
 
 
 })}
-  
+
     login() {
         console.log("username"+this.loginForm.get('username').value+"email"+this.loginForm.get('email').value+"email"+this.loginForm.get('password').value)
 
@@ -65,9 +68,11 @@ export class AdminLoginComponent implements OnInit {
                 this.router.navigate(['/dashboard']);
 
         });
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'log in avec succes', life: 3000});
+
     }
         signup(){
 
         }
-      
+
 }
