@@ -19,52 +19,42 @@
         <div class="left">
             <div class="content">
                 <h2>Sign Up</h2>
-                <form >
+                <form [formGroup]="signupForm" >
                     <div class="form-group">
-                        <input  type="text" placeholder="username" />
+                        <input  type="text" id="user_name_signup" [formControlName]="'username_signup'"  required
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                minlength="8" maxlength="8"
+                                autofocus placeholder="CIN" />
+                      <span style="color: #ff3353" *ngIf="!signupForm.get('username_signup').valid && signupForm.get('username_signup').touched" >CIN invalide!<i class="fa-solid fa-circle-x"></i></span>
                     </div>
                     <div class="form-group">
-                        <input  type="text" placeholder="username"/>
+                        <input  placeholder="email" type="email"  id="email_signup" name="email_signup" [email]="validateEmail"[formControlName]="'email_signup'"   required/>
+                      <span style="color: #ff3353" *ngIf="!signupForm.get('email_signup').valid && signupForm.get('email_signup').touched">email unvalide <i class="fa-solid fa-circle-x"></i></span>
+
                     </div>
                     <div class="form-group">
-                        <input  type="password" placeholder="password" />
+                        <input id="password_signup" [formControlName]="'password_signup'"  required type="password" minlength="5" maxlength="20"  placeholder="password" />
+                      <span style="color: #ff3353" *ngIf="!signupForm.get('password_signup').valid && signupForm.get('password_signup').touched">
+                 mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
+                </span>
                     </div>
                     <div class="form-group"></div>
                     <div class="form-group"></div>
                     <div class="form-group"></div>
+
+                <button type="button" id="goLeft" class="off">Login</button>
+                <button (click)="signup()"  type="submit" id="signup">Sign up</button>
+              <div class="login-failed" *ngIf='this.isError_signup' style="font-size: xx-small;">
+
+                <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
+              </div>
                 </form>
-                <button  (click)="login()" id="goLeft" class="off">Login</button>
-                <button>Sign up</button>
             </div>
         </div>
         <div class="right">
             <div class="content">
                 <h2>Login</h2>
-                <form [formGroup]="loginForm" (ngSubmit)="login()">
-     <!--               <div class="form-group">
-                        <label class="form-label " >CIN&nbsp; </label>
-
-                        <input type="text" id="user_name" [formControlName]="'username'"  required
-                               autofocus  />
-                        <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
-s'il vous plais insere un CIN valide!</span>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-
-                        <input type="text" id="email" [formControlName]="'email'"   id="email" required
-                                 />
-                        <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">
-s'il vous plais insere un email valide!</span>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">password</label>
-
-                        <input id="password" [formControlName]="'password'"  required type="password" />
-                        <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
-                 mot de passe vide !
-                </span>
-                    </div>-->
+                <form [formGroup]="loginForm" >
                     <div class="group">
                         <input type="text" id="user_name" [formControlName]="'username'"  required
                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
@@ -74,16 +64,16 @@ s'il vous plais insere un email valide!</span>
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>CIN</label>
-                        <span style="color: #af1028"  *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" >CIN unvalide!<i class="fa-solid fa-circle-x"></i></span>
+                        <span style="color: #ff3353" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" >CIN unvalide!<i class="fa-solid fa-circle-x"></i></span>
                     </div>
                     <div class="group">
-                        <input type="email" id="email" name="email" [email]="validateEmail"[formControlName]="'email'"   id="email" required
+                        <input type="email" id="email" name="email" [email]="validateEmail"[formControlName]="'email'"    required
 
                         />
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Email</label>
-                        <span style="color: #af1028"  *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">email unvalide <i class="fa-solid fa-circle-x"></i></span>
+                        <span style="color: #ff3353" *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">email invalide <i class="fa-solid fa-circle-x"></i></span>
 
                     </div>
                     <div class="group">
@@ -92,14 +82,15 @@ s'il vous plais insere un email valide!</span>
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>mot de passe </label>
-                        <span style="color: #af1028" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
-                 mot de passe unvalide  <i class="fa-solid fa-circle-x"></i>
+                        <span style="color: #ff3353" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+                 mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
                 </span>
                     </div>
-                    <button  id="goRight" class="off">Sign Up</button>
-                    <button (click)="signup()" id="login" type="submit">Login</button>
-                    <div class="login-failed" *ngIf='this.isError'>
-                        <p class="login-failed-text">Login Failed. Please check your credentials and try again.</p>
+                    <button type="button"  id="goRight" class="off">Sign Up</button>
+                    <button (click)="login()" id="login" type="submit">Login</button>
+                    <div class="login-failed" *ngIf='this.isError' style="font-size: xx-small;">
+                      <p-message severity="error" text="Échec de la connexion. vérifier vos informations"></p-message>
+
                     </div>
 
                 </form>

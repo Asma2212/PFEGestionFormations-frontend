@@ -5,9 +5,9 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/h
 import { RouterModule } from '@angular/router';
 import {AccordionModule} from 'primeng/accordion';
 import {ToastModule} from 'primeng/toast';
-import {ConfirmationService, MenuItem, MessageService, SharedModule} from 'primeng/api';  
-import {SidebarModule} from 'primeng/sidebar'; 
-import {ButtonModule} from 'primeng/button'; 
+import {ConfirmationService, MenuItem, MessageService, SharedModule} from 'primeng/api';
+import {SidebarModule} from 'primeng/sidebar';
+import {ButtonModule} from 'primeng/button';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -35,40 +35,44 @@ import {NgxWebstorageModule} from 'ngx-webstorage';
 import {AuthService} from './services/auth.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {TokenInterceptor} from "./Modules/Authentification/login/admin/admin-login/TokenInterceptor";
+import {ToastrModule} from "ngx-toastr";
+import {MessageModule} from "primeng/message";
 
 @NgModule({
-  imports: [BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    SidebarModule,
-    ButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    ButtonModule,
-    SidebarModule,
-    PanelModule,
-    CommonModule,
-    SharedModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    ButtonModule,
-    ToastModule,
-    ToolbarModule,
-    TableModule,
-    RouterModule,
-    AppRoutingModule,
-    NgxFileDropModule,
-    AccordionModule,
-    GestionFormationsModule,
-    ToastModule,
-    HttpClientModule,
-    NgxWebstorageModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
-  ],
+    imports: [BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        SidebarModule,
+        ButtonModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        ButtonModule,
+        SidebarModule,
+        PanelModule,
+        CommonModule,
+        SharedModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        ButtonModule,
+        ToastModule,
+        ToolbarModule,
+        TableModule,
+        RouterModule,
+        AppRoutingModule,
+        NgxFileDropModule,
+        AccordionModule,
+        GestionFormationsModule,
+        ToastModule,
+        HttpClientModule,
+        ToastrModule.forRoot(),
+
+        NgxWebstorageModule.forRoot(),
+        AgmCoreModule.forRoot({
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+        }), MessageModule
+    ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
