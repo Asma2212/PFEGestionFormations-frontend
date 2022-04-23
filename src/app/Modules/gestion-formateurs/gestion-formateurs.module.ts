@@ -28,6 +28,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import {InputMaskModule} from 'primeng/inputmask';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -61,12 +62,13 @@ import { InputNumberModule } from 'primeng/inputnumber';
         ConfirmDialogModule,
         ToolbarModule,
         ToastModule,
+        HttpClientModule,
         RadioButtonModule,
         InputMaskModule,
         NgxFileDropModule,
         InputNumberModule,
         MatIconModule
-        
-    ]
+    ],  providers: [HttpClient]
+
 })
 export class GestionFormateursModule { }

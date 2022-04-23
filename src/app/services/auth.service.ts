@@ -17,6 +17,7 @@ export class AuthService {
         .pipe(map(data => {
           this.localStorage.store('authenticationToken', data.accessToken);
           this.localStorage.store('username', data.username);
+          console.log(data);
           // to be continue
           return true;
         }));

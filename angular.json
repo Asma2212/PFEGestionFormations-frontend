@@ -58,7 +58,7 @@
                 "fonts": true
               },
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -98,11 +98,14 @@
               "browserTarget": "GestionFormationsFrontEndPFE:build:development"
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
+
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
+          "options": {"allowedCommonJsDependencies": [
+            "lodash"
+          ],
             "browserTarget": "GestionFormationsFrontEndPFE:build"
           }
         },

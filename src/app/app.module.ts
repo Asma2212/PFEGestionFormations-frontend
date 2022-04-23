@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {AccordionModule} from 'primeng/accordion';
 import {ToastModule} from 'primeng/toast';
@@ -63,6 +63,7 @@ import {TokenInterceptor} from "./Modules/Authentification/login/admin/admin-log
     AccordionModule,
     GestionFormationsModule,
     ToastModule,
+    HttpClientModule,
     NgxWebstorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
@@ -75,7 +76,8 @@ import {TokenInterceptor} from "./Modules/Authentification/login/admin/admin-log
     AdminLoginComponent
 
   ],
-  providers: [ MessageService ,
+  providers: [ MessageService , HttpClient,
+
   ConfirmationService ,   [ {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body>
@@ -44,7 +44,7 @@
      <!--               <div class="form-group">
                         <label class="form-label " >CIN&nbsp; </label>
 
-                        <input type="text" id="user_name" [formControlName]="'username'"  required 
+                        <input type="text" id="user_name" [formControlName]="'username'"  required
                                autofocus  />
                         <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
 s'il vous plais insere un CIN valide!</span>
@@ -67,30 +67,33 @@ s'il vous plais insere un email valide!</span>
                     </div>-->
                     <div class="group">
                         <input type="text" id="user_name" [formControlName]="'username'"  required
+                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                               minlength="8" maxlength="8"
                                autofocus  />
 
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>CIN</label>
-                        <span style="color: #af1028"  *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">CIN unvalide!<i class="fa-solid fa-circle-x"></i></span>
+                        <span style="color: #af1028"  *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" >CIN unvalide!<i class="fa-solid fa-circle-x"></i></span>
                     </div>
                     <div class="group">
-                        <input type="text" id="email" [formControlName]="'email'"   id="email" required
+                        <input type="email" id="email" name="email" [email]="validateEmail"[formControlName]="'email'"   id="email" required
+
                         />
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Email</label>
-                        <span style="color: #af1028" *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">email unvalide <i class="fa-solid fa-circle-x"></i></span>
+                        <span style="color: #af1028"  *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">email unvalide <i class="fa-solid fa-circle-x"></i></span>
 
                     </div>
                     <div class="group">
-                        <input id="password" [formControlName]="'password'"  required type="password" />
+                        <input id="password" [formControlName]="'password'"  required type="password" minlength="5" maxlength="20" />
 
                         <span class="highlight"></span>
                         <span class="bar"></span>
-                        <label>mot de passe</label>
+                        <label>mot de passe </label>
                         <span style="color: #af1028" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
-                 mot de passe unvalide <i class="fa-solid fa-circle-x"></i>
+                 mot de passe unvalide  <i class="fa-solid fa-circle-x"></i>
                 </span>
                     </div>
                     <button  id="goRight" class="off">Sign Up</button>
@@ -98,6 +101,7 @@ s'il vous plais insere un email valide!</span>
                     <div class="login-failed" *ngIf='this.isError'>
                         <p class="login-failed-text">Login Failed. Please check your credentials and try again.</p>
                     </div>
+
                 </form>
             </div>
         </div>

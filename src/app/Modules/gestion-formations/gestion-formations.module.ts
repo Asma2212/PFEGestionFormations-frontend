@@ -38,6 +38,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { MultiSelectModule } from 'primeng/multiselect';
 import {InputMaskModule} from 'primeng/inputmask';
 import {NgxFileDropModule} from 'ngx-file-drop';
+import {HttpClientModule,HttpClient} from "@angular/common/http";
 
 //import {} from 'primeng/';
 
@@ -84,10 +85,11 @@ import {NgxFileDropModule} from 'ngx-file-drop';
     SplitButtonModule,
     ConfirmDialogModule,
     ButtonModule,
-    RippleModule,
+    RippleModule,HttpClientModule,
     InputMaskModule,
     NgxFileDropModule,
     InputNumberModule
-  ]
+  ],  providers: [HttpClient]
+
 })
 export class GestionFormationsModule { }
