@@ -27,7 +27,8 @@ import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import {InputMaskModule} from 'primeng/inputmask';
 import { NgxFileDropModule } from 'ngx-file-drop';
-import {HttpClientModule ,HttpClient} from "@angular/common/http";
+import { InputNumberModule } from 'primeng/inputnumber';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -60,10 +61,13 @@ import {HttpClientModule ,HttpClient} from "@angular/common/http";
         MatIconModule,
         ConfirmDialogModule,
         ToolbarModule,
-        ToastModule,HttpClientModule,
+        ToastModule,
+        HttpClientModule,
         RadioButtonModule,
         InputMaskModule,
-        NgxFileDropModule
+        NgxFileDropModule,
+        InputNumberModule,
+        MatIconModule
     ],  providers: [HttpClient]
 
 })

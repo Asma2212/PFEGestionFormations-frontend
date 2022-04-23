@@ -87,7 +87,8 @@ import {HttpClientModule,HttpClient} from "@angular/common/http";
     ButtonModule,
     RippleModule,HttpClientModule,
     InputMaskModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    InputNumberModule
   ],  providers: [HttpClient]
 
 })
