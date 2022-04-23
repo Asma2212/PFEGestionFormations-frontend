@@ -63,7 +63,7 @@
                       </ul>
                       <div *ngFor="let file of fileInfos | async">
                           <p class="list-group-item" *ngIf="file.name == formateur.cv">
-                            <strong>CV Link : </strong>  <a href="{{ file.url }}">{{ file.name }}</a>
+                            <a href="{{ file.url }}"> <i class="pi pi-download"></i> {{ file.name }}</a>
                           </p>
                         </div>
                       <!--<p *ngIf="cvPDF(formateur)"><a href="{{ fileCV.url }}">{{ fileCV.name }}</a></p>-->
@@ -180,10 +180,10 @@
                   </tr>-->
                 </tbody>
               </table>
-              <p-dialog [(visible)]="formateurDialog" [style]="{width: '490px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" >
+              <p-dialog [(visible)]="formateurDialog" [style]="{width: '640px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" >
                 <ng-template pTemplate="content">
                     <div class="field">
-                      <label for="file" class="label-file">Ajouter une photo</label>
+                      <label for="file" class="label-file"><i class="pi pi-external-link"></i> Ajouter une photo</label>
                         <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
                         <br>
                         </div>
@@ -212,86 +212,142 @@
                     </button>
                     <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div>
                     <div class="field">
-                        <label for="cin">CIN</label>
-                        <input type="number" pInputText id="cin" [(ngModel)]="formateur.username" required maxlength="8"/>
+                      <label for="cin">CIN</label>
+                      <div class="col-12 md:col-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
+                        <p-inputNumber id="cin" [(ngModel)]="formateur.username" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [maxlength]="8" placeholder="Numero de carte d'identité">
+                        </p-inputNumber>  
+                                
+                        </div>
                         <small class="p-error" *ngIf="submitted && !formateur.username">cin is required.</small>
+                        <small class="p-error" *ngIf="submitted && formateur.username.toString().length < 8">cin doit etre composer de 8 chiffres.</small>
+                    </div>
+                        
                     </div><br>
+                    <div style="display: flex;">
                     <div class="field">
                         <label for="nom">Nom</label>
-                        <input type="text" pInputText id="nom" [(ngModel)]="formateur.lastName" required  />
-                        <small class="p-error" *ngIf="submitted && !formateur.lastname">nom is required.</small>
-                    </div><br>
+                        <div class="col-12 md:col-4">
+                          <div class="p-inputgroup">
+                              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                              <input type="text" pInputText id="nom" [(ngModel)]="formateur.lastName" required placeholder="nom" />
+                                     
+                          </div>
+                      </div>
+                      <small class="p-error" *ngIf="submitted && !formateur.lastname">nom is required.</small>
+                    </div>
                     <div class="field">
                         <label for="prenom">Prenom</label>
-                        <input type="text" pInputText id="prenom" [(ngModel)]="formateur.firstName" required  />
+                        <div class="col-12 md:col-4">
+                          <div class="p-inputgroup">
+                              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                              <input type="text" pInputText id="prenom" [(ngModel)]="formateur.firstName" required  placeholder="prenom"/>
+                                  
+                          </div>
+                      </div>
+                        
                         <small class="p-error" *ngIf="submitted && !formateur.name">prenom is required.</small>
-                    </div><br>
+                    </div>
+                  </div><br>
                     <div class="field">
                         <label for="email">Email</label>
-                        <input type="email" pInputText id="email" [(ngModel)]="formateur.email" required />
-                        <small class="p-error" *ngIf="submitted && !formateur.email">email is required.</small>
+                        <div class="col-12 md:col-4">
+                          <div class="p-inputgroup">
+                              <span class="p-inputgroup-addon"><i class="pi pi-at"></i></span>
+                              <input type="email" pInputText id="email" [(ngModel)]="formateur.email" required placeholder="adresse e-mail"/>
+                                  
+                          </div>
+                          <small class="p-error" *ngIf="submitted && !formateur.email">email is required.</small>
+                      </div>
+                        
+                        
                     </div><br>
-                    <div class="field" >
+                    <div style="display: flex;" >
+                    <div class="field">
+                      
                         <label for="numTel">N° téléphone</label>
+                        <div class="col-12 md:col-4">
+                        <div style="display: flex;">
+                        <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span>
                           <p-inputMask mask="99-999-999" [(ngModel)]="formateur.numTel" placeholder="99-999-999"></p-inputMask>
-                        <small class="p-error" *ngIf="submitted && !formateur.numTel">num tel is required.</small>
-                    </div><br>
+                        </div>
+                          <small class="p-error" *ngIf="submitted && !formateur.numTel">num tel is required.</small>
+                        </div> </div><br>
                     <div class="field">
                       <label for="dateNaiss">Date de naissance</label>
-                        <input type="date" pInputText id="dateNaiss" [(ngModel)]="formateur.dateNaiss" />
+                      <div class="col-12 md:col-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon"><i class="pi pi-calendar"></i></span>
+                            <input type="date" pInputText id="dateNaiss" [(ngModel)]="formateur.dateNaiss" />
+                                
+                        </div>
                         <small class="p-error" *ngIf="submitted && !formateur.dateNaiss">date naissance is required.</small>
-                    
                     </div>
+                        
+                       
+                  </div>
+                    </div><br>
                   <div class="field">
+                   
                     <div class="gender-details">
                       <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="homme">
                       <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="femme">
-                      <span class="gender-title">Genre</span>
+                      <label for="gender">Genre</label>
                       <div class="category">
                         <label for="dot-1">
                         <span class="dot one"></span>
-                        <span class="gender">Homme</span>
+                        <span class="gender">&emsp;<i class="fa fa-solid fa-mars"></i> Homme </span>
                       </label> 
                       <label for="dot-2">
                         <span class="dot two"></span>
-                        <span class="gender">Femme</span>
+                        <span class="gender">&emsp;<i class="fa fa-solid fa-venus"></i> Femme </span>
                       </label>
                       </div>
                     </div>
-                  </div>   
+                  </div>  
+                  <div style="display: flex;">  
                   <div class="field" *ngIf="formateur.id == null && !autre ">
-                    <p-multiSelect [options]="listEtablissement" [(ngModel)]="selectedEtablissement" [selectionLimit]="1" optionLabel="name" defaultLabel="Choisir l'etablissement" display="chip" (click)="selectEtab()">
-<!--                      <ng-template let-value pTemplate="selectedItems">
-                          <div class="country-item country-item-value" *ngFor="let option of selectedEtablissement">
-                              <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.toLowerCase()" />
-                              <div>{{option}}</div>
-                          </div>
-                          <div *ngIf="!selectedCountries1 || selectedCountries1.length === 0" class="country-placeholder">
-                              Select Countries
-                          </div>
-                      </ng-template>-->
-                      <ng-template let-etab pTemplate="item">
-                          <div style="display:flex;">
-                              <img src="../../../../assets/img/etablissement/{{etab.code}} " style="width: 25px; margin-right: 10px;margin-left: 5px;"/>
-                              <div>{{etab.name}}</div>
-                          </div>
-                      </ng-template>
-                  </p-multiSelect>
+                    <div class="col-12 md:col-4">
+                      <div style="display: flex;">
+                          <span class="p-inputgroup-addon"><i class="pi pi-building"></i></span>
+                          <p-multiSelect [options]="listEtablissement" [(ngModel)]="selectedEtablissement" [selectionLimit]="1" optionLabel="name" defaultLabel="Choisir l'etablissement" display="chip" (click)="selectEtab()">
+                                                  <ng-template let-etab pTemplate="item">
+                                                      <div style="display:flex;">
+                                                          <img src="../../../../assets/img/etablissement/{{etab.code}} " style="width: 25px; margin-right: 10px;margin-left: 5px;"/>
+                                                          <div>{{etab.name}}</div>
+                                                      </div>
+                                                  </ng-template>
+                                              </p-multiSelect>
+                      </div>
+                    </div>
+                    <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement is required.</small>
                   </div>     
                   <div class="field" *ngIf="formateur.id || autre">
-                    <label for="etab">Etablissement</label>
-                        <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="Entrer son etablissement"/>
-                        <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement is required.</small>
+                    <div class="col-12 md:col-4">
+                      <div style="display: flex;">
+                          <span class="p-inputgroup-addon"><i class="pi pi-building"></i></span>
+                          <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="saisi l'etablissement" autofocus/>
+                              
+                      </div>
+                      <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement is required.</small>
+                  </div>
+                        
+                        
                   </div>  
 <!--                    <div class="field">
                         <label class="mb-3">Specialite</label>
                         <p-multiSelect [options]="specialites" [(ngModel)]="formateur.specialites" defaultLabel="Select specialité" optionLabel="titre" selectedItemsLabel="{0} items selected" required></p-multiSelect>
                         <small class="p-error" *ngIf="submitted && !formateur.specialites">specialité is required.</small>
                     </div>-->
-                 <br>   <div class="field">
+                  <div class="field">
+                  <div class="col-12 md:col-4">
+                    <div style="display: flex;">
+                        <span class="p-inputgroup-addon"><i class="pi pi-sitemap"></i></span>
                       <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip"></p-multiSelect>
+                    </div>
                       <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité is required.</small>
-                      </div><br>
+                  </div></div>    </div><br>
                     <div class="field">
                       <div *ngIf="formateur.cv">
                         <p>{{formateur.cv}}</p>
@@ -307,7 +363,8 @@
                           {{ progress }}%
                         </div>
                       </div>
-                      <label class = "label-file">  Ajouter son CV
+                      
+                      <label class = "label-file"><i class="pi pi-external-link"></i> Ajouter CV format PDF
                         <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)" />
                       </label>
                       <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">

@@ -27,6 +27,7 @@ import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import {InputMaskModule} from 'primeng/inputmask';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @NgModule({
@@ -62,7 +63,10 @@ import { NgxFileDropModule } from 'ngx-file-drop';
         ToastModule,
         RadioButtonModule,
         InputMaskModule,
-        NgxFileDropModule
+        NgxFileDropModule,
+        InputNumberModule,
+        MatIconModule
+        
     ]
 })
 export class GestionFormateursModule { }

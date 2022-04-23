@@ -86,7 +86,8 @@ import {NgxFileDropModule} from 'ngx-file-drop';
     ButtonModule,
     RippleModule,
     InputMaskModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    InputNumberModule
   ]
 })
 export class GestionFormationsModule { }

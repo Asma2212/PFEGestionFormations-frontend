@@ -229,6 +229,7 @@ deleteFormateur(formateur: Formateur) {
 }
 
 saveFormateur() {
+  console.log(typeof(this.formateur.username.toString()));
   console.log(this.femme);
   this.submitted = true;
   //this.formateur.photo=this.file.name ;
