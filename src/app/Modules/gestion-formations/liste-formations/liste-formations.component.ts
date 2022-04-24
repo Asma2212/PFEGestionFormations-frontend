@@ -122,13 +122,15 @@ export class ListeFormationsComponent implements OnInit {
               console.log(this.selectedFormations);
               this.formationService.deleteAllFormation(this.selectedFormations).subscribe(
                 res => {
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formations Deleted', life: 3000});
                 console.log('Formations successfully deleted');
+                window.location.reload();
                 }, err => {
                    console.log('Something went wrong during deleting formations');
                           }
                       );
               this.selectedFormations = null;
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formations Deleted', life: 3000});
+              
           }
       });
   }
@@ -149,10 +151,12 @@ export class ListeFormationsComponent implements OnInit {
               this.formations = this.formations.filter(val => val.idFormation !== formation.idFormation);
               console.log(formation.idFormation);
               this.formationService.deleteFormation(formation.idFormation).subscribe( data => {
-                console.log("data Formation deleted",data)
+                console.log("data Formation deleted",data);
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formation Deleted', life: 3000});
+                window.location.reload();
               });
               this.formation = null;
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formation Deleted', life: 3000});
+
           }
       });
   }
@@ -179,6 +183,12 @@ export class ListeFormationsComponent implements OnInit {
       this.formationDialog = false;
       this.submitted = false;
       this.imgURL = null ;
+      this.uploadedFiles = [];
+      this.file  = null;
+      this.selectedFiles1 = null;
+      this.currentFile1=null;
+      this.progress1 = 0;
+      this.message1 = '';
   }
   testImage(t : string){
     return t.includes("image") ;
@@ -227,8 +237,10 @@ export class ListeFormationsComponent implements OnInit {
               this.formations[this.findIndexById(this.formation.idFormation.toString())] = this.formation;
               this.formationService.updateFormation(this.formation).subscribe( data => {
                 console.log("data update Formation",data)
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation Updated', life: 3000});
+                window.location.reload();
               });
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation Updated', life: 3000});
+              
           }
           else {
               this.formations.push(this.formation);
@@ -241,8 +253,10 @@ export class ListeFormationsComponent implements OnInit {
               console.log("heeedhyyy",this.formation)
               this.formationService.saveFormation(this.formation).subscribe( data => {
                 console.log("data save Formation",data)
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation ajouter', life: 3000});
+                window.location.reload();
               });
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation ajouter', life: 3000});
+              
           }
 
           this.formations = [...this.formations];

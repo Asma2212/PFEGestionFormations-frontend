@@ -219,10 +219,11 @@ deleteFormateur(formateur: Formateur) {
             console.log(formateur.id);
             this.formateurService.deleteFormateur(formateur.id).subscribe( data => {
               console.log("data Formateur deleted",data)
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
+              window.location.reload();
             });
             this.formateur = null;
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
-            window.location.reload();
+
         }
     });
     
