@@ -1,5 +1,5 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Etablissement } from 'app/models/Etablissement';
 import { Formateur } from 'app/models/Formateur';
@@ -12,6 +12,9 @@ import { ConfirmationService, MenuItem, MessageService, SelectItem, SelectItemGr
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'app/services/upload-file.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-liste-formateurs',
@@ -33,6 +36,7 @@ export class ListeFormateursComponent implements OnInit {
   specialites : Specialite[];
   groupedSpecialites: SelectItemGroup[];
   sortOptions: SelectItem[];
+  allFormateurs : Formateur[];
 
   sortOrder: number;
 
@@ -40,6 +44,7 @@ export class ListeFormateursComponent implements OnInit {
 
   formateurDialog: boolean;
   submitted: boolean;
+
   uploadedFiles: any[] = [];
   file: File = null;
   fileCV: File = null;
@@ -54,10 +59,42 @@ export class ListeFormateursComponent implements OnInit {
   progress1 = 0;
   message1 = '';
   fileInfos: Observable<any>;
-//private formateurService: FormateurService
-  constructor(private formateurService : FormateurService ,private uploadService: UploadFileService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
+
+  dataSource = new MatTableDataSource();
+  displayedColumns: string[] = ['firstName','lastName','lesSpecialite'];
+  filterSelectObj = [];
+  filterValues = {};
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  constructor(private formateurService : FormateurService ,private uploadService: UploadFileService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) {   
+  this.filterSelectObj = [
+    {
+      name: 'ID',
+      columnProp: 'id',
+      options: []
+    }, {
+      name: 'NAME',
+      columnProp: 'name',
+      options: []
+    }, {
+      name: 'USERNAME',
+      columnProp: 'username',
+      options: []
+    }, {
+      name: 'EMAIL',
+      columnProp: 'email',       
+      options: []
+    }, {
+      name: 'STATUS',
+      columnProp: 'status',
+      options: []
+    }
+  ]
+}
   ngOnInit() {
+    
     this.fileInfos = this.uploadService.getFiles();
     this.listEtablissement = [
       {code : "IR.png",name:"ISET Rades"},
@@ -97,18 +134,55 @@ export class ListeFormateursComponent implements OnInit {
   }
 ];
     
-     /*    this.specialiteService.getAllSpecialite().toPromise().then( data => {
-        this.specialites = data ;
-          console.log("everthing is okay geet categorie",data)
-        });*/
         this.formateurService.getAllFormateurs().toPromise().then( data => {
           this.formateurs = data ;
             console.log("everthing is okay geet",data)
+            console.log("****",this.formateurs)
+            this.allFormateurs = this.formateurs;
+            this.dataSource.data = this.formateurs ;
+            console.log(this.dataSource.data)
           });
+        
           this.specialiteService.getAllSpecialites().toPromise().then( data =>{
             this.specialites = data ; 
             console.log("speciaalie :",data) });
+
+
+
+            
            
+  }
+
+  getFilterObject(fullObj, key) {
+    const uniqChk = [];
+    fullObj.filter((obj) => {
+      if (!uniqChk.includes(obj[key])) {
+        uniqChk.push(obj[key]);
+      }
+      return obj;
+    });
+    return uniqChk;
+  }
+
+
+  resetFilters() {
+    this.filterValues = {}
+    this.filterSelectObj.forEach((value, key) => {
+      value.modelValue = undefined;
+    })
+    this.dataSource.filter = "";
+  }
+
+
+  applyFilter(filterValue : string){
+    console.log("ff",filterValue);
+  //  let filterValueLower = filterValue.toLowerCase();
+if(filterValue === '' ) {
+  this.formateurs=this.allFormateurs;
+} 
+else {
+this.formateurs = this.allFormateurs.filter(f => f.firstName.includes(filterValue));
+}
   }
 testImage(t : string){
    return t.includes("image") ;
@@ -233,17 +307,15 @@ saveFormateur() {
   console.log(typeof(this.formateur.username.toString()));
   console.log(this.femme);
   this.submitted = true;
-  //this.formateur.photo=this.file.name ;
+
 
   if(this.femme){
-   // this.genre.id = 2 ;
-  // this.genre.name = this.egf;
+
    console.log("geenre",Egenre.FEMME);
     this.formateur.genre = {id : 2 , name : Egenre.FEMME} ;
  }
  if(this.homme){
-   //this.genre.id = 1 ; 
-   //this.genre.name = this.egh ;
+
    this.formateur.genre = null ;
 } 
   if (this.formateur.id) {
@@ -257,13 +329,6 @@ saveFormateur() {
     
 }
 else {
-   // this.formateurs.push(this.formateur);
- /*   this.formateurService.saveFormateurData(formData).subscribe( data => {
-    
-      console.log("data type",data.type)
-      console.log("data get",data.get)
-      console.log("data",data)
-    }); */
     if(this.selectedEtablissement[0].name!="Autre")
     this.formateur.etablissement=this.selectedEtablissement[0].name ;
     console.log("heeedhyyy",this.formateur)
@@ -308,12 +373,6 @@ hideDialog() {
 
 }
 
-/*setGenre(){
 
- if(this.formateur.genre.id == 2)
- {
-   this.femme = true ;
-   console.log(this.formateur.genre)
- }
-}*/
+
 }

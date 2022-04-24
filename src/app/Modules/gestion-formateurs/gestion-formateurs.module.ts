@@ -30,6 +30,12 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
+import { MatHeaderCell, MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -69,7 +75,16 @@ import { TableModule } from 'primeng/table';
         NgxFileDropModule,
         InputNumberModule,
         MatIconModule,
-        TableModule
+        TableModule,
+
+        MatButtonModule,
+        MatInputModule,
+        MatTableModule,
+        MatSelectModule,
+        MatPaginatorModule,
+        MatFormFieldModule
+
+        
     ],  providers: [HttpClient]
 
 })
