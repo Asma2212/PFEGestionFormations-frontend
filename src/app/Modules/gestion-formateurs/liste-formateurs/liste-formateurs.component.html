@@ -1,5 +1,12 @@
 <p-toast></p-toast> 
-<button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-help p-button-outlined" (click)="openNew(formateur)"></button> <!--(click)="ajouter()"-->
+<div style="display:flex ;">
+  <button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-help p-button-outlined" (click)="openNew(formateur)"></button> <!--(click)="ajouter()"-->
+  <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+      <i class="pi pi-search"></i>
+      <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+  </span>
+</div>
+
    <!--    <p-splitButton icon="pi pi-user-plus" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton> --> 
         <br><br>
         <div class="row">
@@ -26,7 +33,7 @@
     </div>
 </div>
 -->
-            <table  class="table align-middle mb-0 bg-white">
+            <table pTable #dt class="table align-middle mb-0 bg-white" responsiveLayout="scroll" showCurrentPageReport="true" globalFilterFields="firstName">
                 <thead class="bg-light">
                   <tr style="background-color: rgba(202, 172, 235, 0.579);">
                     <th>&emsp;Informations Personnels</th>
@@ -39,7 +46,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let formateur of formateurs">
-                    <td>
+                     <td>
                       <div class="d-flex align-items-center">
                         <div *ngFor="let file of fileInfos | async">
                           <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
@@ -235,7 +242,7 @@
                                      
                           </div>
                       </div>
-                      <small class="p-error" *ngIf="submitted && !formateur.lastname">nom is required.</small>
+                      <small class="p-error" *ngIf="submitted && !formateur.lastName">nom is required.</small>
                     </div>
                     <div class="field">
                         <label for="prenom">Prenom</label>
@@ -247,7 +254,7 @@
                           </div>
                       </div>
                         
-                        <small class="p-error" *ngIf="submitted && !formateur.name">prenom is required.</small>
+                        <small class="p-error" *ngIf="submitted && !formateur.firstName">prenom is required.</small>
                     </div>
                   </div><br>
                     <div class="field">

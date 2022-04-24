@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpEventType, HttpParams, HttpResponse } from '@angular/common/http';
 import { collectExternalReferences, ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Categorie } from 'app/models/Categorie';
@@ -11,6 +11,8 @@ import * as XLSX from 'xlsx';
 import * as html2pdf from 'html2pdf.js' ;
 
 import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
+import { Observable } from 'rxjs';
+import { UploadFileService } from 'app/services/upload-file.service';
 @Component({
   selector: 'app-liste-formations',
   templateUrl: './liste-formations.component.html',
@@ -46,10 +48,15 @@ export class ListeFormationsComponent implements OnInit {
   public message: string;
   categorie : Categorie ;
     fileName = 'ExcelSheet.xlsx';
+    selectedFiles1: FileList;
+    currentFile1: File;
+    progress1 = 0;
+    message1 = '';
+    fileInfos: Observable<any>;
 
   //statuses: any[]; , private messageService: MessageService, private confirmationService: ConfirmationService
 
-  constructor(private formationService: FormationService,private categorieService : CategorieService,private confirmationService : ConfirmationService , private messageService : MessageService ) { }
+  constructor(private formationService: FormationService,private uploadService : UploadFileService, private categorieService : CategorieService,private confirmationService : ConfirmationService , private messageService : MessageService ) { }
  
   ngOnInit() {
   /* this.categories = [{
@@ -73,7 +80,7 @@ export class ListeFormationsComponent implements OnInit {
         console.log(" save cat data",data)
       });*/
     
-    
+      this.fileInfos = this.uploadService.getFiles();
       this.categorieService.getAllCategories().toPromise().then( data => {
         this.categories = data ;
           console.log("everthing is okay geet categorie",data)
@@ -104,25 +111,6 @@ export class ListeFormationsComponent implements OnInit {
 
     //this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
 }*/
-onUpload(event){
-    this.file = <File>event.target.files[0]
-    console.log(this.file)
-    var mimeType = event.target.files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      return;
-    }
- 
-    var reader = new FileReader();
-    
-    this.imagePath = this.file;
-    reader.readAsDataURL(this.file); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result;
-      console.log("imaage",this.imgURL) 
-    }
-    this.formation.image=this.file.name ;
-  }
 
   deleteSelectedFormations() {
       this.confirmationService.confirm({
@@ -168,11 +156,52 @@ onUpload(event){
           }
       });
   }
-
+  upload1() {
+    this.progress1 = 0;
+    this.currentFile1 = this.selectedFiles1.item(0);
+    console.log("current file",this.currentFile1);
+    this.uploadService.upload(this.currentFile1).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress1 = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message1 = event.body.message;
+        }
+      },
+      err => {
+        this.progress1 = 0;
+        this.message1 = 'Could not upload the file!';
+        this.currentFile1 = undefined;
+      });
+    this.selectedFiles1 = undefined;
+  }
   hideDialog() {
       this.formationDialog = false;
       this.submitted = false;
       this.imgURL = null ;
+  }
+  testImage(t : string){
+    return t.includes("image") ;
+ }
+  onUpload(event){
+    this.selectedFiles1 = event.target.files;
+    this.file = <File>event.target.files[0]
+    console.log(this.file)
+    var mimeType = event.target.files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+ 
+    var reader = new FileReader();
+    
+    this.imagePath = this.file;
+    reader.readAsDataURL(this.file); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result;
+      console.log("imaage",this.imgURL) 
+    }
+    this.formation.image=this.file.name ;
   }
 
   saveFormation() {

@@ -33,18 +33,19 @@
         </ng-template>
     </p-toolbar>
 
-        <p-table id="excel-table" #dt [value]="formations" [rows]="10" [paginator]="true" [globalFilterFields]="['titre','chargeHorraire','categorie']" responsiveLayout="scroll"
-        [(selection)]="selectedFormations" [rowHover]="true" dataKey="idFormation"
+        <p-table id="excel-table" #dt [value]="formations" [rows]="2" [paginator]="true" [globalFilterFields]="['titre','chargeHorraire','categorie']" responsiveLayout="scroll"
+        [(selection)]="selectedFormations"  [rowHover]="true" dataKey="idFormation"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-            <ng-template pTemplate="caption">
-                <div class="flex align-items-center justify-content-between">
-                    <h5 class="m-0">Gestion Formations</h5>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                       <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
-                    </span>
-                </div>
-            </ng-template>
+        <ng-template pTemplate="caption">
+            <div style="display:flex ;">
+                <h2>Gestion des formations</h2>
+                <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+            
+        </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width: 3rem">
@@ -64,7 +65,13 @@
                        <p-tableCheckbox [value]="formation"></p-tableCheckbox>
                    </td>
                    <td>{{formation.titre}}</td>
-                   <td><img [src]="'assets/img/formation/' + formation.image" [alt]="formation.titre" width="100" class="shadow-4" /></td>
+                   <td>
+                                               <div *ngFor="let file of fileInfos | async">
+                          <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formation.image">
+                            <img [src]="file.url" width="100" class="shadow-4"/>
+                          </p>
+                        </div>
+                    </td>
                    
                    <td>{{formation.charge_horaire}}</td>
                    <td>
@@ -84,28 +91,7 @@
 
                 </ng-template>
        
-        <!--
-                <ng-template pTemplate="body" let-formation>
-                     <tr>
-                    <td>
-                        <p-tableCheckbox [value]="formation"></p-tableCheckbox>
-                    </td>
-                    <td>{{formation.titre}}</td>
-                    <td><img [src]="'assets/showcase/images/demo/product/' + formation.photo" [alt]="formation.photo" width="100" class="shadow-4" /></td>
-                    <td>{{formation.description | currency:'USD'}}</td>
-                    <td>{{formation.titre}}</td>
-                    <td><p-rating [ngModel]="formation.chargeHorraire" [readonly]="true" [cancel]="false"></p-rating></td>
-                    <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{formation.titre}}</span></td>
-                    <td>
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(formation)"></button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(formation)"></button>
-                    </td>
-                </tr> 
-            
-            
-
-            </ng-template>
-        -->
+    
           <ng-template pTemplate="summary">
                 <div class="flex align-items-center justify-content-between">
                     En total il y'a {{formations ? formations.length : 0 }} formations.
@@ -116,61 +102,7 @@
         </p-table>
     
     </div>
-<!--<p-dialog [(visible)]="formationDialog" [style]="{width: '450px'}" header="Foramtion Details" [modal]="true" styleClass="p-fluid">
-        <ng-template pTemplate="content">
-            <img src="../../../../assets/img/angular.png" [alt]="product.image" class="product-image" *ngIf="product.image">
-            <div class="field">
-                <label for="name">Titre</label>
-                <input type="text" pInputText id="name" [(ngModel)]="formation.titre" required autofocus />
-                <small class="p-error" *ngIf="submitted && !formation.titre">titre is required.</small>
-            </div>
-            <div class="field">
-                <label for="description">Description</label>
-                <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
-            </div>
-            <div class="field">
-                <label for="inventoryStatus">Niveau Difficulté</label>
-                <p-dropdown [(ngModel)]="formation.titre" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
-                    <ng-template let-option pTemplate="item">
-                        <span [class]="'product-badge status-' + option.value">aaa</span>
-                    </ng-template>
-                </p-dropdown>
-            </div>
-    
-            <div class="field">
-                <label class="mb-3">Categorie</label>
-                <input type="text" pInputText id="name" [(ngModel)]="formation.titre" required autofocus />
-                <small class="p-error" *ngIf="submitted && !formation.titre">titre is required.</small>
-                <div class="formgrid grid">
-                    <div class="field-radiobutton col-6">
-                        <p-radioButton id="category1" name="category" value="DevWeb" [(ngModel)]="formation.categorie"></p-radioButton>
-                        <label for="category1">DEV WEB</label>
-                    </div>
-                    <div class="field-radiobutton col-6">
-                        <p-radioButton id="category2" name="category" value="DevMobile" [(ngModel)]="formation.categorie"></p-radioButton>
-                        <label for="category2">DEV MOBILE</label>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="formgrid grid">
-                <div class="field col">
-                    <label for="price">Price</label>
-                    <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
-                </div>
-                <div class="field col">
-                    <label for="quantity">Quantity</label>
-                    <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
-                </div>
-            </div>
-        </ng-template>
-    
-        <ng-template pTemplate="footer">
-            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-        </ng-template>
-    </p-dialog>-->
-    <p-dialog [(visible)]="formationDialog" [style]="{width: '450px'}" header="Foramtion Details" [modal]="true" styleClass="p-fluid">
+   <p-dialog [(visible)]="formationDialog" [style]="{width: '450px'}" header="Foramtion Details" [modal]="true" styleClass="p-fluid">
         <ng-template pTemplate="content">
             <div class="field">
                 <label for="name">Titre</label>
@@ -180,8 +112,35 @@
             <div class="field">
             <!--<p-fileUpload mode="basic" accept="image/*" label="Import" chooseLabel="Ajouter une image" class="p-mr-2 p-d-inline-block" (onUpload)="onUpload($event)">
             </p-fileUpload>-->
-            <input pFileUpload type="file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formation.image" class="custom-file-upload">
-            <br><br>
+            <div class="field">
+                <label for="file" class="label-file"><i class="pi pi-external-link"></i> Ajouter une image</label>
+                  <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formation.image">
+                  <br>
+                  </div>
+            <div *ngIf="imgURL">
+                <img [src]="imgURL" height="150">    
+            </div>
+            <div *ngIf="formation.image">
+              <div *ngFor="let file of fileInfos | async">
+                <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formation.image">
+                  <img [src]="file.url" height="150">
+                </p></div>   
+          </div>
+            <div *ngIf="currentFile1" class="progress">
+              <div
+                class="progress-bar progress-bar-info progress-bar-striped"
+                role="progressbar"
+                attr.aria-valuenow="{{ progress1 }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                [ngStyle]="{ width: progress1 + '%' }">
+                {{ progress1 }}%
+              </div>
+            </div>
+            <button class="btn btn-success" [disabled]="!selectedFiles1" (click)="upload1()">
+              Upload
+            </button>
+            <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div><br><br>
             </div>
         <div *ngIf="imgURL">
             <img [src]="'assets/img/formation/' + formation.image" height="150">    
@@ -191,14 +150,7 @@
                 <label for="description">Description</label>
                 <textarea id="description" pInputTextarea [(ngModel)]="formation.details" required rows="3" cols="20"></textarea>
             </div>
-<!--            <div class="field">
-                <label for="inventoryStatus">Niveau Difficulté</label>
-                <p-dropdown [(ngModel)]="formation.titre" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
-                    <ng-template let-option pTemplate="item">
-                        <span [class]="'product-badge status-' + option.value">aaa</span>
-                    </ng-template>
-                </p-dropdown>
-            </div>-->
+
     
             <div class="field">
                 <label class="mb-3">Categorie</label>

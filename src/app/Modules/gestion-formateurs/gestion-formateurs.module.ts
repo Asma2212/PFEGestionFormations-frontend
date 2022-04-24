@@ -29,6 +29,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
         InputMaskModule,
         NgxFileDropModule,
         InputNumberModule,
-        MatIconModule
+        MatIconModule,
+        TableModule
     ],  providers: [HttpClient]
 
 })

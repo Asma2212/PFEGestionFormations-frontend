@@ -50,6 +50,7 @@ import { CardModule } from 'primeng/card';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    SidebarModule,
     GestionFormationsModule,
     GestionFormateursModule,
     GestionCandidatsModule

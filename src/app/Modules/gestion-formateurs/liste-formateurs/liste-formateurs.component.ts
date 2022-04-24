@@ -226,7 +226,7 @@ deleteFormateur(formateur: Formateur) {
         }
     });
     
-}
+} 
 
 saveFormateur() {
   console.log(typeof(this.formateur.username.toString()));
