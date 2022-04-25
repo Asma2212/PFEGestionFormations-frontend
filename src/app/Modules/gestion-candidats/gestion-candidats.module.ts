@@ -23,6 +23,7 @@ import { RatingModule } from 'primeng/rating';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import {HttpClientModule,HttpClient} from "@angular/common/http";
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import {HttpClientModule,HttpClient} from "@angular/common/http";
     ButtonModule,HttpClientModule,
     ConfirmDialogModule,
     ToastModule,
-    FormsModule
+    FormsModule,
+    InputNumberModule
   ],  providers: [HttpClient]
 
 })

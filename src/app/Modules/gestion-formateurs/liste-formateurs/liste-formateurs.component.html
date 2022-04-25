@@ -217,6 +217,9 @@
                         <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
                         <br>
                         </div>
+                        <div *ngIf="imgURL">
+                          <img [src]="imgURL" height="150">    
+                      </div>
                     <div *ngIf="formateur.photo">
                       <div *ngFor="let file of fileInfos | async">
                         <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
@@ -306,7 +309,7 @@
                       <div class="col-12 md:col-4">
                         <div class="p-inputgroup">
                             <span class="p-inputgroup-addon"><i class="pi pi-calendar"></i></span>
-                            <input type="date" pInputText id="dateNaiss" [(ngModel)]="formateur.dateNaiss" />
+                            <input type="date" pInputText id="dateNaiss" [(ngModel)]="formateur.dateNaiss"  max="2018-12-31"/>
                                 
                         </div>
                         <small class="p-error" *ngIf="submitted && !formateur.dateNaiss">date naissance is required.</small>
@@ -371,7 +374,7 @@
                   <div class="col-12 md:col-4">
                     <div style="display: flex;">
                         <span class="p-inputgroup-addon"><i class="pi pi-sitemap"></i></span>
-                      <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip"></p-multiSelect>
+                      <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip" [style]="{maxWidth: '200px'}"></p-multiSelect>
                     </div>
                       <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité is required.</small>
                   </div></div>    </div><br>

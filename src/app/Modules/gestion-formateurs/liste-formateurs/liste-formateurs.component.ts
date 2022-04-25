@@ -306,7 +306,6 @@ testImage(t : string){
       this.imgURL = reader.result;
       console.log("imaage",this.imgURL) 
     }
-    this.formateur.photo=this.file.name ;
   }
   onSortChange(event) {
       let value = event.value;
@@ -357,7 +356,7 @@ saveFormateur() {
   console.log(this.femme);
   this.submitted = true;
 
-
+ 
   if(this.femme){
 
    console.log("geenre",Egenre.FEMME);
@@ -378,9 +377,11 @@ saveFormateur() {
     
 }
 else {
+  this.formateur.photo=this.file.name ;
     if(this.selectedEtablissement[0].name!="Autre")
     this.formateur.etablissement=this.selectedEtablissement[0].name ;
     console.log("heeedhyyy",this.formateur)
+   // this.formateur.password = "xx"
     this.formateurService.saveFormateur(this.formateur).subscribe( data => {
       console.log("data save Formateur",data);
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
@@ -388,6 +389,8 @@ else {
     },
     error =>
    {
+    this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000}); 
+    this.formateur.photo = null ;
   console.log("exception occured");});
 }
 

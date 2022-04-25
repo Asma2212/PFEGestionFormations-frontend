@@ -13,8 +13,8 @@ th{
   }
    #dot-1:checked ~ .category label .one,
    #dot-2:checked ~ .category label .two{
-     background: #9b59b6;
-     border-color: #d9d9d9;
+     background: #b0874b;
+     border-color: #efd699;
    }
    .category label{
     display: flex;
@@ -30,26 +30,17 @@ th{
     display: none;
   }
 
-  .custom-file-upload::before {
-    content: 'Choisir une photo';
-    display: inline-block;
-    background: linear-gradient(top, #f9f9f9, #e3e3e3);
-    width: 100%;
-    border: 1px solid #999;
-    border-radius: 3px;
-    padding: 13px 50px;
-    margin-left: 10px;
-    margin-right: 50px;
-    outline: none;
-    white-space: nowrap;
+  .label-file {
     cursor: pointer;
-    text-shadow: 1px 1px #fff;
-    font-weight: 500;
-    font-size: 13pt;
-  }
-  .custom-file-upload:hover::before {
-    border-color: black;
-  }
-  .custom-file-upload:active::before {
-    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-  }
+    color: #d5821c;
+    font-weight: bold;
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.label-file:hover {
+    color: #c84cce;
+}
+
+.input-file {
+    display: none;
+}

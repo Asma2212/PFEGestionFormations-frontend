@@ -152,7 +152,7 @@
             <div class="field">
                 <label class="mb-3">Categorie</label>
                 <!--<input type="text" pInputText id="categorie" [(ngModel)]="cat" required autofocus />-->
-                <p-multiSelect [options]="categories" [(ngModel)]="formation.listCategories" defaultLabel="Select a categorie" optionLabel="titre" selectedItemsLabel="{0} items selected" required></p-multiSelect>
+                <p-multiSelect [options]="categories" [(ngModel)]="formation.listCategories" defaultLabel="Select a categorie" optionLabel="titre" selectedItemsLabel="{0} items selected" [style]="{maxWidth: '200px'}" required></p-multiSelect>
                 
 
                 <small class="p-error" *ngIf="submitted && !formation.listCategories">categorie is required.</small>

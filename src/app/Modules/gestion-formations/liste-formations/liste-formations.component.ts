@@ -211,7 +211,7 @@ export class ListeFormationsComponent implements OnInit {
       this.imgURL = reader.result;
       console.log("imaage",this.imgURL) 
     }
-    this.formation.image=this.file.name ;
+
   }
 
   saveFormation() {
@@ -220,17 +220,6 @@ export class ListeFormationsComponent implements OnInit {
       this.formation.image=this.file.name ;
       console.log("heeeeyy",this.formation,this.formation.titre,this.formation.listCategories,this.formation.image);
      const formData = new  FormData();
-    /*  const params = new HttpParams()
-      .set('file', this.imgURL)
-      .set('Titre', this.formation.titre.toString())
-      .set('charge_horraire',this.formation.chargeHorraire.toString())
-      .set('details',this.formation.detail.toString())
-      .set('listCategories',JSON.stringify(this.formation.listCategories));*/
-      formData.append('file',this.file);
-      formData.append('Titre',this.formation.titre.toString());
-      formData.append('charge_horraire',this.formation.charge_horaire.toString());
-      formData.append('details',this.formation.details.toString());
-      formData.append('listCategories',JSON.stringify(this.formation.listCategories)); 
     
       if (this.formation.titre.trim()) {
           if (this.formation.idFormation) {
@@ -243,6 +232,7 @@ export class ListeFormationsComponent implements OnInit {
               
           }
           else {
+            this.formation.image=this.file.name ;
               this.formations.push(this.formation);
            /*   this.formationService.saveFormationData(formData).subscribe( data => {
               
@@ -251,6 +241,7 @@ export class ListeFormationsComponent implements OnInit {
                 console.log("data",data)
               }); */
               console.log("heeedhyyy",this.formation)
+              
               this.formationService.saveFormation(this.formation).subscribe( data => {
                 console.log("data save Formation",data)
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation ajouter', life: 3000});
