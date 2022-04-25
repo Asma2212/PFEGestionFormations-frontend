@@ -32,12 +32,16 @@ export class ListeFormateursComponent implements OnInit {
   homme : string ;
   items: MenuItem[];
   formateurs: Formateur[];
-  formateur : Formateur ;
+  f: Formateur[];
+  formateurs1: Formateur[];
+  formateursSp: Formateur[];
+  formateur : Formateur = null;
   specialites : Specialite[];
   groupedSpecialites: SelectItemGroup[];
   sortOptions: SelectItem[];
   allFormateurs : Formateur[];
-
+  filterEtab : Etablissement[] ;
+filterSpecialite : Specialite[] ;
   sortOrder: number;
 
   sortField: string;
@@ -49,7 +53,7 @@ export class ListeFormateursComponent implements OnInit {
   file: File = null;
   fileCV: File = null;
   public imagePath;
-  imgURL: any;
+  imgURL: any = null;
   selectedFiles: FileList;
   currentFile: File;
   progress = 0;
@@ -176,14 +180,59 @@ export class ListeFormateursComponent implements OnInit {
 
   applyFilter(filterValue : string){
     console.log("ff",filterValue);
-  //  let filterValueLower = filterValue.toLowerCase();
-if(filterValue === '' ) {
+   let filterValueLower = filterValue.toLowerCase();
+if(filterValue === '' && this.filterSpecialite== null && this.filterEtab== null) {
   this.formateurs=this.allFormateurs;
 } 
-else {
-this.formateurs = this.allFormateurs.filter(f => f.firstName.includes(filterValue));
+else 
+if(filterValue === '' && this.filterSpecialite)
+this.formateurs = this.formateursSp;
+else
+if(filterValue === '' && this.filterEtab)
+this.formateurs = this.formateurs1;
+else{
+this.formateurs = this.formateurs.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(filterValue));
 }
   }
+  applyFilter1(){
+    if(this.filterEtab){
+if(this.filterEtab[0]== null && this.filterSpecialite== null) {
+  console.log("dkhaall hnee1");
+  this.formateurs=this.allFormateurs;
+} 
+else 
+if(this.filterEtab[0]== null)
+this.formateurs = this.formateursSp ;
+else
+{
+  let filterValueLower = this.filterEtab[0].name.toLowerCase();
+  console.log("ff1",this.filterEtab[0].name);
+this.formateurs = this.formateurs.filter(f => f.etablissement.toLowerCase().includes(filterValueLower));
+this.formateurs1= this.formateurs;
+//this.allFormateurs = this.formateurs ;
+}}
+  }
+
+  applyFilterSp(s : any){
+    if(this.filterSpecialite){
+
+   console.log("ff1",this.filterSpecialite[0]);
+if(this.filterSpecialite[0]== null && this.filterEtab== null) {
+  console.log("dkhaall hnee");
+  this.formateurs=this.allFormateurs;
+} 
+else
+if(this.filterSpecialite[0]== null)
+this.formateurs = this.formateurs1 ;
+else {
+  console.log("ff1",this.filterSpecialite[0]);
+this.formateurs = this.formateurs.filter(f =>
+   f.lesSpecialites.find(sp => sp.titre === this.filterSpecialite[0].titre)
+   );
+   this.formateursSp = this.formateurs
+}}
+  }
+
 testImage(t : string){
    return t.includes("image") ;
 }

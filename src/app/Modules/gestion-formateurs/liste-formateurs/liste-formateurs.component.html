@@ -5,12 +5,28 @@
         <i class="pi pi-search"></i>
         <input pInputText type="text" (keyup)="applyFilter($event.target.value)" matInput placeholder="Search..." />
       </span>
-
 </div>
-
-
-
-        <br><br>
+<br>
+<span class="p-input-icon-left" style="margin-left: 60px;margin-right: 0px;border: 2px;">
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon" style="background-color: rgba(230, 210, 251, 0.374);border-color: rgb(96, 72, 123);color: rgb(96, 72, 123);"><i class="pi pi-filter"></i> &nbsp; filtrer par etablissement</span>
+        <p-multiSelect [options]="listEtablissement" [(ngModel)]="filterEtab" (onClick)="applyFilter1()"  matInput [selectionLimit]="1" optionLabel="name" display="chip" (click)="selectEtab()">
+          <ng-template let-etab pTemplate="item">
+              <div style="display:flex;">
+                  <img src="../../../../assets/img/etablissement/{{etab.code}} " style="width: 25px; margin-right: 10px;margin-left: 5px;"/>
+                  <div>{{etab.name}}</div>
+              </div>
+          </ng-template>
+      </p-multiSelect>
+  </div>
+      </span>
+      <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon" style="background-color: rgba(230, 210, 251, 0.374);border-color: rgb(96, 72, 123);color: rgb(96, 72, 123);"><i class="pi pi-filter"></i> &nbsp; filtrer par specialité</span>
+        <p-multiSelect [options]="specialites" [(ngModel)]="filterSpecialite" [selectionLimit]="1" (onClick)="applyFilterSp($event.target.value)"  optionLabel="titre" display="chip"></p-multiSelect>
+        </div>
+      </span>
+      <br><br>
         <div class="row">
 <!--          <div class="example-container mat-elevation-z8">
             <div class="example-table-container">
@@ -201,9 +217,6 @@
                         <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
                         <br>
                         </div>
-                    <div *ngIf="imgURL && !formateur.id">
-                        <img [src]="imgURL" height="150">    
-                    </div>
                     <div *ngIf="formateur.photo">
                       <div *ngFor="let file of fileInfos | async">
                         <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
