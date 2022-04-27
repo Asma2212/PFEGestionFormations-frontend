@@ -56,7 +56,8 @@
             <mat-paginator [pageSizeOptions]="[10, 20, 30]"></mat-paginator>
           </div>-->
           <br><br>
-            <table #dt class="table align-middle mb-0 bg-white" responsiveLayout="scroll" showCurrentPageReport="true" globalFilterFields="firstName">
+          <div style="width:100%;overflow-x:auto;">
+            <table class="table align-middle mb-0 bg-white" responsiveLayout="scroll" showCurrentPageReport="true" globalFilterFields="firstName">
                 <thead class="bg-light">
                   <tr style="background-color: rgba(202, 172, 235, 0.579);">
                     <th>&emsp;Informations Personnels</th>
@@ -210,8 +211,10 @@
                   </tr>-->
                 </tbody>
               </table>
-              <p-dialog  [(visible)]="formateurDialog" [style]="{width: '640px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" >
-                <ng-template pTemplate="content">
+            </div>
+            <p-dialog  [(visible)]="formateurDialog" [style]="{width: '640px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true" maximizable="true" [resizable]="true">
+                 
+            <ng-template pTemplate="content">
                     <div class="field">
                       <label for="file" class="label-file"><i class="pi pi-external-link"></i> Ajouter une photo</label>
                         <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
@@ -379,9 +382,18 @@
                       <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité is required.</small>
                   </div></div>    </div><br>
                     <div class="field">
+                     
+                      
+                      <label class = "label-file"><i class="pi pi-external-link"></i> Ajouter CV format PDF
+                        <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)"/>
+                      </label>
                       <div *ngIf="formateur.cv">
                         <p>{{formateur.cv}}</p>
                       </div>
+      
+                      <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+                        Upload
+                      </button>
                       <div *ngIf="currentFile" class="progress">
                         <div
                           class="progress-bar progress-bar-info progress-bar-striped"
@@ -393,13 +405,6 @@
                           {{ progress }}%
                         </div>
                       </div>
-                      
-                      <label class = "label-file"><i class="pi pi-external-link"></i> Ajouter CV format PDF
-                        <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)" />
-                      </label>
-                      <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-                        Upload
-                      </button>
                       <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
 
                       <div class="card">
@@ -420,7 +425,11 @@
                     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-help p-button-text" (click)="hideDialog()"></button>
                     <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-help p-button-text" (click)="saveFormateur()"></button>
                 </ng-template>
-            </p-dialog>
+            
+            
+            
+              </p-dialog>
+          
         </div>
         <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 

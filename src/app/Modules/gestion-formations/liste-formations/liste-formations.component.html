@@ -102,7 +102,7 @@
         </p-table>
     
     </div>
-   <p-dialog [(visible)]="formationDialog" [style]="{width: '450px'}" header="Foramtion Details" [modal]="true" styleClass="p-fluid">
+   <p-dialog [(visible)]="formationDialog" [style]="{width: '450px'}" header="Foramtion Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
         <ng-template pTemplate="content">
             <div class="field">
                 <label for="name">Titre</label>

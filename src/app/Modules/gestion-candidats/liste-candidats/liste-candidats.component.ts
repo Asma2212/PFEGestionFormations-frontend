@@ -136,7 +136,10 @@ export class ListeCandidatsComponent implements OnInit {
     },
     err => {
       this.progress1 = 0;
-      this.message1 = 'Could not upload the file!';
+      if(err.error.message.includes("constraint"))
+        this.message1 =" l'image existe deja"
+        else
+        this.message1 = ' Un probleme est survenue';
       this.currentFile1 = undefined;
     });
   this.selectedFiles1 = undefined;

@@ -1,0 +1,82 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <p-toolbar styleClass="mb-4">
+                    <ng-template pTemplate="left">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-sm p-button-success mr-2" (click)="openNew()" ></button>
+                    </ng-template>
+            
+                    <ng-template pTemplate="right">
+                        <div class="flex">
+                            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-danger mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+                        </div>
+                    </ng-template>
+                </p-toolbar>
+                <p-dataView #dv [value]="sessions" [paginator]="true" [rows]="9" filterBy="titreSession"
+                    [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+                    <ng-template pTemplate="header">
+                        <div class="flex flex-column md:flex-row md:justify-content-between">
+                            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                            <span class="p-input-icon-left mb-2 md:mb-0">
+                                <i class="pi pi-search"></i>
+                                <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+                            </span>
+                            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                    </ng-template>
+                    <ng-template let-session pTemplate="listItem">
+                        <div class="col-12">
+                            <div class="session-list-item">
+                                <img src="../../../../assets/img/angular.png"  [alt]="session.titreSession"/> <!--[src]="'assets//images/demo/session/' + session.image"-->
+                                <div class="session-list-detail">
+                                    <div class="session-name">{{session.titreSession}}</div>
+                                    <div class="session-description">{{session.descriptionSession}}</div>
+                                    <p-rating [ngModel]="2" [readonly]="true" [cancel]="false"></p-rating>
+                                    <i class="pi pi-tag session-category-icon"></i><span class="session-category">cateegory</span>
+                                </div>
+                                <div class="session-list-action">
+                                    <span class="session-price" pTooltip="nb">$22222</span>
+                                    <div>
+                                        <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
+                                        <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
+                                        </div><span [class]="'product-badge status-' + session.nivDifficulte.toLowerCase()" style="background-color: aliceblue;">{{session.nivDifficulte}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-session pTemplate="gridItem">
+                        <div class="p-col-12 p-md-4">
+                            <div class="session-grid-item card" style="background-color: rgba(246, 235, 227, 0.382);">
+                                <div class="session-grid-item-top">
+                                    <div>
+                                        <i class="pi pi-users session-category-icon"></i>
+                                        <span class="session-category">M. MTIR Mehdi</span>
+                                        
+                                    </div>
+                                    <span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="font-size: small;"><strong>&nbsp;{{session.nivDifficulte}}&nbsp;</strong></span>
+                                </div>
+                                <div class="session-grid-item-content">
+                                    <img src="../../../../assets/img/angular.png"/>
+                                    <div class="session-name">{{session.titreSession}}</div>
+                                    <div class="session-description">{{session.descriptionSession}}</div>
+                                    <p-rating [ngModel]="4" [readonly]="true" [cancel]="false"></p-rating>
+                                </div><br>
+                                <div class="session-grid-item-bottom">
+                                    <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="bottom" >10</span>
+                                    <div>
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
+                                    </div>
+                                    <!--  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editFormation(formation)"></button>
+                                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteFormation(formation)"></button>
+                                    [disabled]="session.inventoryStatus === 'OUTOFSTOCK'"-->
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-dataView>
+            </div>
+</div>
+    </div></div>

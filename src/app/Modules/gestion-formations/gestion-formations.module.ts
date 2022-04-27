@@ -82,7 +82,7 @@ import {HttpClientModule,HttpClient} from "@angular/common/http";
     FieldsetModule,
     MatSelectModule,
     MatTooltipModule,
-    ComponentsModule,
+    ComponentsModule, 
 
     SplitButtonModule,
     ConfirmDialogModule,

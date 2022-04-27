@@ -63,6 +63,7 @@ filterSpecialite : Specialite[] ;
   progress1 = 0;
   message1 = '';
   fileInfos: Observable<any>;
+  cvFile: File ;
 
 
   dataSource = new MatTableDataSource();
@@ -252,7 +253,11 @@ testImage(t : string){
       },
       err => {
         this.progress = 0;
-        this.message = 'Could not upload the file!';
+        console.log(err);
+        if(err.error.message.includes("constraint"))
+        this.message =" Ce fichier existe deja"
+        else
+        this.message = ' Un probleme est survenue';
         this.currentFile = undefined;
       });
       this.formateur.cv = this.currentFile.name ;
@@ -262,6 +267,7 @@ testImage(t : string){
     this.progress1 = 0;
     this.currentFile1 = this.selectedFiles1.item(0);
     console.log("current file",this.currentFile1);
+    
     this.uploadService.upload(this.currentFile1).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -272,13 +278,18 @@ testImage(t : string){
       },
       err => {
         this.progress1 = 0;
-        this.message1 = 'Could not upload the file!';
+        console.log(err);
+        if(err.error.message.includes("constraint"))
+        this.message1 =" Cette image existe deja"
+        else
+        this.message1 = ' Un probleme est survenue';
         this.currentFile1 = undefined;
       });
     this.selectedFiles1 = undefined;
   }
   selectFile(event) {
     this.selectedFiles = event.target.files;
+    this.formateur.cv = this.selectedFiles[0].name ;
   }
   selectEtab(){
     if((this.selectedEtablissement)&&(this.selectedEtablissement[0].name == "Autre")){

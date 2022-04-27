@@ -36,7 +36,8 @@
     </div>
 </div>
 -->
-            <table class="table align-middle mb-0 bg-white">
+          <div style="width:100%;overflow-x:auto;">
+              <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                   <tr style="background-color: rgba(235, 215, 172, 0.579);">
                     <th>&emsp;Informations Personnels</th>
@@ -143,7 +144,8 @@
                   </tr>-->
                 </tbody>
               </table>
-              <p-dialog [(visible)]="candidatDialog" [style]="{width: '450px'}" header="candidat Details" [modal]="true" styleClass="p-fluid">
+          </div>
+              <p-dialog [(visible)]="candidatDialog" [style]="{width: '450px'}" header="candidat Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
                 <ng-template pTemplate="content">
                   <div class="field">
                     <label for="file" class="label-file"><i class="pi pi-external-link"></i> Ajouter une photo</label>
