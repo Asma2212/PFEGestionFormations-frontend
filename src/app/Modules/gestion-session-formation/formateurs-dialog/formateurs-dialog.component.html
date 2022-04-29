@@ -1,0 +1,105 @@
+<!--<p-table [value]="formateurs" responsiveLayout="scroll" [paginator]="true" [rows]="5" [responsive]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name">Name <p-sortIcon field="vin"></p-sortIcon></th>
+            <th pSortableColumn="year">Image</th>
+            <th pSortableColumn="price">Brand <p-sortIcon field="price"></p-sortIcon></th>
+            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+            <th style="width:4em"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-formateur>
+        <tr>
+            <td>{{formateur.firstName}}</td>
+<td>image</td>
+            <td>{{formateur.lastName}}</td>
+            <td>
+                <button type="button" pButton icon="pi pi-search" (click)="selectFormateur(formateur)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>-->
+<p-table id="excel-table" #dt [value]="formateurs" [rows]="2" [paginator]="true" [globalFilterFields]="['titre','chargeHorraire','categorie']" responsiveLayout="scroll"
+[(selection)]="selectedFormateurs"  [rowHover]="true" dataKey="i"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+<ng-template pTemplate="caption">
+    <div style="display:flex ;">
+        <h2>Formateurs :</h2>
+        <button type="button" pButton label="Ajouter Formateurs" icon="pi pi-user-plus" class="p-button-sm p-button-text" (click)="selectFormateur(selectedFormateurs)"></button>
+        <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+        </span>
+    </div>
+    
+</ng-template>
+    <ng-template pTemplate="header">
+        <tr style="background-color: rgba(202, 172, 235, 0.579);">
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            
+                <th>Informations Personnels</th>
+                <th>Specialité</th>
+                <th>Date de Naissance</th>
+                <!--<th>Genre</th>-->
+                <th>Etablissement</th>
+              </tr>
+           
+    </ng-template>
+        <ng-template pTemplate="body" let-formateur>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="formateur"></p-tableCheckbox>
+                </td>
+                <td>
+                 <div class="d-flex align-items-center">
+                   <div *ngFor="let file of fileInfos | async">
+                     <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
+                       <img [src]="file.url"
+                       alt=""
+                       style="width: 85px; height:85px;"
+                       class="rounded-circle"
+                       />
+                     </p>
+                   </div>
+                   <div class="ms-3">
+                     <p class="fw-bold mb-1"> {{formateur.firstName}} {{formateur.lastName}}</p>
+                     <p class="text-muted mb-0"> {{formateur.email}}</p>
+                     <p class="text-muted mb-0"> {{formateur.username}}</p>
+                   </div>
+                 </div>
+               </td>
+               <td>
+                 <ul *ngFor="let sp of formateur.lesSpecialites">
+                   <li>{{sp.titre}}</li>
+                 </ul>
+                 <div *ngFor="let file of fileInfos | async">
+                     <p class="list-group-item" *ngIf="file.name == formateur.cv">
+                       <a href="{{ file.url }}"> <i class="pi pi-download"></i> {{ file.name }}</a>
+                     </p>
+                   </div>
+                 <!--<p *ngIf="cvPDF(formateur)"><a href="{{ fileCV.url }}">{{ fileCV.name }}</a></p>-->
+               </td>
+               <td> {{formateur.dateNaiss}}</td>
+<!--                    <td>
+                 <span class="badge badge-success rounded-pill d-inline">Active</span>
+               </td>-->
+               <td>{{formateur.etablissement}}</td>
+             </tr>
+
+
+
+
+        </ng-template>
+
+
+  <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            En total il y'a {{formateurs ? formateurs.length : 0 }} formateurs.
+            
+        </div>
+    </ng-template> 
+
+</p-table>
+

@@ -1,10 +1,11 @@
+<p-toast></p-toast>
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="card">
                 <p-toolbar styleClass="mb-4">
                     <ng-template pTemplate="left">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-sm p-button-success mr-2" (click)="openNew()" ></button>
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-raised p-button-text mr-2" (click)="openNew()" ></button>
                     </ng-template>
             
                     <ng-template pTemplate="right">
@@ -33,7 +34,7 @@
                                 <div class="session-list-detail">
                                     <div class="session-name">{{session.titreSession}}</div>
                                     <div class="session-description">{{session.descriptionSession}}</div>
-                                    <p-rating [ngModel]="2" [readonly]="true" [cancel]="false"></p-rating>
+                                    <p-rating [ngModel]="2.5" [readonly]="true" [cancel]="false"></p-rating>
                                     <i class="pi pi-tag session-category-icon"></i><span class="session-category">cateegory</span>
                                 </div>
                                 <div class="session-list-action">
@@ -41,7 +42,7 @@
                                     <div>
                                         <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
                                         <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
-                                        </div><span [class]="'product-badge status-' + session.nivDifficulte.toLowerCase()" style="background-color: aliceblue;">{{session.nivDifficulte}}</span>
+                                        </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" [class]="'product-badge status-' + session.nivDifficulte.toLowerCase()" >{{session.nivDifficulte}}</span>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +62,7 @@
                                     <img src="../../../../assets/img/angular.png"/>
                                     <div class="session-name">{{session.titreSession}}</div>
                                     <div class="session-description">{{session.descriptionSession}}</div>
-                                    <p-rating [ngModel]="4" [readonly]="true" [cancel]="false"></p-rating>
+                                    <p-rating [ngModel]="2.5" [readonly]="true" [cancel]="false"></p-rating>
                                 </div><br>
                                 <div class="session-grid-item-bottom">
                                     <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="bottom" >10</span>
@@ -69,7 +70,7 @@
                                     <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
                                     <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
                                     </div>
-                                    <!--  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editFormation(formation)"></button>
+                                    <!--  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editsession(formation)"></button>
                                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteFormation(formation)"></button>
                                     [disabled]="session.inventoryStatus === 'OUTOFSTOCK'"-->
                                 </div>
@@ -78,5 +79,97 @@
                     </ng-template>
                 </p-dataView>
             </div>
+
+            <p-dialog [(visible)]="sessionDialog" [style]="{width: '450px'}" header="Session Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
+                <ng-template pTemplate="content">
+                    <div class="field">
+                        <label for="name">Titre</label>
+                        <input type="text" pInputText id="titre" [(ngModel)]="session.titreSession" required autofocus />
+                        <small class="p-error" *ngIf="submitted && !session.titreSession">titre est requis.</small>
+                    </div><br>
+                    <div class="field">
+                    <!--<p-fileUpload mode="basic" accept="image/*" label="Import" chooseLabel="Ajouter une image" class="p-mr-2 p-d-inline-block" (onUpload)="onUpload($event)">
+                    </p-fileUpload>-->
+                    <div class="field">
+                        <label for="file" class="label-file"><i class="pi pi-external-link"></i> Ajouter une image</label>
+                          <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="session.photoSession">
+                          <br>
+                          </div>
+                    <div *ngIf="imgURL && !session.idSession">
+                        <img [src]="imgURL" height="150">    
+                    </div>
+                    <div *ngIf="session.photoSession">
+                      <div *ngFor="let file of fileInfos | async">
+                        <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
+                          <img [src]="file.url" height="150">
+                        </p></div>   
+                  </div>
+                    <div *ngIf="currentFile" class="progress">
+                      <div
+                        class="progress-bar progress-bar-info progress-bar-striped"
+                        role="progressbar"
+                        attr.aria-valuenow="{{ progress }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        [ngStyle]="{ width: progress + '%' }">
+                        {{ progress }}%
+                      </div>
+                    </div>
+                    <button class="btn btn-success" [disabled]="!selectedFile" (click)="upload()">
+                      Upload
+                    </button>
+                    <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
+                    </div>
+                    <div class="field">
+                        <label for="description">Description</label>
+                        <textarea id="description" pInputTextarea [(ngModel)]="session.descriptionSession" required rows="3" cols="20"></textarea>
+                    </div>
+                        <div class="field">
+                            <label for="nbMaxCandidat">nombre maximal des candidats</label>
+                            <input type="number" pInputText id="nbMaxCandidat" [(ngModel)]="session.nbMaxCandidat" required autofocus  />
+                            <small class="p-error" *ngIf="submitted && !session.nbMaxCandidat">nombre maximal des candidats est requis.</small>
+                        </div>
+                    <label> niveau de difficulté </label>
+                    <div *ngFor="let niv of nivDifficulte" class="field-checkbox">
+                        <p-radioButton name="nivDiff" [value]="niv" [(ngModel)]="session.nivDifficulte" ></p-radioButton>
+                        <label for="nivDiff" style="color: black;">&nbsp;{{niv}}</label>
+                    </div>
+                    <small class="p-error" *ngIf="submitted && !session.nivDifficulte">niveau de difficulté est requis.</small>
+                    <label>Les Formateurs de cette formation :</label>
+                   <div class="field col-8"> <button pButton pRipple label="Ajouter Formateurs" icon="pi pi-user-plus" class="p-button-secondary p-button-text"  (click)="suivantSession()"></button>
+                    <small class="p-error" *ngIf="submitted && !session.listFormateurs">un formateur au minimum est requis.</small>
+                </div>
+                    <label>choisi une formation :</label>
+                   <div class="field col-8"> <button pButton pRipple label="Ajouter Formateurs" icon="pi pi-user-plus" class="p-button-secondary p-button-text"  (click)="suivantSession()"></button>
+                    <small class="p-error" *ngIf="submitted && !session.listFormateurs">un formateur au minimum est requis.</small>
+                </div>
+            
+                <div style="display: flex;">
+                    <div class="field col-6">
+                        <label for="dbDate">Date debut</label>
+                        <p-calendar [(ngModel)]="session.dateDebSession" [minDate]="minDate" [showIcon]="true" [readonlyInput]="true" inputId="dbDate"></p-calendar>
+                        <small class="p-error" *ngIf="submitted && !session.dateDebSession">date début est requis</small>
+                    </div>
+                    <div class="field col-6">
+                        <label for="finDate">Date Fin</label>
+                        <p-calendar [(ngModel)]="session.dateFinSession" [minDate]="session.dateDebSession" [showIcon]="true" [readonlyInput]="true" inputId="finDtate" [disabled]=" !session.dateDebSession"  ></p-calendar>
+                        <small class="p-error" *ngIf="submitted && !session.dateFinSession">date fin est requis.</small>
+                    </div>
+
+                </div>
+                <div *ngIf="session.dateFinSession">
+
+                </div>
+            </ng-template>
+            
+                <ng-template pTemplate="footer">
+                    <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                    <button pButton pRipple label="Ajouter" icon="pi pi-check" class="p-button-text" (click)="saveSession()"></button>
+               
+               
+                </ng-template>
+            </p-dialog>
 </div>
     </div></div>
+
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

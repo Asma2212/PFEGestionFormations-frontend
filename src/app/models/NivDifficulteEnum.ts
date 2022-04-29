@@ -1,6 +1,6 @@
 export enum NivDifficulteEnum{
-    facile = "facile",
-    moyen ="moyenne",
-    avance = "avancée"
+    facile = "FACILE",
+    moyen ="MOYEN",
+    avance = "AVANCE"
 
 }

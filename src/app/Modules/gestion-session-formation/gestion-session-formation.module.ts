@@ -29,14 +29,26 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { RatingModule } from 'primeng/rating';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { FormateursDialogComponent } from './formateurs-dialog/formateurs-dialog.component';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
   declarations: [
-    SessionFormationComponent
+    SessionFormationComponent,
+    FormateursDialogComponent
   ],
+  entryComponents: [
+    FormateursDialogComponent
+],
   imports: [
     CommonModule,
+    PanelModule,
+    FormsModule,
     GestionSessionFormationRoutingModule,
     DataViewModule,
     ConfirmDialogModule,
@@ -66,7 +78,8 @@ import { TooltipModule } from 'primeng/tooltip';
     DropdownModule,
     BadgeModule,
     TooltipModule,
-    RippleModule
+    DynamicDialogModule,
+    CalendarModule
   ]
 })
 export class GestionSessionFormationModule { }

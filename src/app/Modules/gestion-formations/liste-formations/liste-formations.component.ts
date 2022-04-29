@@ -104,13 +104,7 @@ export class ListeFormationsComponent implements OnInit {
       this.submitted = false;  
   }
 
-  /*onUpload(event) {
-    this.file = <File>event.target.files[0]
-    console.log(this.file)
-    
 
-    //this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-}*/
 
   deleteSelectedFormations() {
       this.confirmationService.confirm({

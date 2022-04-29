@@ -107,7 +107,7 @@
             <div class="field">
                 <label for="name">Titre</label>
                 <input type="text" pInputText id="titre" [(ngModel)]="formation.titre" required autofocus />
-                <small class="p-error" *ngIf="submitted && !formation.titre">titre is required.</small>
+                <small class="p-error" *ngIf="submitted && !formation.titre">titre est requis.</small>
             </div><br>
             <div class="field">
             <!--<p-fileUpload mode="basic" accept="image/*" label="Import" chooseLabel="Ajouter une image" class="p-mr-2 p-d-inline-block" (onUpload)="onUpload($event)">
@@ -155,7 +155,7 @@
                 <p-multiSelect [options]="categories" [(ngModel)]="formation.listCategories" defaultLabel="Select a categorie" optionLabel="titre" selectedItemsLabel="{0} items selected" [style]="{maxWidth: '200px'}" required></p-multiSelect>
                 
 
-                <small class="p-error" *ngIf="submitted && !formation.listCategories">categorie is required.</small>
+                <small class="p-error" *ngIf="submitted && !formation.listCategories">categorie est requis.</small>
                 <!--<div class="formgrid grid">
                     <div class="field-radiobutton col-6">
                         <p-radioButton id="category1" name="category" value="DevWeb" [(ngModel)]="formation.categorie"></p-radioButton>
@@ -171,11 +171,11 @@
                     </div>
                 </div>-->
             </div>
-    
+     
                 <div class="field">
                     <label for="chargeHorraire">charge Horraire</label>
                     <input type="text" pInputText id="chargeHorraire" [(ngModel)]="formation.charge_horaire" required autofocus />
-                    <small class="p-error" *ngIf="submitted && !formation.charge_horaire">charge Horraire is required.</small>
+                    <small class="p-error" *ngIf="submitted && !formation.charge_horaire">charge Horraire est requis.</small>
                 </div>
         </ng-template>
     
