@@ -85,6 +85,8 @@ export class AdminLoginComponent implements OnInit {
     }, error => {
       this.isError = true;
       throwError(error);
+      this.errors=error.error.message;
+
     });
 
   }

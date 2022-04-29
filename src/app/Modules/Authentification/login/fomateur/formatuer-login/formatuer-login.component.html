@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="Gibbu_@hotmail.com">
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Discord Login Form (Animated)</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.js" integrity="sha256-mkdmXjMvBcpAyyFNCVdbwg4v+ycJho65QLDwVE3ViDs=" crossorigin="anonymous"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+</head>
+<body>
+<div class="login-failed" class="fixed-top"
+     *ngIf='this.isError' style="font-size: xx-small;">
+  <p-message severity="error" text="Échec de la connexion. vérifier vos informations"></p-message>
+</div>
+<div class="login-failed" class="fixed-top" *ngIf='this.isError' style="font-size: xx-small;">
+
+  <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
+</div>
+<div id="container">
+  <div id="inviteContainer">
+    <div class="logoContainer"><img class="logo" src="https://i.pinimg.com/originals/a7/4a/65/a74a6592ac29c378cc03c600a03fc78e.png"/><img class="text" src="http://www.isetr.rnu.tn/wp-content/uploads/2018/05/cropped-logo-final2-1.png"/>
+    </div>
+    <div class="acceptContainer">
+
+      <form [formGroup]="loginForm">
+        <h1>Espace Formateur </h1>
+        <div class="formContainer">
+          <div class="formDiv" style="transition-delay: 0.2s">
+            <p>CIN<span style="color: #ff3353" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" > :invalide!<i class="fa-solid fa-circle-x"></i></span></p>
+            <input   type="text"
+                     [formControlName]="'username'"  required
+                     minlength="8" maxlength="8" required=""
+                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                     />
+          </div>
+          <div class="formDiv" style="transition-delay: 0.2s">
+            <p>EMAIL  <span style="color: #ff3353"
+                            *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">:invalide
+              <i class="fa-solid fa-circle-x"></i></span></p>
+            <input type="email" name="email" [email]="validateEmail"[formControlName]="'email'"  required=""/>
+
+
+          </div>
+          <div class="formDiv" style="transition-delay: 0.4s">
+            <p>mot de passe<span style="color: #ff3353" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+              :invalide  <i class="fa-solid fa-circle-x"></i></span></p>
+            <input type="password"
+                   [formControlName]="'password'"  required type="password"
+                   minlength="5" maxlength="20" required=""/><a class="forgotPas" href="#">FORGOT YOUR PASSWORD?</a>
+
+          </div>
+
+          <div class="" style="transition-delay: 0.6s">
+            <button class="acceptBtn" (click)="login()" id="login"  t
+                    ype="submit">Login</button><span class="register">Need an account?<a href="#">Register</a></span>
+
+
+    </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>

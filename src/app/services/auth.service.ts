@@ -13,10 +13,12 @@ import {Roles} from "../models/Roles";
 })
 export class AuthService {
   url="http://localhost:8080/api/auth/admin/";
+  urlFormateur="http://localhost:8080/formateur/";
    a:string ;
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
+  private roleFormateur: string;
 
   constructor(private http: HttpClient, private localStorage: LocalStorageService) {
   }
@@ -44,6 +46,32 @@ export class AuthService {
         },error=>{
           console.log(error)
         }));
+  }
+
+  loginFormateur(loginRequestPayload: loginRequestPayload): Observable<boolean> {
+    return this.http.post<any>(this.urlFormateur+"signin", loginRequestPayload)
+      .pipe(map(data => {
+        console.log(data);
+        this.roleFormateur="ROLE_FORMATEUR";
+        if (data.roles.includes(this.roleFormateur)){
+          this.localStorage.store('authenticationToken', data.accessToken);
+          this.localStorage.store('username', data.username);
+          this.localStorage.store('role',"formateur");}
+
+
+
+        else {
+
+
+          throw new Error('An error occurred');
+          return false;
+
+        }
+
+        return true;
+      },error=>{
+        console.log(error)
+      }));
   }
 
   getJwtToken() {

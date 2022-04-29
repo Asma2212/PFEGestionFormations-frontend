@@ -10,6 +10,8 @@ import {PagenotfoundComponent} from './Modules/NotFound404/pagenotfound/pagenotf
 import {AdminLoginComponent} from './Modules/Authentification/login/admin/admin-login/admin-login.component';
 import {AuthGuard} from "./Modules/Authentification/services/auth.guard";
 import {AuthGuradGuard} from "./Modules/Authentification/services/auth-gurad.guard";
+import {FormatuerLoginComponent} from "./Modules/Authentification/login/fomateur/formatuer-login/formatuer-login.component";
+import {CandidatRegisterComponent} from "./Modules/Authentification/login/candidat/candidat-register/candidat-register.component";
 
 const routes: Routes =[
   {
@@ -25,7 +27,9 @@ const routes: Routes =[
     }]
   },
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},
-  
+  {path:'login/formateur',component:FormatuerLoginComponent},
+  {path:"register/candidat",component:CandidatRegisterComponent},
+
   { path: '**', pathMatch: 'full',
   component: PagenotfoundComponent
 },
