@@ -17,7 +17,7 @@ import {ComponentsModule} from './../../components/components.module'
 import {SplitButtonModule} from 'primeng/splitbutton'
 import {RadioButtonModule} from 'primeng/radiobutton'
 
-
+import { MatTableModule } from '@angular/material/table';
 import { GestionFormationsRoutingModule } from './gestion-formations-routing.module';
 import { ListeFormationsComponent } from './liste-formations/liste-formations.component';
 import { ButtonModule } from 'primeng/button';
@@ -74,6 +74,7 @@ import {HttpClientModule,HttpClient} from "@angular/common/http";
     ConfirmDialogModule,
     FormsModule,
     ReactiveFormsModule,
+
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -81,14 +82,20 @@ import {HttpClientModule,HttpClient} from "@angular/common/http";
     FieldsetModule,
     MatSelectModule,
     MatTooltipModule,
-    ComponentsModule,
+    ComponentsModule, 
+
     SplitButtonModule,
     ConfirmDialogModule,
     ButtonModule,
     RippleModule,HttpClientModule,
     InputMaskModule,
     NgxFileDropModule,
-    InputNumberModule
+    InputNumberModule,
+
+
+    MatTableModule
+
+
   ],  providers: [HttpClient]
 
 })

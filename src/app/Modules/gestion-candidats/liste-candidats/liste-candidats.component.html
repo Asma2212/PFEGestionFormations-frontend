@@ -2,8 +2,15 @@
 <p-toast></p-toast> 
 <div class="main-content">
   <div class="container-fluid">
-<button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-warning p-button-outlined" (click)="openNew(candidat)"></button><!--ajouter()-->
-   <!--    <p-splitButton icon="pi pi-user-plus" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton> --> 
+
+<div style="display:flex ;">
+  <button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-warning p-button-outlined" (click)="openNew(candidat)"></button><!--ajouter()-->
+  <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (keyup)="applyFilter($event.target.value)" matInput placeholder="Search..." />
+      </span>
+</div>
+<!--    <p-splitButton icon="pi pi-user-plus" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton> --> 
         <br><br>
         <div class="row">
             <!--(onClick)="save('info')"-->
@@ -29,7 +36,8 @@
     </div>
 </div>
 -->
-            <table class="table align-middle mb-0 bg-white">
+          <div style="width:100%;overflow-x:auto;">
+              <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                   <tr style="background-color: rgba(235, 215, 172, 0.579);">
                     <th>&emsp;Informations Personnels</th>
@@ -136,38 +144,63 @@
                   </tr>-->
                 </tbody>
               </table>
-              <p-dialog [(visible)]="candidatDialog" [style]="{width: '450px'}" header="candidat Details" [modal]="true" styleClass="p-fluid">
+          </div>
+              <p-dialog [(visible)]="candidatDialog" [style]="{width: '450px'}" header="candidat Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
                 <ng-template pTemplate="content">
-                    <div class="field">
-                        <input pFileUpload type="file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="candidat.photo" class="custom-file-upload">
-                        <br><br>
-                        </div>
-                    <div *ngIf="imgURL">
-                        <img [src]="'assets/img/candidat/' + candidat.photo" height="150">    
+                  <div class="field">
+                    <label for="file" class="label-file"><i class="pi pi-external-link"></i> Ajouter une photo</label>
+                      <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="candidat.photo">
+                      <br>
+                      </div>
+                      <div *ngIf="imgURL">
+                        <img [src]="imgURL" height="150">    
                     </div>
+                  <div *ngIf="candidat.photo">
+                    <div *ngFor="let file of fileInfos | async">
+                      <p class="list-group-item" *ngIf="testImage(file.type) && file.name == candidat.photo">
+                        <img [src]="file.url" height="150">
+                      </p></div>   
+                </div>
+                  <div *ngIf="currentFile1" class="progress">
+                    <div
+                      class="progress-bar progress-bar-info progress-bar-striped"
+                      role="progressbar"
+                      attr.aria-valuenow="{{ progress1 }}"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      [ngStyle]="{ width: progress1 + '%' }">
+                      {{ progress1 }}%
+                    </div>
+                  </div>
+                  <button class="btn btn-success" [disabled]="!selectedFiles1" (click)="upload1()">
+                    Upload
+                  </button>
+                  <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div>
+                  
                     <div class="field">
                         <label for="name">CIN</label>
-                        <input type="text" pInputText id="cin" [(ngModel)]="candidat.username" required autofocus />
+                        <p-inputNumber id="cin" [(ngModel)]="candidat.username" required autofocus mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [maxlength]="8" >
+                      </p-inputNumber> 
                         <small class="p-error" *ngIf="submitted && !candidat.username">cin is required.</small>
                     </div><br>
                     <div class="field">
                         <label for="name">Nom</label>
-                        <input type="text" pInputText id="nom" [(ngModel)]="candidat.lastName" required autofocus />
+                        <input type="text" pInputText id="nom" [(ngModel)]="candidat.lastName" required />
                         <small class="p-error" *ngIf="submitted && !candidat.lastName">nom is required.</small>
                     </div><br>
                     <div class="field">
                         <label for="name">Prenom</label>
-                        <input type="text" pInputText id="prenom" [(ngModel)]="candidat.name" required autofocus />
+                        <input type="text" pInputText id="prenom" [(ngModel)]="candidat.name" required />
                         <small class="p-error" *ngIf="submitted && !candidat.name">prenom is required.</small>
                     </div><br>
                     <div class="field">
                         <label for="name">Email</label>
-                        <input type="email" pInputText id="email" [(ngModel)]="candidat.email" required autofocus />
+                        <input type="email" pInputText id="email" [(ngModel)]="candidat.email" required />
                         <small class="p-error" *ngIf="submitted && !candidat.email">email is required.</small>
                     </div><br>
                     <div class="field">
                         <label for="name">N° téléphone</label>
-                        <input type="tel" pInputText id="numTel" [(ngModel)]="candidat.numTel" required autofocus />
+                        <input type="tel" pInputText id="numTel" [(ngModel)]="candidat.numTel" required />
                         <small class="p-error" *ngIf="submitted && !candidat.numTel">num tel is required.</small>
                     </div><br>
                     <div class="field">
@@ -198,16 +231,17 @@
                                           </p-multiSelect>-->
 
                       <p-multiSelect [options]="listDep" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" ></p-multiSelect>
-                       <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)"></p-multiSelect>
-                      <small class="p-error" *ngIf="submitted && !candidat.specialites">specialité is required.</small>
+                      <small class="p-error" *ngIf="submitted && !candidat.department">departement is required.</small>
+                      <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)"></p-multiSelect>
+                      <small class="p-error" *ngIf="submitted && !candidat.classe">classe is required.</small>
                     </div>
             
 
                 </ng-template>
             
                 <ng-template pTemplate="footer">
-                    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-                    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveCandidat()"></button>
+                    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-warning p-button-text" (click)="hideDialog()"></button>
+                    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-warning p-button-text" (click)="saveCandidat()"></button>
                 </ng-template>
             </p-dialog>
         </div>

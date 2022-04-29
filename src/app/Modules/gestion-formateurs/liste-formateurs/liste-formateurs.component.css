@@ -68,3 +68,6 @@ th{
 .input-file {
     display: none;
 }
+th{
+  background-color: rgba(202, 172, 235, 0.579);
+}

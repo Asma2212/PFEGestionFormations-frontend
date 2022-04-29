@@ -1,5 +1,5 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Etablissement } from 'app/models/Etablissement';
 import { Formateur } from 'app/models/Formateur';
@@ -12,6 +12,9 @@ import { ConfirmationService, MenuItem, MessageService, SelectItem, SelectItemGr
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'app/services/upload-file.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-liste-formateurs',
@@ -29,22 +32,28 @@ export class ListeFormateursComponent implements OnInit {
   homme : string ;
   items: MenuItem[];
   formateurs: Formateur[];
-  formateur : Formateur ;
+  f: Formateur[];
+  formateurs1: Formateur[];
+  formateursSp: Formateur[];
+  formateur : Formateur = null;
   specialites : Specialite[];
   groupedSpecialites: SelectItemGroup[];
   sortOptions: SelectItem[];
-
+  allFormateurs : Formateur[];
+  filterEtab : Etablissement[] ;
+filterSpecialite : Specialite[] ;
   sortOrder: number;
 
   sortField: string;
 
   formateurDialog: boolean;
   submitted: boolean;
+
   uploadedFiles: any[] = [];
   file: File = null;
   fileCV: File = null;
   public imagePath;
-  imgURL: any;
+  imgURL: any = null;
   selectedFiles: FileList;
   currentFile: File;
   progress = 0;
@@ -54,10 +63,43 @@ export class ListeFormateursComponent implements OnInit {
   progress1 = 0;
   message1 = '';
   fileInfos: Observable<any>;
-//private formateurService: FormateurService
-  constructor(private formateurService : FormateurService ,private uploadService: UploadFileService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
+  cvFile: File ;
 
+
+  dataSource = new MatTableDataSource();
+  displayedColumns: string[] = ['firstName','lastName','lesSpecialite'];
+  filterSelectObj = [];
+  filterValues = {};
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  constructor(private formateurService : FormateurService ,private uploadService: UploadFileService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) {   
+  this.filterSelectObj = [
+    {
+      name: 'ID',
+      columnProp: 'id',
+      options: []
+    }, {
+      name: 'NAME',
+      columnProp: 'name',
+      options: []
+    }, {
+      name: 'USERNAME',
+      columnProp: 'username',
+      options: []
+    }, {
+      name: 'EMAIL',
+      columnProp: 'email',       
+      options: []
+    }, {
+      name: 'STATUS',
+      columnProp: 'status',
+      options: []
+    }
+  ]
+}
   ngOnInit() {
+    
     this.fileInfos = this.uploadService.getFiles();
     this.listEtablissement = [
       {code : "IR.png",name:"ISET Rades"},
@@ -97,19 +139,101 @@ export class ListeFormateursComponent implements OnInit {
   }
 ];
     
-     /*    this.specialiteService.getAllSpecialite().toPromise().then( data => {
-        this.specialites = data ;
-          console.log("everthing is okay geet categorie",data)
-        });*/
         this.formateurService.getAllFormateurs().toPromise().then( data => {
           this.formateurs = data ;
             console.log("everthing is okay geet",data)
+            console.log("****",this.formateurs)
+            this.allFormateurs = this.formateurs;
+            this.dataSource.data = this.formateurs ;
+            console.log(this.dataSource.data)
           });
+        
           this.specialiteService.getAllSpecialites().toPromise().then( data =>{
             this.specialites = data ; 
             console.log("speciaalie :",data) });
+
+
+
+            
            
   }
+
+  getFilterObject(fullObj, key) {
+    const uniqChk = [];
+    fullObj.filter((obj) => {
+      if (!uniqChk.includes(obj[key])) {
+        uniqChk.push(obj[key]);
+      }
+      return obj;
+    });
+    return uniqChk;
+  }
+
+
+  resetFilters() {
+    this.filterValues = {}
+    this.filterSelectObj.forEach((value, key) => {
+      value.modelValue = undefined;
+    })
+    this.dataSource.filter = "";
+  }
+
+
+  applyFilter(filterValue : string){
+    console.log("ff",filterValue);
+   let filterValueLower = filterValue.toLowerCase();
+if(filterValue === '' && this.filterSpecialite== null && this.filterEtab== null) {
+  this.formateurs=this.allFormateurs;
+} 
+else 
+if(filterValue === '' && this.filterSpecialite)
+this.formateurs = this.formateursSp;
+else
+if(filterValue === '' && this.filterEtab)
+this.formateurs = this.formateurs1;
+else{
+this.formateurs = this.formateurs.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(filterValue));
+}
+  }
+  applyFilter1(){
+    if(this.filterEtab){
+if(this.filterEtab[0]== null && this.filterSpecialite== null) {
+  console.log("dkhaall hnee1");
+  this.formateurs=this.allFormateurs;
+} 
+else 
+if(this.filterEtab[0]== null)
+this.formateurs = this.formateursSp ;
+else
+{
+  let filterValueLower = this.filterEtab[0].name.toLowerCase();
+  console.log("ff1",this.filterEtab[0].name);
+this.formateurs = this.formateurs.filter(f => f.etablissement.toLowerCase().includes(filterValueLower));
+this.formateurs1= this.formateurs;
+//this.allFormateurs = this.formateurs ;
+}}
+  }
+
+  applyFilterSp(s : any){
+    if(this.filterSpecialite){
+
+   console.log("ff1",this.filterSpecialite[0]);
+if(this.filterSpecialite[0]== null && this.filterEtab== null) {
+  console.log("dkhaall hnee");
+  this.formateurs=this.allFormateurs;
+} 
+else
+if(this.filterSpecialite[0]== null)
+this.formateurs = this.formateurs1 ;
+else {
+  console.log("ff1",this.filterSpecialite[0]);
+this.formateurs = this.formateurs.filter(f =>
+   f.lesSpecialites.find(sp => sp.titre === this.filterSpecialite[0].titre)
+   );
+   this.formateursSp = this.formateurs
+}}
+  }
+
 testImage(t : string){
    return t.includes("image") ;
 }
@@ -129,7 +253,11 @@ testImage(t : string){
       },
       err => {
         this.progress = 0;
-        this.message = 'Could not upload the file!';
+        console.log(err);
+        if(err.error.message.includes("constraint"))
+        this.message =" Ce fichier existe deja"
+        else
+        this.message = ' Un probleme est survenue';
         this.currentFile = undefined;
       });
       this.formateur.cv = this.currentFile.name ;
@@ -139,6 +267,7 @@ testImage(t : string){
     this.progress1 = 0;
     this.currentFile1 = this.selectedFiles1.item(0);
     console.log("current file",this.currentFile1);
+    
     this.uploadService.upload(this.currentFile1).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -149,13 +278,18 @@ testImage(t : string){
       },
       err => {
         this.progress1 = 0;
-        this.message1 = 'Could not upload the file!';
+        console.log(err);
+        if(err.error.message.includes("constraint"))
+        this.message1 =" Cette image existe deja"
+        else
+        this.message1 = ' Un probleme est survenue';
         this.currentFile1 = undefined;
       });
     this.selectedFiles1 = undefined;
   }
   selectFile(event) {
     this.selectedFiles = event.target.files;
+    this.formateur.cv = this.selectedFiles[0].name ;
   }
   selectEtab(){
     if((this.selectedEtablissement)&&(this.selectedEtablissement[0].name == "Autre")){
@@ -183,7 +317,6 @@ testImage(t : string){
       this.imgURL = reader.result;
       console.log("imaage",this.imgURL) 
     }
-    this.formateur.photo=this.file.name ;
   }
   onSortChange(event) {
       let value = event.value;
@@ -219,30 +352,29 @@ deleteFormateur(formateur: Formateur) {
             console.log(formateur.id);
             this.formateurService.deleteFormateur(formateur.id).subscribe( data => {
               console.log("data Formateur deleted",data)
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
+              window.location.reload();
             });
             this.formateur = null;
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
-            window.location.reload();
+
         }
     });
     
-}
+} 
 
 saveFormateur() {
   console.log(typeof(this.formateur.username.toString()));
   console.log(this.femme);
   this.submitted = true;
-  //this.formateur.photo=this.file.name ;
 
+ 
   if(this.femme){
-   // this.genre.id = 2 ;
-  // this.genre.name = this.egf;
+
    console.log("geenre",Egenre.FEMME);
     this.formateur.genre = {id : 2 , name : Egenre.FEMME} ;
  }
  if(this.homme){
-   //this.genre.id = 1 ; 
-   //this.genre.name = this.egh ;
+
    this.formateur.genre = null ;
 } 
   if (this.formateur.id) {
@@ -256,16 +388,11 @@ saveFormateur() {
     
 }
 else {
-   // this.formateurs.push(this.formateur);
- /*   this.formateurService.saveFormateurData(formData).subscribe( data => {
-    
-      console.log("data type",data.type)
-      console.log("data get",data.get)
-      console.log("data",data)
-    }); */
+  this.formateur.photo=this.file.name ;
     if(this.selectedEtablissement[0].name!="Autre")
     this.formateur.etablissement=this.selectedEtablissement[0].name ;
     console.log("heeedhyyy",this.formateur)
+   // this.formateur.password = "xx"
     this.formateurService.saveFormateur(this.formateur).subscribe( data => {
       console.log("data save Formateur",data);
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
@@ -273,6 +400,8 @@ else {
     },
     error =>
    {
+    this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000}); 
+    this.formateur.photo = null ;
   console.log("exception occured");});
 }
 
@@ -307,12 +436,6 @@ hideDialog() {
 
 }
 
-/*setGenre(){
 
- if(this.formateur.genre.id == 2)
- {
-   this.femme = true ;
-   console.log(this.formateur.genre)
- }
-}*/
+
 }

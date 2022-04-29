@@ -1,32 +1,63 @@
 <p-toast></p-toast> 
-<button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-help p-button-outlined" (click)="openNew(formateur)"></button> <!--(click)="ajouter()"-->
-   <!--    <p-splitButton icon="pi pi-user-plus" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton> --> 
-        <br><br>
-        <div class="row">
-            <!--(onClick)="save('info')"-->
-<!--            <div class="col-md-3" *ngFor="let i of counter(5)"><!--*ngFor="let formateur of formateurs"-->
-  <!-- <div class="card card-chart">
-        <div class="card-header">
-                <img src="../../../../assets/img/faces/marc.jpg" width="80%" style="position: static;"/>
-        </div>
-        <div class="card-body" style="display: inline;;">
-            <h4 class="card-title">nomFormateurr</h4><!--{{formateur.nom}}
-            <p class="card-category">
-                specialité : 
-            </p>
-            <button pButton pRipple icon="pi pi-user-edit" class="p-button-rounded p-button-success mr-2" (click)="editFormateur(formateur)"></button>
-            <button pButton pRipple icon="pi pi-user-minus" class="p-button-rounded p-button-warning" (click)="deleteFormateur(formateur)"></button>
-        </div>
-        <div class="card-footer">
-            <div class="stats">
-               <p> <i class="material-icons">access_time</i> <span class="text-success"><i class="fa fa-long-arrow-up"></i> 50 </span> sessions de formation</p>
-               <button pButton pRipple icon="pi pi-plus-circle" class="p-button-rounded p-button-help p-button-text" (click)="readMore(formateur)"></button>
-            </div>
-        </div>
-    </div>
+<div style="display:flex ;">
+  <button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-help p-button-outlined" (click)="openNew(formateur)"></button> <!--(click)="ajouter()"-->  
+      <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (keyup)="applyFilter($event.target.value)" matInput placeholder="Search..." />
+      </span>
 </div>
--->
-            <table  class="table align-middle mb-0 bg-white">
+<br>
+<span class="p-input-icon-left" style="margin-left: 60px;margin-right: 0px;border: 2px;">
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon" style="background-color: rgba(230, 210, 251, 0.374);border-color: rgb(96, 72, 123);color: rgb(96, 72, 123);"><i class="pi pi-filter"></i> &nbsp; filtrer par etablissement</span>
+        <p-multiSelect [options]="listEtablissement" [(ngModel)]="filterEtab" (onClick)="applyFilter1()"  matInput [selectionLimit]="1" optionLabel="name" display="chip" (click)="selectEtab()">
+          <ng-template let-etab pTemplate="item">
+              <div style="display:flex;">
+                  <img src="../../../../assets/img/etablissement/{{etab.code}} " style="width: 25px; margin-right: 10px;margin-left: 5px;"/>
+                  <div>{{etab.name}}</div>
+              </div>
+          </ng-template>
+      </p-multiSelect>
+  </div>
+      </span>
+      <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon" style="background-color: rgba(230, 210, 251, 0.374);border-color: rgb(96, 72, 123);color: rgb(96, 72, 123);"><i class="pi pi-filter"></i> &nbsp; filtrer par specialité</span>
+        <p-multiSelect [options]="specialites" [(ngModel)]="filterSpecialite" [selectionLimit]="1" (onClick)="applyFilterSp($event.target.value)"  optionLabel="titre" display="chip"></p-multiSelect>
+        </div>
+      </span>
+      <br><br>
+        <div class="row">
+<!--          <div class="example-container mat-elevation-z8">
+            <div class="example-table-container">
+              <table mat-table [dataSource]="dataSource" matSort>
+          
+         
+                <ng-container matColumnDef="firstName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> firtName </th>
+                  <td mat-cell *matCellDef="let element" class='m-card-title' test data-label='Riskplan'>
+                     <p class="fw-bold mb-1"> {{element.firstName}} {{element.lastName}}
+                    <p class="text-muted mb-0"> {{element.email}}</p>
+                    <p class="text-muted mb-0"> {{element.username}}</p></td>
+                </ng-container>
+          
+                <ng-container matColumnDef="lastName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> lastName </th>
+                  <td mat-cell *matCellDef="let element" class='m-card-sub-title' data-label='Form type'> {{element.lastName}} </td>
+                </ng-container>
+          
+           
+               
+          
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+            <mat-paginator [pageSizeOptions]="[10, 20, 30]"></mat-paginator>
+          </div>-->
+          <br><br>
+          <div style="width:100%;overflow-x:auto;">
+            <table class="table align-middle mb-0 bg-white" responsiveLayout="scroll" showCurrentPageReport="true" globalFilterFields="firstName">
                 <thead class="bg-light">
                   <tr style="background-color: rgba(202, 172, 235, 0.579);">
                     <th>&emsp;Informations Personnels</th>
@@ -39,7 +70,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let formateur of formateurs">
-                    <td>
+                     <td>
                       <div class="d-flex align-items-center">
                         <div *ngFor="let file of fileInfos | async">
                           <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
@@ -180,16 +211,18 @@
                   </tr>-->
                 </tbody>
               </table>
-              <p-dialog [(visible)]="formateurDialog" [style]="{width: '640px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" >
-                <ng-template pTemplate="content">
+            </div>
+            <p-dialog  [(visible)]="formateurDialog" [style]="{width: '640px'}" header="Formateur Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true" maximizable="true" [resizable]="true">
+                 
+            <ng-template pTemplate="content">
                     <div class="field">
                       <label for="file" class="label-file"><i class="pi pi-external-link"></i> Ajouter une photo</label>
                         <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="formateur.photo">
                         <br>
                         </div>
-                    <div *ngIf="imgURL">
-                        <img [src]="imgURL" height="150">    
-                    </div>
+                        <div *ngIf="imgURL">
+                          <img [src]="imgURL" height="150">    
+                      </div>
                     <div *ngIf="formateur.photo">
                       <div *ngFor="let file of fileInfos | async">
                         <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formateur.photo">
@@ -235,7 +268,7 @@
                                      
                           </div>
                       </div>
-                      <small class="p-error" *ngIf="submitted && !formateur.lastname">nom is required.</small>
+                      <small class="p-error" *ngIf="submitted && !formateur.lastName">nom is required.</small>
                     </div>
                     <div class="field">
                         <label for="prenom">Prenom</label>
@@ -247,7 +280,7 @@
                           </div>
                       </div>
                         
-                        <small class="p-error" *ngIf="submitted && !formateur.name">prenom is required.</small>
+                        <small class="p-error" *ngIf="submitted && !formateur.firstName">prenom is required.</small>
                     </div>
                   </div><br>
                     <div class="field">
@@ -279,7 +312,7 @@
                       <div class="col-12 md:col-4">
                         <div class="p-inputgroup">
                             <span class="p-inputgroup-addon"><i class="pi pi-calendar"></i></span>
-                            <input type="date" pInputText id="dateNaiss" [(ngModel)]="formateur.dateNaiss" />
+                            <input type="date" pInputText id="dateNaiss" [(ngModel)]="formateur.dateNaiss"  max="2018-12-31"/>
                                 
                         </div>
                         <small class="p-error" *ngIf="submitted && !formateur.dateNaiss">date naissance is required.</small>
@@ -344,14 +377,23 @@
                   <div class="col-12 md:col-4">
                     <div style="display: flex;">
                         <span class="p-inputgroup-addon"><i class="pi pi-sitemap"></i></span>
-                      <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip"></p-multiSelect>
+                      <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip" [style]="{maxWidth: '200px'}"></p-multiSelect>
                     </div>
                       <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité is required.</small>
                   </div></div>    </div><br>
                     <div class="field">
+                     
+                      
+                      <label class = "label-file"><i class="pi pi-external-link"></i> Ajouter CV format PDF
+                        <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)"/>
+                      </label>
                       <div *ngIf="formateur.cv">
                         <p>{{formateur.cv}}</p>
                       </div>
+      
+                      <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+                        Upload
+                      </button>
                       <div *ngIf="currentFile" class="progress">
                         <div
                           class="progress-bar progress-bar-info progress-bar-striped"
@@ -363,13 +405,6 @@
                           {{ progress }}%
                         </div>
                       </div>
-                      
-                      <label class = "label-file"><i class="pi pi-external-link"></i> Ajouter CV format PDF
-                        <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)" />
-                      </label>
-                      <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-                        Upload
-                      </button>
                       <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
 
                       <div class="card">
@@ -390,7 +425,11 @@
                     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-help p-button-text" (click)="hideDialog()"></button>
                     <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-help p-button-text" (click)="saveFormateur()"></button>
                 </ng-template>
-            </p-dialog>
+            
+            
+            
+              </p-dialog>
+          
         </div>
         <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 

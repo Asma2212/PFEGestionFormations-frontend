@@ -24,6 +24,7 @@ import { GestionCandidatsModule } from 'app/Modules/gestion-candidats/gestion-ca
 import { SharedModule } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
+import { GestionSessionFormationModule } from 'app/Modules/gestion-session-formation/gestion-session-formation.module';
 
 
 @NgModule({
@@ -50,9 +51,11 @@ import { CardModule } from 'primeng/card';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    SidebarModule,
     GestionFormationsModule,
     GestionFormateursModule,
-    GestionCandidatsModule
+    GestionCandidatsModule,
+    GestionSessionFormationModule
   ],
   declarations: [
     DashboardComponent,

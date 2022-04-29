@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpEventType, HttpParams, HttpResponse } from '@angular/common/http';
 import { collectExternalReferences, ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Categorie } from 'app/models/Categorie';
@@ -11,6 +11,8 @@ import * as XLSX from 'xlsx';
 import * as html2pdf from 'html2pdf.js' ;
 
 import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
+import { Observable } from 'rxjs';
+import { UploadFileService } from 'app/services/upload-file.service';
 @Component({
   selector: 'app-liste-formations',
   templateUrl: './liste-formations.component.html',
@@ -46,10 +48,15 @@ export class ListeFormationsComponent implements OnInit {
   public message: string;
   categorie : Categorie ;
     fileName = 'ExcelSheet.xlsx';
+    selectedFiles1: FileList;
+    currentFile1: File;
+    progress1 = 0;
+    message1 = '';
+    fileInfos: Observable<any>;
 
   //statuses: any[]; , private messageService: MessageService, private confirmationService: ConfirmationService
 
-  constructor(private formationService: FormationService,private categorieService : CategorieService,private confirmationService : ConfirmationService , private messageService : MessageService ) { }
+  constructor(private formationService: FormationService,private uploadService : UploadFileService, private categorieService : CategorieService,private confirmationService : ConfirmationService , private messageService : MessageService ) { }
  
   ngOnInit() {
   /* this.categories = [{
@@ -73,7 +80,7 @@ export class ListeFormationsComponent implements OnInit {
         console.log(" save cat data",data)
       });*/
     
-    
+      this.fileInfos = this.uploadService.getFiles();
       this.categorieService.getAllCategories().toPromise().then( data => {
         this.categories = data ;
           console.log("everthing is okay geet categorie",data)
@@ -104,25 +111,6 @@ export class ListeFormationsComponent implements OnInit {
 
     //this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
 }*/
-onUpload(event){
-    this.file = <File>event.target.files[0]
-    console.log(this.file)
-    var mimeType = event.target.files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      return;
-    }
- 
-    var reader = new FileReader();
-    
-    this.imagePath = this.file;
-    reader.readAsDataURL(this.file); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result;
-      console.log("imaage",this.imgURL) 
-    }
-    this.formation.image=this.file.name ;
-  }
 
   deleteSelectedFormations() {
       this.confirmationService.confirm({
@@ -134,13 +122,15 @@ onUpload(event){
               console.log(this.selectedFormations);
               this.formationService.deleteAllFormation(this.selectedFormations).subscribe(
                 res => {
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formations Deleted', life: 3000});
                 console.log('Formations successfully deleted');
+                window.location.reload();
                 }, err => {
                    console.log('Something went wrong during deleting formations');
                           }
                       );
               this.selectedFormations = null;
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formations Deleted', life: 3000});
+              
           }
       });
   }
@@ -161,18 +151,70 @@ onUpload(event){
               this.formations = this.formations.filter(val => val.idFormation !== formation.idFormation);
               console.log(formation.idFormation);
               this.formationService.deleteFormation(formation.idFormation).subscribe( data => {
-                console.log("data Formation deleted",data)
+                console.log("data Formation deleted",data);
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formation Deleted', life: 3000});
+                window.location.reload();
               });
               this.formation = null;
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formation Deleted', life: 3000});
+
           }
       });
   }
-
+  upload1() {
+    this.progress1 = 0;
+    this.currentFile1 = this.selectedFiles1.item(0);
+    console.log("current file",this.currentFile1);
+    this.uploadService.upload(this.currentFile1).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress1 = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message1 = event.body.message;
+        }
+      },
+      err => {
+        this.progress1 = 0;
+        if(err.error.message.includes("constraint"))
+        this.message1 =" Cette image existe deja"
+        else
+        this.message1 = ' Un probleme est survenue';
+        this.currentFile1 = undefined;
+      });
+    this.selectedFiles1 = undefined;
+  }
   hideDialog() {
       this.formationDialog = false;
       this.submitted = false;
       this.imgURL = null ;
+      this.uploadedFiles = [];
+      this.file  = null;
+      this.selectedFiles1 = null;
+      this.currentFile1=null;
+      this.progress1 = 0;
+      this.message1 = '';
+  }
+  testImage(t : string){
+    return t.includes("image") ;
+ }
+  onUpload(event){
+    this.selectedFiles1 = event.target.files;
+    this.file = <File>event.target.files[0]
+    console.log(this.file)
+    var mimeType = event.target.files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+ 
+    var reader = new FileReader();
+    
+    this.imagePath = this.file;
+    reader.readAsDataURL(this.file); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result;
+      console.log("imaage",this.imgURL) 
+    }
+
   }
 
   saveFormation() {
@@ -181,27 +223,19 @@ onUpload(event){
       this.formation.image=this.file.name ;
       console.log("heeeeyy",this.formation,this.formation.titre,this.formation.listCategories,this.formation.image);
      const formData = new  FormData();
-    /*  const params = new HttpParams()
-      .set('file', this.imgURL)
-      .set('Titre', this.formation.titre.toString())
-      .set('charge_horraire',this.formation.chargeHorraire.toString())
-      .set('details',this.formation.detail.toString())
-      .set('listCategories',JSON.stringify(this.formation.listCategories));*/
-      formData.append('file',this.file);
-      formData.append('Titre',this.formation.titre.toString());
-      formData.append('charge_horraire',this.formation.charge_horaire.toString());
-      formData.append('details',this.formation.details.toString());
-      formData.append('listCategories',JSON.stringify(this.formation.listCategories)); 
     
       if (this.formation.titre.trim()) {
           if (this.formation.idFormation) {
               this.formations[this.findIndexById(this.formation.idFormation.toString())] = this.formation;
               this.formationService.updateFormation(this.formation).subscribe( data => {
                 console.log("data update Formation",data)
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation Updated', life: 3000});
+                window.location.reload();
               });
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation Updated', life: 3000});
+              
           }
           else {
+            this.formation.image=this.file.name ;
               this.formations.push(this.formation);
            /*   this.formationService.saveFormationData(formData).subscribe( data => {
               
@@ -210,10 +244,13 @@ onUpload(event){
                 console.log("data",data)
               }); */
               console.log("heeedhyyy",this.formation)
+              
               this.formationService.saveFormation(this.formation).subscribe( data => {
                 console.log("data save Formation",data)
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation ajouter', life: 3000});
+                window.location.reload();
               });
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation ajouter', life: 3000});
+              
           }
 
           this.formations = [...this.formations];

@@ -1,3 +1,4 @@
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Candidat } from 'app/models/Candidat';
@@ -5,7 +6,9 @@ import { Classe } from 'app/models/Classe';
 import { Department } from 'app/models/Departement';
 import { CandidatService } from 'app/services/candidat.service';
 import { DepartementService } from 'app/services/departement.service';
+import { UploadFileService } from 'app/services/upload-file.service';
 import { ConfirmationService, MessageService, SelectItem, SelectItemGroup } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-liste-candidats',
@@ -29,6 +32,7 @@ export class ListeCandidatsComponent implements OnInit {
   classItem : SelectItem ;
   listclass : SelectItem[];
   sortOrder: number;
+  allCandidats : Candidat[]
 
   sortField: string;
 
@@ -39,8 +43,13 @@ export class ListeCandidatsComponent implements OnInit {
   public imagePath;
   imgURL: any;
   public message: string;
+  selectedFiles1: FileList;
+  currentFile1: File;
+  progress1 = 0;
+  message1 = '';
+  fileInfos: Observable<any>;
 
-  constructor(private candidatService : CandidatService ,private departementService : DepartementService, private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
+  constructor(private candidatService : CandidatService ,private uploadService : UploadFileService ,private departementService : DepartementService, private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
   ngOnInit() {
     this.departementService.getAllDepartements().toPromise().then( data =>{
@@ -81,7 +90,11 @@ export class ListeCandidatsComponent implements OnInit {
   ];*/
       
      this.candidatService.getAllCandidats().toPromise().then(
-       data => this.candidats = data);
+       data => {
+       this.candidats = data ;
+       this.allCandidats = this.candidats ;
+       });
+       
 
   }
 
@@ -106,24 +119,50 @@ export class ListeCandidatsComponent implements OnInit {
  ajouter(){
     this.router.navigateByUrl('/candidats/ajouter');
  }
-  onUpload(event){
-    this.file = <File>event.target.files[0]
-    console.log(this.file)
-    var mimeType = event.target.files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      return;
-    }
- 
-    var reader = new FileReader();
-    
-    this.imagePath = this.file;
-    reader.readAsDataURL(this.file); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result;
-      console.log("imaage",this.imgURL) 
-    }
+ testImage(t : string){
+  return t.includes("image") ;
+}
+ upload1() {
+  this.progress1 = 0;
+  this.currentFile1 = this.selectedFiles1.item(0);
+  console.log("current file",this.currentFile1);
+  this.uploadService.upload(this.currentFile1).subscribe(
+    event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress1 = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        this.message1 = event.body.message;
+      }
+    },
+    err => {
+      this.progress1 = 0;
+      if(err.error.message.includes("constraint"))
+        this.message1 =" l'image existe deja"
+        else
+        this.message1 = ' Un probleme est survenue';
+      this.currentFile1 = undefined;
+    });
+  this.selectedFiles1 = undefined;
+}
+ onUpload(event){
+  this.selectedFiles1 = event.target.files;
+  this.file = <File>event.target.files[0]
+  console.log(this.file)
+  var mimeType = event.target.files[0].type;
+  if (mimeType.match(/image\/*/) == null) {
+    this.message = "Only images are supported.";
+    return;
   }
+
+  var reader = new FileReader();
+  
+  this.imagePath = this.file;
+  reader.readAsDataURL(this.file); 
+  reader.onload = (_event) => { 
+    this.imgURL = reader.result;
+    console.log("imaage",this.imgURL) 
+  }
+}
   onSortChange(event) {
       let value = event.value;
 
@@ -145,7 +184,7 @@ export class ListeCandidatsComponent implements OnInit {
 
 deleteCandidat(candidat: Candidat) {
     this.confirmationService.confirm({
-        message: 'Are you sure you want to delete ?',//' + formateur.name + 'Are you sure you want to delete' + formateur.name + ' ?'
+        message: 'Are you sure you want to delete ?',//' + candidat.name + 'Are you sure you want to delete' + candidat.name + ' ?'
         header: 'Confirm',
         icon: 'pi pi-exclamateur-triangle',
         accept: () => {
@@ -163,7 +202,7 @@ deleteCandidat(candidat: Candidat) {
 saveCandidat() {
   this.submitted = true;
  // if(this.file)
-  //this.formateur.photo=this.file.name ;
+  //this.candidat.photo=this.file.name ;
   this.candidat.department = this.listD[0];
   this.candidat.classe = this.listC[0];
   if (this.candidat.id) {
@@ -174,6 +213,7 @@ saveCandidat() {
 }
 else {
     console.log("heeedhyyy",this.candidat)
+    this.candidat.photo=this.file.name ;
     this.candidatService.saveCandidat(this.candidat).subscribe( data => {
       console.log("data save candidat",data)
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
@@ -206,8 +246,31 @@ openNew(candidat: Candidat) {
   this.candidatDialog = true;
 
 }
+hideDialog() {
+  this.candidatDialog = false;
+  this.candidat = null ;
+  this.submitted = false;
+  this.imgURL = null ;
+  this.uploadedFiles = [];
+  this.file  = null;
+  this.message = '';
+  this.selectedFiles1 = null;
+  this.currentFile1=null;
+  this.progress1 = 0;
+  this.message1 = '';
 
+}
 
+applyFilter(filterValue : string){
+  console.log("ff",filterValue);
+ let filterValueLower = filterValue.toLowerCase();
+if(filterValue === '') {
+this.candidats=this.allCandidats;
+} 
+else{
+this.candidats= this.allCandidats.filter(f => f.name.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(filterValue));
+}
+}
 
 }
 

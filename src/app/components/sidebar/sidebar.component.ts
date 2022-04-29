@@ -13,6 +13,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/formation', title: 'Gestion Formations',  icon:'model_training', class: '' },
     { path: '/formateurs/list', title: 'Gestion Formateurs',  icon:'person', class: '' },
     { path: '/candidats/list', title: 'Gestion Candidats',  icon:'school', class: '' },
+    { path: '/sessionsFormation', title: 'Sessions de formation',  icon:'school', class: '' },
 ];
  
 @Component({
