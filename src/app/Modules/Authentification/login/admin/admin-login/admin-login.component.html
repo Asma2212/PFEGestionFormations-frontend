@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         <input  placeholder="email" type="email"  id="email_signup" name="email_signup" [email]="validateEmail"[formControlName]="'email_signup'"   required/>
-                      <span style="color: #ff3353" *ngIf="!signupForm.get('email_signup').valid && signupForm.get('email_signup').touched">email unvalide <i class="fa-solid fa-circle-x"></i></span>
+                      <span style="color: #ff3353" *ngIf="!signupForm.get('email_signup').valid && signupForm.get('email_signup').touched">email invalide <i class="fa-solid fa-circle-x"></i></span>
 
                     </div>
                     <div class="form-group">
@@ -59,12 +59,12 @@
                         <input type="text" id="user_name" [formControlName]="'username'"  required
                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                minlength="8" maxlength="8"
-                               autofocus  />
+                                 />
 
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>CIN</label>
-                        <span style="color: #ff3353" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" >CIN unvalide!<i class="fa-solid fa-circle-x"></i></span>
+                        <span style="color: #ff3353" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" >CIN invalide!<i class="fa-solid fa-circle-x"></i></span>
                     </div>
                     <div class="group">
                         <input type="email" id="email" name="email" [email]="validateEmail"[formControlName]="'email'"    required

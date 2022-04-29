@@ -37,47 +37,52 @@ import {BrowserModule} from '@angular/platform-browser';
 import {TokenInterceptor} from "./Modules/Authentification/login/admin/admin-login/TokenInterceptor";
 import {ToastrModule} from "ngx-toastr";
 import {MessageModule} from "primeng/message";
+import {FormatuerLoginComponent} from "./Modules/Authentification/login/fomateur/formatuer-login/formatuer-login.component";
+import {TooltipModule} from "primeng/tooltip";
+import { CandidatRegisterComponent } from './Modules/Authentification/login/candidat/candidat-register/candidat-register.component';
 
 @NgModule({
-    imports: [BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        SidebarModule,
-        ButtonModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        ButtonModule,
-        SidebarModule,
-        PanelModule,
-        CommonModule,
-        SharedModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        ComponentsModule,
-        ButtonModule,
-        ToastModule,
-        ToolbarModule,
-        TableModule,
-        RouterModule,
-        AppRoutingModule,
-        NgxFileDropModule,
-        AccordionModule,
-        GestionFormationsModule,
-        ToastModule,
-        HttpClientModule,
-        ToastrModule.forRoot(),
+  imports: [BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    SidebarModule,
+    ButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    ButtonModule,
+    SidebarModule,
+    PanelModule,
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    ButtonModule,
+    ToastModule,
+    ToolbarModule,
+    TableModule,
+    RouterModule,
+    AppRoutingModule,
+    NgxFileDropModule,
+    AccordionModule,
+    GestionFormationsModule,
+    ToastModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
 
-        NgxWebstorageModule.forRoot(),
-        AgmCoreModule.forRoot({
-            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-        }), MessageModule
-    ],
+    NgxWebstorageModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+    }), MessageModule, TooltipModule
+  ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     PagenotfoundComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    FormatuerLoginComponent,
+    CandidatRegisterComponent
 
   ],
   providers: [ MessageService , HttpClient,
