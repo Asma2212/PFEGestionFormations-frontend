@@ -12,13 +12,30 @@ import { Formateur } from 'app/models/Formateur';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { Observable } from 'rxjs';
+import { FormationService } from 'app/services/formation.service';
+import { Formation } from 'app/models/Formation';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
   selector: 'app-session-formation',
   templateUrl: './session-formation.component.html',
   styleUrls: ['./session-formation.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService],
+  animations: [
+    trigger('rowExpansionTrigger', [
+        state('void', style({
+            transform: 'translateX(-10%)',
+            opacity: 0
+        })),
+        state('active', style({
+            transform: 'translateX(0)',
+            opacity: 1
+        })),
+        transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+
+    ])
+]
 })
 export class SessionFormationComponent implements OnInit,OnDestroy {
 
@@ -31,7 +48,8 @@ export class SessionFormationComponent implements OnInit,OnDestroy {
   sortOrder: number;
 
   sortField: string;
-  names : string ="";
+  names : string[] = [];
+  namesStr : string = "";
   cols: any[];
 
   exportColumns: any[];
@@ -50,15 +68,22 @@ export class SessionFormationComponent implements OnInit,OnDestroy {
   progress = 0;
   message = '';
   fileInfos: Observable<any>;
+  listeFormations : Formation[];
 
   minDate : Date ;
   maxDate : Date ;
   minDate1 : Date ;
   maxDate1 : Date ;
 
-  constructor(private sessionService: SessionFormationService,private uploadService: UploadFileService, public dialogService: DialogService, public messageService: MessageService) { }
+  constructor(private sessionService: SessionFormationService,private formationService: FormationService ,private uploadService: UploadFileService, public dialogService: DialogService, public messageService: MessageService) { }
 
   ngOnInit() {
+
+    this.formationService.getAllFormations().toPromise().then( data => {
+      this.listeFormations = data ;
+        console.log("everthing is okay geet",data)
+      });
+
     this.fileInfos = this.uploadService.getFiles();
      // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
 this.sessions=[{
@@ -155,19 +180,21 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
       contentStyle: {"max-height": "500px", "overflow": "auto"},
       baseZIndex: 10000
   });
-
+//update selectedFormateurs = listFormateurs
     this.ref.onClose.subscribe((formateurs: Formateur[]) =>{
-      this.names="";
+      this.names=[];
+      this.namesStr=""
       this.selectedFormateurs = formateurs
       console.log("hhh",this.selectedFormateurs)
         if (formateurs[0]) {
           formateurs.forEach( formateur=> {
             //this.session.listeFormateur.push(formateur)
-            this.names=this.names + "- "+formateur.firstName +'\n';
+            this.names.push(formateur.firstName);
+            this.namesStr = this.namesStr+"- "+formateur.firstName+"\n";
 
           });
           
-            this.messageService.add({severity:'info', summary: 'formateur Selected', detail: this.names});
+            this.messageService.add({severity:'info', summary: 'formateur Selected', detail: this.namesStr});
         }
     });
     
@@ -261,11 +288,12 @@ hideDialog() {
 }
 saveSession(){
   this.submitted = true ;
-  console.log(this.session);
+
   if(this.selectedFormateurs)
     this.selectedFormateurs.forEach( formateur=> {
       this.session.listeFormateur.push(formateur)
     });
+    console.log("hreeedhyyyyy",this.session);
   }
 
   upload() {

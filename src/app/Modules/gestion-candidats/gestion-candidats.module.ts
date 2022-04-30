@@ -24,6 +24,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import {HttpClientModule,HttpClient} from "@angular/common/http";
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     AjouterCandidatComponent
   ],
   imports: [
+    CalendarModule,
     CommonModule,
     GestionCandidatsRoutingModule,
     CardModule,

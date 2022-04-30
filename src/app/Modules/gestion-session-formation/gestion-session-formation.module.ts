@@ -35,6 +35,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { FormateursDialogComponent } from './formateurs-dialog/formateurs-dialog.component';
 import { CalendarModule } from 'primeng/calendar';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { SliderModule } from 'primeng/slider';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -75,11 +78,13 @@ import { CalendarModule } from 'primeng/calendar';
     DialogModule,
     ToolbarModule,
     RatingModule,
-    DropdownModule,
     BadgeModule,
     TooltipModule,
     DynamicDialogModule,
-    CalendarModule
+    CalendarModule,
+    ToggleButtonModule,
+    SliderModule
+   
   ]
 })
 export class GestionSessionFormationModule { }

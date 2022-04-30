@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Candidat } from 'app/models/Candidat';
 import { Classe } from 'app/models/Classe';
 import { Department } from 'app/models/Departement';
+import { Egenre } from 'app/models/GenreEnum';
 import { CandidatService } from 'app/services/candidat.service';
 import { DepartementService } from 'app/services/departement.service';
 import { UploadFileService } from 'app/services/upload-file.service';
@@ -17,8 +18,11 @@ import { Observable } from 'rxjs';
 })
 export class ListeCandidatsComponent implements OnInit {
 
-  listC : Classe[] ; 
-  listD : Department[];
+  maxDate1 : Date = new Date();
+  femme : string ;
+  homme : string ;
+  listC : Classe[] = [] ; 
+  listD : Department[] = [];
   d: Department ;
   c:Classe ;
   depSelected : boolean = false ;
@@ -52,6 +56,8 @@ export class ListeCandidatsComponent implements OnInit {
   constructor(private candidatService : CandidatService ,private uploadService : UploadFileService ,private departementService : DepartementService, private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
   ngOnInit() {
+    this.fileInfos = this.uploadService.getFiles();
+
     this.departementService.getAllDepartements().toPromise().then( data =>{
       this.listDep = data ; 
       console.log("departement :",data) });
@@ -99,21 +105,21 @@ export class ListeCandidatsComponent implements OnInit {
   }
 
   departementSelected(dep){
-    if(dep){
+    if(dep[0]){
     this.d = dep[0];
     console.log("hhheeey",this.d);
     //console.log("cc",this.candidat.department.id);
     this.depSelected = true ;
     this.listClass = dep[0].classes ;
-   // this.candidat.department = dep[0];
+   this.candidat.department = dep[0];
   }}
 
   classeSelected(classe : Classe){
-    if(classe){
+    if(classe[0]){
     console.log("classssseeee",classe[0].name);
     this.c = classe[0];
     //console.log("cc",this.candidat.department.id);
-   // this.candidat.classe = classe[0];
+   this.candidat.classe = classe[0];
   }
   }
  ajouter(){
@@ -176,6 +182,15 @@ export class ListeCandidatsComponent implements OnInit {
       }
   }
   editCandidat(candidat: Candidat) {
+    console.log("edit",candidat)
+    this.listD.push(candidat.department)
+    this.listC.push(candidat.classe)
+    this.depSelected = true ;
+    this.listClass = this.listD[0].classes ;
+    if(candidat.genre.name == "FEMME")
+    this.femme = "Femme" ;
+    else
+    this.homme = "Homme"
     this.candidat = {...candidat};
     //this.imgURL = candidat.photo ;
     this.candidatDialog = true;
@@ -201,10 +216,19 @@ deleteCandidat(candidat: Candidat) {
 
 saveCandidat() {
   this.submitted = true;
+  console.log(this.candidat)
  // if(this.file)
   //this.candidat.photo=this.file.name ;
-  this.candidat.department = this.listD[0];
-  this.candidat.classe = this.listC[0];
+ // this.candidat.department = this.listD[0];
+ // this.candidat.classe = this.listC[0];
+ if(this.femme){
+  console.log("geenre",Egenre.FEMME);
+   this.candidat.genre = {id : 2 , name : Egenre.FEMME} ;
+}
+if(this.homme){
+
+ this.candidat.genre = {id : 1 , name : Egenre.HOMME} ;
+} 
   if (this.candidat.id) {
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {
       console.log("data update candidat",data)
@@ -212,6 +236,7 @@ saveCandidat() {
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
 }
 else {
+  this.candidat.password="xx"
     console.log("heeedhyyy",this.candidat)
     this.candidat.photo=this.file.name ;
     this.candidatService.saveCandidat(this.candidat).subscribe( data => {
@@ -258,6 +283,9 @@ hideDialog() {
   this.currentFile1=null;
   this.progress1 = 0;
   this.message1 = '';
+  this.depSelected = false ;
+  this.femme ="";
+  this.homme="";
 
 }
 
@@ -268,7 +296,7 @@ if(filterValue === '') {
 this.candidats=this.allCandidats;
 } 
 else{
-this.candidats= this.allCandidats.filter(f => f.name.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(filterValue));
+this.candidats= this.allCandidats.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(filterValue));
 }
 }
 

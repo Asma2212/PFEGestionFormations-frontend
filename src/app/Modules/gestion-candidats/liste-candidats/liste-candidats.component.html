@@ -52,14 +52,17 @@
                   <tr *ngFor="let candidat of candidats">
                         <td>
                           <div class="d-flex align-items-center">
-                            <img
-                                src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                                class="rounded-circle"
+                            <div *ngFor="let file of fileInfos | async">
+                              <p class="list-group-item" *ngIf="testImage(file.type) && file.name == candidat.photo">
+                                <img [src]="file.url"
                                 alt=""
-                                style="width: 65px; height: 65px;margin: 10px;margin-right: 20px;"
+                                style="width: 85px; height:85px;"
+                                class="rounded-circle"
                                 />
+                              </p>
+                            </div>
                             <div class="ms-3">
-                              <p class="fw-bold mb-1"> {{candidat.name}} {{candidat.lastName}}</p>
+                              <p class="fw-bold mb-1"> {{candidat.firstName}} {{candidat.lastName}}</p>
                               <p class="text-muted mb-0"> {{candidat.email}}</p>
                               <p class="text-muted mb-0"> {{candidat.username}}</p>
                             </div>
@@ -69,8 +72,8 @@
                           <p class="fw-normal mb-1">{{candidat.department.name}}</p>
                           <p class="text-muted mb-0">{{candidat.classe.name}}</p>
                         </td>
-                        <td> 22 dec 2000</td>
-                        <td>Junior</td>
+                        <td>{{candidat.dateNaiss}}</td>
+                        <td>ISET Rades</td>
                     <td>
                         <button pButton pRipple icon="pi pi-user-edit" class="p-button-rounded p-button-warning p-button-text" (click)="editCandidat(candidat)"></button>
                         <button pButton pRipple icon="pi pi-user-minus" class="p-button-rounded p-button-danger p-button-text" (click)="deleteCandidat(candidat)"></button>
@@ -184,29 +187,34 @@
                         <small class="p-error" *ngIf="submitted && !candidat.username">cin est requis.</small>
                     </div><br>
                     <div class="field">
-                        <label for="name">Nom</label>
+                        <label for="nom">Nom</label>
                         <input type="text" pInputText id="nom" [(ngModel)]="candidat.lastName" required />
                         <small class="p-error" *ngIf="submitted && !candidat.lastName">nom est requis.</small>
                     </div><br>
                     <div class="field">
-                        <label for="name">Prenom</label>
-                        <input type="text" pInputText id="prenom" [(ngModel)]="candidat.name" required />
-                        <small class="p-error" *ngIf="submitted && !candidat.name">prenom est requis.</small>
+                        <label for="prenom">Prenom</label>
+                        <input type="text" pInputText id="prenom" [(ngModel)]="candidat.firstName" required />
+                        <small class="p-error" *ngIf="submitted && !candidat.firstName">prenom est requis.</small>
                     </div><br>
                     <div class="field">
-                        <label for="name">Email</label>
+                        <label for="email">Email</label>
                         <input type="email" pInputText id="email" [(ngModel)]="candidat.email" required />
                         <small class="p-error" *ngIf="submitted && !candidat.email">email est requis.</small>
                     </div><br>
                     <div class="field">
-                        <label for="name">N° téléphone</label>
-                        <input type="tel" pInputText id="numTel" [(ngModel)]="candidat.numTel" required />
+                        <label for="numTel">N° téléphone</label>
+                        <input type="number" pInputText id="numTel" [(ngModel)]="candidat.numTel" required />
                         <small class="p-error" *ngIf="submitted && !candidat.numTel">num tel est requis.</small>
                     </div><br>
+                    <div class="field col-6">
+                      <label for="dbDate">Date debut</label>
+                      <p-calendar [(ngModel)]="candidat.dateNaiss" [maxDate]="maxDate1" [showIcon]="true" [readonlyInput]="true" inputId="dbDate"></p-calendar>
+                      <small class="p-error" *ngIf="submitted && !candidat.dateNaiss">date Naissance est requis</small>
+                  </div><br>
                     <div class="field">
                       <div class="gender-details">
-                        <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="candidat.genre">
-                        <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="candidat.genre">
+                        <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="homme">
+                        <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="femme">
                         <span class="gender-title">Genre</span>
                         <div class="category">
                           <label for="dot-1">
@@ -232,6 +240,7 @@
 
                       <p-multiSelect [options]="listDep" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" ></p-multiSelect>
                       <small class="p-error" *ngIf="submitted && !candidat.department">departement est requis.</small>
+                      <br>
                       <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)"></p-multiSelect>
                       <small class="p-error" *ngIf="submitted && !candidat.classe">classe est requis.</small>
                     </div>
