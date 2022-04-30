@@ -12,6 +12,8 @@ import {AuthGuard} from "./Modules/Authentification/services/auth.guard";
 import {AuthGuradGuard} from "./Modules/Authentification/services/auth-gurad.guard";
 import {FormatuerLoginComponent} from "./Modules/Authentification/login/fomateur/formatuer-login/formatuer-login.component";
 import {CandidatRegisterComponent} from "./Modules/Authentification/login/candidat/candidat-register/candidat-register.component";
+import {HomePageComponent} from "./Modules/FreeAcess/access-free/home-page/home-page.component";
+import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 
 const routes: Routes =[
   {
@@ -25,6 +27,11 @@ const routes: Routes =[
       path: '',canActivate: [AuthGuradGuard],
       loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
     }]
+  },
+  {path:'home',
+  component:HomePageComponent,
+    loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
+
   },
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},
   {path:'login/formateur',component:FormatuerLoginComponent},

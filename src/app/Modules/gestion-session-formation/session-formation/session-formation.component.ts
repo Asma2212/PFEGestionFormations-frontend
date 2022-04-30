@@ -4,7 +4,7 @@ import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import { MessageService, SelectItem } from 'primeng/api';
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+//import "jspdf-autotable";
 import * as FileSaver from 'file-saver';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormateursDialogComponent } from '../formateurs-dialog/formateurs-dialog.component';
@@ -139,11 +139,11 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
       ];
 
       this.minDate = new Date()
-      
-      
+
+
   }
-  
-  
+
+
 
 
   suivantSession() {
@@ -166,11 +166,11 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
             this.names=this.names + "- "+formateur.firstName +'\n';
 
           });
-          
+
             this.messageService.add({severity:'info', summary: 'formateur Selected', detail: this.names});
         }
     });
-    
+
   }
 
   ngOnDestroy() {
@@ -194,10 +194,10 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
     console.log(sessionDiff)
     if (sessionDiff === 'FACILE') {
     return '#C8E6C9';
-    } else 
+    } else
     if(sessionDiff === 'MOYEN')
     return '#FEEDAF';
-    
+
     else{
       return '#FFCDD2';
     }
@@ -245,7 +245,7 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
     listeFormateur : [] ,
     listeCandidat : []
     };
-    this.submitted = false;  
+    this.submitted = false;
 }
 
 hideDialog() {
@@ -272,7 +272,7 @@ saveSession(){
     this.progress = 0;
     this.currentFile = this.selectedFile.item(0);
     console.log("current file",this.currentFile);
-    
+
     this.uploadService.upload(this.currentFile).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -302,20 +302,20 @@ saveSession(){
       this.message = "Only images are supported.";
       return;
     }
- 
+
     var reader = new FileReader();
-    
+
     this.imagePath = this.file;
-    reader.readAsDataURL(this.file); 
-    reader.onload = (_event) => { 
+    reader.readAsDataURL(this.file);
+    reader.onload = (_event) => {
       this.imgURL = reader.result;
-      console.log("imaage",this.imgURL) 
+      console.log("imaage",this.imgURL)
     }
   }
   testImage(t : string){
     return t.includes("image") ;
  }
-  
+
 }
 
 
