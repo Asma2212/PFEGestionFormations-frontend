@@ -1,0 +1,139 @@
+<html>
+<header>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css'>
+</header>
+
+<body>
+
+<div class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap" >
+  <div class="font-bold mr-8">🔥 Hot Deals!</div>
+  <div class="align-items-center hidden lg:flex">
+    <span class="line-height-3">Libero voluptatum atque exercitationem praesentium provident odit.</span>
+  </div>
+  <a class="flex align-items-center ml-2 mr-8">
+    <a class="text-white" href="#"><span class="underline font-bold">Learn More</span></a>
+  </a>
+  <a pRipple class="flex align-items-center no-underline justify-content-center border-circle text-gray-50 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150" style="width:2rem; height: 2rem">
+    <i class="pi pi-times"></i>
+  </a>
+</div>
+
+<div    class="surface-section px-4 py-5 md:px-6 lg:px-8">
+  <ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3" >
+    <li>
+      <a class="text-500 no-underline line-height-3 cursor-pointer" >Application</a>
+    </li>
+    <li class="px-2">
+      <i class="pi pi-angle-right text-500 line-height-3"></i>
+    </li>
+    <li>
+      <span class="text-900 line-height-3">Analytics</span>
+    </li>
+  </ul>
+  <div class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
+    <div>
+      <div class="font-medium text-3xl text-900">Customers</div>
+      <div class="flex align-items-center text-700 flex-wrap">
+        <div class="mr-5 flex align-items-center mt-3">
+          <i class="pi pi-users mr-2"></i>
+          <span>332 Active Users</span>
+        </div>
+        <div class="mr-5 flex align-items-center mt-3">
+          <i class="pi pi-globe mr-2"></i>
+          <span>9402 Sessions</span>
+        </div>
+        <div class="flex align-items-center mt-3">
+          <i class="pi pi-clock mr-2"></i>
+          <span>2.32m Avg. Duration</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 lg:mt-0">
+      <button pButton pRipple label="Add" class="p-button-outlined mr-2" icon="pi pi-user-plus"></button>
+      <button pButton pRipple label="Save" icon="pi pi-check"></button>
+
+    </div>
+  </div>
+</div>
+<div   class="card" >
+  <div class="card--content">
+    <h1>Theo Kleman</h1>
+    <span>another internet guy</span>
+    <ul>
+      <li>
+        <a target="_blank" href="https://github.com/TheoKleman">
+          <i class="icon-github"></i>
+          TheoKleman
+        </a>
+      </li>
+      <li>
+        <a target="_blank" href="https://twitter.com/Theo_KlMan">
+          <i class="icon-twitter"></i>
+          theokleman
+        </a>
+      </li>
+      <li>
+        <a tagret="_blank" href="http://theokleman.com">
+          <i class="icon-globe"></i>
+          theokleman.com
+        </a>
+      </li>
+    </ul>
+
+  </div>
+</div>
+<div class="test" >
+
+  <p-card      header="Advanced Card" subheader="Card Subheader" [style]="{width: '360px'}" styleClass="p-card-shadow-5">
+    <ng-template pTemplate="header">
+      <img alt="Card" src="https://www.primefaces.org/primeng/assets/showcase/images/usercard.png">
+    </ng-template>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+    <ng-template pTemplate="footer">
+      <p-toggleButton [(ngModel)]="checked2" onLabel="s'inscrire" offLabel="annuller" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '10em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
+     "></p-toggleButton>
+
+    <!--  <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
+     "></p-button>-->
+    </ng-template>
+  </p-card>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="surface-card p-5 border" style="margin-right: 5%" >
+  <div class="text-3xl font-medium text-900 " style="margin-left: 7%" >Card Title</div>
+  <div class="font-medium text-500 mb-3" style="margin-left: 7%">Vivamus id nisl interdum, blandit augue sit amet, eleifend mi.</div>
+</div>
+
+
+
+
+
+<app-details-session></app-details-session>
+
+
+
+
+</body>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+</html>

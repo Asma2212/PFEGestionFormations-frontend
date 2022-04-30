@@ -40,6 +40,13 @@ import {MessageModule} from "primeng/message";
 import {FormatuerLoginComponent} from "./Modules/Authentification/login/fomateur/formatuer-login/formatuer-login.component";
 import {TooltipModule} from "primeng/tooltip";
 import { CandidatRegisterComponent } from './Modules/Authentification/login/candidat/candidat-register/candidat-register.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatInputModule} from "@angular/material/input";
+import {PasswordModule} from "primeng/password";
+import {MultiSelectModule} from "primeng/multiselect";
+import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 
 @NgModule({
   imports: [BrowserModule,
@@ -67,14 +74,18 @@ import { CandidatRegisterComponent } from './Modules/Authentification/login/cand
     NgxFileDropModule,
     AccordionModule,
     GestionFormationsModule,
+    AccessFreeModule,
     ToastModule,
     HttpClientModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
     ToastrModule.forRoot(),
 
     NgxWebstorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }), MessageModule, TooltipModule
+    }), MessageModule, TooltipModule, MatFormFieldModule, PasswordModule, MultiSelectModule
   ],
   declarations: [
     AppComponent,

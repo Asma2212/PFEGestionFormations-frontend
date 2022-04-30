@@ -1,0 +1,93 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800);
+* {
+  box-sizing: border-box;
+
+}
+body::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+body {
+
+  background-color: #ffffff;
+
+}
+.card {
+  z-index: 0;
+
+  top: 1px;
+  bottom: 50px;
+  font-family: "Open Sans";
+  position: relative;
+  width: 100%;
+  max-width: 1500px;
+  min-height: 200px;
+  margin: 0 auto;
+  border-radius: 0px;
+  background: -webkit-linear-gradient(left bottom, #DD2476, #FF512F);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: all ease 0.5s;
+}
+.card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all ease 0.1s;
+}
+.card--content {
+  position: absolute;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+.card h1 {
+  color: #FFF;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.card span {
+  margin-left: 6px;
+  color: #FFF;
+  transform: translate3d(-50%, -50%, 0);
+}
+.card ul {
+  margin-top: 30px;
+  margin-left: 6px;
+  width: 100%;
+}
+.card ul li {
+  display: inline-block;
+  margin-right: 15px;
+}
+.card ul li a {
+  text-decoration: none;
+  color: #FFF;
+}
+.card ul li i {
+  margin-right: 5px;
+  font-size: 120%;
+}
+.test{
+  max-width: 400px;
+
+  z-index: 1;
+  top: 50%;
+  left: 70%;
+  position: absolute;
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+.sidebar {
+  background-color: #ea5b5b;
+  color: #FFF;
+  position: absolute;
+  top: 0;
+  right: 8%;
+  width: 12%;
+  min-height: 15rem;
+  height: auto;
+  padding: 1rem 2rem;
+
+}

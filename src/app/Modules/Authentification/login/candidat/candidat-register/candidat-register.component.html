@@ -1,100 +1,196 @@
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Login Register</title>
+  <title>register condidat</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
 
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport">
-  <title>Login or Register</title>
-  <!-- CUSTOM CSS -->
 
-  <!-- FONT AWESOME -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- GOOGLE FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-
-<body style="background-color: white;">
-<div class="container"style="background-color: white;" >
-  <div class="forms-container">
-    <div class="signin-signup">
-      <form action="" class="sign-in-form">
-        <h2 class="title">Login</h2>
-        <div class="input-field">
-          <i class="fas fa-user"></i>
-          <input type="text" name="usuario" autocomplete="username" placeholder="Username" required="yes">
-        </div>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
-          <input type="password" name="contraseña" autocomplete="current-password" placeholder="Password" id="id_password" required="yes">
-          <i class="far fa-eye" id="togglePassword" style="cursor: pointer;"></i>
-        </div>
-
-        <input type="submit" value="Sign in" class="btn solid">
-
-        <div class="social-media">
-          <a class="icon-mode" onclick="toggleTheme('dark');"><i class="fas fa-moon"></i></a>
-          <a class="icon-mode" onclick="toggleTheme('light');"><i class="fas fa-sun"></i></a>
-        </div>
-        <p class="text-mode">Change theme</p>
-      </form>
-      <form action="" class="sign-up-form">
-        <h2 class="title">Register</h2>
-        <div class="input-field">
-          <i class="fas fa-user"></i>
-          <input type="text" name="usuario" autocomplete="username" placeholder="Username" required="yes">
-        </div>
-        <div class="input-field">
-          <i class="fas fa-envelope"></i>
-          <input type="email" name="correo" autocomplete="email" placeholder="Email" required="yes">
-        </div>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
-          <input type="password" name="contraseña" autocomplete="current-password" placeholder="Password" id="id_reg" required="yes">
-          <i class="far fa-eye" id="toggleReg" style="cursor: pointer;"></i>
-        </div>
-
-        <label class="check">
-          <input type="checkbox" checked="checked">
-          <span class="checkmark">I accept the <a href="terms.html">terms and services</a></span>
-        </label>
-        <input  type="submit" value="Create account" class="btn solid">
-
-      </form>
-    </div>
-  </div>
-  <div class="panels-container">
-    <div class="panel left-panel">
-      <div class="content">
-        <h3>You don't have an account?</h3>
-        <p>Create your account right now to follow people and like publications</p>
-        <button class="btn transparent" id="sign-up-btn">Register</button>
+<div class="user-ragistration">
+  <div class="container register">
+    <div class="row">
+      <div class="col-md-3 register-left">
+        <img src="https://i.pinimg.com/originals/a7/4a/65/a74a6592ac29c378cc03c600a03fc78e.png" alt=""/>
+        <h3>Bonjour !</h3>
+        <p> découvrir, apprendre, progresser et réussir avec ISET FORMINI</p>
       </div>
-      <img src="" class="image" alt="">
+      <div class="col-md-9 register-right">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">login</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h3 class="register-heading">Espace Condidat</h3>
+            <form class="row register-form" [formGroup]="signupForm">
+
+              <div class="col-md-6">
+                <div class="form-group" >
+                  <input type="text" class="form-control" placeholder="CIN *" [formControlName]="'username_signup'"  required
+                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                         minlength="8" maxlength="8"
+                          />
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('username_signup').valid && signupForm.get('username_signup').touched" >CIN invalide!<i class="fa-solid fa-circle-x"></i></span>
+
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Nom *"   [formControlName]="'first_name'" required/>
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('first_name').valid && signupForm.get('first_name').touched" >Nom invalide!</span>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Prenom *"  [formControlName]="'last_name'" required />
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('last_name').valid && signupForm.get('last_name').touched" >prenom invalide!<i class="fa-solid fa-circle-x"></i></span>
+
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="email *" type="email"  id="email_signup" name="email_signup" [email]="validateEmail"[formControlName]="'email_signup'"   required/>
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('email_signup').valid && signupForm.get('email_signup').touched">email invalide <i class="fa-solid fa-circle-x"></i></span>
+
+                </div>
+                <div class="form-group">
+
+                  <p-password   [style]="{'height': '36px'}"   placeholder="mot de passe *"  [formControlName]="'password_signup'"  required  minlength="5" maxlength="20"></p-password>
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('password_signup').valid && signupForm.get('password_signup').touched">
+                 mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
+                </span>
+                </div>
+
+                <div class="form-group">
+                  <input type="password" class="form-control"  placeholder="Confirmer mot de passe *" [formControlName]="'repassword'"  required />
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('repassword').valid && signupForm.get('repassword').touched">
+                 mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
+                </span>
+                  <span style="color: #ff3353" *ngIf="signupForm.get('repassword').valid && signupForm.get('repassword')!=signupForm.get('password_signup')">
+                 mot de passe n'est pas conforme! <i class="fa-solid fa-circle-x"></i>
+                </span>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>date naissance</mat-label>
+                  <input [formControlName]="'date_naiss'"  matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" required [formControlName]="'date_naiss'">
+                  <mat-hint>{{signupForm.get("date_nais")}}</mat-hint>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('date_naiss').valid && signupForm.get('date_naiss').touched">
+                 date naissance invalide  <i class="fa-solid fa-circle-x"></i>
+                </span>
+
+
+                <div class="form-group">
+                  <div class="maxl">
+                    <label class="radio inline">
+                      <input type="radio" name="genre" value="homme" checked required [formControlName]="'genre'">
+                      <span> homme </span>
+                    </label>
+                    <label class="radio inline">
+                      <input type="radio" name="genre" value="femme">
+                      <span>femme </span>
+                    </label>
+                  </div>
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('genre').valid && signupForm.get('genre').touched">
+                 date naissance invalide  <i class="fa-solid fa-circle-x"></i>
+                </span>
+                </div>
+                <div class="form-group">
+                  <input required type="text"  name="phone" class="form-control" placeholder="numero téléphone*"
+                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                         minlength="8" maxlength="8"
+                         [formControlName]="'phone'"/>
+                  <span style="color: #ff3353" *ngIf="!signupForm.get('phone').valid && signupForm.get('phone').touched">
+                 numero invalide  <i class="fa-solid fa-circle-x"></i>
+                </span>
+                </div>
+                <div class="form-group">
+                  <div class="form-control">
+                    <div class="field">
+                    <p-multiSelect [options]="listDep" [formControlName]="'listD'" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" ></p-multiSelect>
+                    <span style="color: #ff3353" *ngIf="!signupForm.get('department').valid && signupForm.get('department').touched">
+                      departement non selectionée!  <i class="fa-solid fa-circle-x"></i></span>
+                    <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)"></p-multiSelect>
+                    <span style="color: #ff3353" *ngIf="!signupForm.get('classe').valid && signupForm.get('classe').touched"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <select class="form-control">
+                    <option class="hidden"  selected disabled>selectionner votre classe</option>
+                    <option>What is your Birthdate?</option>
+                    <option>What is Your old Phone Number</option>
+                    <option>What is your Pet Name?</option>
+                  </select>
+                </div>
+
+                <input type="submit" [disabled]="!signupForm.valid" class="btnRegister"  value="signup"/>
+              </div>
+              <div class="login-failed" *ngIf='this.isError_signup' style="font-size: xx-small;">
+
+                <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
+              </div>
+            </form>
+
+          </div>
+
+
+
+
+
+
+          <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <h3  class="register-heading">Espace Candidat</h3>
+            <div class="row register-form" >
+              <form class="col-md-6" [formGroup]="loginForm">
+
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="CIN *" [formControlName]="'username'"  required
+                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                         minlength="8" maxlength="8" />
+                  <span style="color: #ff3353" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" >CIN invalide!<i class="fa-solid fa-circle-x"></i></span>
+
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" placeholder="Email *" [email]="validateEmail" [formControlName]="'email'"   required/>
+                  <span style="color: #ff3353" *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">email invalide <i class="fa-solid fa-circle-x"></i></span>
+
+                </div>
+              </form>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="mot de passe *" [formControlName]="'password'"  required  minlength="5" maxlength="20"/>
+                  <span style="color: #ff3353" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+                 mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
+                </span>
+                </div>
+
+                <input type="submit" class="btnRegister" [disabled]="!loginForm.valid" value="login"/>
+
+              </div>
+              <div class="login-failed" *ngIf='this.isError' style="font-size: xx-small;">
+
+                <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="panel right-panel">
-      <div class="content">
-        <h3>Already have an account?</h3>
-        <p>Login to see your notifications and post your favorite photos</p>
-        <button class="btn transparent" id="sign-in-btn">Sign in</button>
-      </div>
-      <img src="" class="image" alt="">
-    </div>
   </div>
 </div>
-
-<script src="main.js"></script>
-
 </body>
-<!-- partial -->
 
-</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js'></script>
 </html>
