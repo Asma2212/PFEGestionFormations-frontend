@@ -8,6 +8,8 @@ import {ButtonModule} from "primeng/button";
 import {FormsModule} from "@angular/forms";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import { DetailsSessionComponent } from './details-session/details-session.component';
+import {RatingModule} from "primeng/rating";
+import {TagModule} from "primeng/tag";
 
 
 
@@ -18,13 +20,15 @@ import { DetailsSessionComponent } from './details-session/details-session.compo
     HomePageComponent,
     DetailsSessionComponent,
   ],
-  imports: [
-    CommonModule,
-    AccessFreeRoutingModule,
-    CardModule,
-    ButtonModule,
-    FormsModule,
-    ToggleButtonModule
-  ]
+    imports: [
+        CommonModule,
+        AccessFreeRoutingModule,
+        CardModule,
+        ButtonModule,
+        FormsModule,
+        ToggleButtonModule,
+        RatingModule,
+        TagModule
+    ]
 })
 export class AccessFreeModule { }
