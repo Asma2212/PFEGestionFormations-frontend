@@ -11,7 +11,7 @@ const routes: Routes = [{
   component : HomePageComponent,
   children: [
     {
-      path: 'session',
+      path: 'session/:id',
       component: SessionComponent,
     },
   ]

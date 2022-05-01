@@ -6,7 +6,8 @@
 
 <body>
 
-<div class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap" >
+<div
+  class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap">
   <div class="font-bold mr-8">🔥 Hot Deals!</div>
   <div class="align-items-center hidden lg:flex">
     <span class="line-height-3">Libero voluptatum atque exercitationem praesentium provident odit.</span>
@@ -14,15 +15,17 @@
   <a class="flex align-items-center ml-2 mr-8">
     <a class="text-white" href="#"><span class="underline font-bold">Learn More</span></a>
   </a>
-  <a pRipple class="flex align-items-center no-underline justify-content-center border-circle text-gray-50 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150" style="width:2rem; height: 2rem">
+  <a pRipple
+     class="flex align-items-center no-underline justify-content-center border-circle text-gray-50 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150"
+     style="width:2rem; height: 2rem">
     <i class="pi pi-times"></i>
   </a>
 </div>
 
-<div    class="surface-section px-4 py-5 md:px-6 lg:px-8">
-  <ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3" >
+<div class="surface-section px-4 py-5 md:px-6 lg:px-8">
+  <ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
     <li>
-      <a class="text-500 no-underline line-height-3 cursor-pointer" >Application</a>
+      <a class="text-500 no-underline line-height-3 cursor-pointer">Application</a>
     </li>
     <li class="px-2">
       <i class="pi pi-angle-right text-500 line-height-3"></i>
@@ -56,82 +59,73 @@
     </div>
   </div>
 </div>
-<div   class="card" >
+<div class="card">
   <div class="card--content">
-    <h1>Theo Kleman</h1>
-    <span>another internet guy</span>
+    <h1>{{session.formationSession.titre}}</h1>
+    <span>{{session.formationSession.details}}</span>
     <ul>
       <li>
         <a target="_blank" href="https://github.com/TheoKleman">
-          <i class="icon-github"></i>
-          TheoKleman
+
+          <p-rating readonly="true" [cancel]="false" [(ngModel)]="val"></p-rating>
         </a>
       </li>
       <li>
         <a target="_blank" href="https://twitter.com/Theo_KlMan">
-          <i class="icon-twitter"></i>
-          theokleman
+          5888 participants
         </a>
       </li>
       <li>
-        <a tagret="_blank" href="http://theokleman.com">
-          <i class="icon-globe"></i>
-          theokleman.com
+        <a tagret="_blank" href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left"
+               viewBox="0 0 16 16">
+            <path
+              d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+
+          niveau difficulté :{{session.nivDifficulte}}
         </a>
       </li>
     </ul>
 
   </div>
 </div>
-<div class="test" >
+<div class="test">
 
-  <p-card      header="Advanced Card" subheader="Card Subheader" [style]="{width: '360px'}" styleClass="p-card-shadow-5">
+  <p-card [header]=session.titreSession [subheader]=" 'lieu session :'+session.lieuSession" [style]="{width: '360px'}" styleClass="p-card-shadow-5">
     <ng-template pTemplate="header">
-      <img alt="Card" src="https://www.primefaces.org/primeng/assets/showcase/images/usercard.png">
+      <img alt="Card" [src]=session.photoSession>
     </ng-template>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+      deserunt
+      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+      quas!</p>
     <ng-template pTemplate="footer">
-      <p-toggleButton [(ngModel)]="checked2" onLabel="s'inscrire" offLabel="annuller" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '10em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
+      <p-toggleButton [(ngModel)]="checked2" onLabel="s'inscrire" offLabel="annuller" onIcon="pi pi-check"
+                      offIcon="pi pi-times" [style]="{'width': '10em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
      "></p-toggleButton>
 
-    <!--  <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
-     "></p-button>-->
+      <!--  <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
+       "></p-button>-->
     </ng-template>
   </p-card>
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="surface-card p-5 border" style="margin-right: 5%" >
-  <div class="text-3xl font-medium text-900 " style="margin-left: 7%" >Card Title</div>
-  <div class="font-medium text-500 mb-3" style="margin-left: 7%">Vivamus id nisl interdum, blandit augue sit amet, eleifend mi.</div>
+<div class="surface-card p-5 border" style="margin-right: 5%">
+  <div class="text-3xl font-medium text-900 " style="margin-left: 7%">Formateur(s)</div>
+  <ul>
+    <li *ngFor="let obj of session.listeFormateurs;">  {{obj.firstName}} {{obj.lastName}}</li>
+  </ul>
 </div>
 
 
-
-
-
-<app-details-session></app-details-session>
-
-
+<app-details-session [dateDebSession]="session.dateDebSession"
+                     [dateFinSession]="session.dateFinSession"
+                       [planning]="session.planning"
+                     [descriptionSession]="session.descriptionSession"
+                     [categories]="session.formationSession.listCategories"
+></app-details-session>
 
 
 </body>

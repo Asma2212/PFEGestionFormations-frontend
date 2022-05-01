@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Categorie} from "../../../../models/Categorie";
 
 @Component({
   selector: 'app-details-session',
@@ -6,16 +7,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./details-session.component.scss']
 })
 export class DetailsSessionComponent implements OnInit {
+
+
+  @Input() dateDebSession: Date;
+  @Input() dateFinSession: Date;
+  @Input() planning: Map<string,string>;
+  @Input()descriptionSession:string
+  @Input()categories:Categorie[]
+
   isReadMore = true
   isReadMoree = true
+  isReadMoreee = true
 
   showText() {
-    this.isReadMore = !this.isReadMore}
+    this.isReadMore = !this.isReadMore
+  }
+
   showTexte() {
-    this.isReadMoree = !this.isReadMoree}
-  constructor() { }
+    this.isReadMoree = !this.isReadMoree
+  }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  showTextee() {
+    this.isReadMoreee = !this.isReadMoreee
+  }
 }
