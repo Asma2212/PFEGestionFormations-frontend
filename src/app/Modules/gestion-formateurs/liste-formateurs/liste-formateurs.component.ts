@@ -96,7 +96,7 @@ filterSpecialite : Specialite[] ;
       columnProp: 'status',
       options: []
     }
-  ]
+  ] 
 }
   ngOnInit() {
     
@@ -375,7 +375,7 @@ saveFormateur() {
  }
  if(this.homme){
 
-   this.formateur.genre = null ;
+  this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
 } 
   if (this.formateur.id) {
     //this.genre = this.formateur.genre ;
@@ -433,7 +433,8 @@ hideDialog() {
   this.currentFile=null;
   this.progress1 = 0;
   this.message1 = '';
-
+  this.femme = "";
+  this.homme=""
 }
 
 

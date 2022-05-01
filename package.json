@@ -48,6 +48,7 @@
     "html2pdf.js": "^0.10.1",
     "jquery": "3.6.0",
     "jquery.transit": "^0.9.12",
+    "jspdf-autotable": "^3.5.23",
     "moment": "^2.29.3",
     "ngx-file-drop": "^13.0.0",
     "ngx-toastr": "^14.3.0",

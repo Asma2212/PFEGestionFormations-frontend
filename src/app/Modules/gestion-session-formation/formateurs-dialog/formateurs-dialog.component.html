@@ -20,12 +20,11 @@
     </ng-template>
 </p-table>-->
 <p-table id="excel-table" #dt [value]="formateurs" [rows]="2" [paginator]="true" [globalFilterFields]="['titre','chargeHorraire','categorie']" responsiveLayout="scroll"
-[(selection)]="selectedFormateurs"  [rowHover]="true" dataKey="i"
+[(selection)]="selectedFormateurs"  [rowHover]="true" dataKey="id"
 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 <ng-template pTemplate="caption">
     <div style="display:flex ;">
-        <h2>Formateurs :</h2>
-        <button type="button" pButton label="Ajouter Formateurs" icon="pi pi-user-plus" class="p-button-sm p-button-text" (click)="selectFormateur(selectedFormateurs)"></button>
+        <button type="button" pButton label="Ajouter" icon="pi pi-user-plus" class="p-button-sm p-button-help" (click)="selectFormateur(selectedFormateurs)" [disabled]="!selectedFormateurs || !selectedFormateurs.length"></button>
         <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
             <i class="pi pi-search"></i>
             <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
