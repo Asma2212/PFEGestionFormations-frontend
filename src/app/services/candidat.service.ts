@@ -25,9 +25,9 @@ import { Observable } from "rxjs";
       return this.http.post<any>(this.url + 'update1',candidat);
     }
   
-    deleteCandidat(idf : number) : Observable<any>{
+    deleteCandidat(idc : number) : Observable<any>{
   
-      return this.http.delete<any>(this.url + 'delete/'+ idf);
+      return this.http.delete<any>(this.url + 'delete/'+ idc);
       }
   
       deleteAllCandidat(candidats : Candidat[] ) : Observable<any> {		

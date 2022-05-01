@@ -315,7 +315,7 @@ testImage(t : string){
     reader.readAsDataURL(this.file); 
     reader.onload = (_event) => { 
       this.imgURL = reader.result;
-      console.log("imaage",this.imgURL) 
+      console.log("imaage",this.imgURL.url) 
     }
   }
   onSortChange(event) {

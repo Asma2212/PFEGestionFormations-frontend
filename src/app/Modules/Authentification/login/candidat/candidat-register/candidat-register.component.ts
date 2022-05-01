@@ -5,7 +5,7 @@ import {AuthService} from "../../../../../services/auth.service";
 import {Router} from "@angular/router";
 import {MessageService, SelectItem, SelectItemGroup} from "primeng/api";
 import {ToastrService} from "ngx-toastr";
-import {throwError} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {loginRequestPayload} from "../../../payload/login-request-payload";
 import {CandidatRequestSignupPayload} from "../../../payload/CandidatRequestSignupPayload";
 import {PasswordModule} from 'primeng/password';
@@ -13,7 +13,7 @@ import {Department} from "../../../../../models/Departement";
 import {Classe} from "../../../../../models/Classe";
 import {DepartementService} from "../../../../../services/departement.service";
 
-@Component({
+@Component({ 
   selector: 'app-candidat-register',
   templateUrl: './candidat-register.component.html',
   styleUrls: ['./candidat-register.component.scss']
@@ -21,6 +21,7 @@ import {DepartementService} from "../../../../../services/departement.service";
 export class CandidatRegisterComponent implements OnInit {
 
 
+  n : string = "Espace Condidat";
   loginForm: FormGroup;
   signupForm: FormGroup;
   isError: boolean;
@@ -32,16 +33,26 @@ export class CandidatRegisterComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   listDep : Department[];
-  listD : Department[];
-  listC : Classe ;
+  listD : Department[] =[];
+  listC : Classe[] =[];
   d: Department ;
   c:Classe ;
   listClass : Classe[];
   depItem : SelectItemGroup ;
   classItem : SelectItem ;
   listclass : SelectItem[];
-
+imgI : string = "../../../../../../assets/img/ajoutForm.png";
   depSelected : boolean = false ;
+
+  uploadedFiles: any[] = [];
+  file: File = null;
+  public imagePath;
+  imgURL: any = null ;
+  currentFile: File;
+  progress = 0;
+  message = '';
+  fileInfos: Observable<any>;
+  selectedFile : File ;
   constructor(private authService: AuthService, private router: Router, private messageService: MessageService, private toastr: ToastrService,private departementService : DepartementService) {
 
     const currentYear = new Date().getFullYear();
@@ -82,7 +93,8 @@ export class CandidatRegisterComponent implements OnInit {
       , last_name: new FormControl(''),
       repassword : new FormControl(''),
       genre : new  FormControl(''),
-      //listD : new  FormControl('')
+      department : new  FormControl(''),
+      classe : new FormControl(''),
     })
     this.departementService.getAllDepartements().toPromise().then( data =>{
       this.listDep = data ;
@@ -128,22 +140,50 @@ export class CandidatRegisterComponent implements OnInit {
     });
 
   }
-  departementSelected(dep){
-    if(dep){
+  departementSelected(){
+   const dep = this.signupForm.get('department').value
+   console.log("mloueeel",dep)
+    if(dep[0]){
       this.d = dep[0];
       console.log("hhheeey",this.d);
       //console.log("cc",this.candidat.department.id);
       this.depSelected = true ;
       this.listClass = dep[0].classes ;
-      // this.candidat.department = dep[0];
+      console.log("classe",this.listClass)
+     //this.signupForm.depC = dep[0];
     }}
 
-  classeSelected(classe : Classe){
-    if(classe){
+  classeSelected(){
+    const classe = this.signupForm.get('classe').value
+    if(classe[0]){
       console.log("classssseeee",classe[0].name);
       this.c = classe[0];
       //console.log("cc",this.candidat.department.id);
-      // this.candidat.classe = classe[0];
-    }}
+    // this.candidat.classe = classe[0];
+    }
+  }
+
+    onUpload(event){
+      if (event.target.files.length > 0)
+      {
+        const file = event.target.files[0];
+        //this.userFile = file;
+       // this.f['profile'].setValue(file);
+   
+      var mimeType = event.target.files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
+      }
+   
+      var reader = new FileReader();
+      
+      this.imagePath = file;
+      reader.readAsDataURL(file); 
+      reader.onload = (_event) => { 
+        this.imgURL = reader.result; 
+      }
+      console.log("file name ", this.imgURL)
+      }}
 
 }

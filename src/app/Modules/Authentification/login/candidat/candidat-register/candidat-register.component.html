@@ -9,7 +9,6 @@
 
 </head>
 <body>
-
 <div class="user-ragistration">
   <div class="container register">
     <div class="row">
@@ -29,10 +28,10 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <h3 class="register-heading">Espace Condidat</h3>
-            <form class="row register-form" [formGroup]="signupForm">
+            <h3 class="register-heading">{{n}}</h3>
 
-              <div class="col-md-6">
+            <form class="row register-form" [formGroup]="signupForm">
+              <div class="col-md-4">
                 <div class="form-group" >
                   <input type="text" class="form-control" placeholder="CIN *" [formControlName]="'username_signup'"  required
                          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
@@ -74,7 +73,7 @@
                 </div>
 
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <mat-form-field class="example-full-width" appearance="fill">
                   <mat-label>date naissance</mat-label>
                   <input [formControlName]="'date_naiss'"  matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" required [formControlName]="'date_naiss'">
@@ -112,28 +111,35 @@
                 </span>
                 </div>
                 <div class="form-group">
-                  <div class="form-control">
-                    <div class="field">
-                    <p-multiSelect [options]="listDep" [formControlName]="'listD'" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" ></p-multiSelect>
+                    <p-multiSelect  [options]="listDep" [formControlName]="'department'" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected()" ></p-multiSelect>
                     <span style="color: #ff3353" *ngIf="!signupForm.get('department').valid && signupForm.get('department').touched">
                       departement non selectionée!  <i class="fa-solid fa-circle-x"></i></span>
-                    <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)"></p-multiSelect>
-                    <span style="color: #ff3353" *ngIf="!signupForm.get('classe').valid && signupForm.get('classe').touched"></span>
-                    </div>
+                    
                   </div>
-                </div>
-
-                <div class="form-group">
-                  <select class="form-control">
-                    <option class="hidden"  selected disabled>selectionner votre classe</option>
-                    <option>What is your Birthdate?</option>
-                    <option>What is Your old Phone Number</option>
-                    <option>What is your Pet Name?</option>
-                  </select>
+                <div class="form-group" *ngIf="depSelected">
+                    <p-multiSelect [options]="listClass" [formControlName]="'classe'" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" (click)="classeSelected()"></p-multiSelect>
+                    <span style="color: #ff3353" *ngIf="!signupForm.get('classe').valid && signupForm.get('classe').touched"></span>
                 </div>
 
                 <input type="submit" [disabled]="!signupForm.valid" class="btnRegister"  value="signup"/>
               </div>
+<div class="col-md-1">
+  <div class="form-group">
+    <div class="circle" *ngIf="!imgURL">
+      <img class="profile-pic" src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg">
+    </div>
+    <div class="circle" *ngIf="imgURL">
+      <img class="profile-pic" [src]="imgURL" height="150" alt="aaaaaaaaa">    
+    </div>
+
+    <label for="file" class="p-image"><i class="fa fa-camera upload-button"></i></label>
+        <input type="file" id="file" class="input-file" accept="image/*" (change)="onUpload($event)" >
+        
+        
+ 
+</div>
+</div>
+              
               <div class="login-failed" *ngIf='this.isError_signup' style="font-size: xx-small;">
 
                 <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
@@ -181,6 +187,7 @@
                 <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
               </div>
             </div>
+
 
           </div>
         </div>

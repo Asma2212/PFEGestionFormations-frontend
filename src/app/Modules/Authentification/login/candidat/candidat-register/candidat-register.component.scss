@@ -14,7 +14,8 @@ $color_abbey_approx: #495057;
   padding: 3%;
   overflow: hidden;
   .register-form {
-    padding: 10%;
+    width: 115%;
+    padding: 5%;
     margin-top: 10%;
     @media (max-width: 991px){
       margin-top: 16%;
@@ -137,6 +138,48 @@ $color_abbey_approx: #495057;
     font-size: 1.5rem;
   }
 
+}
+.profile-pic {
+    width: 200px;
+    max-height: 200px;
+    display: inline-block;
+}
+
+.file-upload {
+    display: none;
+}
+.circle {
+    border-radius: 100% !important;
+    overflow: hidden;
+    width: 198px;
+    height: 198px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    top: 92px;
+    position: absolute;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.p-image {
+  position: absolute;
+  top: 257px;
+  right: 10px;
+  left : 150px;
+
+  color: #666666;
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+.p-image:hover {
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+.upload-button {
+  font-size: 1.2em;
+}
+
+.upload-button:hover {
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  color: #999;
 }
 
 

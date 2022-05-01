@@ -105,6 +105,7 @@ export class ListeCandidatsComponent implements OnInit {
   }
 
   departementSelected(dep){
+    console.log("thhis")
     if(dep[0]){
     this.d = dep[0];
     console.log("hhheeey",this.d);
@@ -195,7 +196,7 @@ export class ListeCandidatsComponent implements OnInit {
     //this.imgURL = candidat.photo ;
     this.candidatDialog = true;
 
-}
+} 
 
 deleteCandidat(candidat: Candidat) {
     this.confirmationService.confirm({
