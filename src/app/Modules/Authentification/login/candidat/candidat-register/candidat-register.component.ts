@@ -12,6 +12,8 @@ import {PasswordModule} from 'primeng/password';
 import {Department} from "../../../../../models/Departement";
 import {Classe} from "../../../../../models/Classe";
 import {DepartementService} from "../../../../../services/departement.service";
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { UploadFileService } from 'app/services/upload-file.service';
 
 @Component({ 
   selector: 'app-candidat-register',
@@ -41,7 +43,7 @@ export class CandidatRegisterComponent implements OnInit {
   depItem : SelectItemGroup ;
   classItem : SelectItem ;
   listclass : SelectItem[];
-imgI : string = "../../../../../../assets/img/ajoutForm.png";
+  namePhoto:string;
   depSelected : boolean = false ;
 
   uploadedFiles: any[] = [];
@@ -52,8 +54,8 @@ imgI : string = "../../../../../../assets/img/ajoutForm.png";
   progress = 0;
   message = '';
   fileInfos: Observable<any>;
-  selectedFile : File ;
-  constructor(private authService: AuthService, private router: Router, private messageService: MessageService, private toastr: ToastrService,private departementService : DepartementService) {
+  selectedFile : FileList ;
+  constructor(private authService: AuthService, private router: Router,private uploadService : UploadFileService, private messageService: MessageService, private toastr: ToastrService,private departementService : DepartementService) {
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
@@ -120,10 +122,18 @@ imgI : string = "../../../../../../assets/img/ajoutForm.png";
     });
 
   }
-
   signup() {
     console.log("username" + this.signupForm.get('username_signup').value + "email" + this.signupForm.get('email_signup').value + "password_signup" + this.signupForm.get('password_signup').value)
-
+    this.currentFile = this.selectedFile.item(0);
+    console.log("current file",this.currentFile);
+    this.uploadService.upload(this.currentFile).subscribe(
+      event => {
+        if (event instanceof HttpResponse) {
+          this.message = event.body.message;}
+      },
+      err => {
+          this.message = ' Un probleme est survenue';
+      });
 
     this.loginRequestPayload.username = this.signupForm.get('username_signup').value;
     this.loginRequestPayload.email = this.signupForm.get('email_signup').value;
@@ -166,6 +176,7 @@ imgI : string = "../../../../../../assets/img/ajoutForm.png";
     onUpload(event){
       if (event.target.files.length > 0)
       {
+        this.selectedFile = event.target.files;
         const file = event.target.files[0];
         //this.userFile = file;
        // this.f['profile'].setValue(file);
@@ -183,7 +194,9 @@ imgI : string = "../../../../../../assets/img/ajoutForm.png";
       reader.onload = (_event) => { 
         this.imgURL = reader.result; 
       }
-      console.log("file name ", this.imgURL)
-      }}
+      console.log("file name ", this.file.name)
+      }
+    this.namePhoto=this.file.name ;
+    }
 
 }
