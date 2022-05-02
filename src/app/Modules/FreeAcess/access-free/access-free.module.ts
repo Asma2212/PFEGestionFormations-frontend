@@ -10,6 +10,7 @@ import {ToggleButtonModule} from "primeng/togglebutton";
 import { DetailsSessionComponent } from './details-session/details-session.component';
 import {RatingModule} from "primeng/rating";
 import {TagModule} from "primeng/tag";
+import { FormationsViewerComponent } from './formations-viewer/formations-viewer.component';
 
 
 
@@ -19,6 +20,7 @@ import {TagModule} from "primeng/tag";
     SessionComponent,
     HomePageComponent,
     DetailsSessionComponent,
+    FormationsViewerComponent,
   ],
     imports: [
         CommonModule,

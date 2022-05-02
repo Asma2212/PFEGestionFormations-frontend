@@ -14,6 +14,7 @@ import {FormatuerLoginComponent} from "./Modules/Authentification/login/fomateur
 import {CandidatRegisterComponent} from "./Modules/Authentification/login/candidat/candidat-register/candidat-register.component";
 import {HomePageComponent} from "./Modules/FreeAcess/access-free/home-page/home-page.component";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
+import {DashboardFormateurComponent} from "./Modules/espace-formateur/dashboard-formateur/dashboard-formateur.component";
 
 const routes: Routes =[
   {
@@ -31,6 +32,11 @@ const routes: Routes =[
   {path:'home',
   component:HomePageComponent,
     loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
+
+  },
+  {path:'formateur_dashboard',
+    component:DashboardFormateurComponent,
+    loadChildren: () => import('./Modules/espace-formateur/espace-formateur.module').then(m => m.EspaceFormateurModule)
 
   },
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},

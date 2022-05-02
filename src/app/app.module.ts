@@ -47,7 +47,6 @@ import {MatInputModule} from "@angular/material/input";
 import {PasswordModule} from "primeng/password";
 import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
-import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   imports: [BrowserModule,
@@ -81,7 +80,6 @@ import { FileUploadModule } from 'primeng/fileupload';
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    FileUploadModule,
     ToastrModule.forRoot(),
 
     NgxWebstorageModule.forRoot(),
