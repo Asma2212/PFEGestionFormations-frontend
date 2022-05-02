@@ -27,84 +27,70 @@
                             <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                         </div>
                     </ng-template>
-                    <ng-template let-session pTemplate="listItem" let-expanded="expanded">
+                    <ng-template let-session  pTemplate="listItem">
                         <div class="col-12">
                             
                             <div class="session-list-item">
-                                <a href="#" [pRowToggler]="session">
-                                    <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
-                                </a>
-                                <img src="../../../../assets/img/angular.png"  [alt]="session.titreSession"/> <!--[src]="'assets//images/demo/session/' + session.image"-->
-                                <div class="session-list-detail">
+                                <div *ngFor="let file of fileInfos | async">
+                                    <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
+                                      <img [src]="file.url"  alt="file.name" />
+                                    </p>
+                                  </div>
+                                   <div class="session-list-detail" style="display: flex;">
+                                    <div>
                                     <div class="session-name">{{session.titreSession}}</div>
                                     <div class="session-description">{{session.descriptionSession}}</div>
-                                    <p-rating [ngModel]="2.5" [readonly]="true" [cancel]="false"></p-rating>
-                                    <i class="pi pi-tag session-category-icon"></i><span class="session-category">cateegory</span>
+                                    <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
+                                </div>
+                                    <div style="margin-left: 20%;">
+                                        <strong>Formateurs :</strong> <br>
+                                        <i class="pi pi-users session-category-icon"></i>
+                                        <span *ngFor="let formateur of session.listeFormateurs">
+                                            <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>   
+                                        <span class="session-category" *ngIf="formateur.genre.name=='FEMME'">MMe. {{formateur.lastName}} {{formateur.firstName}}</span>
+                                    <br>    
+                                    </span>
+                                    </div>
                                 </div>
                                 <div class="session-list-action">
-                                    <span class="session-price" pTooltip="nb">$22222</span>
+                                    <span class="session-price" pTooltip="nb">{{session.nbMaxCandidat}}</span>
                                     <div>
                                         <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
                                         <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
-                                        </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" [class]="'product-badge status-' + session.nivDifficulte.toLowerCase()" >{{session.nivDifficulte}}</span>
+                                        </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" >{{session.nivDifficulte}}</span>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
+
                     </ng-template>
-                    <ng-template pTemplate="rowexpansion" let-session>
-                        <tr>
-                            <td colspan="7">
-                                <div class="p-p-3">
-                                    <p-table [value]="listeFormations" dataKey="id">
-                                        <ng-template pTemplate="header">
-                                            <tr>
-                                                <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-                                                <th pSortableColumn="customer">name <p-sortIcon field="customer"></p-sortIcon></th>
-                                                <th pSortableColumn="date">lastName <p-sortIcon field="date"></p-sortIcon></th>
-                                                <th pSortableColumn="amount">departement<p-sortIcon field="amount"></p-sortIcon></th>
-                                                <th pSortableColumn="stats">Classe <p-sortIcon field="status"></p-sortIcon></th>
-                                                
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="body" let-order>
-                                            <tr>
-                                                <td>{{order.id}}</td>
-                                                <td>{{order.name}}</td>
-                                                <td>{{order.lastName}}</td>
-                                                <td>{{order.departement}}</td>
-                                                <td>{{order.classe}}</td>
-                                                
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage">
-                                            <tr>
-                                                <td colspan="6">There are no order for this product yet.</td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                </div>
-                            </td>
-                        </tr>
-                    </ng-template>
+
                     <ng-template let-session pTemplate="gridItem">
-                        <div class="p-col-12 p-md-4">
-                            <div class="session-grid-item card" style="background-color: rgba(246, 235, 227, 0.382);">
+                        <div class="p-col-12 p-md-3">
+                            <div class="session-grid-item card" style="background-color: #dee2e632">
                                 <div class="session-grid-item-top">
                                     <div>
+                                        <strong>Formateurs :</strong> <br>
                                         <i class="pi pi-users session-category-icon"></i>
-                                        <span class="session-category">M. MTIR Mehdi</span>
-                                        
+                                        <span *ngFor="let formateur of session.listeFormateurs">
+                                            <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>   
+                                        <span class="session-category" *ngIf="formateur.genre.name=='FEMME'">MMe. {{formateur.lastName}} {{formateur.firstName}}</span>
+                                    <br>    
+                                    </span>
                                     </div>
                                     <span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="font-size: small;"><strong>&nbsp;{{session.nivDifficulte}}&nbsp;</strong></span>
                                 </div>
                                 <div class="session-grid-item-content">
-                                    <img src="../../../../assets/img/angular.png"/>
+                                    <div *ngFor="let file of fileInfos | async">
+                                        <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
+                                          <img [src]="file.url"  alt="file.name" />
+                                        </p>
+                                      </div>
                                     <div class="session-name">{{session.titreSession}}</div>
                                     <div class="session-description">{{session.descriptionSession}}</div>
-                                    <p-rating [ngModel]="2.5" [readonly]="true" [cancel]="false"></p-rating>
+                                 <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
                                 </div><br>
                                 <div class="session-grid-item-bottom">
-                                    <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="bottom" >10</span>
+                                    <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="bottom" >{{session.nbMaxCandidat}}</span>
                                     <div>
                                     <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
                                     <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
@@ -184,7 +170,7 @@
                                             </p-multiSelect>
                     
                   
-                  <small class="p-error" *ngIf="submitted && !session.formationSession">formation est requis.</small>
+                 <!-- <small class="p-error" *ngIf="submitted && !session.formationSession">formation est requis.</small>-->
                 </div><br>
                     <label> niveau de difficulté </label>
                     <div *ngFor="let niv of nivDifficulte" class="field-checkbox">
@@ -192,6 +178,7 @@
                         <label for="nivDiff" style="color: black;">&nbsp;{{niv}}</label>
                     </div>
                     <small class="p-error" *ngIf="submitted && !session.nivDifficulte">niveau de difficulté est requis.</small>
+                  
                     <label>Les Formateurs de cette formation :</label>
                    <div class="field col-8" style="text-align: center;">
                      <button pButton pRipple label="Ajouter Formateurs" icon="pi pi-user-plus" class="p-button-outlined"  (click)="suivantSession()" ></button>
@@ -208,10 +195,10 @@
                     <div>
                       <div class="p-inputgroup">
                           <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span>
-                          <input type="text" pInputText id="lieux" [(ngModel)]="session.lieuxSession"/>
+                          <input type="text" pInputText id="lieux" [(ngModel)]="session.lieuSession"/>
                               
                       </div>
-                      <small class="p-error" *ngIf="submitted && !session.lieuxSession">le lieux du Session est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !session.lieuSession">le lieux du Session est requis.</small>
                   </div>
                 
                 <div style="display: flex;">

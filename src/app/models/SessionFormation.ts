@@ -6,7 +6,7 @@ import { NivDifficulteEnum } from "./NivDifficulteEnum";
 export class SessionFormation{
     idSession : number;
     titreSession : string ;
-    lieuxSession : string;
+    lieuSession : string;
     descriptionSession : string ; 
     dateDebSession : Date ;
     dateFinSession : Date ;
@@ -16,6 +16,6 @@ export class SessionFormation{
     nivDifficulte : NivDifficulteEnum ;
     nbMaxCandidat : number ;
     formationSession : Formation ;
-    listeFormateur : Formateur[];
+    listeFormateurs : Formateur[];
     listeCandidat : Candidat[];
 }

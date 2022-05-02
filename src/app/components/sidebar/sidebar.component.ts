@@ -11,9 +11,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Accueil',  icon: 'home', class: '' },
     { path: '/user-profile', title: 'Admin Profile',  icon:'manage_accounts', class: '' },
     { path: '/formation', title: 'Gestion Formations',  icon:'model_training', class: '' },
-    { path: '/formateurs/list', title: 'Gestion Formateurs',  icon:'person', class: '' },
+    { path: '/formateurs/list', title: 'Gestion Formateurs',  icon:'group', class: '' },
     { path: '/candidats/list', title: 'Gestion Candidats',  icon:'school', class: '' },
-    { path: '/sessionsFormation', title: 'Sessions de formation',  icon:'school', class: '' },
+    { path: '/sessionsFormation', title: 'Sessions de formation',  icon:'model_trainingadd', class: '' },
 ];
  
 @Component({

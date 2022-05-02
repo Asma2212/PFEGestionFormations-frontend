@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
     providedIn: 'root'
   })
   export class SessionFormationService {
-    url = 'http://localhost:8080/sessionFormation/';
+    url = 'http://localhost:8080/api/session/';
 
     constructor(private http: HttpClient) {}
   
@@ -15,16 +15,16 @@ import { Observable } from "rxjs";
       return this.http.get<SessionFormation[]>(this.url + 'all');
     }
   
-    saveFormateur(session : SessionFormation) : Observable<any>{
+    saveSession(session : SessionFormation) : Observable<any>{
       return this.http.post<any>(this.url + 'add',session);
     }
   
-    updateFormateur(session : SessionFormation) : Observable<any>{
+    updateSession(session : SessionFormation) : Observable<any>{
       
       return this.http.post<any>(this.url + 'update/'+session.idSession,session);
     }
   
-    deleteFormateur(ids : number) : Observable<any>{
-      return this.http.delete<any>(this.url + 'delete/'+ ids);
+    deleteSession(idc : number) : Observable<any>{
+      return this.http.delete<any>(this.url + 'delete/'+ idc);
     }
   }

@@ -37,7 +37,14 @@ import { FormateursDialogComponent } from './formateurs-dialog/formateurs-dialog
 import { CalendarModule } from 'primeng/calendar';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SliderModule } from 'primeng/slider';
-import { MatIconModule } from '@angular/material/icon';
+
+
+
+import { HttpClientModule } from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 
 @NgModule({
@@ -49,6 +56,8 @@ import { MatIconModule } from '@angular/material/icon';
     FormateursDialogComponent
 ],
   imports: [
+    ContextMenuModule,
+    ProgressBarModule,
     CommonModule,
     PanelModule,
     FormsModule,
