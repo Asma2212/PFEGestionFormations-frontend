@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Inject, OnDestroy } from '@angular/core';
 import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import jsPDF from "jspdf";
 //import "jspdf-autotable";
 import * as FileSaver from 'file-saver';
@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { FormationService } from 'app/services/formation.service';
 import { Formation } from 'app/models/Formation';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Session } from 'protractor';
 
 
 @Component({
@@ -74,8 +75,9 @@ export class SessionFormationComponent implements OnInit,OnDestroy {
   maxDate : Date ;
   minDate1 : Date ;
   maxDate1 : Date ;
+  more : boolean = false ;
 
-  constructor(private sessionService: SessionFormationService,private formationService: FormationService ,private uploadService: UploadFileService, public dialogService: DialogService, public messageService: MessageService) { }
+  constructor(private sessionService: SessionFormationService,private confirmationService: ConfirmationService ,private formationService: FormationService ,private uploadService: UploadFileService, private dialogService: DialogService, private messageService: MessageService) { }
 
   ngOnInit() {
 
@@ -85,69 +87,7 @@ export class SessionFormationComponent implements OnInit,OnDestroy {
       });
 
     this.fileInfos = this.uploadService.getFiles();
-     // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
-this.sessions=[{
-  idSession : 1,
-    titreSession : "Full Stack Angular Spring Boot" ,
-    lieuxSession : "Orange Tn",
-    descriptionSession : "formation certifiée",
-    dateDebSession : new Date(2022, 10, 15) ,
-    dateFinSession :new Date(2022, 10, 20),
-    photoSession : "angular.png" ,
-    planning : new Map([["1", "test"],["2", "test2"]]),
-    programme : "",
-    nivDifficulte : NivDifficulteEnum.avance,
-    nbMaxCandidat : 15 ,
-    formationSession : null,
-    listeFormateur : null,
-    listeCandidat : null
-},
-{
-  idSession : 2,
-    titreSession : "titre2" ,
-    lieuxSession : "Departement informatique",
-    descriptionSession : "desc2",
-    dateDebSession : new Date(2023, 10, 15) ,
-    dateFinSession :new Date(2023, 10, 20),
-    photoSession : "" ,
-    planning : new Map([["1", "test"],["2", "test2"]]),
-    programme : "",
-    nivDifficulte : NivDifficulteEnum.facile,
-    nbMaxCandidat : 15 ,
-    listeFormateur : null,
-    formationSession : null,
-    listeCandidat : null
-},{
-  idSession : 2,
-  titreSession : "titre2" ,
-  lieuxSession : "Departement informatique",
-  descriptionSession : "desc2",
-  dateDebSession : new Date(2023, 10, 15) ,
-  dateFinSession :new Date(2023, 10, 20),
-  photoSession : "" ,
-  planning : new Map([["1", "test"],["2", "test2"]]),
-  programme : "",
-  nivDifficulte : NivDifficulteEnum.facile,
-  nbMaxCandidat : 15 ,
-  listeFormateur : null,
-  formationSession : null,
-  listeCandidat : null
-},{
-  idSession : 2,
-  titreSession : "titre2" ,
-  lieuxSession : "Departement informatique",
-  descriptionSession : "desc2",
-  dateDebSession : new Date(2023, 10, 15) ,
-  dateFinSession :new Date(2023, 10, 20),
-  photoSession : "" ,
-  planning : new Map([["1", "test"],["2", "test2"]]),
-  programme : "",
-  nivDifficulte : NivDifficulteEnum.facile,
-  nbMaxCandidat : 15 ,
-  listeFormateur : null,
-  formationSession : null,
-  listeCandidat : null
-}]
+     this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
 
 this.cols = [
   { field: 'idSession', header: 'Code', customExportHeader: 'Session Code' },
@@ -167,7 +107,6 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
 
 
   }
-
 
 
 
@@ -260,7 +199,7 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
     this.session = {  idSession:  0,
       titreSession : "",
       descriptionSession : "",
-      lieuxSession : "",
+      lieuSession : "",
     dateDebSession : null ,
     dateFinSession : null ,
     photoSession : "",
@@ -269,7 +208,7 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
     nivDifficulte : null ,
     nbMaxCandidat : 0 ,
     formationSession:null,
-    listeFormateur : [] ,
+    listeFormateurs : [] ,
     listeCandidat : []
     };
     this.submitted = false;
@@ -278,23 +217,78 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
 hideDialog() {
   this.sessionDialog = false;
   this.submitted = false;
- /* this.imgURL = null ;
+ this.imgURL = null ;
   this.uploadedFiles = [];
   this.file  = null;
-  this.selectedFiles1 = null;
-  this.currentFile1=null;
-  this.progress1 = 0;
-  this.message1 = '';*/
+  this.selectedFile = null;
+  this.currentFile=null;
+  this.progress = 0;
+  this.message= '';
 }
 saveSession(){
   this.submitted = true ;
-
+  //this.session.formationSession = this.session.formationSession[0];
+  console.log("session bch tetbaath :",this.session)
   if(this.selectedFormateurs)
     this.selectedFormateurs.forEach( formateur=> {
-      this.session.listeFormateur.push(formateur)
+      this.session.listeFormateurs.push(formateur)
     });
-    console.log("hreeedhyyyyy",this.session);
+    if (this.session.idSession) {
+      console.log("before update",this.session);
+      this.sessionService.updateSession(this.session).subscribe( data => {
+        console.log("data update session",data);
+        this.messageService.add({severity:'success', summary: 'Successful', detail: 'session Updated', life: 3000});
+      window.location.reload();
+      });
+      
   }
+  else {
+    this.session.photoSession=this.file.name ;
+      this.sessionService.saveSession(this.session).subscribe( data => {
+        console.log("data save session",data);
+        this.messageService.add({severity:'success', summary: 'Successful', detail: 'session ajouter', life: 3000});
+        window.location.reload();
+      },
+      error =>
+     {
+      this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000}); 
+      this.session.photoSession = null ;
+    console.log("exception occured");});
+  }
+  }
+
+  deleteSession(session : SessionFormation) {
+    this.confirmationService.confirm({
+        message: 'Are you sure you want to delete ?',//' + formateur.name + 'Are you sure you want to delete' + formateur.name + ' ?'
+        header: 'Confirm',
+        icon: 'pi pi-exclamateur-triangle',
+        accept: () => {
+           // this.formateurs = this.formateurs.filter(val => val.id !== formateur.id);
+            console.log(session.idSession);
+            this.sessionService.deleteSession(session.idSession).subscribe( data => {
+              console.log("data Session deleted",data)
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
+              window.location.reload();
+            });
+            this.session = null;
+
+        }
+    });
+    
+}
+
+editSession(session: SessionFormation) {
+  if (session.listeFormateurs[0]) {
+    session.listeFormateurs.forEach( formateur=> {
+      //this.session.listeFormateur.push(formateur)
+      this.names.push(formateur.firstName);
+    });}
+  this.selectedFormateurs=session.listeFormateurs ;
+  this.session = {...session};
+  //this.imgURL = session.photo ;
+  this.sessionDialog = true;
+
+}
 
   upload() {
     this.progress = 0;
