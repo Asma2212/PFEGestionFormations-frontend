@@ -14,6 +14,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {GalleriaModule} from 'primeng/galleria';
 import { MatIconModule } from "@angular/material/icon";
 import { FormationsViewerComponent } from './formations-viewer/formations-viewer.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -24,6 +25,7 @@ import { FormationsViewerComponent } from './formations-viewer/formations-viewer
     HomePageComponent,
     DetailsSessionComponent,
     FormationsViewerComponent,
+    HomeComponent,
   ],
     imports: [
         CommonModule,
