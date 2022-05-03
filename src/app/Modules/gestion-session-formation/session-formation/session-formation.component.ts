@@ -22,7 +22,21 @@ import { Session } from 'protractor';
   selector: 'app-session-formation',
   templateUrl: './session-formation.component.html',
   styleUrls: ['./session-formation.component.scss'],
-  providers: [DialogService]
+  providers: [DialogService],
+  animations: [
+    trigger('rowExpansionTrigger', [
+        state('void', style({
+            transform: 'translateX(-10%)',
+            opacity: 0
+        })),
+        state('active', style({
+            transform: 'translateX(0)',
+            opacity: 1
+        })),
+        transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+
+    ])
+]
 })
 export class SessionFormationComponent implements OnInit,OnDestroy {
 
@@ -118,7 +132,7 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
             this.namesStr = this.namesStr+"- "+formateur.firstName+"\n";
 
           });
-          
+
             this.messageService.add({severity:'info', summary: 'formateur Selected', detail: this.namesStr});
         }
     });
@@ -226,7 +240,7 @@ saveSession(){
         this.messageService.add({severity:'success', summary: 'Successful', detail: 'session Updated', life: 3000});
       window.location.reload();
       });
-      
+
   }
   else {
     this.session.photoSession=this.file.name ;
@@ -237,7 +251,7 @@ saveSession(){
       },
       error =>
      {
-      this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000}); 
+      this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000});
       this.session.photoSession = null ;
     console.log("exception occured");});
   }
@@ -260,7 +274,7 @@ saveSession(){
 
         }
     });
-    
+
 }
 
 editSession(session: SessionFormation) {

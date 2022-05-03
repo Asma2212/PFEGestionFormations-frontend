@@ -48,63 +48,65 @@ import {PasswordModule} from "primeng/password";
 import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 
-
 @NgModule({
-  imports: [BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    SidebarModule,
-    ButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    ButtonModule,
-    SidebarModule,
-    PanelModule,
-    CommonModule,
-    SharedModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    ButtonModule,
-    ToastModule,
-    ToolbarModule,
-    TableModule,
-    RouterModule,
-    AppRoutingModule,
-    NgxFileDropModule,
-    AccordionModule,
-    GestionFormationsModule,
-    AccessFreeModule,
-    ToastModule,
-    HttpClientModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    ToastrModule.forRoot(),
+    imports: [BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        SidebarModule,
+        ButtonModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        ButtonModule,
+        SidebarModule,
+        PanelModule,
+        CommonModule,
+        SharedModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        ButtonModule,
+        ToastModule,
+        ToolbarModule,
+        TableModule,
+        RouterModule,
+        AppRoutingModule,
+        NgxFileDropModule,
+        AccordionModule,
+        GestionFormationsModule,
 
-    NgxWebstorageModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }), MessageModule, TooltipModule, MatFormFieldModule, PasswordModule, MultiSelectModule
-  ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent,
-    PagenotfoundComponent,
-    AdminLoginComponent,
-    FormatuerLoginComponent,
-    CandidatRegisterComponent
+        ToastModule,
+        HttpClientModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatNativeDateModule,
+        ToastrModule.forRoot(),
 
-  ],
-  providers: [ MessageService , HttpClient,
+        NgxWebstorageModule.forRoot(),
+        AgmCoreModule.forRoot({
+            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+        }), MessageModule, TooltipModule, MatFormFieldModule, PasswordModule, MultiSelectModule
+    ],
+    declarations: [
+        AppComponent,
+        AdminLayoutComponent,
+        PagenotfoundComponent,
+        AdminLoginComponent,
+        FormatuerLoginComponent,
+        CandidatRegisterComponent
 
-  ConfirmationService ,   [ {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }]
-  ],
-  bootstrap: [AppComponent]
+    ],
+    providers: [MessageService, HttpClient,
+
+        ConfirmationService, [{
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        }]
+    ],
+    exports: [
+        CandidatRegisterComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

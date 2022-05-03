@@ -15,7 +15,6 @@ import {CandidatRegisterComponent} from "./Modules/Authentification/login/candid
 import {HomePageComponent} from "./Modules/FreeAcess/access-free/home-page/home-page.component";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 import {DashboardFormateurComponent} from "./Modules/espace-formateur/dashboard-formateur/dashboard-formateur.component";
-import { HomeComponent } from './Modules/FreeAcess/access-free/home/home.component';
 
 const routes: Routes =[
   {
@@ -31,8 +30,11 @@ const routes: Routes =[
     }]
   },
   {path:'home',
-  component:HomeComponent,
+  component:HomePageComponent,
+/*
     loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
+*/
+
   },
   {path:'formateur_dashboard',
     component:DashboardFormateurComponent,
@@ -41,7 +43,7 @@ const routes: Routes =[
   },
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},
   {path:'login/formateur',component:FormatuerLoginComponent},
-  {path:"register/candidat",component:CandidatRegisterComponent},
+ /* {path:"register/candidat",component:CandidatRegisterComponent},*/
 
   { path: '**', pathMatch: 'full',
   component: PagenotfoundComponent

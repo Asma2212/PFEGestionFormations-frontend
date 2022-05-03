@@ -22,7 +22,8 @@ FullCalendarModule.registerPlugins([
   imports: [
     CommonModule,
     EspaceFormateurRoutingModule,
-    FullCalendarModule
+
+    FullCalendarModule,
 
     /* FullCalendarModule,
      CalendarModule,*/

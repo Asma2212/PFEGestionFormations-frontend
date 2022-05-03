@@ -40,8 +40,7 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js",
-              "src/assets/js/admin-login.js",
-              "src/assets/js/session.js"
+              "src/assets/js/admin-login.js"
             ],
             "allowedCommonJsDependencies" : [
               "rxjs/add/operator/filter",

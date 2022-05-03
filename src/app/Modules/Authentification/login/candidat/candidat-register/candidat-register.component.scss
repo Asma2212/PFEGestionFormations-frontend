@@ -1,13 +1,14 @@
 //colors
 
-$color_governor_bay_approx: rgba(57,49,175,1);
-$color_bright_turquoise_approx: rgba(0,198,255,1);
+$color_governor_bay_approx: rgb(201, 13, 13);
+$color_bright_turquoise_approx: rgb(255, 255, 255);
 $white: #fff;
 $color_alabaster_approx: #f8f9fa;
 $color_ship_gray_approx: #383d41;
-$color_science_blue_approx: #0062cc;
+$color_science_blue_approx: #c90d0d;
 $color_abbey_approx: #495057;
-
+body{
+}
 .register {
   background: linear-gradient(to right, $color_governor_bay_approx 0, $color_bright_turquoise_approx 100%);
   margin-top: 3%;
