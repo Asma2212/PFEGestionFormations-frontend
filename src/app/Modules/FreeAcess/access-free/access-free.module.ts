@@ -18,6 +18,7 @@ import {MenuModule} from "primeng/menu";
 import { HomeDetailsComponent } from './home-details/home-details.component';
 import {HomePage1Component} from "./home-page1/home-page1.component";
 import {CarouselModule} from "primeng/carousel";
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -31,6 +32,7 @@ import {CarouselModule} from "primeng/carousel";
     NavBarComponent,
     HomeDetailsComponent,
     HomePage1Component,
+    HomeComponent,
   ],
   imports: [
     CommonModule,
