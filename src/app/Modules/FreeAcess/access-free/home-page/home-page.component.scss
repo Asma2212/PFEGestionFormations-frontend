@@ -6,7 +6,7 @@
 
 body {
   --body-bg-color: #e5ecef;
-  --theme-bg-color: #fafafb;
+  --theme-bg-color: #fafafbe1;
   --body-font: "Poppins", sans-serif;
   --body-color: #2f2f33;
   --active-color: #ff3401;
@@ -98,11 +98,12 @@ body {
 .job {
   display: flex;
   flex-direction: column;
-  max-width: 1400px;
+  max-width: 1350px;
   height: 100vh;
   margin: 0 auto;
   overflow: hidden;
   background-color: var(--theme-bg-color);
+
 }
 
 .logo {
