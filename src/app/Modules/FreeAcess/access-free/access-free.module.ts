@@ -13,6 +13,7 @@ import {TagModule} from "primeng/tag";
 import {CarouselModule} from 'primeng/carousel';
 import {GalleriaModule} from 'primeng/galleria';
 import { MatIconModule } from "@angular/material/icon";
+import { FormationsViewerComponent } from './formations-viewer/formations-viewer.component';
 
 
 
@@ -22,6 +23,7 @@ import { MatIconModule } from "@angular/material/icon";
     SessionComponent,
     HomePageComponent,
     DetailsSessionComponent,
+    FormationsViewerComponent,
   ],
     imports: [
         CommonModule,
