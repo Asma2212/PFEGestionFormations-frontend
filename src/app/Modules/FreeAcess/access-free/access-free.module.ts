@@ -16,6 +16,8 @@ import {AppModule} from "../../../app.module";
 import {SlideMenuModule} from "primeng/slidemenu";
 import {MenuModule} from "primeng/menu";
 import { HomeDetailsComponent } from './home-details/home-details.component';
+import {HomePage1Component} from "./home-page1/home-page1.component";
+import {CarouselModule} from "primeng/carousel";
 
 
 
@@ -28,6 +30,7 @@ import { HomeDetailsComponent } from './home-details/home-details.component';
     FormationsViewerComponent,
     NavBarComponent,
     HomeDetailsComponent,
+    HomePage1Component,
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { HomeDetailsComponent } from './home-details/home-details.component';
     AppModule,
     SlideMenuModule,
     MenuModule,
+    CarouselModule,
 
   ]
 })

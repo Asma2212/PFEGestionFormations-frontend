@@ -4,11 +4,11 @@ import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-home1-page',
+  templateUrl: './home-page1.component.html',
+  styleUrls: ['./home-page1.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePage1Component implements OnInit {
   sessions : SessionFormation[] ;
 	responsiveOptions;
   images: any[];
@@ -35,7 +35,7 @@ export class HomePageComponent implements OnInit {
         idSession : 0,
         titreSession : "",
         lieuSession : "",
-        descriptionSession : "", 
+        descriptionSession : "",
         dateDebSession : new Date(),
         dateFinSession : new Date(),
         photoSession : "",
@@ -50,7 +50,7 @@ export class HomePageComponent implements OnInit {
         idSession : 0,
         titreSession : "",
         lieuSession : "",
-        descriptionSession : "", 
+        descriptionSession : "",
         dateDebSession : new Date(),
         dateFinSession : new Date(),
         photoSession : "",
@@ -65,7 +65,7 @@ export class HomePageComponent implements OnInit {
         idSession : 0,
         titreSession : "",
         lieuSession : "",
-        descriptionSession : "", 
+        descriptionSession : "",
         dateDebSession : new Date(),
         dateFinSession : new Date(),
         photoSession : "",
