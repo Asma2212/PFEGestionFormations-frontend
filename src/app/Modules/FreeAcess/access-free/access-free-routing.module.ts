@@ -5,15 +5,25 @@ import {ListeCandidatsComponent} from "../../gestion-candidats/liste-candidats/l
 import {AjouterCandidatComponent} from "../../gestion-candidats/ajouter-candidat/ajouter-candidat.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {SessionComponent} from "./session/session.component";
+import { HomeComponent } from './home/home.component';
+import { FormationsViewerComponent } from './formations-viewer/formations-viewer.component';
 
 const routes: Routes = [{
-  path: 'home',
-  component : HomePageComponent,
+  path: '',
+  component : HomeComponent,
   children: [
+    {
+      path: 'home',
+      component: HomePageComponent,
+    },
     {
       path: 'session/:id',
       component: SessionComponent,
     },
+    {
+      path: 'formation',
+      component: FormationsViewerComponent,
+    }
   ]
 }
 ];
