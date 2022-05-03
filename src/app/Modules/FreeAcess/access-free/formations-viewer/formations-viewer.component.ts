@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
+import { SessionFormation } from 'app/models/SessionFormation';
+import { SessionFormationService } from 'app/services/SessionFormation.service';
 
 @Component({
   selector: 'app-formations-viewer',
@@ -6,13 +9,134 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./formations-viewer.component.scss']
 })
 export class FormationsViewerComponent implements OnInit {
-
-  constructor() { }
+sessions : SessionFormation[];
+  constructor(private sessionService : SessionFormationService) { }
 
   ngOnInit(): void {
-    //$(document).ready(function() {
-//$('.search-box').focus();
-//});
+   // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
+    this.sessions = [
+      {
+        idSession : 0,
+        titreSession : "Full stack dev",
+        lieuSession : "",
+        descriptionSession : "", 
+        dateDebSession : new Date(),
+        dateFinSession : new Date(),
+        photoSession : "../../../../../assets/img/forma.jpg",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : null,
+        listeFormateurs : null,
+        listeCandidat : null,
+      },{
+        idSession : 0,
+        titreSession : "",
+        lieuSession : "",
+        descriptionSession : "", 
+        dateDebSession : new Date(),
+        dateFinSession : new Date(),
+        photoSession : "",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : null,
+        listeFormateurs : null,
+        listeCandidat : null,
+      },{
+        idSession : 0,
+        titreSession : "",
+        lieuSession : "",
+        descriptionSession : "", 
+        dateDebSession : new Date(),
+        dateFinSession : new Date(),
+        photoSession : "",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : null,
+        listeFormateurs : null,
+        listeCandidat : null,
+      },{
+        idSession : 0,
+        titreSession : "",
+        lieuSession : "",
+        descriptionSession : "", 
+        dateDebSession : new Date(),
+        dateFinSession : new Date(),
+        photoSession : "",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : null,
+        listeFormateurs : null,
+        listeCandidat : null,
+      },{
+        idSession : 0,
+        titreSession : "",
+        lieuSession : "",
+        descriptionSession : "", 
+        dateDebSession : new Date(),
+        dateFinSession : new Date(),
+        photoSession : "",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : null,
+        listeFormateurs : null,
+        listeCandidat : null,
+      },{
+        idSession : 0,
+        titreSession : "",
+        lieuSession : "",
+        descriptionSession : "", 
+        dateDebSession : new Date(),
+        dateFinSession : new Date(),
+        photoSession : "",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : null,
+        listeFormateurs : null,
+        listeCandidat : null,
+      },{
+        idSession : 0,
+        titreSession : "",
+        lieuSession : "",
+        descriptionSession : "", 
+        dateDebSession : new Date(),
+        dateFinSession : new Date(),
+        photoSession : "",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : null,
+        listeFormateurs : null,
+        listeCandidat : null,
+      },{
+        idSession : 0,
+        titreSession : "",
+        lieuSession : "",
+        descriptionSession : "", 
+        dateDebSession : new Date(),
+        dateFinSession : new Date(),
+        photoSession : "",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : null,
+        listeFormateurs : null,
+        listeCandidat : null,
+      }
+    ]
 
     const wrapper = document.querySelector(".wrapper");
     const header = document.querySelector(".header");
