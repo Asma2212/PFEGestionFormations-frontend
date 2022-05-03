@@ -74,7 +74,7 @@ import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.modu
         NgxFileDropModule,
         AccordionModule,
         GestionFormationsModule,
-
+      AccessFreeModule,
         ToastModule,
         HttpClientModule,
         MatDatepickerModule,
@@ -93,7 +93,7 @@ import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.modu
         PagenotfoundComponent,
         AdminLoginComponent,
         FormatuerLoginComponent,
-        CandidatRegisterComponent
+        CandidatRegisterComponent,
 
     ],
     providers: [MessageService, HttpClient,
