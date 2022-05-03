@@ -10,6 +10,9 @@ import {ToggleButtonModule} from "primeng/togglebutton";
 import { DetailsSessionComponent } from './details-session/details-session.component';
 import {RatingModule} from "primeng/rating";
 import {TagModule} from "primeng/tag";
+import {CarouselModule} from 'primeng/carousel';
+import {GalleriaModule} from 'primeng/galleria';
+import { MatIconModule } from "@angular/material/icon";
 
 
 
@@ -28,7 +31,12 @@ import {TagModule} from "primeng/tag";
         FormsModule,
         ToggleButtonModule,
         RatingModule,
-        TagModule
+        TagModule,
+        CarouselModule,
+        GalleriaModule,
+        MatIconModule
+        
+        
     ]
 })
 export class AccessFreeModule { }

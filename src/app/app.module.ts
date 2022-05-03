@@ -49,6 +49,7 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 import { FileUploadModule } from 'primeng/fileupload';
 
+
 @NgModule({
   imports: [BrowserModule,
     BrowserAnimationsModule,

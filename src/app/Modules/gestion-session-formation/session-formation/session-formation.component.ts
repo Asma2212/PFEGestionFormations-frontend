@@ -22,21 +22,7 @@ import { Session } from 'protractor';
   selector: 'app-session-formation',
   templateUrl: './session-formation.component.html',
   styleUrls: ['./session-formation.component.scss'],
-  providers: [DialogService],
-  animations: [
-    trigger('rowExpansionTrigger', [
-        state('void', style({
-            transform: 'translateX(-10%)',
-            opacity: 0
-        })),
-        state('active', style({
-            transform: 'translateX(0)',
-            opacity: 1
-        })),
-        transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
-
-    ])
-]
+  providers: [DialogService]
 })
 export class SessionFormationComponent implements OnInit,OnDestroy {
 
