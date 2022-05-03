@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import * as $ from 'jquery'
 @Component({
   selector: 'app-home-details',
   templateUrl: './home-details.component.html',
@@ -10,9 +10,8 @@ export class HomeDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-/*
-    $('.carousel').carousel();
-*/
+
+
   }
 
 }
