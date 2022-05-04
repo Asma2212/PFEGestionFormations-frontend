@@ -21,9 +21,9 @@
         <div class="alert">
           <div class="alert-title">Chercher votre formation</div>
           <div class="alert-subtitle">Vous pouvez trouver toutes les formations disponible</div>
-          <input type="text" placeholder="Entrer le nom de formation">
-          <button class="search-buttons">chercher</button>
-        </div>
+            <input type="text" placeholder="Entrer le nom de la formation" (keyup)="filtreParTitre($event.target.value)"> 
+          <button class="search-buttons"><i class="pi pi-search"></i> Chercher</button></div>
+        
         <div class="job-time">
           <div class="job-time-title">Disponibilité</div>
           <div class="job-wrapper">
@@ -166,13 +166,12 @@
             <div class="collapse multi-collapse" id="multiCollapseExample2">
               <div class="card card-body">
                 <p><strong>Filtre par categorie :</strong> </p>
-          <p-multiSelect [options]="cat" [(ngModel)]="filtreCategorie" defaultLabel="Selectionner une categorie" optionLabel="titre" display="chip" style="height: 10%;"></p-multiSelect>
+          <p-multiSelect [options]="cat" [selectionLimit]="1" defaultLabel="Selectionner une categorie" optionLabel="titre" display="chip" style="height: 10%;" [(ngModel)]="categorieFilter" (onClick)="filtreParCategorie()"></p-multiSelect>
 
                </div>
             </div>
           </div>
         </div>
-<br>
         <div class="searched-bar">
           <div class="searched-show">Nos formations</div>
           <div class="searched-sort">Trier par: <span class="post-time">Le plus récent </span><span class="menu-icon">▼</span></div>
@@ -183,8 +182,8 @@
             <div class="job-card-header">
               <div style="display: flex;">
                <div style="position: relative;"> <img [src]="session.photoSession" ></div>
-               <div style="position: absolute;" style="float: right;" *ngIf="!testSession(session)" (click)="saveFormation(session)"> <i class="pi pi-bookmark"></i></div>
-               <div style="position: absolute;" style="float: right;" *ngIf="testSession(session)" (click)="deleteFormation(session)"> <i class="pi pi-bookmark-fill"></i></div>
+               <div style="position: absolute;" style="float: right;" *ngIf="!testSession(session)" (click)="saveFormation(session)"> <i class="pi pi-bookmark" style="color: #c90d0d; font-size: 20px;"></i></div>
+               <div style="position: absolute;" style="float: right;" *ngIf="testSession(session)" (click)="deleteFormation(session)"> <i class="pi pi-bookmark-fill" style="color: #c90d0d; font-size: 20px;"></i></div>
          </div>
             <!--    <div class="menu-dot"></div>-->
             </div>

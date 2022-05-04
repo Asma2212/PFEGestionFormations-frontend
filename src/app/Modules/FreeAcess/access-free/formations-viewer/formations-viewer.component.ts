@@ -11,12 +11,13 @@ import { SessionFormationService } from 'app/services/SessionFormation.service';
   styleUrls: ['./formations-viewer.component.scss']
 })
 export class FormationsViewerComponent implements OnInit {
+
   filterDateDeb : Date ;
   filterDateFin : Date;
   submitFilterDate : boolean =false;
 
   savedSe : Map<SessionFormation,boolean> = new Map();
-  filtreCategorie : Categorie ;
+  categorieFilter : Categorie ;
 filt : boolean = false ;
   saveF : boolean = false;
   savedSessions : SessionFormation;
@@ -95,7 +96,7 @@ f : Formation ;
         listeCandidat : null,
       },{
         idSession : 3,
-        titreSession : "Full stack dev",
+        titreSession : "xxxxxx",
         lieuSession : "",
         descriptionSession : "formation certifié", 
         dateDebSession : new Date(),
@@ -200,6 +201,8 @@ f : Formation ;
   }
 
   filterParDate(){
+
+
     console.log("sess",this.sessions)
 this.submitFilterDate=true ;
 if(this.filterDateDeb && this.filterDateFin){
@@ -227,6 +230,29 @@ else if(this.filterDateFin){
     console.log("aucune formation")
 
 }
+  }
+
+  filtreParTitre(filterValue : string){
+    console.log("ff",filterValue);
+   let filterValueLower = filterValue.toLowerCase();
+  if(filterValue === '') {
+  this.sessions=this.filterSessions;
+  } 
+  else{
+  this.sessions= this.filterSessions.filter(s => s.titreSession.toLowerCase().includes(filterValueLower)); //|| s.descriptionSession.toLowerCase().includes(filterValue)
+  }
+  }
+
+  filtreParCategorie(){
+    if(!this.categorieFilter[0]){
+    this.sessions=this.filterSessions;}
+    else{
+    this.sessions = this.filterSessions.filter(s =>
+       s.formationSession.listCategories.includes(this.categorieFilter[0])
+       ); //|| s.descriptionSession.toLowerCase().includes(filterValue)
+  console.log(this.sessions) 
+  }
+
   }
 
 }
