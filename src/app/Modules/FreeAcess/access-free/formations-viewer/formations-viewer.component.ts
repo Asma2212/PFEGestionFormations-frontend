@@ -253,6 +253,6 @@ else if(this.filterDateFin){
   console.log(this.sessions) 
   }
 
-  }
+  } 
 
 }
