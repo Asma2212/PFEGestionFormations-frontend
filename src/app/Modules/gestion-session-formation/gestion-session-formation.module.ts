@@ -40,11 +40,9 @@ import { SliderModule } from 'primeng/slider';
 
 
 
-import { HttpClientModule } from '@angular/common/http';
-import {RouterModule} from '@angular/router';
-
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {EditorModule} from 'primeng/editor';
 
 
 @NgModule({
@@ -92,7 +90,8 @@ import {ProgressBarModule} from 'primeng/progressbar';
     DynamicDialogModule,
     CalendarModule,
     ToggleButtonModule,
-    SliderModule
+    SliderModule,
+    EditorModule
    
   ]
 })

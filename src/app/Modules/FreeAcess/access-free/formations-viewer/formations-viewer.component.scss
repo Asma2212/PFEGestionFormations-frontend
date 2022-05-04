@@ -97,7 +97,6 @@ body {
 .job {
   display: flex;
   flex-direction: column;
-  max-width: 1400px;
   height: 100vh;
   margin: 0 auto;
   overflow: hidden;
@@ -495,7 +494,7 @@ body {
   line-height: 1.6em;
 }
 .job-card-header {
-  display: flex;
+
   align-items: flex-start;
 }
 
@@ -1000,3 +999,66 @@ body {
     padding: 0 20px;
   }
 }
+
+.card1,.card-header1{
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-bottom: 20px;
+}
+.card1{
+  box-shadow: 0 2px 20px 0 rgba(110,130,208, .18);
+}
+.btn-link{
+  width: 100%;
+  height: 60px;
+  color: #000 !important;
+  font-weight: bold !important;
+  text-align: left !important;
+  text-decoration: none !important;
+}
+.card-body1{
+background-color: #39ffca;
+}
+.btn-link:after{
+  content: '\2212';
+  width: 35px;
+  font-size: 25px;
+  text-align: center;
+  border-radius: 5px;
+  right: 15px;
+  top: 11px;
+  position: absolute;
+  background-color: #39ffca;
+}
+.btn-link.collapsed:after{
+  content:'\002B'
+
+}
+.btn-link:before{
+  content: '';
+  height: 25px;
+  width: 25px;
+  position : absolute ;
+  background: #fff;
+  z-index: 1;
+  transform: rotate(45deg);
+  left: 30px;
+  top: 46px;
+}
+::ng-deep .p-datepicker table td > span {
+  background-color: rgba(161, 187, 199, 0.418);
+}
+
+::ng-deep .p-datepicker table td.p-datepicker-today > span {
+  background-color: rgba(52, 139, 193, 0.481);
+}
+
+::ng-deep .p-calendar .p-inputtext {
+  border: 1px solid #0a2259;
+  background-color: #cfd3ff6c;
+}
+
+
+
+

@@ -19,7 +19,10 @@ import { HomeDetailsComponent } from './home-details/home-details.component';
 import {HomePage1Component} from "./home-page1/home-page1.component";
 import {CarouselModule} from "primeng/carousel";
 import { HomeComponent } from './home/home.component';
-
+import {AccordionModule} from 'primeng/accordion';
+import {FieldsetModule} from 'primeng/fieldset';
+import {CalendarModule} from 'primeng/calendar';
+import { MultiSelectModule } from "primeng/multiselect";
 
 
 
@@ -46,6 +49,10 @@ import { HomeComponent } from './home/home.component';
     SlideMenuModule,
     MenuModule,
     CarouselModule,
+    AccordionModule,
+    FieldsetModule,
+    CalendarModule,
+    MultiSelectModule
 
   ]
 })

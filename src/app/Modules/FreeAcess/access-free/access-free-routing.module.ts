@@ -6,6 +6,7 @@ import {AjouterCandidatComponent} from "../../gestion-candidats/ajouter-candidat
 import {HomePageComponent} from "./home-page/home-page.component";
 import {SessionComponent} from "./session/session.component";
 import { HomeComponent } from './home/home.component';
+import { FormationsViewerComponent } from './formations-viewer/formations-viewer.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,7 +22,7 @@ const routes: Routes = [{
     },
     {
       path: 'formation',
-      component: SessionComponent,
+      component: FormationsViewerComponent,
     },
   ]
 }

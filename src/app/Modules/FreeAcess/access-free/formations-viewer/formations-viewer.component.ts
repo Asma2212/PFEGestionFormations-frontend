@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Categorie } from 'app/models/Categorie';
+import { Formation } from 'app/models/Formation';
 import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
@@ -9,17 +11,63 @@ import { SessionFormationService } from 'app/services/SessionFormation.service';
   styleUrls: ['./formations-viewer.component.scss']
 })
 export class FormationsViewerComponent implements OnInit {
+  filterDateDeb : Date ;
+  filterDateFin : Date;
+  submitFilterDate : boolean =false;
+
+  savedSe : Map<SessionFormation,boolean> = new Map();
+  filtreCategorie : Categorie ;
+filt : boolean = false ;
+  saveF : boolean = false;
+  savedSessions : SessionFormation;
 sessions : SessionFormation[];
+filterSessions : SessionFormation[];
+cat : Categorie[];
+f : Formation ;
   constructor(private sessionService : SessionFormationService) { }
 
   ngOnInit(): void {
    // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
+   this.cat = [{
+    idCategorie : 1,
+    titre : "Angular",
+    description : "dev web front end" ,
+    listFormations : null},{
+        idCategorie : 2,
+        titre : "Spring Boot",
+        description : "dev web back end" ,
+        listFormations : null}
+    ]
+    this.f= {
+      idFormation : 1,
+    titre : "angular",
+    charge_horaire : "10h",
+    details : "",
+    image : "",
+    listCategories : this.cat,
+    }
+
     this.sessions = [
       {
         idSession : 0,
         titreSession : "Full stack dev",
         lieuSession : "",
-        descriptionSession : "", 
+        descriptionSession : "formation certifié", 
+        dateDebSession : new Date(2022,4,1),
+        dateFinSession : new Date(2022,4,4),
+        photoSession : "../../../../../assets/img/forma.jpg",
+        planning : null,
+        programme : "",
+        nivDifficulte : NivDifficulteEnum.avance ,
+        nbMaxCandidat : 10,
+        formationSession : this.f,
+        listeFormateurs : null,
+        listeCandidat : null,
+      },{
+        idSession : 1,
+        titreSession : "Full stack dev",
+        lieuSession : "",
+        descriptionSession : "formation certifié", 
         dateDebSession : new Date(),
         dateFinSession : new Date(),
         photoSession : "../../../../../assets/img/forma.jpg",
@@ -27,117 +75,42 @@ sessions : SessionFormation[];
         programme : "",
         nivDifficulte : NivDifficulteEnum.avance ,
         nbMaxCandidat : 10,
-        formationSession : null,
+        formationSession : this.f,
         listeFormateurs : null,
         listeCandidat : null,
       },{
-        idSession : 0,
-        titreSession : "",
+        idSession : 2,
+        titreSession : "Full stack dev",
         lieuSession : "",
-        descriptionSession : "", 
+        descriptionSession : "formation certifié", 
         dateDebSession : new Date(),
         dateFinSession : new Date(),
-        photoSession : "",
+        photoSession : "../../../../../assets/img/forma.jpg",
         planning : null,
         programme : "",
         nivDifficulte : NivDifficulteEnum.avance ,
         nbMaxCandidat : 10,
-        formationSession : null,
+        formationSession : this.f,
         listeFormateurs : null,
         listeCandidat : null,
       },{
-        idSession : 0,
-        titreSession : "",
+        idSession : 3,
+        titreSession : "Full stack dev",
         lieuSession : "",
-        descriptionSession : "", 
+        descriptionSession : "formation certifié", 
         dateDebSession : new Date(),
         dateFinSession : new Date(),
-        photoSession : "",
+        photoSession : "../../../../../assets/img/forma.jpg",
         planning : null,
         programme : "",
         nivDifficulte : NivDifficulteEnum.avance ,
         nbMaxCandidat : 10,
-        formationSession : null,
+        formationSession : this.f,
         listeFormateurs : null,
         listeCandidat : null,
-      },{
-        idSession : 0,
-        titreSession : "",
-        lieuSession : "",
-        descriptionSession : "", 
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : null,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 0,
-        titreSession : "",
-        lieuSession : "",
-        descriptionSession : "", 
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : null,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 0,
-        titreSession : "",
-        lieuSession : "",
-        descriptionSession : "", 
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : null,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 0,
-        titreSession : "",
-        lieuSession : "",
-        descriptionSession : "", 
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : null,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 0,
-        titreSession : "",
-        lieuSession : "",
-        descriptionSession : "", 
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : null,
-        listeFormateurs : null,
-        listeCandidat : null,
-      }
+      },
     ]
-
+    this.filterSessions = this.sessions ;
     const wrapper = document.querySelector(".wrapper");
     const header = document.querySelector(".header");
 
@@ -190,6 +163,70 @@ sessions : SessionFormation[];
       jobBg.style.background = bg;
 */
     });
+  }
+
+  func(){
+    if(this.filt==false)
+    this.filt = true
+    else
+    this.filt = false
+
+  }
+  testSession(session){
+  if((this.savedSe) && (this.savedSe.get(session)==true))
+    return true
+
+    return false
+  }
+  saveFormation(session){
+    this.savedSe.set(session,true)
+    console.log(this.savedSe)
+    // add to candidat saved session
+    
+/**    if(JSON.parse(localStorage.getItem("savedS")))
+    this.savedSessions = JSON.parse(localStorage.getItem("savedS"));
+    this.savedSessions.push(session);
+    console.log(this.savedSessions)
+    localStorage.setItem("savedS", JSON.stringify(this.savedSessions)); //store sessions */
+
+  }
+  deleteFormation(session){
+    this.savedSe.delete(session)
+
+  }
+
+  archivie(){
+    console.log("archivié")
+  }
+
+  filterParDate(){
+    console.log("sess",this.sessions)
+this.submitFilterDate=true ;
+if(this.filterDateDeb && this.filterDateFin){
+  this.sessions = this.filterSessions.filter(s =>
+    this.filterDateDeb <= s.dateDebSession && s.dateFinSession <= this.filterDateFin
+    );
+   // this.sessions = this.
+   console.log("filter",this.sessions)
+   if(this.sessions.length == 0)
+   console.log("aucune formation")
+}else 
+if(this.filterDateDeb){
+  this.sessions = this.filterSessions.filter(s =>
+    s.dateDebSession >= this.filterDateDeb 
+    );
+    if(this.sessions.length == 0)
+    console.log("aucune formation")
+
+}
+else if(this.filterDateFin){
+  this.sessions = this.filterSessions.filter(s =>
+     s.dateFinSession <= this.filterDateFin
+    );
+    if(this.sessions.length == 0)
+    console.log("aucune formation")
+
+}
   }
 
 }
