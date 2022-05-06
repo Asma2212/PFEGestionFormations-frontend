@@ -118,8 +118,8 @@ export class ListeFormationsComponent implements OnInit {
               console.log(this.selectedFormations);
               this.formationService.deleteAllFormation(this.selectedFormations).subscribe(
                 res => {
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formations Deleted', life: 3000});
-                console.log('Formations successfully deleted');
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formations Supprimer', life: 3000});
+                console.log('Formations successfully Supprimer');
                 window.location.reload();
                 }, err => {
                    console.log('Something went wrong during deleting formations');
@@ -147,8 +147,8 @@ export class ListeFormationsComponent implements OnInit {
               this.formations = this.formations.filter(val => val.idFormation !== formation.idFormation);
               console.log(formation.idFormation);
               this.formationService.deleteFormation(formation.idFormation).subscribe( data => {
-                console.log("data Formation deleted",data);
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formation Deleted', life: 3000});
+                console.log("data Formation Supprimer",data);
+                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formation Supprimer', life: 3000});
                 window.location.reload();
               });
               this.formation = null;

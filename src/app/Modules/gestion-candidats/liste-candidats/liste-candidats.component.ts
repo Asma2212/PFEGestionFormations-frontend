@@ -207,10 +207,10 @@ deleteCandidat(candidat: Candidat) {
             this.candidats = this.candidats.filter(val => val.id !== candidat.id);
             console.log(candidat.id);
             this.candidatService.deleteCandidat(candidat.id).subscribe( data => {
-              console.log("data candidat deleted",data)
+              console.log("data candidat Supprimer",data)
             });
             this.candidat = null;
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Candidat Deleted', life: 3000});
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Candidat Supprimer', life: 3000});
         }
     });
 }
@@ -244,7 +244,7 @@ else {
     this.candidat.photo=this.file.name ;
     this.candidatService.saveCandidat(this.candidat).subscribe( data => {
       console.log("data save candidat",data)
-      this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat saved', life: 3000});
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Ajouter', life: 3000});
       window.location.reload();
       this.candidatDialog = false;
       this.imgURL = false ;
@@ -255,7 +255,7 @@ else {
     error =>
    {
   console.log(error.error.message);
-  this.messageService.add({severity:'Error', summary: 'Error', detail: error.error.message, life: 3000});
+  this.messageService.add({severity:'error', summary: 'Error', detail: error.error.message, life: 3000});
 });
    }
           

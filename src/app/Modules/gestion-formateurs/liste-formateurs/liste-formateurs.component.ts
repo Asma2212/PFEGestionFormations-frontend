@@ -352,8 +352,8 @@ deleteFormateur(formateur: Formateur) {
             this.formateurs = this.formateurs.filter(val => val.id !== formateur.id);
             console.log(formateur.id);
             this.formateurService.deleteFormateur(formateur.id).subscribe( data => {
-              console.log("data Formateur deleted",data)
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
+              console.log("data Formateur Supprimer",data)
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Supprimer', life: 3000});
               window.location.reload();
             });
             this.formateur = null;

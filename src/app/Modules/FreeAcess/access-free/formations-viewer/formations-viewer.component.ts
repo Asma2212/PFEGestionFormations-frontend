@@ -286,7 +286,7 @@ if(this.filterDateDeb || this.filterDateFin){
         ); 
     }
     if(this.sessions.length == 0){
-      this.messageService.add({severity:'warning', summary: 'Vide', detail: 'aucune Formation trouvée', life: 3000});
+      this.messageService.add({severity:'warn', summary: 'Vide', detail: 'aucune Formation trouvée', life: 3000});
     }
 
 

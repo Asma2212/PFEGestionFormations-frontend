@@ -275,7 +275,7 @@ saveSession(){
            // this.formateurs = this.formateurs.filter(val => val.id !== formateur.id);
             console.log(session.idSession);
             this.sessionService.deleteSession(session.idSession).subscribe( data => {
-              console.log("data Session deleted",data)
+              console.log("data Session Supprimer",data)
               this.messageService.add({severity:'success', summary: 'Successful', detail: 'session Supprimer', life: 3000});
               window.location.reload();
             });
