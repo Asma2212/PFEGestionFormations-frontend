@@ -1,5 +1,6 @@
 import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Categorie } from 'app/models/Categorie';
 import { Formation } from 'app/models/Formation';
 import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
@@ -48,9 +49,13 @@ ouvertInscritCheck : any;
 enCoursCheck: any;
 aVenirCheck : any;
 
-  constructor(private sessionService : SessionFormationService,private categorieService: CategorieService, private uploadService : UploadFileService) { }
+  constructor(private router: Router,private sessionService : SessionFormationService,private categorieService: CategorieService, private uploadService : UploadFileService) { }
 
   ngOnInit(): void {
+/**    if(localStorage.getItem("formationSaved")){
+      this.savedSe = JSON.parse(localStorage.getItem("formationSaved"))
+      } */
+
     this.sessionService.getSessions().toPromise().then(data =>{ this.sessions = data
       this.filterSessions = this.sessions ;
       this.toutCours = this.sessions.length ;
@@ -140,28 +145,22 @@ aVenirCheck : any;
   if((this.savedSe) && (this.savedSe.get(session)==true))
     return true
 
-    return false
+  return false
   }
   saveFormation(session){
     this.savedSe.set(session,true)
     console.log(this.savedSe)
+   // localStorage.setItem("formationSaved", JSON.stringify(this.savedSe.keys()));
     // add to candidat saved session
     
-/**    if(JSON.parse(localStorage.getItem("savedS")))
-    this.savedSessions = JSON.parse(localStorage.getItem("savedS"));
-    this.savedSessions.push(session);
-    console.log(this.savedSessions)
-    localStorage.setItem("savedS", JSON.stringify(this.savedSessions)); //store sessions */
 
   }
   deleteFormation(session){
     this.savedSe.delete(session)
+  //  localStorage.setItem("formationSaved", JSON.stringify(this.savedSe.entries()));
 
   }
 
-  archivie(){
-    console.log("archivié")
-  }
 
   filterParDate(){
     console.log("sess",this.sessions)
@@ -301,6 +300,16 @@ if(this.filterDateDeb || this.filterDateFin){
 
     return this.filterDateDeb <= dateDeb && dateFin <= this.filterDateFin
 
+  }
+
+  nbCandidat(session : SessionFormation){
+    if(session.nbMaxCandidat == session.listeCandidat.length)
+    return true
+
+    return false
+  }
+  detailSession(session : SessionFormation){
+    this.router.navigateByUrl('home/session/'+session.idSession);
   }
 
 }

@@ -276,7 +276,7 @@ saveSession(){
             console.log(session.idSession);
             this.sessionService.deleteSession(session.idSession).subscribe( data => {
               console.log("data Session deleted",data)
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'session Supprimer', life: 3000});
               window.location.reload();
             });
             this.session = null;

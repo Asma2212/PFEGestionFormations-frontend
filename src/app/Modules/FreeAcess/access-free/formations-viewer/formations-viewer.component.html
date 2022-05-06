@@ -162,8 +162,8 @@
               </button>
             </div>
             <div class="job-card-buttons">
-              <button class="search-buttons card-buttons">S'inscrire</button>
-              <button class="search-buttons card-buttons-msg">plus de details</button>
+              <button class="search-buttons card-buttons" [disabled]="session.nbMaxCandidat == session.listeCandidat.length">S'inscrire</button>
+              <button class="search-buttons card-buttons-msg" (click)="detailSession(session)">plus de details</button>
               
             </div>
           </div>

@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                                 <div class="session-list-action">
-                                    <span class="session-price" pTooltip="nb">{{session.nbMaxCandidat}}</span>
+                                    <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="top">{{session.nbMaxCandidat}}</span>
                                     <div>
                                         <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
                                         <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
@@ -109,7 +109,7 @@
                 <ng-template pTemplate="content">
                     <div class="field">
                         <label for="name">Titre</label>
-                        <input type="text" pInputText id="titre" [(ngModel)]="session.titreSession" required autofocus />
+                        <input type="text" pInputText id="titre" [(ngModel)]="session.titreSession" required autofocus maxlength="50" />
                         <small class="p-error" *ngIf="submitted && !session.titreSession">titre est requis.</small>
                     </div><br>
                     <div class="field">
@@ -160,7 +160,7 @@
                     </p-editor>-->
                         <div class="field">
                             <label for="nbMaxCandidat">nombre maximal des candidats</label>
-                            <input type="number" pInputText id="nbMaxCandidat" [(ngModel)]="session.nbMaxCandidat" required autofocus  />
+                            <input type="number" max="30" pInputText id="nbMaxCandidat" [(ngModel)]="session.nbMaxCandidat" required autofocus  />
                             <small class="p-error" *ngIf="submitted && !session.nbMaxCandidat">nombre maximal des candidats est requis.</small>
                         </div>
                         <div style="display: flex;">
