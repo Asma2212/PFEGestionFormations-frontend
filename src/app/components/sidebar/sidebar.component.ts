@@ -14,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/formateurs/list', title: 'Gestion Formateurs',  icon:'group', class: '' },
     { path: '/candidats/list', title: 'Gestion Candidats',  icon:'school', class: '' },
     { path: '/sessionsFormation', title: 'Sessions de formation',  icon:'model_trainingadd', class: '' },
+    { path: '/Admin/Calendar', title: 'Calendar',  icon:'calendar_today', class: '' },
 ];
  
 @Component({

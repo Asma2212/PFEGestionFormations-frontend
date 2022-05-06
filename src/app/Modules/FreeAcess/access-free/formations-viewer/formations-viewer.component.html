@@ -21,41 +21,41 @@
         <div class="alert">
           <div class="alert-title">Chercher votre formation</div>
           <div class="alert-subtitle">Vous pouvez trouver toutes les formations disponible</div>
-            <input type="text" placeholder="Entrer le nom de la formation" (keyup)="filtreParTitre($event.target.value)"> 
+            <input type="text" placeholder="Entrer le nom de la formation" [(ngModel)]="titreF" (keyup)="filterChange()"> 
           <button class="search-buttons"><i class="pi pi-search"></i> Chercher</button></div>
         
         <div class="job-time">
           <div class="job-time-title">Disponibilité</div>
           <div class="job-wrapper">
             <div class="type-container">
-              <input type="checkbox" id="job1" class="job-style" checked >
-              <label for="job1">Nouveau cours</label>
-              <span class="job-number">56</span>
+              <input type="checkbox" id="toutCours" class="job-style">
+              <label for="toutCours">Tous les cours</label>
+              <span class="job-number">{{toutCours}}</span>
             </div>
             <div class="type-container">
-              <input type="checkbox" id="job2" class="job-style" (click)="archivie()">
-              <label for="job2">Archivé</label>
-              <span class="job-number">43</span>
+              <input type="checkbox" id="nouvCours" [(ngModel)]="nouvCoursCheck" class="job-style" (change)="filterChange()">
+              <label for="nouvCours">Nouveau cours</label>
+              <span class="job-number">{{nouvCours}}</span>
             </div>
             <div class="type-container">
-              <input type="checkbox" id="job3" class="job-style">
-              <label for="job3">Ouvert pour inscription</label>
-              <span class="job-number">24</span>
+              <input type="checkbox" id="archive" class="job-style" [(ngModel)]="archiveCheck" class="job-style" (change)="filterChange()">
+              <label for="archive">Archivé</label>
+              <span class="job-number">{{archive}}</span>
             </div>
             <div class="type-container">
-              <input type="checkbox" id="job4" class="job-style">
-              <label for="job4">En cours</label>
-              <span class="job-number">27</span>
+              <input type="checkbox" id="ouvertInscrit" class="job-style" [(ngModel)]="ouvertInscritCheck" class="job-style" (change)="filterChange()">
+              <label for="ouvertInscrit">Ouvert pour inscription</label>
+              <span class="job-number">{{OuvertInscrit}}</span>
             </div>
             <div class="type-container">
-              <input type="checkbox" id="job5" class="job-style">
-              <label for="job5">A venir</label>
-              <span class="job-number">76</span>
+              <input type="checkbox" id="enCours" class="job-style" [(ngModel)]="enCoursCheck" class="job-style" (change)="filterChange()">
+              <label for="enCours">En cours</label>
+              <span class="job-number">{{enCours}}</span>
             </div>
             <div class="type-container">
-              <input type="checkbox" id="job6" class="job-style">
-              <label for="job6">Training Jobs</label>
-              <span class="job-number">28</span>
+              <input type="checkbox" id="aVenir" class="job-style" [(ngModel)]="aVenirCheck" class="job-style" (change)="filterChange()">
+              <label for="aVenir">A venir</label>
+              <span class="job-number">{{aVenir}}</span>
             </div>
           </div>
         </div>
@@ -94,46 +94,6 @@
             </div>-->
           </div>
         </div>
-        <div class="job-time">
-          <div class="job-time-title">Salary Range</div>
-          <div class="job-wrapper">
-            <div class="type-container">
-              <input type="checkbox" id="job1" class="job-style">
-              <label for="job1">$700 - $1000</label>
-              <span class="job-number">49</span>
-            </div>
-            <div class="type-container">
-              <input type="checkbox" id="job2" class="job-style">
-              <label for="job2">$1000 - $1200</label>
-              <span class="job-number">67</span>
-            </div>
-            <div class="type-container">
-              <input type="checkbox" id="job3" class="job-style">
-              <label for="job3">$1200 - $1400</label>
-              <span class="job-number">24</span>
-            </div>
-            <div class="type-container">
-              <input type="checkbox" id="job4" class="job-style">
-              <label for="job4">$1500 - $1800</label>
-              <span class="job-number">27</span>
-            </div>
-            <div class="type-container">
-              <input type="checkbox" id="job5" class="job-style" checked>
-              <label for="job5">$2000 - $3000</label>
-              <span class="job-number">76</span>
-            </div>
-            <div class="type-container">
-              <input type="checkbox" id="job6" class="job-style" checked>
-              <label for="job6">$3000 - $4000</label>
-              <span class="job-number">22</span>
-            </div>
-            <div class="type-container">
-              <input type="checkbox" id="job6" class="job-style">
-              <label for="job6">$4000 - $5000</label>
-              <span class="job-number">18</span>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="searched-jobs">
         <p>
@@ -147,7 +107,7 @@
           <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample1">
               <div class="card card-body">
-             <button pButton pRipple type="button" class="p-button-text" style="color: black;" (click)="filterParDate()"> <p><strong> <i class="pi pi-filter"></i> Filtre par date :</strong></p> </button>
+             <button pButton pRipple type="button" class="p-button-text" style="color: black;" (click)="filterChange()" [style]="{'height':'40px'}"> <p><strong> <i class="pi pi-filter"></i> Filtre par date :</strong></p></button>
              <small class="p-error" *ngIf="submitFilterDate && !filterDateDeb && ! filterDateFin">au moins une date doit etre entrée</small>  
              <div  style="display: flex;">
                 <div class="field col-6 md:col-5">
@@ -156,7 +116,7 @@
               </div> 
               <div class="field col-6 md:col-5">
                 <label for="icon">jusqu'à</label>
-                <p-calendar [(ngModel)]="filterDateFin"  [showIcon]="true" inputId="icon"></p-calendar>
+                <p-calendar [(ngModel)]="filterDateFin" [minDate]="filterDateDeb" [disabled]="!filterDateDeb" [showIcon]="true" inputId="icon"></p-calendar>
             </div>
           </div>
               </div>
@@ -166,7 +126,7 @@
             <div class="collapse multi-collapse" id="multiCollapseExample2">
               <div class="card card-body">
                 <p><strong>Filtre par categorie :</strong> </p>
-          <p-multiSelect [options]="cat" [selectionLimit]="1" defaultLabel="Selectionner une categorie" optionLabel="titre" display="chip" style="height: 10%;" [(ngModel)]="categorieFilter" (onClick)="filtreParCategorie()"></p-multiSelect>
+          <p-multiSelect [options]="cat" [selectionLimit]="1" defaultLabel="Selectionner une categorie" optionLabel="titre" display="chip" style="height: 10%;" [(ngModel)]="categorieFilter" (onClick)="filterChange()"></p-multiSelect>
 
                </div>
             </div>
@@ -180,8 +140,12 @@
           <div class="job-card" *ngFor="let session of sessions">
             
             <div class="job-card-header">
-              <div style="display: flex;">
-               <div style="position: relative;"> <img [src]="session.photoSession" ></div>
+              <div>
+               <div  *ngFor="let file of fileInfos | async">
+                <p *ngIf="testImage(file.type) && file.name == session.photoSession">
+                  <img [src]="file.url"  alt="file.name" />
+                </p>
+              </div>
                <div style="position: absolute;" style="float: right;" *ngIf="!testSession(session)" (click)="saveFormation(session)"> <i class="pi pi-bookmark" style="color: #c90d0d; font-size: 20px;"></i></div>
                <div style="position: absolute;" style="float: right;" *ngIf="testSession(session)" (click)="deleteFormation(session)"> <i class="pi pi-bookmark-fill" style="color: #c90d0d; font-size: 20px;"></i></div>
          </div>

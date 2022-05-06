@@ -100,8 +100,10 @@ export class ListeFormationsComponent implements OnInit {
         charge_horaire : "",
         details : "" ,
         image : "" ,
-        listCategories : null };
+        listCategories : null ,
+      sessionFormations : null};
       this.submitted = false;  
+
   }
 
 

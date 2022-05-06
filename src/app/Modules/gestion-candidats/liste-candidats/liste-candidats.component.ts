@@ -233,8 +233,10 @@ if(this.homme){
   if (this.candidat.id) {
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {
       console.log("data update candidat",data)
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
+       window.location.reload();
     });
-    this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
+
 }
 else {
   this.candidat.password="xx"
@@ -242,8 +244,8 @@ else {
     this.candidat.photo=this.file.name ;
     this.candidatService.saveCandidat(this.candidat).subscribe( data => {
       console.log("data save candidat",data)
-      this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
-
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat saved', life: 3000});
+      window.location.reload();
       this.candidatDialog = false;
       this.imgURL = false ;
       this.candidat = null;

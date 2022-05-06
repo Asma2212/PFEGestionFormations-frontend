@@ -25,6 +25,7 @@ import { SharedModule } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
 import { GestionSessionFormationModule } from 'app/Modules/gestion-session-formation/gestion-session-formation.module';
+import { EspaceAdminModule } from 'app/Modules/espace-admin/espace-admin.module';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { GestionSessionFormationModule } from 'app/Modules/gestion-session-forma
     GestionFormationsModule,
     GestionFormateursModule,
     GestionCandidatsModule,
-    GestionSessionFormationModule
+    GestionSessionFormationModule,
+    EspaceAdminModule
   ],
   declarations: [
     DashboardComponent,

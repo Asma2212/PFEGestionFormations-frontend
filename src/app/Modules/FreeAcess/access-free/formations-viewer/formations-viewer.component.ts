@@ -1,9 +1,13 @@
+import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Categorie } from 'app/models/Categorie';
 import { Formation } from 'app/models/Formation';
 import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
 import { SessionFormation } from 'app/models/SessionFormation';
+import { CategorieService } from 'app/services/categorie.service';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
+import { UploadFileService } from 'app/services/upload-file.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-formations-viewer',
@@ -25,93 +29,50 @@ sessions : SessionFormation[];
 filterSessions : SessionFormation[];
 cat : Categorie[];
 f : Formation ;
-  constructor(private sessionService : SessionFormationService) { }
+fileInfos: Observable<any>;
+
+
+// counter
+nouvCours : number = 0 ;
+archive : number = 0;
+OuvertInscrit : number = 0 ;
+enCours : number = 0 ;
+aVenir : number = 0 ;
+toutCours : number = 0 ;
+
+titreF : string;
+
+nouvCoursCheck : any;
+archiveCheck : any;
+ouvertInscritCheck : any;
+enCoursCheck: any;
+aVenirCheck : any;
+
+  constructor(private sessionService : SessionFormationService,private categorieService: CategorieService, private uploadService : UploadFileService) { }
 
   ngOnInit(): void {
-   // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
-   this.cat = [{
-    idCategorie : 1,
-    titre : "Angular",
-    description : "dev web front end" ,
-    listFormations : null},{
-        idCategorie : 2,
-        titre : "Spring Boot",
-        description : "dev web back end" ,
-        listFormations : null}
-    ]
-    this.f= {
-      idFormation : 1,
-    titre : "angular",
-    charge_horaire : "10h",
-    details : "",
-    image : "",
-    listCategories : this.cat,
-    }
+    this.sessionService.getSessions().toPromise().then(data =>{ this.sessions = data
+      this.filterSessions = this.sessions ;
+      this.toutCours = this.sessions.length ;
+      this.sessions.forEach(s => {
+        if(new Date(s.dateDebSession) > new Date())
+        this.nouvCours ++ ;
+        if(new Date(s.dateFinSession) < new Date())
+        this.archive ++;
+        if(s.listeCandidat.length < s.nbMaxCandidat)
+        this.OuvertInscrit ++;
+        if((new Date() >= new Date(s.dateDebSession))&&(new Date() <= new Date(s.dateFinSession)))
+        this.enCours ++;
+        if(new Date(s.dateDebSession) >new Date())
+        this.aVenir ++ ;
+      });
+    });
+    this.categorieService.getAllCategories().toPromise().then( data => {
+      this.cat = data ;
+        console.log("everthing is okay geet categorie",data)
+      });
+      this.fileInfos = this.uploadService.getFiles();
 
-    this.sessions = [
-      {
-        idSession : 0,
-        titreSession : "Full stack dev",
-        lieuSession : "",
-        descriptionSession : "formation certifié", 
-        dateDebSession : new Date(2022,4,1),
-        dateFinSession : new Date(2022,4,4),
-        photoSession : "../../../../../assets/img/forma.jpg",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : this.f,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 1,
-        titreSession : "Full stack dev",
-        lieuSession : "",
-        descriptionSession : "formation certifié", 
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "../../../../../assets/img/forma.jpg",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : this.f,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 2,
-        titreSession : "Full stack dev",
-        lieuSession : "",
-        descriptionSession : "formation certifié", 
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "../../../../../assets/img/forma.jpg",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : this.f,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 3,
-        titreSession : "xxxxxx",
-        lieuSession : "",
-        descriptionSession : "formation certifié", 
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "../../../../../assets/img/forma.jpg",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : this.f,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },
-    ]
-    this.filterSessions = this.sessions ;
     const wrapper = document.querySelector(".wrapper");
     const header = document.querySelector(".header");
 
@@ -165,7 +126,9 @@ f : Formation ;
 */
     });
   }
-
+  testImage(t : string){
+    return t.includes("image") ;
+ }
   func(){
     if(this.filt==false)
     this.filt = true
@@ -201,58 +164,143 @@ f : Formation ;
   }
 
   filterParDate(){
-
-
     console.log("sess",this.sessions)
 this.submitFilterDate=true ;
+console.log(this.filterDateDeb,this.filterDateFin)
 if(this.filterDateDeb && this.filterDateFin){
   this.sessions = this.filterSessions.filter(s =>
-    this.filterDateDeb <= s.dateDebSession && s.dateFinSession <= this.filterDateFin
+    this.filterDateDeb <= new Date(s.dateDebSession) && new Date(s.dateFinSession) <= this.filterDateFin
     );
    // this.sessions = this.
    console.log("filter",this.sessions)
-   if(this.sessions.length == 0)
-   console.log("aucune formation")
 }else 
-if(this.filterDateDeb){
+  if(this.filterDateDeb){
   this.sessions = this.filterSessions.filter(s =>
-    s.dateDebSession >= this.filterDateDeb 
+    new Date(s.dateDebSession) >= this.filterDateDeb 
     );
-    if(this.sessions.length == 0)
-    console.log("aucune formation")
 
-}
-else if(this.filterDateFin){
-  this.sessions = this.filterSessions.filter(s =>
-     s.dateFinSession <= this.filterDateFin
-    );
-    if(this.sessions.length == 0)
-    console.log("aucune formation")
-
+  }
+  else 
+    if(this.filterDateFin){
+      this.sessions = this.filterSessions.filter(s =>
+        new Date(s.dateFinSession) <= this.filterDateFin
+        );
+      }
+if(this.sessions.length == 0)
+{
+  this.sessions = this.filterSessions
+console.log("aucune formation")
 }
   }
 
-  filtreParTitre(filterValue : string){
-    console.log("ff",filterValue);
-   let filterValueLower = filterValue.toLowerCase();
-  if(filterValue === '') {
+  filtreParTitre(){
+  if(this.titreF === '') {
   this.sessions=this.filterSessions;
   } 
   else{
+  let filterValueLower = this.titreF.toLowerCase();
   this.sessions= this.filterSessions.filter(s => s.titreSession.toLowerCase().includes(filterValueLower)); //|| s.descriptionSession.toLowerCase().includes(filterValue)
   }
   }
 
   filtreParCategorie(){
-    if(!this.categorieFilter[0]){
+    console.log(this.categorieFilter)
+    if(this.categorieFilter[0]==null){
     this.sessions=this.filterSessions;}
     else{
     this.sessions = this.filterSessions.filter(s =>
-       s.formationSession.listCategories.includes(this.categorieFilter[0])
+       s.formationSession.listCategories.find( c => c.id === this.categorieFilter[0].id)
        ); //|| s.descriptionSession.toLowerCase().includes(filterValue)
   console.log(this.sessions) 
   }
 
   } 
+
+  filterChange(){
+    this.sessions = this.filterSessions
+if(this.titreF){
+      let filterValueLower = this.titreF.toLowerCase();
+      this.sessions= this.sessions.filter(s => s.titreSession.toLowerCase().includes(filterValueLower)); //|| s.descriptionSession.toLowerCase().includes(filterValue) 
+    }
+
+if(this.filterDateDeb || this.filterDateFin){
+  this.submitFilterDate=true ;
+  console.log(this.filterDateDeb,this.filterDateFin)
+  if(this.filterDateDeb && this.filterDateFin){
+    this.sessions = this.sessions.filter(s =>
+      this.testDate(s.dateDebSession,s.dateFinSession)
+
+      );
+     // this.sessions = this.
+     console.log("filter",this.sessions)
+  }else 
+    if(this.filterDateDeb){
+    this.sessions = this.sessions.filter(s =>
+      new Date(s.dateDebSession) >= this.filterDateDeb 
+      );
+  
+    }
+    else 
+      if(this.filterDateFin){
+        this.sessions = this.sessions.filter(s =>
+          new Date(s.dateFinSession) <= this.filterDateFin
+          );
+        }
+    }
+
+    
+  if(this.categorieFilter){
+    this.sessions = this.sessions.filter(s =>
+       s.formationSession.listCategories.find( c => c.id === this.categorieFilter[0].id)
+       ); 
+
+    }
+
+    //*****checkbox filter :
+    console.log("==",this.archiveCheck)
+    console.log(this.nouvCoursCheck)
+    if(this.nouvCoursCheck == true){
+      this.sessions = this.sessions.filter(s =>
+        new Date(s.dateDebSession) > new Date()
+        ); 
+    }
+    if(this.archiveCheck == true){
+      console.log(this.archiveCheck)
+      this.sessions = this.sessions.filter(s =>
+        new Date(s.dateFinSession) < new Date()
+        ); 
+    }
+    if(this.ouvertInscritCheck == true){
+      this.sessions = this.sessions.filter(s =>
+        s.listeCandidat.length < s.nbMaxCandidat
+        ); 
+    }
+    if(this.enCoursCheck == true){
+      this.sessions = this.sessions.filter(s =>
+        (new Date() >= new Date(s.dateDebSession))&&(new Date() <= new Date(s.dateFinSession))
+        ); 
+    }
+    if(this.aVenirCheck == true){
+      this.sessions = this.sessions.filter(s =>
+        new Date(s.dateDebSession) >new Date()
+        ); 
+    }
+
+
+
+    
+
+
+
+  }
+  testDate(dateDeb :Date ,dateFin : Date){
+    dateDeb = new Date(dateDeb) ;
+    dateDeb.setHours(0,0,0,0);
+    dateFin = new Date(dateFin) ;
+    dateFin.setHours(0,0,0,0);
+
+    return this.filterDateDeb <= dateDeb && dateFin <= this.filterDateFin
+
+  }
 
 }
