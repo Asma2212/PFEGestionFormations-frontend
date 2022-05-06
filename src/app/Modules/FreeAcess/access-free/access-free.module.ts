@@ -23,6 +23,7 @@ import {AccordionModule} from 'primeng/accordion';
 import {FieldsetModule} from 'primeng/fieldset';
 import {CalendarModule} from 'primeng/calendar';
 import { MultiSelectModule } from "primeng/multiselect";
+import { ToastModule } from "primeng/toast";
 
 
 
@@ -53,6 +54,7 @@ import { MultiSelectModule } from "primeng/multiselect";
     FieldsetModule,
     CalendarModule,
     MultiSelectModule,
+    ToastModule
 
   ]
 })

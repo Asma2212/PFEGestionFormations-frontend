@@ -8,6 +8,7 @@ import { SessionFormation } from 'app/models/SessionFormation';
 import { CategorieService } from 'app/services/categorie.service';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import { UploadFileService } from 'app/services/upload-file.service';
+import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -49,7 +50,7 @@ ouvertInscritCheck : any;
 enCoursCheck: any;
 aVenirCheck : any;
 
-  constructor(private router: Router,private sessionService : SessionFormationService,private categorieService: CategorieService, private uploadService : UploadFileService) { }
+  constructor(private router: Router,private sessionService : SessionFormationService,private categorieService: CategorieService, private uploadService : UploadFileService, private messageService : MessageService) { }
 
   ngOnInit(): void {
 /**    if(localStorage.getItem("formationSaved")){
@@ -284,6 +285,9 @@ if(this.filterDateDeb || this.filterDateFin){
         new Date(s.dateDebSession) >new Date()
         ); 
     }
+    if(this.sessions.length == 0){
+      this.messageService.add({severity:'warning', summary: 'Vide', detail: 'aucune Formation trouvée', life: 3000});
+    }
 
 
 
@@ -310,6 +314,12 @@ if(this.filterDateDeb || this.filterDateFin){
   }
   detailSession(session : SessionFormation){
     this.router.navigateByUrl('home/session/'+session.idSession);
+  }
+  clearDateFilter(){
+    this.submitFilterDate = false ;
+    this.filterDateDeb = null ;
+    this.filterDateFin = null ;
+    this.filterChange();
   }
 
 }

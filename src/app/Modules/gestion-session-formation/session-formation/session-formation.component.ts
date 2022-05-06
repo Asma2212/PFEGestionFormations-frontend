@@ -100,8 +100,8 @@ this.cols = [
 
 this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
       this.sortOptions = [
-          {label: 'Price High to Low', value: '!price'},
-          {label: 'Price Low to High', value: 'price'}
+          {label: 'Nombre Haut - Bas', value: '!nbMaxCandidat'},
+          {label: 'Nombre Bas - Haut', value: 'nbMaxCandidat'}
       ];
 
       this.minDate = new Date()
@@ -226,7 +226,7 @@ hideDialog() {
   this.progress = 0;
   this.message= '';
   this.formSess = [];
-  this.selectedFormateurs = [];
+  this.selectedFormateurs = []
 }
 saveSession(){
   this.submitted = true ;

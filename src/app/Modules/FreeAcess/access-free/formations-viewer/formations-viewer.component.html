@@ -11,6 +11,7 @@
 </head>
 <body>
 <!-- partial:index.partial.html -->
+<p-toast></p-toast>
 <div class="job">
   <div class="wrapper">
     <app-nav-bar></app-nav-bar>
@@ -98,6 +99,7 @@
       <div class="searched-jobs">
         <p>
           <button class="p-button p-button-outlined p-button-rounded p-button-danger" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" (click)="func()" aria-controls="multiCollapseExample1 multiCollapseExample2">
+            
             <i class="pi pi-filter" *ngIf="!filt"></i> 
             <i class="pi pi-filter-fill" *ngIf="filt"></i>
             &nbsp; Filtrer 
@@ -107,7 +109,11 @@
           <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample1">
               <div class="card card-body">
-             <button pButton pRipple type="button" class="p-button-text" style="color: black;" (click)="filterChange()" [style]="{'height':'40px'}"> <p><strong> <i class="pi pi-filter"></i> Filtre par date :</strong></p></button>
+                <div style="display: flex">
+                  <p style="margin-top: 13px;"><strong> Filtre par date :</strong></p>
+                  <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text" (click)="filterChange()"></button>
+                  <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text" (click)="clearDateFilter()"></button>
+                </div>
              <small class="p-error" *ngIf="submitFilterDate && !filterDateDeb && ! filterDateFin">au moins une date doit etre entrée</small>  
              <div  style="display: flex;">
                 <div class="field col-6 md:col-5">
