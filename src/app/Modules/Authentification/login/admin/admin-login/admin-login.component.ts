@@ -8,6 +8,7 @@ import {MessageService} from "primeng/api";
 import {throwError} from "rxjs";
 import {ToastrService} from "ngx-toastr";
 import {HttpHeaders} from "@angular/common/http";
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-admin-login',
@@ -26,7 +27,7 @@ export class AdminLoginComponent implements OnInit {
   private errors: string ;
 
 
-  constructor(private authService: AuthService, private router: Router, private messageService: MessageService, private toastr: ToastrService) {
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService, private toast:NgToastService) {
 
 
     this.loginRequestPayload = {
@@ -78,14 +79,13 @@ export class AdminLoginComponent implements OnInit {
     this.loginRequestPayload.username = this.loginForm.get('username').value;
     this.loginRequestPayload.email = this.loginForm.get('email').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
+
     this.authService.login(this.loginRequestPayload).subscribe(data => {
       this.isError = false;
       this.router.navigate(['/dashboard']);
 
     }, error => {
       this.isError = true;
-      throwError(error);
-      this.errors=error.error.message;
 
     });
 
@@ -100,13 +100,24 @@ export class AdminLoginComponent implements OnInit {
     this.loginRequestPayload.password = this.signupForm.get('password_signup').value;
     this.authService.signup(this.loginRequestPayload).subscribe(data => {
       this.isError_signup= false;
+      this.toast.success({detail:"success",summary:"Vous étes maintenant un admin",duration:3000});
+      this.signupForm=new FormGroup({
+        username_signup:new FormControl(''),
+        password_signup: new FormControl(''),
+        email_signup : new FormControl(''),
+      })
+/*
       this.router.navigate(['/login/admin']);
+*/
+
 
     }, error => {
       console.log(error)
-      this.isError_signup = true;
+      this.toast.error({detail:"Échec!",summary:error.error.message,duration:3000});
+
+     /* this.isError_signup = true;
       throwError(error);
-      this.errors=error.error.message;
+      this.errors=error.error.message;*/
     });
 
   }

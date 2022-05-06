@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {ToastrService} from "ngx-toastr";
 import {TooltipModule} from 'primeng/tooltip';
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-formatuer-login',
@@ -21,7 +22,7 @@ export class FormatuerLoginComponent implements OnInit {
   validateEmail = true;
   private errors: string ;
 
-  constructor( private authService: AuthService, private router: Router)
+  constructor( private authService: AuthService, private router: Router,private toast:NgToastService)
 {
     this.loginRequestPayload = {
       username: '',
@@ -77,12 +78,22 @@ export class FormatuerLoginComponent implements OnInit {
     this.loginRequestPayload.email = this.loginForm.get('email').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
     this.authService.loginFormateur(this.loginRequestPayload).subscribe(data => {
+      if (data==true){
       this.isError = false;
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard']);}
+     /* else { this.isError = true;
+        console.log("error in login method ")}*/
 
     }, error => {
+      /*console.log("okey zoom in ")
+      this.router.navigate(['/']);*/
+
       this.isError = true;
-      this.errors=error.error.message;
+      this.toast.error({detail:"enter vos informations correctements !",duration:3000});
+
+      /*
+            this.errors=error.error.message;
+      */
 
     });
 

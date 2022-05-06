@@ -2,17 +2,20 @@
 <html lang="en" class="Gibbu_@hotmail.com">
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Discord Login Form (Animated)</title>
+  <title>Espace Candidat</title>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.js" integrity="sha256-mkdmXjMvBcpAyyFNCVdbwg4v+ycJho65QLDwVE3ViDs=" crossorigin="anonymous"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="login-failed" class="fixed-top"
      *ngIf='this.isError' style="font-size: xx-small;">
+<!--
   <p-message severity="error" text="Échec de la connexion. vérifier vos informations"></p-message>
+-->
 </div>
 <div class="login-failed" class="fixed-top" *ngIf='this.isError' style="font-size: xx-small;">
 
@@ -48,13 +51,13 @@
               :invalide  <i class="fa-solid fa-circle-x"></i></span></p>
             <input type="password"
                    [formControlName]="'password'"  required type="password"
-                   minlength="5" maxlength="20" required=""/><a class="forgotPas" href="#">FORGOT YOUR PASSWORD?</a>
+                   minlength="5" maxlength="20" required=""/><a class="forgotPas" href="#">Mot de passe oublier?</a>
 
           </div>
 
           <div class="" style="transition-delay: 0.6s">
-            <button class="acceptBtn" (click)="login()" id="login"  t
-                    ype="submit">Login</button><span class="register">Need an account?<a href="#">Register</a></span>
+            <button class="acceptBtn" (click)="login()" id="login"  type="submit" >Login</button><span class="register">Need an account?<a href="#">Register</a></span>
+
 
 
     </div>

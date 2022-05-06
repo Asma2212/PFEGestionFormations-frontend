@@ -15,7 +15,11 @@ import {CandidatRegisterComponent} from "./Modules/Authentification/login/candid
 import {HomePageComponent} from "./Modules/FreeAcess/access-free/home-page/home-page.component";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 import {DashboardFormateurComponent} from "./Modules/espace-formateur/dashboard-formateur/dashboard-formateur.component";
-import { HomeComponent } from './Modules/FreeAcess/access-free/home/home.component';
+import {SessionComponent} from "./Modules/FreeAcess/access-free/session/session.component";
+import {FormationsViewerComponent} from "./Modules/FreeAcess/access-free/formations-viewer/formations-viewer.component";
+import {HomePage1Component} from "./Modules/FreeAcess/access-free/home-page1/home-page1.component";
+import {HomeDetailsComponent} from "./Modules/FreeAcess/access-free/home-details/home-details.component";
+import {SessionOnlineComponent} from "./Modules/FreeAcess/access-free/session-online/session-online.component";
 
 const routes: Routes =[
   {
@@ -30,10 +34,35 @@ const routes: Routes =[
       loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
     }]
   },
-  {path:'home',
-  component:HomeComponent,
-    loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
+  {
+    path:'register/candidat',
+    component:CandidatRegisterComponent,
+  },
 
+/*
+  {path:'m',
+  component:HomePageComponent,
+    loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
+*/
+  {path: 'home',
+  component : HomePageComponent,
+  children: [
+  {
+    path: 'session/:id',
+    component: SessionComponent,
+  },
+  {  path: 'formation',
+    component: FormationsViewerComponent,
+  },
+  {  path: 'home1',
+    component: HomePage1Component,
+  },
+  {path:'detailsHome',
+    component:HomeDetailsComponent
+
+    },
+    {path:'sessiononline',
+    component:SessionOnlineComponent}]
   },
   {path:'formateur_dashboard',
     component:DashboardFormateurComponent,

@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {RoleEnum} from "../models/RoleEnum";
 import {Roles} from "../models/Roles";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
   }
   private roleFormateur: string;
 
-  constructor(private http: HttpClient, private localStorage: LocalStorageService) {
+  constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router) {
   }
   login(loginRequestPayload: loginRequestPayload): Observable<boolean> {
     return this.http.post<LoginResponsePayload>(this.url+"signin", loginRequestPayload)
@@ -48,7 +49,7 @@ export class AuthService {
         }));
   }
 
-  loginFormateur(loginRequestPayload: loginRequestPayload): Observable<boolean> {
+  loginFormateur(loginRequestPayload: loginRequestPayload) {
     return this.http.post<any>(this.urlFormateur+"signin", loginRequestPayload)
       .pipe(map(data => {
         console.log(data);
@@ -69,11 +70,40 @@ export class AuthService {
         }
 
         return true;
-      },error=>{
+      }/*,error=>{
+
+        this.router.navigate(['/']);
         console.log(error)
-      }));
+      }*/));
   }
 
+  loginCandidat(loginRequestPayload: loginRequestPayload) {
+    return this.http.post<any>(this.urlFormateur+"signin", loginRequestPayload)
+      .pipe(map(data => {
+        console.log(data);
+        this.roleFormateur="ROLE_FORMATEUR";
+        if (data.roles.includes(this.roleFormateur)){
+          this.localStorage.store('authenticationToken', data.accessToken);
+          this.localStorage.store('username', data.username);
+          this.localStorage.store('role',"formateur");}
+
+
+
+        else {
+
+
+          throw new Error('An error occurred');
+          return false;
+
+        }
+
+        return true;
+      }/*,error=>{
+
+        this.router.navigate(['/']);
+        console.log(error)
+      }*/));
+  }
   getJwtToken() {
     return this.localStorage.retrieve('authenticationToken');
   }

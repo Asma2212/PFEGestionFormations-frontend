@@ -1,7 +1,7 @@
 import {AccessFreeRoutingModule} from "./access-free-routing.module";
 import {NgModule} from "@angular/core";
 import {SessionComponent} from "./session/session.component";
-import { CommonModule, DatePipe } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { HomePageComponent } from './home-page/home-page.component';
 import {CardModule} from "primeng/card";
 import {ButtonModule} from "primeng/button";
@@ -24,6 +24,9 @@ import {FieldsetModule} from 'primeng/fieldset';
 import {CalendarModule} from 'primeng/calendar';
 import { MultiSelectModule } from "primeng/multiselect";
 import { ToastModule } from "primeng/toast";
+import { SessionOnlineComponent } from './session-online/session-online.component';
+
+//import { HomeComponent } from './home/home.component';
 
 
 
@@ -36,6 +39,7 @@ import { ToastModule } from "primeng/toast";
     NavBarComponent,
     HomeDetailsComponent,
     HomePage1Component,
+    SessionOnlineComponent,
     HomeComponent,
   ],
   imports: [
