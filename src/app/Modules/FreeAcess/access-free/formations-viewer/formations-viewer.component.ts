@@ -41,7 +41,7 @@ OuvertInscrit : number = 0 ;
 enCours : number = 0 ;
 aVenir : number = 0 ;
 toutCours : number = 0 ;
-
+ 
 titreF : string;
 
 nouvCoursCheck : any;
