@@ -77,7 +77,7 @@ const routes: Routes =[
   component: PagenotfoundComponent
 },
 ];
-
+ 
 @NgModule({
   imports: [
     CommonModule,
@@ -90,4 +90,3 @@ const routes: Routes =[
   ],
 })
 export class AppRoutingModule { }
-g
