@@ -16,10 +16,10 @@
                     </ng-template>
                 </p-toolbar>
                 <p-dataView #dv [value]="sessions" [paginator]="true" [rows]="9" filterBy="titreSession"
-                    [sortField]="sortField" [sortOrder]="sortOrder" layout="grid" dataKey="idSession">
+                    [sortField]="sortField" [sortOrder]="sortOrder" layout="list" dataKey="idSession">
                     <ng-template pTemplate="header">
                         <div class="flex flex-column md:flex-row md:justify-content-between">
-                            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="filtre : nbr candidats" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
                             <span class="p-input-icon-left mb-2 md:mb-0">
                                 <i class="pi pi-search"></i>
                                 <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
@@ -53,11 +53,11 @@
                                     </div>
                                 </div>
                                 <div class="session-list-action">
-                                    <span class="session-price" pTooltip="nb">{{session.nbMaxCandidat}}</span>
+                                    <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="top">{{session.nbMaxCandidat}}</span>
                                     <div>
                                         <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
                                         <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
-                                        </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" >{{session.nivDifficulte}}</span>
+                                        </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="text-align: center;font-weight: bold;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{session.nivDifficulte}}</span>
                                 </div>
                             </div> 
                         </div>
@@ -109,7 +109,7 @@
                 <ng-template pTemplate="content">
                     <div class="field">
                         <label for="name">Titre</label>
-                        <input type="text" pInputText id="titre" [(ngModel)]="session.titreSession" required autofocus />
+                        <input type="text" pInputText id="titre" [(ngModel)]="session.titreSession" required autofocus maxlength="50" />
                         <small class="p-error" *ngIf="submitted && !session.titreSession">titre est requis.</small>
                     </div><br>
                     <div class="field">
@@ -151,12 +151,13 @@
                     </div>
                         <div class="field">
                             <label for="nbMaxCandidat">nombre maximal des candidats</label>
-                            <input type="number" pInputText id="nbMaxCandidat" [(ngModel)]="session.nbMaxCandidat" required autofocus  />
+                            <input type="number" max="30" pInputText id="nbMaxCandidat" [(ngModel)]="session.nbMaxCandidat" required autofocus  />
                             <small class="p-error" *ngIf="submitted && !session.nbMaxCandidat">nombre maximal des candidats est requis.</small>
+                            <small class="p-error" *ngIf="submitted && session.nbMaxCandidat && session.nbMaxCandidat>30">nombre maximal des candidats doit etre inférieur à 30</small>
                         </div>
                         <div style="display: flex;">
                         <span class="p-inputgroup-addon"><i class="pi pi-building"></i></span>
-                        <p-multiSelect [options]="listeFormations" [(ngModel)]="session.formationSession" [selectionLimit]="1" optionLabel="titre" defaultLabel="Choisir votre formation" display="chip">
+                        <p-multiSelect [options]="listeFormations" [(ngModel)]="formSess" [selectionLimit]="1" optionLabel="titre" defaultLabel="Choisir votre formation" display="chip">
                                                 <ng-template let-formation pTemplate="item">
                                                     <div style="display:flex;">
                                                         <div *ngFor="let file of fileInfos | async">
@@ -170,7 +171,7 @@
                                             </p-multiSelect>
                     
                   
-                 <!-- <small class="p-error" *ngIf="submitted && !session.formationSession">formation est requis.</small>-->
+                  <small class="p-error" *ngIf="submitted && !session.formationSession">formation est requis.</small>
                 </div><br>
                     <label> niveau de difficulté </label>
                     <div *ngFor="let niv of nivDifficulte" class="field-checkbox">

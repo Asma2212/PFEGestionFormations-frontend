@@ -15,7 +15,7 @@ import {DepartementService} from "../../../../../services/departement.service";
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UploadFileService } from 'app/services/upload-file.service';
 
-@Component({ 
+@Component({
   selector: 'app-candidat-register',
   templateUrl: './candidat-register.component.html',
   styleUrls: ['./candidat-register.component.scss']
@@ -71,6 +71,9 @@ export class CandidatRegisterComponent implements OnInit {
       genre: '',
       department: null,
       classe: null,
+/*
+      MyImage:'',
+*/
 
     };
 
@@ -93,7 +96,9 @@ export class CandidatRegisterComponent implements OnInit {
       phone: new FormControl(''),
       first_name: new FormControl('')
       , last_name: new FormControl(''),
+/*
       repassword : new FormControl(''),
+*/
       genre : new  FormControl(''),
       department : new  FormControl(''),
       classe : new FormControl(''),
@@ -110,14 +115,17 @@ export class CandidatRegisterComponent implements OnInit {
     this.loginRequestPayload.username = this.loginForm.get('username').value;
     this.loginRequestPayload.email = this.loginForm.get('email').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
+
     this.authService.login(this.loginRequestPayload).subscribe(data => {
       this.isError = false;
-      this.router.navigate(['/dashboard']);
+      console.log("you are here")
+      this.router.navigate(['/ggggg']);
 
     }, error => {
       this.isError = true;
-      throwError(error);
-      this.errors = error.error.message;
+      console.log("error occured")
+      //throwError(error);
+      //this.errors = error.error.message;
 
     });
 
@@ -180,19 +188,19 @@ export class CandidatRegisterComponent implements OnInit {
         const file = event.target.files[0];
         //this.userFile = file;
        // this.f['profile'].setValue(file);
-   
+
       var mimeType = event.target.files[0].type;
       if (mimeType.match(/image\/*/) == null) {
         this.message = "Only images are supported.";
         return;
       }
-   
+
       var reader = new FileReader();
-      
+
       this.imagePath = file;
-      reader.readAsDataURL(file); 
-      reader.onload = (_event) => { 
-        this.imgURL = reader.result; 
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
       }
       console.log("file name ", this.file.name)
       }

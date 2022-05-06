@@ -1,7 +1,7 @@
 import {AccessFreeRoutingModule} from "./access-free-routing.module";
 import {NgModule} from "@angular/core";
 import {SessionComponent} from "./session/session.component";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import { HomePageComponent } from './home-page/home-page.component';
 import {CardModule} from "primeng/card";
 import {ButtonModule} from "primeng/button";
@@ -18,8 +18,14 @@ import {MenuModule} from "primeng/menu";
 import { HomeDetailsComponent } from './home-details/home-details.component';
 import {HomePage1Component} from "./home-page1/home-page1.component";
 import {CarouselModule} from "primeng/carousel";
-import { HomeComponent } from './home/home.component';
+import { SessionOnlineComponent } from './session-online/session-online.component';
 
+//import { HomeComponent } from './home/home.component';
+import {AccordionModule} from 'primeng/accordion';
+import {FieldsetModule} from 'primeng/fieldset';
+import {CalendarModule} from 'primeng/calendar';
+import { MultiSelectModule } from "primeng/multiselect";
+import { ToastModule } from "primeng/toast";
 
 
 
@@ -32,7 +38,7 @@ import { HomeComponent } from './home/home.component';
     NavBarComponent,
     HomeDetailsComponent,
     HomePage1Component,
-    HomeComponent,
+    SessionOnlineComponent,
   ],
   imports: [
     CommonModule,
@@ -43,10 +49,14 @@ import { HomeComponent } from './home/home.component';
     ToggleButtonModule,
     RatingModule,
     TagModule,
-    AppModule,
     SlideMenuModule,
     MenuModule,
     CarouselModule,
+    AccordionModule,
+    FieldsetModule,
+    CalendarModule,
+    MultiSelectModule,
+    ToastModule
 
   ]
 })

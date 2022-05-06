@@ -5,25 +5,33 @@ import {ListeCandidatsComponent} from "../../gestion-candidats/liste-candidats/l
 import {AjouterCandidatComponent} from "../../gestion-candidats/ajouter-candidat/ajouter-candidat.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {SessionComponent} from "./session/session.component";
-import { HomeComponent } from './home/home.component';
-import { FormationsViewerComponent } from './formations-viewer/formations-viewer.component';
+import {FormationsViewerComponent} from "./formations-viewer/formations-viewer.component";
+import {HomePage1Component} from "./home-page1/home-page1.component";
+import {NavBarComponent} from "./nav-bar/nav-bar.component";
+import {HomeDetailsComponent} from "./home-details/home-details.component";
 
 const routes: Routes = [{
-  path: '',
-  component : HomeComponent,
+  path: 'home',
+  component : HomePageComponent,
   children: [
-    {
-      path: 'home',
-      component: HomePageComponent,
-    },
     {
       path: 'session/:id',
       component: SessionComponent,
     },
-    {
-      path: 'formation',
+    {  path: 'formation',
       component: FormationsViewerComponent,
-    }
+    },
+    {  path: 'home1',
+      component: HomePage1Component,
+    },
+    {path:'detailsHome',
+      component:HomeDetailsComponent
+
+    },
+    {path:"nav",
+    component:NavBarComponent}
+
+
   ]
 }
 ];

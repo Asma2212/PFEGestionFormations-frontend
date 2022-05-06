@@ -207,7 +207,7 @@
                         <small class="p-error" *ngIf="submitted && !candidat.numTel">num tel est requis.</small>
                     </div><br>
                     <div class="field col-6">
-                      <label for="dbDate">Date debut</label>
+                      <label for="dbDate">Date de Naissance</label>
                       <p-calendar [(ngModel)]="candidat.dateNaiss" [maxDate]="maxDate1" [showIcon]="true" [readonlyInput]="true" inputId="dbDate"></p-calendar>
                       <small class="p-error" *ngIf="submitted && !candidat.dateNaiss">date Naissance est requis</small>
                   </div><br>

@@ -1,4 +1,5 @@
 import { Categorie } from "./Categorie";
+import { SessionFormation } from "./SessionFormation";
 
 export class Formation {
     idFormation : number ;
@@ -7,4 +8,5 @@ export class Formation {
     details : String ;
     image : String ;
     listCategories : Categorie[];
+    sessionFormations :SessionFormation[]
 }

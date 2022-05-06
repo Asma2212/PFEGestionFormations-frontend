@@ -15,6 +15,7 @@ import { UploadFileService } from 'app/services/upload-file.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { throwIfEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-liste-formateurs',
@@ -229,7 +230,7 @@ else {
   console.log("ff1",this.filterSpecialite[0]);
 this.formateurs = this.formateurs.filter(f =>
    f.lesSpecialites.find(sp => sp.titre === this.filterSpecialite[0].titre)
-   );
+   ); 
    this.formateursSp = this.formateurs
 }}
   }
@@ -351,8 +352,8 @@ deleteFormateur(formateur: Formateur) {
             this.formateurs = this.formateurs.filter(val => val.id !== formateur.id);
             console.log(formateur.id);
             this.formateurService.deleteFormateur(formateur.id).subscribe( data => {
-              console.log("data Formateur deleted",data)
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
+              console.log("data Formateur Supprimer",data)
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Supprimer', life: 3000});
               window.location.reload();
             });
             this.formateur = null;
@@ -367,7 +368,8 @@ saveFormateur() {
   console.log(this.femme);
   this.submitted = true;
 
- 
+ if (this.file)
+ this.formateur.photo=this.file.name ;
   if(this.femme){
 
    console.log("geenre",Egenre.FEMME);
@@ -377,6 +379,7 @@ saveFormateur() {
 
   this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
 } 
+
   if (this.formateur.id) {
     //this.genre = this.formateur.genre ;
     console.log("before update",this.formateur);
@@ -388,7 +391,7 @@ saveFormateur() {
     
 }
 else {
-  this.formateur.photo=this.file.name ;
+
     if(this.selectedEtablissement[0].name!="Autre")
     this.formateur.etablissement=this.selectedEtablissement[0].name ;
     console.log("heeedhyyy",this.formateur)

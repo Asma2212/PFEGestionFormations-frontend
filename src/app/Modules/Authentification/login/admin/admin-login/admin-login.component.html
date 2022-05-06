@@ -24,7 +24,7 @@
                         <input  type="text" id="user_name_signup" [formControlName]="'username_signup'"  required
                                 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                 minlength="8" maxlength="8"
-                                autofocus placeholder="CIN" />
+                              placeholder="CIN" />
                       <span style="color: #ff3353" *ngIf="!signupForm.get('username_signup').valid && signupForm.get('username_signup').touched" >CIN invalide!<i class="fa-solid fa-circle-x"></i></span>
                     </div>
                     <div class="form-group">
@@ -43,10 +43,12 @@
                     <div class="form-group"></div>
 
                 <button type="button" id="goLeft" class="off">Login</button>
-                <button (click)="signup()"  type="submit" id="signup">Sign up</button>
+                <button (click)="signup()"  type="submit" id="signup" [disabled]="!signupForm.valid">Sign up</button>
               <div class="login-failed" *ngIf='this.isError_signup' style="font-size: xx-small;">
 
-                <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
+<!--
+                <p-message *ngIf="errors" severity="error" text="vérifier vos informations"></p-message>
+-->
               </div>
                 </form>
             </div>
@@ -87,9 +89,10 @@
                 </span>
                     </div>
                     <button type="button"  id="goRight" class="off">Sign Up</button>
-                    <button (click)="login()" id="login" type="submit">Login</button>
+                    <button (click)="login()" id="login" type="submit" [disabled]="!loginForm.valid" [ngClass] = "{'my-color': !loginForm.valid}"
+                    >Login</button>
                     <div class="login-failed" *ngIf='this.isError' style="font-size: xx-small;">
-                      <p-message severity="error" text="Échec de la connexion. vérifier vos informations"></p-message>
+                      <p-message severity="error" text="vérifier vos informations"></p-message>
 
                     </div>
 

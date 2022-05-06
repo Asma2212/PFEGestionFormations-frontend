@@ -6,9 +6,6 @@
         <input pInputText type="text" (keyup)="applyFilter($event.target.value)" matInput placeholder="Search..." />
       </span>
 </div>
-<label for="file1">File Upload  </label>
-<input type="file" id="file1" accept="image/*" (change)="onUpload($event)">
-<img [src]="imgURL" height="200" *ngIf="imgURL">
 <br>
 <span class="p-input-icon-left" style="margin-left: 60px;margin-right: 0px;border: 2px;">
   <div class="p-inputgroup">

@@ -1,4 +1,5 @@
 import { genreModel } from "./Genre";
+import { SessionFormation } from "./SessionFormation";
 import { Specialite } from "./Specialite";
 
 export class Formateur{
@@ -17,6 +18,7 @@ export class Formateur{
     photo : string ;
     cv : string ;
     etablissement : string ;
+    sessionFormationList : SessionFormation[];
     
 }
 

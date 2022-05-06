@@ -24,7 +24,7 @@ import { Observable } from "rxjs";
       return this.http.post<any>(this.url + 'update/'+session.idSession,session);
     }
   
-    deleteSession(idc : number) : Observable<any>{
-      return this.http.delete<any>(this.url + 'delete/'+ idc);
+    deleteSession(idS : number) : Observable<any>{
+      return this.http.delete<any>(this.url + 'delete/'+ idS);
     }
   }

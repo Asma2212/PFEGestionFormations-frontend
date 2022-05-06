@@ -231,3 +231,7 @@ input:focus ~ .highlight {
   from { background:#5264AE; }
   to 	{ width:0; background:transparent; }
 }
+.my-color{
+  background-color: rgba(56, 56, 56, 0.11);
+  box-shadow: 0 2px 6px rgba(56, 56, 56, 0.11), 0 3px 6px rgba(56, 56, 56, 0.11);
+}

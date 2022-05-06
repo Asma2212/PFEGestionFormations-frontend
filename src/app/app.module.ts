@@ -47,6 +47,7 @@ import {MatInputModule} from "@angular/material/input";
 import {PasswordModule} from "primeng/password";
 import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
+import {NgToastModule} from "ng-angular-popup";
 
 @NgModule({
     imports: [BrowserModule,
@@ -74,13 +75,14 @@ import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.modu
         NgxFileDropModule,
         AccordionModule,
         GestionFormationsModule,
-
+      AccessFreeModule,
         ToastModule,
         HttpClientModule,
         MatDatepickerModule,
         MatInputModule,
         MatNativeDateModule,
         ToastrModule.forRoot(),
+        NgToastModule,
 
         NgxWebstorageModule.forRoot(),
         AgmCoreModule.forRoot({
@@ -93,7 +95,7 @@ import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.modu
         PagenotfoundComponent,
         AdminLoginComponent,
         FormatuerLoginComponent,
-        CandidatRegisterComponent
+        CandidatRegisterComponent,
 
     ],
     providers: [MessageService, HttpClient,

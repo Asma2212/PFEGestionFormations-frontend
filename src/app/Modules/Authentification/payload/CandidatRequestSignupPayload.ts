@@ -10,6 +10,9 @@ export class CandidatRequestSignupPayload{
   email : string;
   password: string;
   genre : string;
+/*
+  MyImage : string ;
+*/
   department:Department;
   classe: Classe ;
 

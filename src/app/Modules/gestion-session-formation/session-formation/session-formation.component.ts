@@ -40,6 +40,7 @@ import { Session } from 'protractor';
 })
 export class SessionFormationComponent implements OnInit,OnDestroy {
 
+  formSess : Formation[] = [];
   sessions: SessionFormation[];
   session : SessionFormation ;
   selectedFormateurs : Formateur[];
@@ -99,8 +100,8 @@ this.cols = [
 
 this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
       this.sortOptions = [
-          {label: 'Price High to Low', value: '!price'},
-          {label: 'Price Low to High', value: 'price'}
+          {label: 'Nombre Haut - Bas', value: '!nbMaxCandidat'},
+          {label: 'Nombre Bas - Haut', value: 'nbMaxCandidat'}
       ];
 
       this.minDate = new Date()
@@ -224,15 +225,23 @@ hideDialog() {
   this.currentFile=null;
   this.progress = 0;
   this.message= '';
+  this.formSess = [];
+  this.selectedFormateurs = []
 }
 saveSession(){
   this.submitted = true ;
-  //this.session.formationSession = this.session.formationSession[0];
+  this.session.formationSession = this.formSess[0];
   console.log("session bch tetbaath :",this.session)
+  if(this.file){
+    this.session.photoSession=this.file.name ;
+  }
   if(this.selectedFormateurs)
+  {
+    this.session.listeFormateurs = [] ;
     this.selectedFormateurs.forEach( formateur=> {
       this.session.listeFormateurs.push(formateur)
     });
+  }
     if (this.session.idSession) {
       console.log("before update",this.session);
       this.sessionService.updateSession(this.session).subscribe( data => {
@@ -243,7 +252,7 @@ saveSession(){
 
   }
   else {
-    this.session.photoSession=this.file.name ;
+    
       this.sessionService.saveSession(this.session).subscribe( data => {
         console.log("data save session",data);
         this.messageService.add({severity:'success', summary: 'Successful', detail: 'session ajouter', life: 3000});
@@ -266,8 +275,8 @@ saveSession(){
            // this.formateurs = this.formateurs.filter(val => val.id !== formateur.id);
             console.log(session.idSession);
             this.sessionService.deleteSession(session.idSession).subscribe( data => {
-              console.log("data Session deleted",data)
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Deleted', life: 3000});
+              console.log("data Session Supprimer",data)
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'session Supprimer', life: 3000});
               window.location.reload();
             });
             this.session = null;
@@ -278,11 +287,13 @@ saveSession(){
 }
 
 editSession(session: SessionFormation) {
+  console.log("sesss",session);
   if (session.listeFormateurs[0]) {
     session.listeFormateurs.forEach( formateur=> {
       //this.session.listeFormateur.push(formateur)
       this.names.push(formateur.firstName);
     });}
+    this.formSess.push(session.formationSession);
   this.selectedFormateurs=session.listeFormateurs ;
   this.session = {...session};
   //this.imgURL = session.photo ;

@@ -22,7 +22,7 @@ import { Observable } from "rxjs";
     }
     updateCandidat(candidat : Candidat) : Observable<any>{
   
-      return this.http.post<any>(this.url + 'update1',candidat);
+      return this.http.post<any>(this.url + 'update1/'+ candidat.id,candidat);
     }
   
     deleteCandidat(idc : number) : Observable<any>{

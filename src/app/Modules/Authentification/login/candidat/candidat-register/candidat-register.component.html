@@ -15,7 +15,7 @@
       <div class="col-md-3 register-left">
         <img src="https://i.pinimg.com/originals/a7/4a/65/a74a6592ac29c378cc03c600a03fc78e.png" alt=""/>
         <h3>Bonjour !</h3>
-        <p> découvrir, apprendre, progresser et réussir avec ISET FORMINI</p>
+        <h1> découvrir, apprendre, progresser et réussir avec ISET FORMATION</h1>
       </div>
       <div class="col-md-9 register-right">
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -28,7 +28,7 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <h3 class="register-heading">{{n}}</h3>
+            <h1 class="register-heading">{{n}}</h1>
 
             <form class="row register-form" [formGroup]="signupForm">
               <div class="col-md-4">
@@ -56,22 +56,23 @@
                 </div>
                 <div class="form-group">
 
-                  <p-password   [style]="{'height': '36px'}"   placeholder="mot de passe *"  [formControlName]="'password_signup'"  required  minlength="5" maxlength="20"></p-password>
+                  <input  class="form-control" type="password"  [style]="{'height': '36px'}"   placeholder="mot de passe *"  [formControlName]="'password_signup'"  required  minlength="5" maxlength="100"/>
                   <span style="color: #ff3353" *ngIf="!signupForm.get('password_signup').valid && signupForm.get('password_signup').touched">
                  mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
                 </span>
                 </div>
 
-                <div class="form-group">
+         <!--       <div class="form-group">
                   <input type="password" class="form-control"  placeholder="Confirmer mot de passe *" [formControlName]="'repassword'"  required />
                   <span style="color: #ff3353" *ngIf="!signupForm.get('repassword').valid && signupForm.get('repassword').touched">
                  mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
                 </span>
+
                   <span style="color: #ff3353" *ngIf="signupForm.get('repassword').valid && signupForm.get('repassword')!=signupForm.get('password_signup')">
                  mot de passe n'est pas conforme! <i class="fa-solid fa-circle-x"></i>
                 </span>
                 </div>
-
+-->
               </div>
               <div class="col-md-4">
                 <mat-form-field class="example-full-width" appearance="fill">
@@ -111,17 +112,17 @@
                 </span>
                 </div>
                 <div class="form-group">
-                    <p-multiSelect  [options]="listDep" [formControlName]="'department'" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected()" ></p-multiSelect>
+                    <p-multiSelect required [options]="listDep" [formControlName]="'department'" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected()" ></p-multiSelect>
                     <span style="color: #ff3353" *ngIf="!signupForm.get('department').valid && signupForm.get('department').touched">
                       departement non selectionée!  <i class="fa-solid fa-circle-x"></i></span>
-                    
+
                   </div>
                 <div class="form-group" *ngIf="depSelected">
-                    <p-multiSelect [options]="listClass" [formControlName]="'classe'" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" (click)="classeSelected()"></p-multiSelect>
+                    <p-multiSelect required [options]="listClass" [formControlName]="'classe'" defaultLabel="Select classe"  defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" (click)="classeSelected()"></p-multiSelect>
                     <span style="color: #ff3353" *ngIf="!signupForm.get('classe').valid && signupForm.get('classe').touched"></span>
                 </div>
 
-                <input type="submit" [disabled]="!signupForm.valid" class="btnRegister"  value="signup"/>
+                <input type="submit" [disabled]="!signupForm.valid"   [ngClass] = "{'my-color': !signupForm.valid}" class="btnRegister"  value="signup"/>
               </div>
 <div class="col-md-1">
   <div class="form-group">
@@ -129,16 +130,16 @@
       <img class="profile-pic" src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg">
     </div>
     <div class="circle" *ngIf="imgURL">
-      <img class="profile-pic" [src]="imgURL" height="150" alt="aaaaaaaaa">    
+      <img class="profile-pic" [src]="imgURL" height="150" alt="aaaaaaaaa">
     </div>
 
     <label for="file" class="p-image"><i class="fa fa-camera upload-button"></i></label>
-        <input type="file" id="file" class="input-file" accept="image/*" (change)="onUpload($event)" >
-        
+        <input  type="file" id="file" class="input-file" accept="image/*" (change)="onUpload($event)" >
+
 
 </div>
 </div>
-              
+
               <div class="login-failed" *ngIf='this.isError_signup' style="font-size: xx-small;">
 
                 <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
@@ -153,7 +154,7 @@
 
 
           <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            <h3  class="register-heading">Espace Candidat</h3>
+            <h1 class="register-heading">Espace Candidat</h1>
             <div class="row register-form" >
               <form class="col-md-6" [formGroup]="loginForm">
 
@@ -169,22 +170,28 @@
                   <span style="color: #ff3353" *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">email invalide <i class="fa-solid fa-circle-x"></i></span>
 
                 </div>
-              </form>
+<!--
               <div class="col-md-6">
+-->
                 <div class="form-group">
-                  <input type="password" class="form-control" placeholder="mot de passe *" [formControlName]="'password'"  required  minlength="5" maxlength="20"/>
+                  <input  type="password" class="form-control" placeholder="mot de passe *" [formControlName]="'password'"  required  minlength="5" maxlength="20"/>
                   <span style="color: #ff3353" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
                  mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
                 </span>
                 </div>
+                <div class="form-group">
+                  mot de passe oublier ?
+                </div>
+                <input type="submit" class="btnRegister" [disabled]="!loginForm.valid" [ngClass] = "{'my-color': !loginForm.valid}" (click)="login()" value="login"/>
 
-                <input type="submit" class="btnRegister" [disabled]="!loginForm.valid" value="login"/>
-
+<!--
               </div>
+-->
               <div class="login-failed" *ngIf='this.isError' style="font-size: xx-small;">
 
                 <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
               </div>
+              </form>
             </div>
 
 
