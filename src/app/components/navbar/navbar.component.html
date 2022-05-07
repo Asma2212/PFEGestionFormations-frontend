@@ -46,6 +46,8 @@
                         <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                     </div>
                 </li>
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0)">
                         <i class="material-icons">person</i>
@@ -55,6 +57,10 @@
                     </a>
                 </li>
             </ul>
+
+          <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
+          <button badge="8" class="p-button-danger" type="button" (click)="confirm()" pButton icon="pi pi-sign-out" > </button>
+          <p> {{TheCurrentUser.firstName}}</p>
         </div>
     </div>
 </nav>

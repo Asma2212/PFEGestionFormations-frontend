@@ -8,6 +8,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {RoleEnum} from "../models/RoleEnum";
 import {Roles} from "../models/Roles";
 import {Router} from "@angular/router";
+import {User} from "../models/User";
 
 @Injectable({
   providedIn: 'root'
@@ -117,5 +118,10 @@ export class AuthService {
     console.log(signupRequestPayload)
 
     return this.http.post<any>(this.url+'signup', signupRequestPayload);
+  }
+  currentUserDetail():Observable<any>{
+
+    return this.http.get<User>(this.url+"currentUser/"+ this.getUserName());
+
   }
 }
