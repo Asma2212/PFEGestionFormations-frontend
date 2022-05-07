@@ -6,6 +6,7 @@ import _, { map } from 'underscore';
 import * as $ from "jquery";
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'app/services/upload-file.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home1-page',
@@ -32,7 +33,7 @@ export class HomePage1Component implements OnInit {
           numVisible: 1
       }
   ];
-  constructor( private sessionService : SessionFormationService, private uploadService : UploadFileService) { }
+  constructor( private sessionService : SessionFormationService, private uploadService : UploadFileService,private router : Router) { }
 
   
   ngOnInit(): void {
@@ -151,4 +152,7 @@ export class HomePage1Component implements OnInit {
   testImage(t : string){
     return t.includes("image") ;
  }
+ detailSession(session : SessionFormation){
+  this.router.navigateByUrl('home/session/'+session.idSession);
+}
 }
