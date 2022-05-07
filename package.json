@@ -61,6 +61,7 @@
     "ng-angular-popup": "^0.1.2",
     "ng-popup": "^0.5.0",
     "ngx-file-drop": "^13.0.0",
+    "ngx-owl-carousel-o": "^7.0.2",
     "ngx-toastr": "^14.3.0",
     "ngx-webstorage": "^9.0.0",
     "node-prune": "^1.0.2",

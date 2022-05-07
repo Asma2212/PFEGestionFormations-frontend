@@ -21,7 +21,7 @@ export class FormationsViewerComponent implements OnInit {
   filterDateDeb : Date ;
   filterDateFin : Date;
   submitFilterDate : boolean =false;
-
+ 
   savedSe : Map<SessionFormation,boolean> = new Map();
   categorieFilter : Categorie ;
 filt : boolean = false ;

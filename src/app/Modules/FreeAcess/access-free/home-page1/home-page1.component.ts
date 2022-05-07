@@ -4,6 +4,8 @@ import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import _, { map } from 'underscore';
 import * as $ from "jquery";
+import { Observable } from 'rxjs';
+import { UploadFileService } from 'app/services/upload-file.service';
 
 @Component({
   selector: 'app-home1-page',
@@ -14,6 +16,7 @@ export class HomePage1Component implements OnInit {
   sessions : SessionFormation[] ;
 	responsiveOptions;
   images: any[];
+  fileInfos: Observable<any>;
 
   responsiveOptions1:any[] = [
       {
@@ -29,57 +32,15 @@ export class HomePage1Component implements OnInit {
           numVisible: 1
       }
   ];
-  constructor( private sessionService : SessionFormationService) { }
+  constructor( private sessionService : SessionFormationService, private uploadService : UploadFileService) { }
 
+  
   ngOnInit(): void {
-    this.sessions = [
-      {
-        idSession : 0,
-        titreSession : "",
-        lieuSession : "",
-        descriptionSession : "",
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : null,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 0,
-        titreSession : "",
-        lieuSession : "",
-        descriptionSession : "",
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : null,
-        listeFormateurs : null,
-        listeCandidat : null,
-      },{
-        idSession : 0,
-        titreSession : "",
-        lieuSession : "",
-        descriptionSession : "",
-        dateDebSession : new Date(),
-        dateFinSession : new Date(),
-        photoSession : "",
-        planning : null,
-        programme : "",
-        nivDifficulte : NivDifficulteEnum.avance ,
-        nbMaxCandidat : 10,
-        formationSession : null,
-        listeFormateurs : null,
-        listeCandidat : null,
-      }
-    ]
+
+    this.sessionService.getSessions().toPromise().then(data =>{ this.sessions = data})
+    this.fileInfos = this.uploadService.getFiles();
+
+
     this.responsiveOptions = [
       {
           breakpoint: '1024px',
@@ -186,4 +147,8 @@ export class HomePage1Component implements OnInit {
   someMethod() {
 
   }
+
+  testImage(t : string){
+    return t.includes("image") ;
+ }
 }

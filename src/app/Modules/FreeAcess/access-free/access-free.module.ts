@@ -18,13 +18,13 @@ import {MenuModule} from "primeng/menu";
 import { HomeDetailsComponent } from './home-details/home-details.component';
 import {HomePage1Component} from "./home-page1/home-page1.component";
 import {CarouselModule} from "primeng/carousel";
-import { HomeComponent } from './home/home.component';
 import {AccordionModule} from 'primeng/accordion';
 import {FieldsetModule} from 'primeng/fieldset';
 import {CalendarModule} from 'primeng/calendar';
 import { MultiSelectModule } from "primeng/multiselect";
 import { ToastModule } from "primeng/toast";
 import { SessionOnlineComponent } from './session-online/session-online.component';
+
 
 //import { HomeComponent } from './home/home.component';
 
@@ -39,8 +39,7 @@ import { SessionOnlineComponent } from './session-online/session-online.componen
     NavBarComponent,
     HomeDetailsComponent,
     HomePage1Component,
-    SessionOnlineComponent,
-    HomeComponent,
+    SessionOnlineComponent
   ],
   imports: [
     CommonModule,
