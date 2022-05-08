@@ -2,6 +2,10 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import {ConfirmationService} from "primeng/api";
+import {LocalStorageService} from "ngx-webstorage";
+import {AuthService} from "../../services/auth.service";
+import {User} from "../../models/User";
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  TheCurrentUser : User ;
     display;
     private listTitles: any[];
     location: Location;
@@ -16,7 +21,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location,  private element: ElementRef, private router: Router,private confirmationService: ConfirmationService,private localStorage: LocalStorageService,private authService: AuthService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -31,7 +36,10 @@ export class NavbarComponent implements OnInit {
            $layer.remove();
            this.mobile_menu_visible = 0;
          }
-
+      /******************** getting all the data of the user *******************
+       *
+       */
+      this.detailsUserAdmin();
     }
 
     sidebarOpen() {
@@ -122,4 +130,23 @@ export class NavbarComponent implements OnInit {
       }
       return 'Dashboard';
     }
+
+  confirm() {
+      console.log("I entered")
+    this.confirmationService.confirm({
+      message: 'Êtes-vous sûr de vouloir quitter?',
+      accept: () => {
+       this.localStorage.clear("authenticationToken")
+       this.localStorage.clear("username")
+       this.localStorage.clear("role")
+        window.location.reload();
+      }
+    });}
+  detailsUserAdmin(){
+    this.authService.currentUserDetail().subscribe(data=>{
+      this.TheCurrentUser=data ;
+      console.log(data);
+
+    })
+  }
 }

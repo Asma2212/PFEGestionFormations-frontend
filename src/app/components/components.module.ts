@@ -8,14 +8,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    SidebarModule,
-    ButtonModule,HttpClientModule
-  ], providers: [ HttpClient],
+    imports: [
+        CommonModule,
+        RouterModule,
+        SidebarModule,
+        ButtonModule, HttpClientModule, ConfirmDialogModule
+    ], providers: [ HttpClient],
   declarations: [
     FooterComponent,
     NavbarComponent,

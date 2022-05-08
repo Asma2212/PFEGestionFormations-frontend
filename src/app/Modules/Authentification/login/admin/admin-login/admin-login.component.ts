@@ -9,7 +9,10 @@ import {throwError} from "rxjs";
 import {ToastrService} from "ngx-toastr";
 import {HttpHeaders} from "@angular/common/http";
 import {NgToastService} from "ng-angular-popup";
-
+import {User} from "../../../../../models/User";
+/*
+import User from "../../../../../models/User"
+*/
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
@@ -17,6 +20,7 @@ import {NgToastService} from "ng-angular-popup";
 })
 export class AdminLoginComponent implements OnInit {
 
+  userDetail :User
   loginForm: FormGroup;
   signupForm: FormGroup;
   isError: boolean;
@@ -121,5 +125,7 @@ export class AdminLoginComponent implements OnInit {
     });
 
   }
+
+
 
 }
