@@ -15,6 +15,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
+import { ArchitectureIsetComponent } from './architecture-iset/architecture-iset.component';
+import {OrganizationChartModule} from 'primeng/organizationchart';
+import { ToastModule } from 'primeng/toast';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -25,7 +28,8 @@ FullCalendarModule.registerPlugins([
 @NgModule({
   declarations: [
     AdminCalendarComponent,
-    EspaceAdminComponent
+    EspaceAdminComponent,
+    ArchitectureIsetComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +42,8 @@ FullCalendarModule.registerPlugins([
         CheckboxModule,
         ButtonModule,
         TabViewModule,
+        OrganizationChartModule,
+        ToastModule
   ]
 })
 export class EspaceAdminModule { }
