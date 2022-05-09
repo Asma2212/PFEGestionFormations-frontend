@@ -24,6 +24,7 @@ import {CalendarModule} from 'primeng/calendar';
 import { MultiSelectModule } from "primeng/multiselect";
 import { ToastModule } from "primeng/toast";
 import { SessionOnlineComponent } from './session-online/session-online.component';
+import {ChipModule} from "primeng/chip";
 
 
 //import { HomeComponent } from './home/home.component';
@@ -41,24 +42,25 @@ import { SessionOnlineComponent } from './session-online/session-online.componen
     HomePage1Component,
     SessionOnlineComponent
   ],
-  imports: [
-    CommonModule,
-    AccessFreeRoutingModule,
-    CardModule,
-    ButtonModule,
-    FormsModule,
-    ToggleButtonModule,
-    RatingModule,
-    TagModule,
-    SlideMenuModule,
-    MenuModule,
-    CarouselModule,
-    AccordionModule,
-    FieldsetModule,
-    CalendarModule,
-    MultiSelectModule,
-    ToastModule
+    imports: [
+        CommonModule,
+        AccessFreeRoutingModule,
+        CardModule,
+        ButtonModule,
+        FormsModule,
+        ToggleButtonModule,
+        RatingModule,
+        TagModule,
+        SlideMenuModule,
+        MenuModule,
+        CarouselModule,
+        AccordionModule,
+        FieldsetModule,
+        CalendarModule,
+        MultiSelectModule,
+        ToastModule,
+        ChipModule
 
-  ]
+    ]
 })
 export class AccessFreeModule { }

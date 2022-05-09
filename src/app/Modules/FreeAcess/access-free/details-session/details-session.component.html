@@ -181,14 +181,14 @@
         <div class="card"></div>
         <div class="card"></div>
         <div class="card"></div> <div class="card"></div>
-        <div class="card">
+        <div class="card" style=" background: linear-gradient(135deg, #3e00bb, rgba(255,136,0,0.53)) fixed;">
           <div class="header">
             <h2>Categories </h2>
           </div>
           <div class="body widget">
-            <ul class="list-unstyled categories-clouds m-b-0">
-
-              <li *ngFor="let obj of categories"><a href="">{{obj.titre}}</a></li>
+            <!--<ul class="list-unstyled categories-clouds m-b-0">-->
+           <ul>
+              <li *ngFor="let obj of categories"><a href=""> <p-chip label="{{obj.titre}}"></p-chip></a></li>
 
             </ul>
           </div>
