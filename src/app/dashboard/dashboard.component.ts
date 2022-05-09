@@ -65,11 +65,11 @@ this.formationService.getAllFormations().toPromise().then(d=>{
     this.formateurs = d;
     this.nbFormateurs = d.length
 })
-while (this.candidats[0]) {
+/**while (this.candidats[0]) {
 this.c = this.candidats[0];
 this.filterC = this.candidats.filter(can => can.department = this.c.department)
 //.....
-}
+} */
 
 
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
@@ -163,13 +163,13 @@ this.filterC = this.candidats.filter(can => can.department = this.c.department)
                   "#42A5F5",
                   "#66BB6A",
                   "#FFA726",
-                  "black"
+                  "violet"
               ],
               hoverBackgroundColor: [
                   "#64B5F6",
                   "#81C784",
                   "#FFB74D",
-                  "black"
+                  "violet"
               ]
           }
       ]
