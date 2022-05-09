@@ -34,6 +34,7 @@ export class ListeFormationsComponent implements OnInit {
     categories : Categorie[];
     selectedCategorie :  Categorie ;
    formationDialog: boolean;
+   categorieDialog : boolean = false ;
 
   formations: Formation[];
 
@@ -47,6 +48,7 @@ export class ListeFormationsComponent implements OnInit {
   imgURL: any;
   public message: string;
   categorie : Categorie ;
+  c : Categorie ;
     fileName = 'ExcelSheet.xlsx';
     selectedFiles1: FileList;
     currentFile1: File;
@@ -59,27 +61,6 @@ export class ListeFormationsComponent implements OnInit {
   constructor(private formationService: FormationService,private uploadService : UploadFileService, private categorieService : CategorieService,private confirmationService : ConfirmationService , private messageService : MessageService ) { }
  
   ngOnInit() {
-  /* this.categories = [{
-        idCategorie : 1,
-        titre : "Angular",
-        description : "dev web front end" ,
-        listFormations : null},{
-            idCategorie : 2,
-            titre : "Spring Boot",
-            description : "dev web back end" ,
-            listFormations : null}
-    ];*/
-   /* this.categorie = {
-        idCategorie : 1,
-        titre : "node js",
-        description : "dev web back end" ,
-        listFormations : null}
-
-    this.categorieService.saveCategorie(this.categorie).subscribe( data => {
-              
-        console.log(" save cat data",data)
-      });*/
-    
       this.fileInfos = this.uploadService.getFiles();
       this.categorieService.getAllCategories().toPromise().then( data => {
         this.categories = data ;
@@ -369,4 +350,34 @@ export class ListeFormationsComponent implements OnInit {
 
 
         }}
+
+        openCategorie(){
+this.categorieDialog = true ;
+this.c = {
+id : 0 ,
+titre :"",
+description : "",
+listFormations : null
+}
+        }
+        saveCategorie(){
+          this.categorieService.saveCategorie(this.c).subscribe(data => {
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'categorie Ajouter', life: 3000});
+            this.categorieService.getAllCategories().toPromise().then( data => {
+              this.categories = data ;
+                console.log("everthing is okay geet categorie222",data)
+              });
+            this.categorieDialog = false
+          }
+            )
+        }
+        hideCategorie(){
+            this.categorieDialog = false ;
+            this.c = {
+              id : 0 ,
+              titre :"",
+              description : "",
+              listFormations : null
+              }
+        }
 }
