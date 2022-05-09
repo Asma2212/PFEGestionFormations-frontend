@@ -29,7 +29,8 @@ export class ListeFormationsComponent implements OnInit {
     uploadedFiles: any[] = [];
     fileEntry :FileSystemFileEntry | undefined ;
 
-    detailForm : string ;
+    detailForm : String ;
+    titreDetail : String ;
     displayReadMore : boolean ;
     categories : Categorie[];
     selectedCategorie :  Categorie ;
@@ -39,7 +40,7 @@ export class ListeFormationsComponent implements OnInit {
   formations: Formation[];
 
   formation: Formation;
-
+  formationDetail: Formation;
   selectedFormations: Formation[];
 
   submitted: boolean;
@@ -249,9 +250,10 @@ export class ListeFormationsComponent implements OnInit {
       return index;
   }
 
-  readMoreDialog(detailForm : string) {
+  readMoreDialog(formation : Formation) {
     this.displayReadMore = true;
-    this.detailForm = detailForm ;
+    this.titreDetail = formation.titre.toString();
+    this.detailForm = formation.details.toString();
 }
 /*
   createId(): string {

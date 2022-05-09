@@ -33,7 +33,7 @@
         </ng-template>
     </p-toolbar>
 
-        <p-table id="excel-table" #dt [value]="formations" [rows]="2" [paginator]="true" [globalFilterFields]="['titre','chargeHorraire','categorie']" responsiveLayout="scroll"
+        <p-table id="excel-table" #dt [value]="formations" [rows]="6" [paginator]="true" [globalFilterFields]="['titre','chargeHorraire','categorie']" responsiveLayout="scroll"
         [(selection)]="selectedFormations"  [rowHover]="true" dataKey="idFormation"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -79,7 +79,7 @@
                         <li>{{categorie.titre}}</li>
                        </ul>
                    </td>
-                   <td><p-button (click)="readMoreDialog(formation.details)" icon="pi pi-external-link" label="read more"></p-button></td>
+                   <td><button pButton class="p-button-text" (click)="readMoreDialog(formation)" icon="pi pi-external-link" label="plus de detail"></button></td>
                    <td>
                      <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editFormation(formation)"></button>
                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteFormation(formation)"></button>
@@ -213,7 +213,8 @@
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
-<p-dialog header="Header" [(visible)]="displayReadMore" [style]="{width: '50vw'}">
+<p-dialog header="{{titreDetail}}" [(visible)]="displayReadMore" [style]="{width: '350px'}">
+    
     <p>{{detailForm}}</p>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="displayReadMore=false" label="Ok" styleClass="p-button-text"></p-button>

@@ -227,7 +227,9 @@ hideDialog() {
   this.progress = 0;
   this.message= '';
   this.formSess = [];
-  this.selectedFormateurs = []
+  this.selectedFormateurs = [] ;
+  this.dateDeb = null ;
+  this.dateFin = null ;
 }
 saveSession(){
   this.submitted = true ;

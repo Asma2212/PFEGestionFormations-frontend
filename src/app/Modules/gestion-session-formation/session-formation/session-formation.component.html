@@ -219,7 +219,7 @@
                     </div>
                     <div class="field col-6">
                         <label for="finDate">Date Fin</label>
-                        <p-calendar [(ngModel)]="dateFin" [minDate]="session.dateDebSession" [showIcon]="true" [readonlyInput]="true" inputId="finDtate" [disabled]=" !dateDeb"  ></p-calendar>
+                        <p-calendar [(ngModel)]="dateFin" [minDate]="dateDeb" [showIcon]="true" [readonlyInput]="true" inputId="finDtate" [disabled]="!dateDeb"></p-calendar>
                         <small class="p-error" *ngIf="submitted && !dateFin">date fin est requis.</small>
                     </div>
 

@@ -5,45 +5,45 @@
                 <div class="col-xl-3 col-lg-6">
                     <div class="card l-bg-cherry">
                         <div class="card-statistic-3 p-4">
-                            <div class="card-icon card-icon-large"><i class="fas fa-book-copy"></i></div>
+                            <div class="card-icon card-icon-large"><i class="fas fa-book"></i></div>
                             <div class="mb-4">
-                                <h5 class="card-title mb-0">Formations</h5>
+                                <h2 class="card-title mb-0">Formations</h2>
                             </div>
                             <div class="row align-items-center mb-2 d-flex">
                                 <div class="col-8">
                                     <h2 class="d-flex align-items-center mb-0">
-                                        {{nbFormations}}
+                                      <span style="font-size: 12px;"> nombre totale : </span>&nbsp;&nbsp; {{nbFormations}} 
                                     </h2>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <span>12.5% <i class="fa fa-arrow-up"></i></span>
+                                    <span> {{nbFormations / 10}}% <i class="fa fa-arrow-up"></i></span>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="progress mt-1 " data-height="8" style="height: 8px;">
-                                <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"></div>
+                                <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" [style.width.%]="nbFormations" ></div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="col-xl-3 col-lg-6">
                     <div class="card l-bg-blue-dark">
                         <div class="card-statistic-3 p-4">
                             <div class="card-icon card-icon-large"><i class="fas fa-duotone fa-chalkboard"></i></div>
                             <div class="mb-4">
-                                <h5 class="card-title mb-0">Session de formations</h5>
+                                <h2 class="card-title mb-0">Session de formations</h2>
                             </div>
                             <div class="row align-items-center mb-2 d-flex">
                                 <div class="col-8">
                                     <h2 class="d-flex align-items-center mb-0">
-                                        {{nbSessions}}
-                                    </h2>
+                                        <span style="font-size: 12px;"> nombre totale : </span>&nbsp;&nbsp; {{nbSessions}} 
+                                      </h2>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <span>9.23% <i class="fa fa-arrow-up"></i></span>
+                                    <span>{{nbSessions / 10}}% <i class="fa fa-arrow-up"></i></span>
                                 </div>
                             </div>
                             <div class="progress mt-1 " data-height="8" style="height: 8px;">
-                                <div class="progress-bar l-bg-green" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                                <div class="progress-bar l-bg-green" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"  [style.width.%]="nbSessions" ></div>
                             </div>
                         </div>
                     </div>
@@ -53,20 +53,20 @@
                         <div class="card-statistic-3 p-4">
                             <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
                             <div class="mb-4">
-                                <h5 class="card-title mb-0">Formateurs</h5>
+                                <h2 class="card-title mb-0">Formateurs</h2>
                             </div>
                             <div class="row align-items-center mb-2 d-flex">
                                 <div class="col-8">
                                     <h2 class="d-flex align-items-center mb-0">
-                                        578
-                                    </h2>
+                                        <span style="font-size: 12px;"> nombre totale : </span>&nbsp;&nbsp; {{nbFormateurs}} 
+                                      </h2>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <span>10% <i class="fa fa-arrow-up"></i></span>
+                                    <span>{{nbFormateurs / 10}}% <i class="fa fa-arrow-up"></i></span>
                                 </div>
                             </div>
                             <div class="progress mt-1 " data-height="8" style="height: 8px;">
-                                <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                                <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" [style.width.%]="nbFormateurs"></div>
                             </div>
                         </div>
                     </div>
@@ -76,27 +76,27 @@
                         <div class="card-statistic-3 p-4">
                             <div class="card-icon card-icon-large"><i class="fas fa-duotone fa-user-graduate"></i></div>
                             <div class="mb-4">
-                                <h5 class="card-title mb-0">Candidat</h5>
+                                <h2 class="card-title mb-0">Candidat</h2>
                             </div>
                             <div class="row align-items-center mb-2 d-flex">
                                 <div class="col-8">
                                     <h2 class="d-flex align-items-center mb-0">
-                                        $11.61k
-                                    </h2>
+                                        <span style="font-size: 12px;"> nombre totale : </span>&nbsp;&nbsp; {{nbCandidats}} 
+                                      </h2>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <span>2.5% <i class="fa fa-arrow-up"></i></span>
+                                    <span>{{nbCandidats / 10}}% <i class="fa fa-arrow-up"></i></span>
                                 </div>
                             </div>
                             <div class="progress mt-1 " data-height="8" style="height: 8px;">
-                                <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                                <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" [style.width.%]="nbCandidats"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
       </div>
-      <div class="row">
+<!--      <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                   <div class="card-header card-header-warning card-header-icon">
@@ -164,7 +164,7 @@
                   </div>
               </div>
           </div>
-      </div>
+      </div>-->
       <div class = "row">
         <div class="col-lg-6 col-md-12">
             <div class="card">

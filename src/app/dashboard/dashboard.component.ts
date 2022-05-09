@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Formation } from 'app/models/Formation';
+import { Formateur } from 'app/models/Formateur';
+import { Candidat } from 'app/models/Candidat';
+import { Department } from 'app/models/Departement';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { FormationService } from 'app/services/formation.service';
+import { FormateurService } from 'app/services/formateur.service';
+import { CandidatService } from 'app/services/candidat.service';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import * as Chartist from 'chartist';
 import { Subscription } from 'rxjs';
@@ -23,12 +28,23 @@ export class DashboardComponent implements OnInit {
   data: any;
   formations : Formation[];
   sessions : SessionFormation[] ;
+  formateurs : Formateur[];
+  candidats : Candidat[] ;
 nbFormations : number ;
 nbSessions : number ;
+nbFormateurs : number ;
+nbCandidats : number ;
+depInf : Department ;
+depGE : Department ;
+depGM : Department ;
+depGC : Department ;
+depPIE : any[] = [] ;
+filterC : Candidat[];
+c : Candidat;
 
   //config: AppConfig;
 
-  constructor(private formationService : FormationService, private sessionService : SessionFormationService) {}
+  constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
 
   ngOnInit() {
 this.formationService.getAllFormations().toPromise().then(d=>{
@@ -40,6 +56,21 @@ this.formationService.getAllFormations().toPromise().then(d=>{
     this.nbSessions = d.length
     
   })
+  this.candidatService.getAllCandidats().toPromise().then(d => {
+      this.candidats = d;
+      this.nbCandidats = d.length
+
+  })
+  this.formateurService.getAllFormateurs().toPromise().then(d => {
+    this.formateurs = d;
+    this.nbFormateurs = d.length
+})
+while (this.candidats[0]) {
+this.c = this.candidats[0];
+this.filterC = this.candidats.filter(can => can.department = this.c.department)
+//.....
+}
+
 
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
     this.multiAxisData = {
@@ -124,19 +155,21 @@ this.formationService.getAllFormations().toPromise().then(d=>{
         ]
     };
     this.data = {
-      labels: ['A','B','C'],
+      labels: ['A','B','C','D'],
       datasets: [
           {
-              data: [300, 50, 100],
+              data: [300, 50, 100,40],
               backgroundColor: [
                   "#42A5F5",
                   "#66BB6A",
-                  "#FFA726"
+                  "#FFA726",
+                  "black"
               ],
               hoverBackgroundColor: [
                   "#64B5F6",
                   "#81C784",
-                  "#FFB74D"
+                  "#FFB74D",
+                  "black"
               ]
           }
       ]
