@@ -4,7 +4,9 @@
           <div class="col-md-8">
               <div class="card">
                   <div class="card-header card-header-danger">
-                      <h4 class="card-title">Edit Profile</h4>
+
+
+                    <h4 class="card-title">Profile</h4>
                       <p class="card-category">Complete your profile</p>
                   </div>
                   <div class="card-body">
@@ -17,49 +19,54 @@
                               </div>
                               <div class="col-md-3">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Username">
+                                    <input matInput placeholder="CIN" disabled >
                                   </mat-form-field>
                               </div>
                               <div class="col-md-4">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Email address" type="email">
+                                    <input matInput placeholder="Email address" type="email"  [readonly]="this.isEditable">
                                   </mat-form-field>
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Fist Name" type="text">
+                                  <input matInput placeholder="Nom" type="text" [readonly]="this.isEditable">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Last Name" type="text">
+                                  <input matInput placeholder="prénom" type="text" [readonly]="this.isEditable">
                                 </mat-form-field>
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-md-12">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Adress" type="text">
+                                  <input matInput placeholder="Adress" type="text" [readonly]="this.isEditable">
                                 </mat-form-field>
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="City" type="text">
+                                  <input  type="number "matInput placeholder="numéro téléphone" type="text" [readonly]="this.isEditable" >
                                 </mat-form-field>
                               </div>
                               <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Country" type="text">
+                                  <input matInput placeholder="dateNaiss" type="date" [readonly]="this.isEditable">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-4">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Postal Code" type="text">
-                                </mat-form-field>
+                                      <label style="margin-top: 10%">
+                                        <input type="radio" name="genre" value="homme" checked required [formControlName]="'genre'" [readonly]="this.isEditable">
+                                        <span>  homme &nbsp; </span>
+                                      </label>
+                                      <label >
+                                        <input type="radio" name="genre" value="femme" [readonly]="this.isEditable">
+                                        <span>femme </span>
+                                      </label>
                               </div>
                           </div>
                           <div class="row">

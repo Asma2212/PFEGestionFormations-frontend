@@ -54,13 +54,16 @@
                         <p>
                             <span class="d-lg-none d-md-block">Account</span>
                         </p>
+
                     </a>
                 </li>
             </ul>
 
-          <p-confirmDialog [style]="{width: '50vw'}" ></p-confirmDialog>
+<!--
+          <p-confirmDialog  ></p-confirmDialog>
+-->                      <span class="nav-item" class="nav-link"> {{TheCurrentUser.firstName}}</span>
+
           <button badge="8" class="p-button-danger" type="button" (click)="confirm()" pButton icon="pi pi-sign-out" > </button>
-          <p> {{TheCurrentUser.firstName}}</p>
         </div>
     </div>
 </nav>
