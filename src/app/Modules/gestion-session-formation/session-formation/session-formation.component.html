@@ -214,13 +214,13 @@
                 <div style="display: flex;">
                     <div class="field col-6">
                         <label for="dbDate">Date debut</label>
-                        <p-calendar [(ngModel)]="session.dateDebSession" [minDate]="minDate" [showIcon]="true" [readonlyInput]="true" inputId="dbDate"></p-calendar>
-                        <small class="p-error" *ngIf="submitted && !session.dateDebSession">date début est requis</small>
+                        <p-calendar [(ngModel)]="dateDeb" [minDate]="minDate" [showIcon]="true" [readonlyInput]="true" inputId="dbDate"></p-calendar>
+                        <small class="p-error" *ngIf="submitted && !dateDeb">date début est requis</small>
                     </div>
                     <div class="field col-6">
                         <label for="finDate">Date Fin</label>
-                        <p-calendar [(ngModel)]="session.dateFinSession" [minDate]="session.dateDebSession" [showIcon]="true" [readonlyInput]="true" inputId="finDtate" [disabled]=" !session.dateDebSession"  ></p-calendar>
-                        <small class="p-error" *ngIf="submitted && !session.dateFinSession">date fin est requis.</small>
+                        <p-calendar [(ngModel)]="dateFin" [minDate]="session.dateDebSession" [showIcon]="true" [readonlyInput]="true" inputId="finDtate" [disabled]=" !dateDeb"  ></p-calendar>
+                        <small class="p-error" *ngIf="submitted && !dateFin">date fin est requis.</small>
                     </div>
 
                 </div>

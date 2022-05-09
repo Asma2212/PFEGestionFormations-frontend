@@ -26,8 +26,7 @@ import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
 import { GestionSessionFormationModule } from 'app/Modules/gestion-session-formation/gestion-session-formation.module';
 import { EspaceAdminModule } from 'app/Modules/espace-admin/espace-admin.module';
-import {BlockUIModule} from "primeng/blockui";
-import {CaptchaModule} from "primeng/captcha";
+import { ChartModule } from 'primeng/chart';
 
 
 @NgModule({
@@ -60,8 +59,7 @@ import {CaptchaModule} from "primeng/captcha";
     GestionCandidatsModule,
     GestionSessionFormationModule,
     EspaceAdminModule,
-    BlockUIModule,
-    CaptchaModule
+    ChartModule
   ],
   declarations: [
     DashboardComponent,

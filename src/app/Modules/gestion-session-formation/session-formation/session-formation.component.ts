@@ -39,7 +39,8 @@ import { Session } from 'protractor';
 ]
 })
 export class SessionFormationComponent implements OnInit,OnDestroy {
-
+dateDeb : Date ;
+dateFin : Date;
   formSess : Formation[] = [];
   sessions: SessionFormation[];
   session : SessionFormation ;
@@ -235,6 +236,8 @@ saveSession(){
   if(this.file){
     this.session.photoSession=this.file.name ;
   }
+  this.session.dateDebSession = this.dateDeb 
+  this.session.dateFinSession = this.dateFin ;
   if(this.selectedFormateurs)
   {
     this.session.listeFormateurs = [] ;
@@ -287,6 +290,8 @@ saveSession(){
 }
 
 editSession(session: SessionFormation) {
+  this.dateDeb = new Date(session.dateDebSession)
+  this.dateFin = new Date(session.dateFinSession)
   console.log("sesss",session);
   if (session.listeFormateurs[0]) {
     session.listeFormateurs.forEach( formateur=> {
@@ -348,6 +353,7 @@ editSession(session: SessionFormation) {
   testImage(t : string){
     return t.includes("image") ;
  }
+
 
 }
 

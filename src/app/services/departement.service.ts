@@ -18,4 +18,8 @@ export class DepartementService {
       getAllClassesByDep(id:number): Observable<Classe[]> {
         return this.http.get<Classe[]>(this.url + 'all/dep/'+id);
       }
+      saveDepartement(dep : Department) : Observable<any>{
+
+        return this.http.post<any>('http://localhost:8080/dep/save',dep);
+      }
 }
