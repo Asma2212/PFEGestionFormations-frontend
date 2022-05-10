@@ -165,17 +165,22 @@
               </div>
           </div>
       </div>-->
-      <div class = "row">
+      <div class = "row" style="margin-left: 50px;">
         <div class="col-lg-6 col-md-12">
+            <br>
             <div class="card">
-                <h5>Multi Axis</h5>
+                <h2> &nbsp;Statistique des sessions de formations par mois</h2>
                 <p-chart type="bar" [data]="multiAxisData" [options]="multiAxisOptions"></p-chart>
             </div>
         </div>
-        <div class="col-lg-4 col-md-8">
-            <p-chart type="pie" [data]="data" [options]="chartOptions"  [style]="{'width': '40%'}"></p-chart>
+        <div style="width: 60px;"></div>
+        <div class="col-lg-4 col-md-12" id="pie">
+            <h2>le departement le plus actif</h2>
+            <p-chart type="pie" [data]="data" [options]="chartOptions"></p-chart>
+            <br>
         </div>
       </div>
+      <br>
       <div class="row">
           <div class="col-md-4">
               <div class="card card-chart">

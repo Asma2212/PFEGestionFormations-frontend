@@ -46,9 +46,13 @@ myData : any[] = []
 mybackground : any[] = []
 myHoverBackground : any[] = []
 depCand : Candidat[];
+sessList : SessionFormation[] = []
+sessListFilter : SessionFormation[] = []
 colorsBackground : any = ["#42A5F5","#66BB6A","#FFA726","violet"];
 colorsHover : any = ["#64B5F6","#81C784","#FFB74D","rgb(255, 183, 255)"]
 i : number = 0 ; 
+m : number = 0 ;
+monthData : any[] = []
   //config: AppConfig;
 
   constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
@@ -61,7 +65,38 @@ this.formationService.getAllFormations().toPromise().then(d=>{
   this.sessionService.getSessions().toPromise().then(d=>{
     this.sessions = d
     this.nbSessions = d.length
-    
+    this.sessList = d.filter(s=> new Date().getFullYear == new Date(s.dateDebSession).getFullYear)
+    while((this.sessList[0])||(this.m > 7)){
+        console.log("1",this.sessList)
+        this.sessListFilter = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() == this.m)
+        console.log("2",this.sessListFilter,"m",this.m)
+        this.monthData.push(this.sessListFilter.length)
+        this.sessList = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() != this.m)
+        this.m++;
+        
+    }
+    this.multiAxisData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'Dataset 1',
+            backgroundColor: [
+                '#EC407A',
+                '#AB47BC',
+                '#42A5F5',
+                '#7E57C2',
+                '#66BB6A',
+                '#FFCA28',
+                '#26A69A'
+            ],
+            yAxisID: 'y',
+            data: this.monthData
+        }, {
+            label: 'Dataset 2',
+            backgroundColor: '#78909C',
+            yAxisID: 'y1',
+            data: [28, 48, 40, 19, 86, 27, 90]
+        }]
+    };
   })
   this.candidatService.getAllCandidats().toPromise().then(d => {
       this.candidats = d;
@@ -99,82 +134,59 @@ this.formationService.getAllFormations().toPromise().then(d=>{
     this.formateurs = d;
     this.nbFormateurs = d.length
 })
+/* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
-
-    /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-    this.multiAxisData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-          label: 'Dataset 1',
-          backgroundColor: [
-              '#EC407A',
-              '#AB47BC',
-              '#42A5F5',
-              '#7E57C2',
-              '#66BB6A',
-              '#FFCA28',
-              '#26A69A'
-          ],
-          yAxisID: 'y',
-          data: [65, 59, 80, 81, 56, 55, 10]
-      }, {
-          label: 'Dataset 2',
-          backgroundColor: '#78909C',
-          yAxisID: 'y1',
-          data: [28, 48, 40, 19, 86, 27, 90]
-      }]
-  };
-
+/**
   this.multiAxisOptions = {
-      plugins: {
-          legend: {
-              labels: {
-                  color: '#495057'
-              }
-          },
-          tooltips: {
-              mode: 'index',
-              intersect: true
-          }
-      },
-      scales: {
-          x: {
-              ticks: {
-                  color: '#495057'
-              },
-              grid: {
-                  color: '#ebedef'
-              }
-          },
-          y: {
-              type: 'linear',
-              display: true,
-              position: 'left',
-              ticks: {
-                  min: 0,
-                  max: 100,
-                  color: '#495057'
-              },
-              grid: {
-                  color: '#ebedef'
-              }
-          },
-          y1: {
-              type: 'linear',
-              display: true,
-              position: 'right',
-              grid: {
-                  drawOnChartArea: false,
-                  color: '#ebedef'
-              },
-              ticks: {
-                  min: 0,
-                  max: 100,
-                  color: '#495057'
-              }
-          }
-      }
-  };
+    plugins: {
+        legend: {
+            labels: {
+                color: '#495057'
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: true
+        }
+    },
+    scales: {
+        x: {
+            ticks: {
+                color: '#495057'
+            },
+            grid: {
+                color: '#ebedef'
+            }
+        },
+        y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+                min: 0,
+                max: 100,
+                color: '#495057'
+            },
+            grid: {
+                color: '#ebedef'
+            }
+        },
+        y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            grid: {
+                drawOnChartArea: false,
+                color: '#ebedef'
+            },
+            ticks: {
+                min: 0,
+                max: 100,
+                color: '#495057'
+            }
+        }
+    }
+}; */
 
   this.updateChartOptions();
     const dataDailySalesChart: any = {
