@@ -23,13 +23,8 @@ export class PhotoComponent implements OnInit {
   bio : string ;
 
   ngOnInit() { 
-     // this.seatInformation = this.ticketService.ticketInformation.seatInformation;
-this.bio = ""
-      this.classes = [
-          {name: 'First Class', code: 'A', factor: 1},
-          {name: 'Second Class', code: 'B', factor: 2},
-          {name: 'Third Class', code: 'C', factor: 3}
-      ];    
+    this.bio = ""
+  
   }
 
 
@@ -38,7 +33,7 @@ this.bio = ""
       localStorage.setItem('bio',this.bio)
         //this.formateur.bio 
           //this.ticketService.ticketInformation.seatInformation = this.seatInformation;
-          this.router.navigate(['firstLogin/confirmation']);
+          this.router.navigate(['firstLogin/securite']);
     //  }
   }
 

@@ -83,7 +83,7 @@ children:[
   {path:'', redirectTo: 'profil', pathMatch: 'full'},
   {path: 'profil', component: ProfilComponent},
   {path: 'confirmation', component: ConfirmationComponent},
-  {path: 'securité', component: SecuriteComponent},
+  {path: 'securite', component: SecuriteComponent},
   {path: 'photo', component: PhotoComponent}
 ]
 

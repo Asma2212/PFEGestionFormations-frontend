@@ -13,26 +13,37 @@ export class ProfilComponent implements OnInit {
 
 firstName : string ;
 lastName : string ;
-
+formateur : Formateur
   submitted: boolean = false;
 
   constructor(public formateurService : FormateurService, private router: Router) { }
 
   ngOnInit() { 
      // this.personalInformatio;
-     this.firstName="";
+     if(this.formateur.firstName != ""){
+     this.firstName = this.formateur.firstName 
+     }else{
+     this.firstName= ""
+     this.formateur.firstName = ""
+     }
+     if(this.formateur.lastName !=""){
+     this.lastName = this.formateur.lastName 
+     }else
      this.lastName=""
+
   }
 
   nextPage() {
-      //if (this.firstName && this.lastName) {
-         // this.ticketService.ticketInformation.personalInformation = this.personalInformation;
+      if (this.firstName && this.lastName) {
+
+
+// Retrieve the object from storage
          localStorage.setItem('firstName',this.firstName)
          localStorage.setItem('lastName',this.lastName);
           this.router.navigate(['firstLogin/photo']);
 
           return;
-      //}
+      }
 
       this.submitted = true;
   }
