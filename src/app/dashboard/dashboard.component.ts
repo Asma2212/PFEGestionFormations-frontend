@@ -41,7 +41,14 @@ depGC : Department ;
 depPIE : any[] = [] ;
 filterC : Candidat[];
 c : Candidat;
-
+myLabels : any[] = []
+myData : any[] = []
+mybackground : any[] = []
+myHoverBackground : any[] = []
+depCand : Candidat[];
+colorsBackground : any = ["#42A5F5","#66BB6A","#FFA726","violet"];
+colorsHover : any = ["#64B5F6","#81C784","#FFB74D","rgb(255, 183, 255)"]
+i : number = 0 ; 
   //config: AppConfig;
 
   constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
@@ -59,17 +66,39 @@ this.formationService.getAllFormations().toPromise().then(d=>{
   this.candidatService.getAllCandidats().toPromise().then(d => {
       this.candidats = d;
       this.nbCandidats = d.length
+      this.depCand = d ;
+      while (this.depCand[0]) {
+        this.c = this.depCand[0];
+        console.log("dep",this.depCand[0],"list",this.depCand)
+        this.filterC = this.depCand.filter(can => can.department.name == this.c.department.name)
+        this.myLabels.push(this.c.department.name)
+        this.myData.push(this.filterC.length)
+        this.mybackground.push(this.colorsBackground[this.i])
+        this.myHoverBackground.push(this.colorsHover[this.i])
+        this.depCand = this.depCand.filter(can => can.department.name != this.c.department.name)
+        console.log("ddd",this.myData)
+        //.....
+        if(this.i==3)
+        this.i = 0
+        else
+        this.i++ ;
+        } 
+        this.data = {
+            labels: this.myLabels,
+            datasets: [
+                {
+                    data: this.myData,
+                    backgroundColor: this.mybackground,
+                    hoverBackgroundColor: this.myHoverBackground
+                }
+            ]
+        };
 
   })
   this.formateurService.getAllFormateurs().toPromise().then(d => {
     this.formateurs = d;
     this.nbFormateurs = d.length
 })
-/**while (this.candidats[0]) {
-this.c = this.candidats[0];
-this.filterC = this.candidats.filter(can => can.department = this.c.department)
-//.....
-} */
 
 
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
@@ -154,26 +183,7 @@ this.filterC = this.candidats.filter(can => can.department = this.c.department)
             [12, 17, 7, 17, 23, 18, 38]
         ]
     };
-    this.data = {
-      labels: ['A','B','C','D'],
-      datasets: [
-          {
-              data: [300, 50, 100,40],
-              backgroundColor: [
-                  "#42A5F5",
-                  "#66BB6A",
-                  "#FFA726",
-                  "violet"
-              ],
-              hoverBackgroundColor: [
-                  "#64B5F6",
-                  "#81C784",
-                  "#FFB74D",
-                  "violet"
-              ]
-          }
-      ]
-  };
+
 
    const optionsDailySalesChart: any = {
         lineSmooth: Chartist.Interpolation.cardinal({
