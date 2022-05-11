@@ -15,7 +15,7 @@ import {DepartementService} from "../../../../../services/departement.service";
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UploadFileService } from 'app/services/upload-file.service';
 
-@Component({
+@Component({ 
   selector: 'app-candidat-register',
   templateUrl: './candidat-register.component.html',
   styleUrls: ['./candidat-register.component.scss']
