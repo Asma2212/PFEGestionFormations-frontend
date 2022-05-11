@@ -27,6 +27,8 @@ import { CardModule } from 'primeng/card';
 import { GestionSessionFormationModule } from 'app/Modules/gestion-session-formation/gestion-session-formation.module';
 import { EspaceAdminModule } from 'app/Modules/espace-admin/espace-admin.module';
 import { ChartModule } from 'primeng/chart';
+import {DialogModule} from "primeng/dialog";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { ChartModule } from 'primeng/chart';
     GestionCandidatsModule,
     GestionSessionFormationModule,
     EspaceAdminModule,
-    ChartModule
+    ChartModule,
+    DialogModule,
+    ConfirmDialogModule
   ],
   declarations: [
     DashboardComponent,
