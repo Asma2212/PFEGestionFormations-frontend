@@ -4,6 +4,7 @@ import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 //import "jspdf-autotable";
 import * as FileSaver from 'file-saver';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
