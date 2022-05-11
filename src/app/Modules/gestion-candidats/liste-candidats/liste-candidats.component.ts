@@ -21,13 +21,13 @@ export class ListeCandidatsComponent implements OnInit {
   maxDate1 : Date = new Date();
   femme : string ;
   homme : string ;
-  listC : Classe[] = [] ; 
+  listC : Classe[] = [] ;
   listD : Department[] = [];
   d: Department ;
   c:Classe ;
   depSelected : boolean = false ;
   candidats: Candidat[];
-  candidat : Candidat ; 
+  candidat : Candidat ;
   listDep : Department[];
   listClass : Classe[];
   sortOptions: SelectItem[];
@@ -59,7 +59,7 @@ export class ListeCandidatsComponent implements OnInit {
     this.fileInfos = this.uploadService.getFiles();
 
     this.departementService.getAllDepartements().toPromise().then( data =>{
-      this.listDep = data ; 
+      this.listDep = data ;
       console.log("departement :",data) });
 
 
@@ -76,7 +76,7 @@ export class ListeCandidatsComponent implements OnInit {
       });
     this.groupedSpecialites = [
       {
-          label: 'Developpement web', value: 'angular.png', 
+          label: 'Developpement web', value: 'angular.png',
           items: [
               {label: 'Angular', value: 'Angular'},
               {label: 'React', value: 'React'},
@@ -85,7 +85,7 @@ export class ListeCandidatsComponent implements OnInit {
           ]
       },
       {
-        label: 'Developpement mobile', value: 'favicon.png', 
+        label: 'Developpement mobile', value: 'favicon.png',
         items: [
             {label: 'Android', value: 'Android'},
             {label: 'Flutter', value: 'Flutter'},
@@ -94,13 +94,13 @@ export class ListeCandidatsComponent implements OnInit {
         ]
     }
   ];*/
-      
+
      this.candidatService.getAllCandidats().toPromise().then(
        data => {
        this.candidats = data ;
        this.allCandidats = this.candidats ;
        });
-       
+
 
   }
 
@@ -162,12 +162,12 @@ export class ListeCandidatsComponent implements OnInit {
   }
 
   var reader = new FileReader();
-  
+
   this.imagePath = this.file;
-  reader.readAsDataURL(this.file); 
-  reader.onload = (_event) => { 
+  reader.readAsDataURL(this.file);
+  reader.onload = (_event) => {
     this.imgURL = reader.result;
-    console.log("imaage",this.imgURL) 
+    console.log("imaage",this.imgURL)
   }
 }
   onSortChange(event) {
@@ -196,7 +196,7 @@ export class ListeCandidatsComponent implements OnInit {
     //this.imgURL = candidat.photo ;
     this.candidatDialog = true;
 
-} 
+}
 
 deleteCandidat(candidat: Candidat) {
     this.confirmationService.confirm({
@@ -229,7 +229,7 @@ saveCandidat() {
 if(this.homme){
 
  this.candidat.genre = {id : 1 , name : Egenre.HOMME} ;
-} 
+}
   if (this.candidat.id) {
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {
       console.log("data update candidat",data)
@@ -258,9 +258,9 @@ else {
   this.messageService.add({severity:'error', summary: 'Error', detail: error.error.message, life: 3000});
 });
    }
-          
+
       //this.candidats = [...this.candidats];
-      
+
 
 }
 
@@ -297,7 +297,7 @@ applyFilter(filterValue : string){
  let filterValueLower = filterValue.toLowerCase();
 if(filterValue === '') {
 this.candidats=this.allCandidats;
-} 
+}
 else{
 this.candidats= this.allCandidats.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(filterValue));
 }
