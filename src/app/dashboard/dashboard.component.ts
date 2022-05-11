@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Formation } from 'app/models/Formation';
+import { Formateur } from 'app/models/Formateur';
+import { Candidat } from 'app/models/Candidat';
+import { Department } from 'app/models/Departement';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { FormationService } from 'app/services/formation.service';
+import { FormateurService } from 'app/services/formateur.service';
+import { CandidatService } from 'app/services/candidat.service';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import * as Chartist from 'chartist';
 import { Subscription } from 'rxjs';
@@ -23,12 +28,34 @@ export class DashboardComponent implements OnInit {
   data: any;
   formations : Formation[];
   sessions : SessionFormation[] ;
+  formateurs : Formateur[];
+  candidats : Candidat[] ;
 nbFormations : number ;
 nbSessions : number ;
-
+nbFormateurs : number ;
+nbCandidats : number ;
+depInf : Department ;
+depGE : Department ;
+depGM : Department ;
+depGC : Department ;
+depPIE : any[] = [] ;
+filterC : Candidat[];
+c : Candidat;
+myLabels : any[] = []
+myData : any[] = []
+mybackground : any[] = []
+myHoverBackground : any[] = []
+depCand : Candidat[];
+sessList : SessionFormation[] = []
+sessListFilter : SessionFormation[] = []
+colorsBackground : any = ["#42A5F5","#66BB6A","#FFA726","violet"];
+colorsHover : any = ["#64B5F6","#81C784","#FFB74D","rgb(255, 183, 255)"]
+i : number = 0 ; 
+m : number = 0 ;
+monthData : any[] = []
   //config: AppConfig;
 
-  constructor(private formationService : FormationService, private sessionService : SessionFormationService) {}
+  constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
 
   ngOnInit() {
 this.formationService.getAllFormations().toPromise().then(d=>{
@@ -38,83 +65,128 @@ this.formationService.getAllFormations().toPromise().then(d=>{
   this.sessionService.getSessions().toPromise().then(d=>{
     this.sessions = d
     this.nbSessions = d.length
-    
-  })
-
-    /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+    this.sessList = d.filter(s=> new Date().getFullYear == new Date(s.dateDebSession).getFullYear)
+    while((this.sessList[0])||(this.m > 7)){
+        console.log("1",this.sessList)
+        this.sessListFilter = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() == this.m)
+        console.log("2",this.sessListFilter,"m",this.m)
+        this.monthData.push(this.sessListFilter.length)
+        this.sessList = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() != this.m)
+        this.m++;
+        
+    }
     this.multiAxisData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-          label: 'Dataset 1',
-          backgroundColor: [
-              '#EC407A',
-              '#AB47BC',
-              '#42A5F5',
-              '#7E57C2',
-              '#66BB6A',
-              '#FFCA28',
-              '#26A69A'
-          ],
-          yAxisID: 'y',
-          data: [65, 59, 80, 81, 56, 55, 10]
-      }, {
-          label: 'Dataset 2',
-          backgroundColor: '#78909C',
-          yAxisID: 'y1',
-          data: [28, 48, 40, 19, 86, 27, 90]
-      }]
-  };
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'Dataset 1',
+            backgroundColor: [
+                '#EC407A',
+                '#AB47BC',
+                '#42A5F5',
+                '#7E57C2',
+                '#66BB6A',
+                '#FFCA28',
+                '#26A69A'
+            ],
+            yAxisID: 'y',
+            data: this.monthData
+        }, {
+            label: 'Dataset 2',
+            backgroundColor: '#78909C',
+            yAxisID: 'y1',
+            data: [28, 48, 40, 19, 86, 27, 90]
+        }]
+    };
+  })
+  this.candidatService.getAllCandidats().toPromise().then(d => {
+      this.candidats = d;
+      this.nbCandidats = d.length
+      this.depCand = d ;
+      while (this.depCand[0]) {
+        this.c = this.depCand[0];
+        console.log("dep",this.depCand[0],"list",this.depCand)
+        this.filterC = this.depCand.filter(can => can.department.name == this.c.department.name)
+        this.myLabels.push(this.c.department.name)
+        this.myData.push(this.filterC.length)
+        this.mybackground.push(this.colorsBackground[this.i])
+        this.myHoverBackground.push(this.colorsHover[this.i])
+        this.depCand = this.depCand.filter(can => can.department.name != this.c.department.name)
+        console.log("ddd",this.myData)
+        //.....
+        if(this.i==3)
+        this.i = 0
+        else
+        this.i++ ;
+        } 
+        this.data = {
+            labels: this.myLabels,
+            datasets: [
+                {
+                    data: this.myData,
+                    backgroundColor: this.mybackground,
+                    hoverBackgroundColor: this.myHoverBackground
+                }
+            ]
+        };
 
+  })
+  this.formateurService.getAllFormateurs().toPromise().then(d => {
+    this.formateurs = d;
+    this.nbFormateurs = d.length
+})
+/* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+
+/**
   this.multiAxisOptions = {
-      plugins: {
-          legend: {
-              labels: {
-                  color: '#495057'
-              }
-          },
-          tooltips: {
-              mode: 'index',
-              intersect: true
-          }
-      },
-      scales: {
-          x: {
-              ticks: {
-                  color: '#495057'
-              },
-              grid: {
-                  color: '#ebedef'
-              }
-          },
-          y: {
-              type: 'linear',
-              display: true,
-              position: 'left',
-              ticks: {
-                  min: 0,
-                  max: 100,
-                  color: '#495057'
-              },
-              grid: {
-                  color: '#ebedef'
-              }
-          },
-          y1: {
-              type: 'linear',
-              display: true,
-              position: 'right',
-              grid: {
-                  drawOnChartArea: false,
-                  color: '#ebedef'
-              },
-              ticks: {
-                  min: 0,
-                  max: 100,
-                  color: '#495057'
-              }
-          }
-      }
-  };
+    plugins: {
+        legend: {
+            labels: {
+                color: '#495057'
+            }
+        },
+        tooltips: {
+            mode: 'index',
+            intersect: true
+        }
+    },
+    scales: {
+        x: {
+            ticks: {
+                color: '#495057'
+            },
+            grid: {
+                color: '#ebedef'
+            }
+        },
+        y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+                min: 0,
+                max: 100,
+                color: '#495057'
+            },
+            grid: {
+                color: '#ebedef'
+            }
+        },
+        y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            grid: {
+                drawOnChartArea: false,
+                color: '#ebedef'
+            },
+            ticks: {
+                min: 0,
+                max: 100,
+                color: '#495057'
+            }
+        }
+    }
+}; */
 
   this.updateChartOptions();
     const dataDailySalesChart: any = {
@@ -123,24 +195,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
             [12, 17, 7, 17, 23, 18, 38]
         ]
     };
-    this.data = {
-      labels: ['A','B','C'],
-      datasets: [
-          {
-              data: [300, 50, 100],
-              backgroundColor: [
-                  "#42A5F5",
-                  "#66BB6A",
-                  "#FFA726"
-              ],
-              hoverBackgroundColor: [
-                  "#64B5F6",
-                  "#81C784",
-                  "#FFB74D"
-              ]
-          }
-      ]
-  };
+
 
    const optionsDailySalesChart: any = {
         lineSmooth: Chartist.Interpolation.cardinal({

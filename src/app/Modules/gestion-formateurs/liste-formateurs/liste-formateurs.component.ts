@@ -41,6 +41,7 @@ export class ListeFormateursComponent implements OnInit {
   groupedSpecialites: SelectItemGroup[];
   sortOptions: SelectItem[];
   allFormateurs : Formateur[];
+  filterValue : string
   filterEtab : Etablissement[] ;
 filterSpecialite : Specialite[] ;
   sortOrder: number;
@@ -179,61 +180,25 @@ filterSpecialite : Specialite[] ;
     this.dataSource.filter = "";
   }
 
-
-  applyFilter(filterValue : string){
-    console.log("ff",filterValue);
-   let filterValueLower = filterValue.toLowerCase();
-if(filterValue === '' && this.filterSpecialite== null && this.filterEtab== null) {
-  this.formateurs=this.allFormateurs;
-} 
-else 
-if(filterValue === '' && this.filterSpecialite)
-this.formateurs = this.formateursSp;
-else
-if(filterValue === '' && this.filterEtab)
-this.formateurs = this.formateurs1;
-else{
-this.formateurs = this.formateurs.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(filterValue));
-}
-  }
-  applyFilter1(){
+  applyFilter(){
+    this.formateurs=this.allFormateurs;
+    if(this.filterValue){
+      let filterValueLower = this.filterValue.toLowerCase();
+      this.formateurs = this.formateurs.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(this.filterValue));
+    }
     if(this.filterEtab){
-if(this.filterEtab[0]== null && this.filterSpecialite== null) {
-  console.log("dkhaall hnee1");
-  this.formateurs=this.allFormateurs;
-} 
-else 
-if(this.filterEtab[0]== null)
-this.formateurs = this.formateursSp ;
-else
-{
-  let filterValueLower = this.filterEtab[0].name.toLowerCase();
-  console.log("ff1",this.filterEtab[0].name);
-this.formateurs = this.formateurs.filter(f => f.etablissement.toLowerCase().includes(filterValueLower));
-this.formateurs1= this.formateurs;
-//this.allFormateurs = this.formateurs ;
-}}
-  }
-
-  applyFilterSp(s : any){
+      let filterValueLower = this.filterEtab[0].name.toLowerCase();
+      console.log("ff1",this.filterEtab[0].name);
+    this.formateurs = this.formateurs.filter(f => f.etablissement.toLowerCase().includes(filterValueLower));
+    }
     if(this.filterSpecialite){
-
-   console.log("ff1",this.filterSpecialite[0]);
-if(this.filterSpecialite[0]== null && this.filterEtab== null) {
-  console.log("dkhaall hnee");
-  this.formateurs=this.allFormateurs;
-} 
-else
-if(this.filterSpecialite[0]== null)
-this.formateurs = this.formateurs1 ;
-else {
-  console.log("ff1",this.filterSpecialite[0]);
-this.formateurs = this.formateurs.filter(f =>
-   f.lesSpecialites.find(sp => sp.titre === this.filterSpecialite[0].titre)
-   ); 
-   this.formateursSp = this.formateurs
-}}
+      this.formateurs = this.formateurs.filter(f =>
+        f.lesSpecialites.find(sp => sp.titre === this.filterSpecialite[0].titre)
+        ); 
+    }
   }
+
+
 
 testImage(t : string){
    return t.includes("image") ;

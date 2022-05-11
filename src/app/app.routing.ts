@@ -20,6 +20,11 @@ import {FormationsViewerComponent} from "./Modules/FreeAcess/access-free/formati
 import {HomePage1Component} from "./Modules/FreeAcess/access-free/home-page1/home-page1.component";
 import {HomeDetailsComponent} from "./Modules/FreeAcess/access-free/home-details/home-details.component";
 import {SessionOnlineComponent} from "./Modules/FreeAcess/access-free/session-online/session-online.component";
+import { FirstLoginComponent } from './Modules/first-login/first-login/first-login.component';
+import { ProfilComponent } from './Modules/first-login/profil/profil.component';
+import { ConfirmationComponent } from './Modules/first-login/confirmation/confirmation.component';
+import { SecuriteComponent } from './Modules/first-login/securite/securite.component';
+import { PhotoComponent } from './Modules/first-login/photo/photo.component';
 
 const routes: Routes =[
   {
@@ -72,10 +77,21 @@ const routes: Routes =[
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},
   {path:'login/formateur',component:FormatuerLoginComponent},
  /* {path:"register/candidat",component:CandidatRegisterComponent},*/
+ {path:'firstLogin',
+component:FirstLoginComponent,
+children:[
+  {path:'', redirectTo: 'profil', pathMatch: 'full'},
+  {path: 'profil', component: ProfilComponent},
+  {path: 'confirmation', component: ConfirmationComponent},
+  {path: 'securite', component: SecuriteComponent},
+  {path: 'photo', component: PhotoComponent}
+]
 
+},
   { path: '**', pathMatch: 'full',
   component: PagenotfoundComponent
-},
+}, 
+
 ];
 
 @NgModule({
