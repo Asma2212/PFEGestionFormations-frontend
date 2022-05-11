@@ -19,7 +19,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   prevPage() {
-      this.router.navigate(['firstLogin/photo']);
+      this.router.navigate(['firstLogin/securite']);
   }
 }
 

@@ -20,6 +20,9 @@ formateur : Formateur
 
   ngOnInit() { 
      // this.personalInformatio;
+     /*this.formateurService.getFormateurById(3).toPromise().then(data => {
+       console.log(data);
+     })*/
      if(this.formateur.firstName != ""){
      this.firstName = this.formateur.firstName 
      }else{

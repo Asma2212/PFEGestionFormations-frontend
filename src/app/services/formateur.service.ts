@@ -31,6 +31,10 @@ export class FormateurService {
     return this.http.delete<any>(this.url + 'delete/'+ idf);
   }
 
+  getFormateurById(idF : number): Observable<Formateur> {
+    return this.http.get<Formateur>(this.url +idF);
+  }
+
   /*deleteAllFormateur(formateurs : Formateur[] ) : Observable<any> {		
 		return this.http.post<any>(this.url + 'deleteAllFormateurs', formateurs)
   } */
