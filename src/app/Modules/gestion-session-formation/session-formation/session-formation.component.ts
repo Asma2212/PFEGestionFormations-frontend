@@ -234,6 +234,7 @@ hideDialog() {
 }
 saveSession(){
   this.submitted = true ;
+  if(this.session.nbMaxCandidat<30){
   this.session.formationSession = this.formSess[0];
   console.log("session bch tetbaath :",this.session)
   if(this.file){
@@ -269,7 +270,7 @@ saveSession(){
       this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000});
       this.session.photoSession = null ;
     console.log("exception occured");});
-  }
+  }}
   }
 
   deleteSession(session : SessionFormation) {
