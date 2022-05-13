@@ -28,6 +28,8 @@ export class AuthService {
     return this.http.post<LoginResponsePayload>(this.url+"signin", loginRequestPayload)
         .pipe(map(data => {
           console.log(data);
+
+
           this.a="ROLE_ADMIN";
           if (data.roles.includes(this.a)){
             this.localStorage.store('authenticationToken', data.accessToken);

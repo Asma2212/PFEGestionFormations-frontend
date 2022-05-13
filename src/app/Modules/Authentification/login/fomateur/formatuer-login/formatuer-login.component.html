@@ -38,14 +38,14 @@
                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                      />
           </div>
-          <div class="formDiv" style="transition-delay: 0.2s">
+       <!--   <div class="formDiv" style="transition-delay: 0.2s">
             <p>EMAIL  <span style="color: #ff3353"
                             *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">:invalide
               <i class="fa-solid fa-circle-x"></i></span></p>
             <input type="email" name="email" [email]="validateEmail"[formControlName]="'email'"  required=""/>
 
 
-          </div>
+          </div>-->
           <div class="formDiv" style="transition-delay: 0.4s">
             <p>mot de passe<span style="color: #ff3353" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
               :invalide  <i class="fa-solid fa-circle-x"></i></span></p>

@@ -25,13 +25,22 @@
 <div class="surface-section px-4 py-5 md:px-6 lg:px-8">
   <ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
     <li>
-      <a class="text-500 no-underline line-height-3 cursor-pointer">Application</a>
+      <a class="text-500 no-underline line-height-3 cursor-pointer">Acceuil</a>
     </li>
+
+
     <li class="px-2">
       <i class="pi pi-angle-right text-500 line-height-3"></i>
     </li>
-    <li>
-      <span class="text-900 line-height-3">Analytics</span>
+
+
+
+    <li *ngFor=" let categorie of session.formationSession.listCategories;  index as indexOfelement;">
+      <span class="text-500 no-underline line-height-3 cursor-pointer">
+{{categorie.titre}}  <i  *ngIf="indexOfelement!=session.formationSession.listCategories.length" class="pi pi-angle-right text-500 line-height-3"></i>     </span>
+   <!-- <li class="px-2">
+      <i class="pi pi-angle-right text-500 line-height-3"></i>-->
+
     </li>
   </ul>
   <div class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
@@ -101,9 +110,16 @@
       quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
       quas!</p>
     <ng-template pTemplate="footer">
-      <p-toggleButton [(ngModel)]="checked2" onLabel="sinscrire" offLabel="annuller" onIcon="pi pi-check" offIcon="pi pi-times"
-       [style]="{'width': '10em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
-     "></p-toggleButton>
+      <button *ngIf="!inscrit" (click)="inscri()" pButton type="button" class="p-button-success" icon="pi pi-check" label="S'inscrire"  ></button>
+<!--
+      <Button *ngIf="!inscrit" (click)="inscri()">S'inscrire</Button>
+-->
+      <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+      <button class="p-button-danger" *ngIf="inscrit"  (click)="confirm()" pButton icon="pi pi-check" label="annuler"></button>
+<!--
+      <Button  *ngIf="inscrit" (click)="annuler()" >Annuler</Button>
+-->
 
       <!--  <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
        "></p-button>-->

@@ -50,16 +50,16 @@ sessList : SessionFormation[] = []
 sessListFilter : SessionFormation[] = []
 colorsBackground : any = ["#42A5F5","#66BB6A","#FFA726","violet"];
 colorsHover : any = ["#64B5F6","#81C784","#FFB74D","rgb(255, 183, 255)"]
-i : number = 0 ; 
+i : number = 0 ;
 m : number = 0 ;
 monthData : any[] = []
   //config: AppConfig;
 
   constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
 
-  ngOnInit() {
+  ngOnInit(){} /*{
 this.formationService.getAllFormations().toPromise().then(d=>{
-  this.formations = d 
+  this.formations = d
   this.nbFormations = d.length;
 })
   this.sessionService.getSessions().toPromise().then(d=>{
@@ -73,7 +73,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
         this.monthData.push(this.sessListFilter.length)
         this.sessList = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() != this.m)
         this.m++;
-        
+
     }
     this.multiAxisData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -117,7 +117,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
         this.i = 0
         else
         this.i++ ;
-        } 
+        }
         this.data = {
             labels: this.myLabels,
             datasets: [
@@ -134,9 +134,9 @@ this.formationService.getAllFormations().toPromise().then(d=>{
     this.formateurs = d;
     this.nbFormateurs = d.length
 })
-/* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+/!* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- *!/
 
-/**
+/!**
   this.multiAxisOptions = {
     plugins: {
         legend: {
@@ -186,7 +186,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
             }
         }
     }
-}; */
+}; *!/
 
   this.updateChartOptions();
     const dataDailySalesChart: any = {
@@ -211,7 +211,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
     this.startAnimationForLineChart(dailySalesChart);
 
 
-    /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
+    /!* ----------==========     Completed Tasks Chart initialization    ==========---------- *!/
 
     const dataCompletedTasksChart: any = {
         labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
@@ -236,7 +236,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
 
 
 
-    /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
+    /!* ----------==========     Emails Subscription Chart initialization    ==========---------- *!/
 
     var datawebsiteViewsChart = {
       labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
@@ -267,7 +267,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
 
     //start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
-}
+}*/
 
   updateChartOptions() {
           this.applyDarkTheme();

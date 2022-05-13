@@ -25,6 +25,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { ToastModule } from "primeng/toast";
 import { SessionOnlineComponent } from './session-online/session-online.component';
 import {ChipModule} from "primeng/chip";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 
 //import { HomeComponent } from './home/home.component';
@@ -59,7 +60,8 @@ import {ChipModule} from "primeng/chip";
         CalendarModule,
         MultiSelectModule,
         ToastModule,
-        ChipModule
+        ChipModule,
+        ConfirmDialogModule
 
     ]
 })

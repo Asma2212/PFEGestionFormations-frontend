@@ -85,6 +85,7 @@ export class AdminLoginComponent implements OnInit {
     this.loginRequestPayload.password = this.loginForm.get('password').value;
 
     this.authService.login(this.loginRequestPayload).subscribe(data => {
+
       this.isError = false;
       this.router.navigate(['/dashboard']);
 
