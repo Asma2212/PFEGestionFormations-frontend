@@ -18,25 +18,46 @@ export class SecuriteComponent implements OnInit {
 
   seatInformation: any;
   formateur : Formateur ;
+  password : string="" ; 
+  password2 : string="" ;
+  submitted:boolean = false ; 
+  confirm : boolean = true ;
   bio : string ;
 
   ngOnInit() { 
      // this.seatInformation = this.ticketService.ticketInformation.seatInformation;
-this.bio = ""
+     this.formateur = JSON.parse(localStorage.getItem('formateur'));
   
   }
 
 
   nextPage() {
-    //  if (this.formateur.bio) {
-      localStorage.setItem('bio',this.bio)
-        //this.formateur.bio 
-          //this.ticketService.ticketInformation.seatInformation = this.seatInformation;
+this.submitted = true ;
+    if(this.password && this.password2){
+    this.formateur.password = this.password ;
+      localStorage.setItem('formateur', JSON.stringify(this.formateur));
           this.router.navigate(['firstLogin/confirmation']);
-    //  }
+    }
+
   }
 
   prevPage() {
       this.router.navigate(['firstLogin/photo']);
+  }
+  confirmPass(){
+if(this.password != this.password2)
+this.confirm = false ;
+else
+this.confirm = true ;
+  }
+  validateur(){
+    if( this.confirm==true){
+      console.log('ok');
+      return 'green';
+    }
+    else{
+      console.log('leeee');
+      return 'red';
+    }
   }
 }

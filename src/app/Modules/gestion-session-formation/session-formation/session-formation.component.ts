@@ -127,7 +127,6 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
       this.names=[];
       this.namesStr=""
       this.selectedFormateurs = formateurs
-      console.log("hhh",this.selectedFormateurs)
         if (formateurs[0]) {
           formateurs.forEach( formateur=> {
             //this.session.listeFormateur.push(formateur)
@@ -160,7 +159,6 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
       }
   }
   getColor(sessionDiff) {
-    console.log(sessionDiff)
     if (sessionDiff === 'FACILE') {
     return '#C8E6C9';
     } else
