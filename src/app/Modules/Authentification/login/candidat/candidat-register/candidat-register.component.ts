@@ -14,8 +14,9 @@ import {Classe} from "../../../../../models/Classe";
 import {DepartementService} from "../../../../../services/departement.service";
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UploadFileService } from 'app/services/upload-file.service';
+import { Candidat } from 'app/models/Candidat';
 
-@Component({
+@Component({ 
   selector: 'app-candidat-register',
   templateUrl: './candidat-register.component.html',
   styleUrls: ['./candidat-register.component.scss']
@@ -55,6 +56,24 @@ export class CandidatRegisterComponent implements OnInit {
   message = '';
   fileInfos: Observable<any>;
   selectedFile : FileList ;
+
+  candidat : Candidat = {
+    id : 0,
+    username : "" ,//cin
+    password : "" ,
+    firstName : "",
+    email : "",
+    role : [],
+    lastName : "" ,
+    numTel : 0,
+    dateNaiss : null,
+    genre : null,
+    bio : "",
+    photo : "",
+    department : null,
+    classe : null
+  }
+
   constructor(private authService: AuthService, private router: Router,private uploadService : UploadFileService, private messageService: MessageService, private toastr: ToastrService,private departementService : DepartementService) {
 
     const currentYear = new Date().getFullYear();
@@ -69,6 +88,7 @@ export class CandidatRegisterComponent implements OnInit {
       lastName: '',
       dateNaiss: null,
       genre: '',
+      photo :'',
       department: null,
       classe: null,
 /*
@@ -80,6 +100,7 @@ export class CandidatRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fileInfos = this.uploadService.getFiles();
     this.loginForm = new FormGroup({
       username: new FormControl(''),
       password: new FormControl(''),
@@ -132,20 +153,11 @@ export class CandidatRegisterComponent implements OnInit {
   }
   signup() {
     console.log("username" + this.signupForm.get('username_signup').value + "email" + this.signupForm.get('email_signup').value + "password_signup" + this.signupForm.get('password_signup').value)
-    this.currentFile = this.selectedFile.item(0);
-    console.log("current file",this.currentFile);
-    this.uploadService.upload(this.currentFile).subscribe(
-      event => {
-        if (event instanceof HttpResponse) {
-          this.message = event.body.message;}
-      },
-      err => {
-          this.message = ' Un probleme est survenue';
-      });
-
+//this.upload1()
     this.loginRequestPayload.username = this.signupForm.get('username_signup').value;
     this.loginRequestPayload.email = this.signupForm.get('email_signup').value;
     this.loginRequestPayload.password = this.signupForm.get('password_signup').value;
+   // this.loginRequestPayload.photo = this.file.name ;
     this.authService.signup(this.loginRequestPayload).subscribe(data => {
       this.isError_signup = false;
       this.router.navigate(['/login/admin']);
@@ -205,6 +217,30 @@ export class CandidatRegisterComponent implements OnInit {
       console.log("file name ", this.file.name)
       }
     this.namePhoto=this.file.name ;
+    }
+    upload1() {
+      this.progress = 0;
+      this.currentFile = this.selectedFile.item(0);
+      console.log("current file",this.currentFile);
+      
+      this.uploadService.upload(this.currentFile).subscribe(
+        event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            this.message = event.body.message;
+          }
+        },
+        err => {
+          this.progress = 0;
+          console.log(err);
+          if(err.error.message.includes("constraint"))
+          this.message =" Cette image existe deja"
+          else
+          this.message = ' Un probleme est survenue';
+          this.currentFile = undefined;
+        });
+      this.selectedFile = undefined;
     }
 
 }

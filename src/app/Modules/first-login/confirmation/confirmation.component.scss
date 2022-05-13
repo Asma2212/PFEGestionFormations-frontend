@@ -1,0 +1,18 @@
+label{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(255, 84, 84);
+    font-size: large;
+}
+.circle {
+    border-radius: 100% !important;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    margin-left: 32%;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }

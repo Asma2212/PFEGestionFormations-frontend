@@ -13,7 +13,14 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
-
+import { InputMaskModule } from 'primeng/inputmask';
+import { MultiSelectModule } from 'primeng/multiselect';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {InputTextModule} from 'primeng/inputtext';
+import {PasswordModule} from 'primeng/password';
+import {DividerModule} from 'primeng/divider';
+import { MessageModule } from 'primeng/message';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -31,7 +38,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
     CardModule,
     ButtonModule,
     FormsModule,
-    InputNumberModule
+    InputNumberModule,
+    InputMaskModule,
+    MultiSelectModule,
+    InputTextareaModule,
+    InputTextModule,
+    PasswordModule,
+    DividerModule,
+    MessageModule, 
+    CalendarModule
   ]
 })
 export class FirstLoginModule { }

@@ -4,6 +4,7 @@ import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 //import "jspdf-autotable";
 import * as FileSaver from 'file-saver';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -126,7 +127,6 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
       this.names=[];
       this.namesStr=""
       this.selectedFormateurs = formateurs
-      console.log("hhh",this.selectedFormateurs)
         if (formateurs[0]) {
           formateurs.forEach( formateur=> {
             //this.session.listeFormateur.push(formateur)
@@ -159,7 +159,6 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
       }
   }
   getColor(sessionDiff) {
-    console.log(sessionDiff)
     if (sessionDiff === 'FACILE') {
     return '#C8E6C9';
     } else
@@ -233,6 +232,7 @@ hideDialog() {
 }
 saveSession(){
   this.submitted = true ;
+  if(this.session.nbMaxCandidat<30){
   this.session.formationSession = this.formSess[0];
   console.log("session bch tetbaath :",this.session)
   if(this.file){
@@ -268,7 +268,7 @@ saveSession(){
       this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000});
       this.session.photoSession = null ;
     console.log("exception occured");});
-  }
+  }}
   }
 
   deleteSession(session : SessionFormation) {

@@ -16,7 +16,7 @@
                     </ng-template>
                 </p-toolbar>
                 <p-dataView #dv [value]="sessions" [paginator]="true" [rows]="9" filterBy="titreSession"
-                    [sortField]="sortField" [sortOrder]="sortOrder" layout="list" dataKey="idSession">
+                [sortField]="sortField" [sortOrder]="sortOrder" layout="list" dataKey="idSession">
                     <ng-template pTemplate="header">
                         <div class="flex flex-column md:flex-row md:justify-content-between">
                             <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="filtre : nbr candidats" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
@@ -117,7 +117,7 @@
                     </p-fileUpload>-->
                     <div class="field">
                         <label for="file" class="label-file"><i class="pi pi-external-link"></i> Ajouter une image</label>
-                          <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="session.photoSession">
+                          <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="session.photoSession" required>
                           <br>
                           </div>
                     <div *ngIf="imgURL && !session.idSession">
@@ -166,7 +166,7 @@
                         </div>
                         <div style="display: flex;">
                         <span class="p-inputgroup-addon"><i class="pi pi-building"></i></span>
-                        <p-multiSelect [options]="listeFormations" [(ngModel)]="formSess" [selectionLimit]="1" optionLabel="titre" defaultLabel="Choisir votre formation" display="chip">
+                        <p-multiSelect [options]="listeFormations" [(ngModel)]="formSess" [selectionLimit]="1" optionLabel="titre" defaultLabel="Choisir votre formation" display="chip" required>
                                                 <ng-template let-formation pTemplate="item">
                                                     <div style="display:flex;">
                                                         <div *ngFor="let file of fileInfos | async">
@@ -180,11 +180,11 @@
                                             </p-multiSelect>
                     
                   
-                  <small class="p-error" *ngIf="submitted && !session.formationSession">formation est requis.</small>
+                  <small class="p-error" *ngIf="submitted && !formSess">formation est requis.</small>
                 </div><br>
                     <label> niveau de difficulté </label>
                     <div *ngFor="let niv of nivDifficulte" class="field-checkbox">
-                        <p-radioButton name="nivDiff" [value]="niv" [(ngModel)]="session.nivDifficulte" ></p-radioButton>
+                        <p-radioButton name="nivDiff" [value]="niv" [(ngModel)]="session.nivDifficulte" required></p-radioButton>
                         <label for="nivDiff" style="color: black;">&nbsp;{{niv}}</label>
                     </div>
                     <small class="p-error" *ngIf="submitted && !session.nivDifficulte">niveau de difficulté est requis.</small>
@@ -205,7 +205,7 @@
                     <div>
                       <div class="p-inputgroup">
                           <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span>
-                          <input type="text" pInputText id="lieux" [(ngModel)]="session.lieuSession"/>
+                          <input type="text" pInputText id="lieux" [(ngModel)]="session.lieuSession" required/>
                               
                       </div>
                       <small class="p-error" *ngIf="submitted && !session.lieuSession">le lieux du Session est requis.</small>
@@ -214,12 +214,12 @@
                 <div style="display: flex;">
                     <div class="field col-6">
                         <label for="dbDate">Date debut</label>
-                        <p-calendar [(ngModel)]="dateDeb" [minDate]="minDate" [showIcon]="true" [readonlyInput]="true" inputId="dbDate"></p-calendar>
+                        <p-calendar [(ngModel)]="dateDeb" [minDate]="minDate" [showIcon]="true" [readonlyInput]="true" inputId="dbDate" required></p-calendar>
                         <small class="p-error" *ngIf="submitted && !dateDeb">date début est requis</small>
                     </div>
                     <div class="field col-6">
                         <label for="finDate">Date Fin</label>
-                        <p-calendar [(ngModel)]="dateFin" [minDate]="dateDeb" [showIcon]="true" [readonlyInput]="true" inputId="finDtate" [disabled]="!dateDeb"></p-calendar>
+                        <p-calendar [(ngModel)]="dateFin" [minDate]="dateDeb" [showIcon]="true" [readonlyInput]="true" inputId="finDtate" [disabled]="!dateDeb" required></p-calendar>
                         <small class="p-error" *ngIf="submitted && !dateFin">date fin est requis.</small>
                     </div>
 
