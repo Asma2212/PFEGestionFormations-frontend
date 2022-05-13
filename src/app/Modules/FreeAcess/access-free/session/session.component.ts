@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Self} from '@angular/core';
 import * as $ from 'jquery'
 import {SessionService} from "../../../../services/session.service";
 import {Subscription} from "rxjs/Subscription";
@@ -10,6 +10,8 @@ import {CandidatRegisterComponent} from "../../../Authentification/login/candida
 import {SessionFormation} from "../../../../models/SessionFormation";
 import {LocalStorageService} from "ngx-webstorage";
 import {ConfirmationService} from "primeng/api";
+import { SessionFormationService } from 'app/services/SessionFormation.service';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-session',
@@ -30,17 +32,18 @@ export class SessionComponent implements OnInit {
 
   private id: number;
 
-  constructor(private localStorage: LocalStorageService,public sessionService: SessionService,private route:ActivatedRoute,private toast:NgToastService,public dialog: MatDialog,private confirmationService: ConfirmationService) {
+  constructor(private localStorage: LocalStorageService,public sessionService: SessionService,private route:ActivatedRoute,private toast:NgToastService,public dialog: MatDialog,private confirmationService: ConfirmationService,private sessionFormationService :SessionFormationService) {
   }
 
   ngOnInit(): void {
 
     this.id=this.route.snapshot.params['id']
-    console.log(this.id)
+    console.log("ID",this.id)
     this.val = 3;
+   
     this.getbyIDSession(this.id)
-
-this.checkIfSessionInCandidat()
+    this.checkIfSessionInCandidat()
+    
 
   }
   getbyIDSession(id:number){
@@ -50,8 +53,9 @@ this.checkIfSessionInCandidat()
 
 
     }, error => {this.errors=error.error.message;})
-
+  
   }
+  
 
   handleToggle($event: any) {
   /*  if(localStorage.getItem("role")=="candidat"){   this.toast.success({detail:"clicked !",duration:3000});}
@@ -146,19 +150,56 @@ console.log("herrere"+isChecked)
   }
 
   checkIfSessionInCandidat(){
+    var nbSession:number;
+    var listSession;
+    var nombreMax;
+    var dosentExist:boolean ;
     this.sessionService.getCandidaSession(this.username1).toPromise().then(data => {
-      var self = this;
-
+  console.log("daaataaaaa",data)
       this.ListSessionOfCandidat=data;
       console.log("list of sessions of a candidats"+this.ListSessionOfCandidat);
-      this.ListSessionOfCandidat.forEach(function (value) {
+      this.ListSessionOfCandidat.forEach(value => {
 
-        if (value.idSession== self.id){
+        if (value.idSession== this.id){
 
-          self.inscrit = true
+          this.inscrit = true
+          nombreMax=value.nbMaxCandidat
+          return ;
 
-        } })})
+        }else{
+          dosentExist=true
 
+        }
+        if(dosentExist){
+          this.sessionFormationService.getSessions().toPromise().then(
+            data=>{
+               listSession=data ;
+              console.log("list of sessions "+listSession);
+            
+              listSession.forEach(value =>{
+  
+               
+              if(value.idSession==this.id){
+                nbSession++ ;
+              }
+              })
+              if(nbSession+1>this.session.nbMaxCandidat && this ){
+                const input = document.getElementById('bt-inscrire') as HTMLInputElement | null;
+                input?.setAttribute('disabled', '');
+
+              }
+            }
+          )
+  
+          }
+      })})
+
+       
+
+        
+        // if(nbSession+1>this.session.nbMaxCandidat && this.ListSessionOfCandidat.){
+        //   this.
+        // }
 
   }
   private opnInscriptionDialog() {

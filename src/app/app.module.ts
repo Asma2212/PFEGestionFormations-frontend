@@ -49,7 +49,7 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 import {NgToastModule} from "ng-angular-popup";
 import {MatDialogModule} from "@angular/material/dialog";
-import { ChatComponent } from './Modules/message/chat/chat.component';
+//import { ChatComponent } from './Modules/message/chat/chat.component';
 
 @NgModule({
   imports: [BrowserModule,
@@ -98,7 +98,7 @@ import { ChatComponent } from './Modules/message/chat/chat.component';
     AdminLoginComponent,
     FormatuerLoginComponent,
     CandidatRegisterComponent,
-    ChatComponent,
+    //ChatComponent,
   ],
   providers: [MessageService, HttpClient,
 
