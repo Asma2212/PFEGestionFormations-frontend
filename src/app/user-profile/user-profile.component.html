@@ -7,7 +7,7 @@
               <div class="card">
                   <div class="card-header card-header-danger">
                     <h4 class="card-title">Profile</h4>
-                      <p class="card-category">Completez votre profile</p>                     
+                      <p class="card-category">Completez votre profile</p>
                   </div>
                   <div class="card-body">
                      <br>
@@ -80,14 +80,14 @@
                           </div>
                           <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="updateAdmin()">Update Profile</button>
                           <div class="clearfix"></div>
-                      
+
                   </div>
               </div>
           </div>
           <div class="col-md-4">
               <div class="card card-profile">
                   <div class="card-avatar">
-                    <div class="circle" *ngIf="TheCurrentUser.photo == '' && !imgURL">
+                    <div class="circle" *ngIf="!TheCurrentUser.photo && !imgURL">
                       <img class="profile-pic" src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg">
                     </div>
                     <div class="circle" *ngIf="imgURL">
@@ -99,7 +99,7 @@
                         <img [src]="file.url"
                         />
                       </p>
-                    </div></div>
+                    </div></div><br>
                     <label for="file" class="p-image"><i class="fa fa-camera upload-button"></i></label>
                         <input  type="file" id="file" class="file-upload" accept="image/*" (change)="onUpload($event)">
                   </div>

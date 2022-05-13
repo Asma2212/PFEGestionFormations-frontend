@@ -18,8 +18,8 @@ export class SessionService {
 
   }
 
-  getSession(id: number) :Observable<sessionResponsePayload> {
-    return this.http.get<sessionResponsePayload>(this.url+id)
+  getSession(id: number) :Observable<SessionFormation> {
+    return this.http.get<SessionFormation>(this.url+id)
   }
 
   getCandidaSession(username:string):Observable<SessionFormation[]>{

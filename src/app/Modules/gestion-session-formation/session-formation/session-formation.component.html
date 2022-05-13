@@ -7,7 +7,7 @@
                     <ng-template pTemplate="left">
                         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-raised p-button-text mr-2" (click)="openNew()" ></button>
                     </ng-template>
-            
+
                     <ng-template pTemplate="right">
                         <div class="flex">
                             <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
@@ -29,7 +29,7 @@
                     </ng-template>
                     <ng-template let-session  pTemplate="listItem">
                         <div class="col-12">
-                            
+
                             <div class="session-list-item">
                                 <div *ngFor="let file of fileInfos | async">
                                     <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
@@ -46,9 +46,9 @@
                                         <strong>Formateurs :</strong> <br>
                                         <i class="pi pi-users session-category-icon"></i>
                                         <span *ngFor="let formateur of session.listeFormateurs">
-                                            <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>   
+                                            <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>
                                         <span class="session-category" *ngIf="formateur.genre.name=='FEMME'">MMe. {{formateur.lastName}} {{formateur.firstName}}</span>
-                                    <br>    
+                                    <br>
                                     </span>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                         <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
                                         </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="text-align: center;font-weight: bold;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{session.nivDifficulte}}</span>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
 
                     </ng-template>
@@ -72,9 +72,9 @@
                                         <strong>Formateurs :</strong> <br>
                                         <i class="pi pi-users session-category-icon"></i>
                                         <span *ngFor="let formateur of session.listeFormateurs">
-                                            <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>   
+                                            <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>
                                         <span class="session-category" *ngIf="formateur.genre.name=='FEMME'">MMe. {{formateur.lastName}} {{formateur.firstName}}</span>
-                                    <br>    
+                                    <br>
                                     </span>
                                     </div>
                                     <span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="font-size: small;"><strong>&nbsp;{{session.nivDifficulte}}&nbsp;</strong></span>
@@ -121,13 +121,13 @@
                           <br>
                           </div>
                     <div *ngIf="imgURL && !session.idSession">
-                        <img [src]="imgURL" height="150">    
+                        <img [src]="imgURL" height="150">
                     </div>
                     <div *ngIf="session.photoSession">
                       <div *ngFor="let file of fileInfos | async">
                         <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
                           <img [src]="file.url" height="150">
-                        </p></div>   
+                        </p></div>
                   </div>
                     <div *ngIf="currentFile" class="progress">
                       <div
@@ -178,8 +178,7 @@
                                                     </div>
                                                 </ng-template>
                                             </p-multiSelect>
-                    
-                  
+
                   <small class="p-error" *ngIf="submitted && !formSess">formation est requis.</small>
                 </div><br>
                     <label> niveau de difficulté </label>
@@ -188,7 +187,7 @@
                         <label for="nivDiff" style="color: black;">&nbsp;{{niv}}</label>
                     </div>
                     <small class="p-error" *ngIf="submitted && !session.nivDifficulte">niveau de difficulté est requis.</small>
-                  
+
                     <label>Les Formateurs de cette formation :</label>
                    <div class="field col-8" style="text-align: center;">
                      <button pButton pRipple label="Ajouter Formateurs" icon="pi pi-user-plus" class="p-button-outlined"  (click)="suivantSession()" ></button>
@@ -200,21 +199,21 @@
                     </ul>
                 </div>
                 <!--Lieux-->
-               
+
                     <label for="lieux">Lieux de la formation</label>
                     <div>
                       <div class="p-inputgroup">
                           <span class="p-inputgroup-addon"><i class="pi pi-map-marker"></i></span>
                           <input type="text" pInputText id="lieux" [(ngModel)]="session.lieuSession" required/>
-                              
+
                       </div>
                       <small class="p-error" *ngIf="submitted && !session.lieuSession">le lieux du Session est requis.</small>
                   </div>
-                
+
                 <div style="display: flex;">
                     <div class="field col-6">
                         <label for="dbDate">Date debut</label>
-                        <p-calendar [(ngModel)]="dateDeb" [minDate]="minDate" [showIcon]="true" [readonlyInput]="true" inputId="dbDate" required></p-calendar>
+                        <p-calendar [(ngModel)]="dateDeb" [minDate]="minDate" [showIcon]="true" [readonlyInput]="true" inputId="dbDate" required (click)="changeDate()"></p-calendar>
                         <small class="p-error" *ngIf="submitted && !dateDeb">date début est requis</small>
                     </div>
                     <div class="field col-6">
@@ -228,12 +227,12 @@
 
                 </div>
             </ng-template>
-            
+
                 <ng-template pTemplate="footer">
                     <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
                     <button pButton pRipple label="Ajouter" icon="pi pi-check" class="p-button-text" (click)="saveSession()"></button>
-               
-               
+
+
                 </ng-template>
             </p-dialog>
 </div>

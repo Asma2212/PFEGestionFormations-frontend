@@ -238,7 +238,7 @@ saveSession(){
   if(this.file){
     this.session.photoSession=this.file.name ;
   }
-  this.session.dateDebSession = this.dateDeb 
+  this.session.dateDebSession = this.dateDeb
   this.session.dateFinSession = this.dateFin ;
   if(this.selectedFormateurs)
   {
@@ -257,7 +257,7 @@ saveSession(){
 
   }
   else {
-    
+
       this.sessionService.saveSession(this.session).subscribe( data => {
         console.log("data save session",data);
         this.messageService.add({severity:'success', summary: 'Successful', detail: 'session ajouter', life: 3000});
@@ -357,6 +357,11 @@ editSession(session: SessionFormation) {
  }
 
 
+  changeDate() {
+    console.log("chaging date")
+    if(this.dateDeb > this.dateFin)
+    this.dateFin = null ;
+  }
 }
 
 

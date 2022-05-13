@@ -57,7 +57,7 @@ monthData : any[] = []
 
   constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
 
-  ngOnInit(){} /*{
+  ngOnInit() {
 this.formationService.getAllFormations().toPromise().then(d=>{
   this.formations = d
   this.nbFormations = d.length;
@@ -67,127 +67,95 @@ this.formationService.getAllFormations().toPromise().then(d=>{
     this.nbSessions = d.length
     this.sessList = d.filter(s=> new Date().getFullYear == new Date(s.dateDebSession).getFullYear)
     while((this.sessList[0])||(this.m > 7)){
-        console.log("1",this.sessList)
-        this.sessListFilter = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() == this.m)
-        console.log("2",this.sessListFilter,"m",this.m)
-        this.monthData.push(this.sessListFilter.length)
-        this.sessList = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() != this.m)
-        this.m++;
+
+      this.sessListFilter = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() == this.m)
+
+      this.monthData.push(this.sessListFilter.length)
+      this.sessList = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() != this.m)
+      this.m++;
 
     }
     this.multiAxisData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'Dataset 1',
-            backgroundColor: [
-                '#EC407A',
-                '#AB47BC',
-                '#42A5F5',
-                '#7E57C2',
-                '#66BB6A',
-                '#FFCA28',
-                '#26A69A'
-            ],
-            yAxisID: 'y',
-            data: this.monthData
-        }, {
-            label: 'Dataset 2',
-            backgroundColor: '#78909C',
-            yAxisID: 'y1',
-            data: [28, 48, 40, 19, 86, 27, 90]
-        }]
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        label: 'Dataset 1',
+        backgroundColor: [
+          '#EC407A',
+          '#AB47BC',
+          '#42A5F5',
+          '#7E57C2',
+          '#66BB6A',
+          '#FFCA28',
+          '#26A69A'
+        ],
+        yAxisID: 'y',
+        data: this.monthData
+      }, {
+        label: 'Dataset 2',
+        backgroundColor: '#78909C',
+        yAxisID: 'y1',
+        data: [28, 48, 40, 19, 86, 27, 90]
+      }]
     };
   })
   this.candidatService.getAllCandidats().toPromise().then(d => {
       this.candidats = d;
       this.nbCandidats = d.length
       this.depCand = d ;
-      while (this.depCand[0]) {
-        this.c = this.depCand[0];
-        console.log("dep",this.depCand[0],"list",this.depCand)
-        this.filterC = this.depCand.filter(can => can.department.name == this.c.department.name)
-        this.myLabels.push(this.c.department.name)
-        this.myData.push(this.filterC.length)
-        this.mybackground.push(this.colorsBackground[this.i])
-        this.myHoverBackground.push(this.colorsHover[this.i])
-        this.depCand = this.depCand.filter(can => can.department.name != this.c.department.name)
-        console.log("ddd",this.myData)
-        //.....
-        if(this.i==3)
+   while (this.depCand[0]) {
+      this.c = this.depCand[0];
+      this.filterC = this.depCand.filter(can => can.department.name == this.c.department.name)
+      this.myLabels.push(this.c.department.name)
+      this.myData.push(this.filterC.length)
+      this.mybackground.push(this.colorsBackground[this.i])
+      this.myHoverBackground.push(this.colorsHover[this.i])
+      this.depCand = this.depCand.filter(can => can.department.name != this.c.department.name)
+      //.....
+      if(this.i==3)
         this.i = 0
-        else
+      else
         this.i++ ;
+    }
+    this.data = {
+      labels: this.myLabels,
+      datasets: [
+        {
+          data: this.myData,
+          backgroundColor: this.mybackground,
+          hoverBackgroundColor: this.myHoverBackground
         }
-        this.data = {
-            labels: this.myLabels,
-            datasets: [
-                {
-                    data: this.myData,
-                    backgroundColor: this.mybackground,
-                    hoverBackgroundColor: this.myHoverBackground
-                }
-            ]
-        };
+      ]
+    };
 
   })
   this.formateurService.getAllFormateurs().toPromise().then(d => {
     this.formateurs = d;
     this.nbFormateurs = d.length
 })
-/!* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- *!/
-
-/!**
-  this.multiAxisOptions = {
-    plugins: {
-        legend: {
-            labels: {
-                color: '#495057'
-            }
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: true
-        }
-    },
-    scales: {
-        x: {
-            ticks: {
-                color: '#495057'
-            },
-            grid: {
-                color: '#ebedef'
-            }
-        },
-        y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-            ticks: {
-                min: 0,
-                max: 100,
-                color: '#495057'
-            },
-            grid: {
-                color: '#ebedef'
-            }
-        },
-        y1: {
-            type: 'linear',
-            display: true,
-            position: 'right',
-            grid: {
-                drawOnChartArea: false,
-                color: '#ebedef'
-            },
-            ticks: {
-                min: 0,
-                max: 100,
-                color: '#495057'
-            }
-        }
-    }
-}; *!/
-
+    /*
+    this.multiAxisData = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        label: 'Dataset 1',
+        backgroundColor: [
+          '#EC407A',
+          '#AB47BC',
+          '#42A5F5',
+          '#7E57C2',
+          '#66BB6A',
+          '#FFCA28',
+          '#26A69A'
+        ],
+        yAxisID: 'y',
+        data: [65, 59, 80, 81, 56, 55, 10]
+      }, {
+        label: 'Dataset 2',
+        backgroundColor: '#78909C',
+        yAxisID: 'y1',
+        data: [28, 48, 40, 19, 86, 27, 90]
+      }]
+    };
+*/
   this.updateChartOptions();
     const dataDailySalesChart: any = {
         labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -211,7 +179,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
     this.startAnimationForLineChart(dailySalesChart);
 
 
-    /!* ----------==========     Completed Tasks Chart initialization    ==========---------- *!/
+    /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
     const dataCompletedTasksChart: any = {
         labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
@@ -236,7 +204,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
 
 
 
-    /!* ----------==========     Emails Subscription Chart initialization    ==========---------- *!/
+    /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
     var datawebsiteViewsChart = {
       labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
@@ -267,7 +235,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
 
     //start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
-}*/
+}
 
   updateChartOptions() {
           this.applyDarkTheme();

@@ -76,14 +76,14 @@ export class UserProfileComponent implements OnInit{
       this.message = "Only images are supported.";
       return;
     }
- 
+
     var reader = new FileReader();
-    
+
     this.imagePath = this.file;
-    reader.readAsDataURL(this.file); 
-    reader.onload = (_event) => { 
+    reader.readAsDataURL(this.file);
+    reader.onload = (_event) => {
       this.imgURL = reader.result;
-      console.log("imaage",this.imgURL.url) 
+      console.log("imaage",this.imgURL.url)
     }
   }
 
@@ -91,7 +91,7 @@ export class UserProfileComponent implements OnInit{
     this.progress = 0;
     this.currentFile = this.selectedFile.item(0);
     console.log("current file",this.currentFile);
-    
+
     this.uploadService.upload(this.currentFile).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -127,21 +127,24 @@ export class UserProfileComponent implements OnInit{
     })
   }
   updateAdmin(){
-    this.upload1()
-    this.TheCurrentUser.photo = this.file.name
+    if(this.file) {
+      this.upload1()
+      this.TheCurrentUser.photo = this.file.name
+    }
     if(this.femme){
       console.log("geenre",Egenre.FEMME);
        this.TheCurrentUser.genre = {id : 2 , name : Egenre.FEMME} ;
     }
     if(this.homme){
-    
+
      this.TheCurrentUser.genre = {id : 1 , name : Egenre.HOMME} ;
     }
     this.userService.updateFormateur(this.TheCurrentUser).toPromise().then(data => {
       console.log(data)
-      
+      window.location.reload();
+
     })
     console.log(this.TheCurrentUser)
-    window.location.reload();
+
   }
 }

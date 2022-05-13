@@ -26,7 +26,7 @@ export class SessionComponent implements OnInit {
   inscrit:boolean = false ;
   val: number;
   private errors: any;
-   session: sessionResponsePayload;
+   session: SessionFormation;
 
   private id: number;
 
@@ -45,8 +45,9 @@ this.checkIfSessionInCandidat()
   }
   getbyIDSession(id:number){
     this.sessionService.getSession(id).toPromise().then(data => {
+      console.log("Message",data)
       this.session=data
-      console.log(this.session)
+
 
     }, error => {this.errors=error.error.message;})
 
