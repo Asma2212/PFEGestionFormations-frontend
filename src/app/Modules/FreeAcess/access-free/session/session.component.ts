@@ -40,10 +40,10 @@ export class SessionComponent implements OnInit {
     this.id=this.route.snapshot.params['id']
     console.log("ID",this.id)
     this.val = 3;
-   
+
     this.getbyIDSession(this.id)
     this.checkIfSessionInCandidat()
-    
+
 
   }
   getbyIDSession(id:number){
@@ -53,9 +53,9 @@ export class SessionComponent implements OnInit {
 
 
     }, error => {this.errors=error.error.message;})
-  
+
   }
-  
+
 
   handleToggle($event: any) {
   /*  if(localStorage.getItem("role")=="candidat"){   this.toast.success({detail:"clicked !",duration:3000});}
@@ -154,9 +154,11 @@ console.log("herrere"+isChecked)
     var listSession;
     var nombreMax;
     var dosentExist:boolean ;
+    console.log("username1"+this.username1)
     this.sessionService.getCandidaSession(this.username1).toPromise().then(data => {
   console.log("daaataaaaa",data)
       this.ListSessionOfCandidat=data;
+     // console.log("daaataaaaa8888",this.ListSessionOfCandidat)
       console.log("list of sessions of a candidats"+this.ListSessionOfCandidat);
       this.ListSessionOfCandidat.forEach(value => {
 
@@ -175,10 +177,10 @@ console.log("herrere"+isChecked)
             data=>{
                listSession=data ;
               console.log("list of sessions "+listSession);
-            
+
               listSession.forEach(value =>{
-  
-               
+
+
               if(value.idSession==this.id){
                 nbSession++ ;
               }
@@ -190,13 +192,13 @@ console.log("herrere"+isChecked)
               }
             }
           )
-  
+
           }
       })})
 
-       
 
-        
+
+
         // if(nbSession+1>this.session.nbMaxCandidat && this.ListSessionOfCandidat.){
         //   this.
         // }
