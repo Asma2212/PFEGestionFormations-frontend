@@ -49,6 +49,7 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 import {NgToastModule} from "ng-angular-popup";
 import {MatDialogModule} from "@angular/material/dialog";
+import { NavBarComponent } from './Modules/FreeAcess/access-free/nav-bar/nav-bar.component';
 //import { ChatComponent } from './Modules/message/chat/chat.component';
 
 @NgModule({
@@ -98,6 +99,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     AdminLoginComponent,
     FormatuerLoginComponent,
     CandidatRegisterComponent,
+   // NavBarComponent
     //ChatComponent,
   ],
   providers: [MessageService, HttpClient,
@@ -109,7 +111,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     }]
   ],
   exports: [
-    CandidatRegisterComponent
+    CandidatRegisterComponent,
+   // NavBarComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -8,6 +8,10 @@ import {FullCalendarModule} from "@fullcalendar/angular";
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { FirstLoginFormateurComponent } from './first-login-formateur/first-login-formateur.component';
+import { FormationAvenirComponent } from './formation-avenir/formation-avenir.component';
+import { HistoriqueFormationComponent } from './historique-formation/historique-formation.component';
+import { NavBarComponent } from '../FreeAcess/access-free/nav-bar/nav-bar.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -17,18 +21,23 @@ FullCalendarModule.registerPlugins([
 @NgModule({
   declarations: [
     CalendarFormateurComponent,
-    DashboardFormateurComponent
+    DashboardFormateurComponent,
+    FirstLoginFormateurComponent,
+    FormationAvenirComponent,
+    HistoriqueFormationComponent
   ],
   imports: [
     CommonModule,
     EspaceFormateurRoutingModule,
-
     FullCalendarModule,
 
     /* FullCalendarModule,
      CalendarModule,*/
 
 
-  ]
+  ],
+  exports: [
+   // NavBarComponent
+]
 })
 export class EspaceFormateurModule { }

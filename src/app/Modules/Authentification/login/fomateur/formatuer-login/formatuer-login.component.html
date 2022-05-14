@@ -26,9 +26,9 @@
     <div class="logoContainer"><img class="logo" src="https://i.pinimg.com/originals/a7/4a/65/a74a6592ac29c378cc03c600a03fc78e.png"/><img class="text" src="http://www.isetr.rnu.tn/wp-content/uploads/2018/05/cropped-logo-final2-1.png"/>
     </div>
     <div class="acceptContainer">
-
       <form [formGroup]="loginForm">
         <h1>Espace Formateur </h1>
+        <button (click)="complete()"></button>
         <div class="formContainer">
           <div class="formDiv" style="transition-delay: 0.2s">
             <p>CIN<span style="color: #ff3353" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" > :invalide!<i class="fa-solid fa-circle-x"></i></span></p>
