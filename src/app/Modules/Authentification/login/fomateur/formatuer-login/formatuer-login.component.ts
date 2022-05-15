@@ -9,6 +9,8 @@ import {MessageService} from "primeng/api";
 import {ToastrService} from "ngx-toastr";
 import {TooltipModule} from 'primeng/tooltip';
 import {NgToastService} from "ng-angular-popup";
+import { NavBarComponent } from 'app/Modules/FreeAcess/access-free/nav-bar/nav-bar.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-formatuer-login',
@@ -22,7 +24,7 @@ export class FormatuerLoginComponent implements OnInit {
   validateEmail = true;
   private errors: string ;
 
-  constructor( private authService: AuthService, private router: Router,private toast:NgToastService)
+  constructor( private authService: AuthService, private router: Router,private toast:NgToastService,private dialog : MatDialog)
 {
     this.loginRequestPayload = {
       username: '',
@@ -71,6 +73,7 @@ export class FormatuerLoginComponent implements OnInit {
 
   }
   login() {
+    this.router.navigate(['/firstLogin']);
     console.log("username" + this.loginForm.get('username').value + "email" + this.loginForm.get('email').value + "password" + this.loginForm.get('password').value)
 
 
@@ -97,6 +100,10 @@ export class FormatuerLoginComponent implements OnInit {
 
     });
 
+  }
+
+  complete(){
+    this.dialog.open(NavBarComponent)
   }
   }
 

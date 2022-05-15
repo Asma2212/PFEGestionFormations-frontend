@@ -11,6 +11,7 @@ export class NavBarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("navbar works")
     this.slideMenu()
 
   }
