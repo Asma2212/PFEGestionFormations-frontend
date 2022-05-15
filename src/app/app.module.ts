@@ -49,6 +49,9 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 import {NgToastModule} from "ng-angular-popup";
 import {MatDialogModule} from "@angular/material/dialog";
+import {ChatComponent} from "./Modules/message/chat/chat.component";
+import {VirtualScrollerModule} from "primeng/virtualscroller";
+import {DialogModule} from "primeng/dialog";
 //import { ChatComponent } from './Modules/message/chat/chat.component';
 
 @NgModule({
@@ -89,7 +92,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     NgxWebstorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }), MessageModule, TooltipModule, MatFormFieldModule, PasswordModule, MultiSelectModule
+    }), MessageModule, TooltipModule, MatFormFieldModule, PasswordModule, MultiSelectModule, VirtualScrollerModule, DialogModule
   ],
   declarations: [
     AppComponent,
@@ -98,7 +101,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     AdminLoginComponent,
     FormatuerLoginComponent,
     CandidatRegisterComponent,
-    //ChatComponent,
+    ChatComponent,
   ],
   providers: [MessageService, HttpClient,
 
@@ -108,9 +111,10 @@ import {MatDialogModule} from "@angular/material/dialog";
       multi: true
     }]
   ],
-  exports: [
-    CandidatRegisterComponent
-  ],
+    exports: [
+        CandidatRegisterComponent,
+        ChatComponent
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -40,7 +40,7 @@ export const AdminLayoutRoutes: Routes = [
     //     children: [ {
     //         path: 'typography',
     //         component: TypographyComponent
-    //     }] 
+    //     }]
     // }, {
     //     path: '',
     //     children: [ {
@@ -64,10 +64,10 @@ export const AdminLayoutRoutes: Routes = [
         ,canActivate: [AuthGuradGuard]},
        { path: 'sessionsFormation',
         loadChildren: () => import('../../Modules/gestion-session-formation/gestion-session-formation.module').then(m => m.GestionSessionFormationModule)
-      ,canActivate: [AuthGuradGuard]},   
+      ,canActivate: [AuthGuradGuard]},
       {
         path: 'Admin',
           loadChildren: () => import('../../Modules/espace-admin/espace-admin.module').then(m => m.EspaceAdminModule)
         ,},
-      
+
 ];

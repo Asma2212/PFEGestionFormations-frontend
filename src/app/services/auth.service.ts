@@ -9,6 +9,7 @@ import {RoleEnum} from "../models/RoleEnum";
 import {Roles} from "../models/Roles";
 import {Router} from "@angular/router";
 import {User} from "../models/User";
+import {data} from "jquery";
 
 @Injectable({
   providedIn: 'root'
@@ -17,19 +18,21 @@ export class AuthService {
   url="http://localhost:8080/api/auth/admin/";
   urlFormateur="http://localhost:8080/formateur/";
    a:string ;
+  theUserRole:string;
+
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
   private roleFormateur: string;
+  private p: void;
 
   constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router) {
+
   }
   login(loginRequestPayload: loginRequestPayload): Observable<boolean> {
     return this.http.post<LoginResponsePayload>(this.url+"signin", loginRequestPayload)
         .pipe(map(data => {
           console.log(data);
-
-
           this.a="ROLE_ADMIN";
           if (data.roles.includes(this.a)){
             this.localStorage.store('authenticationToken', data.accessToken);
@@ -112,10 +115,21 @@ export class AuthService {
   }
   getUserName() {
     return this.localStorage.retrieve('username');
+  }     res:boolean
+
+
+
+  isLoggedIn():boolean {
+ /*   var res
+    this.http.get("http://localhost:8080/test2/adminauthCeck").subscribe(data=>{res=true}
+      , error => { console.log("its false")
+        res=false ;
+        }
+    )
+    return res*/
+    return (!!this.getJwtToken()&& this.localStorage.retrieve("role")=="admin")
+
   }
-    isLoggedIn() {
-        return !!this.getJwtToken();
-    }
   signup(signupRequestPayload: loginRequestPayload): Observable<any> {
     console.log(signupRequestPayload)
 

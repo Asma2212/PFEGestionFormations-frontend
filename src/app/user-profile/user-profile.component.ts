@@ -15,6 +15,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit{
+  display: boolean = false;
   femme : string ;
   homme: string ;
   uploadedFiles: any[] = [];
@@ -147,4 +148,6 @@ export class UserProfileComponent implements OnInit{
     console.log(this.TheCurrentUser)
 
   }
+
+
 }

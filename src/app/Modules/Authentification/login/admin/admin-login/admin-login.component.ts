@@ -19,7 +19,7 @@ import User from "../../../../../models/User"
   styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent implements OnInit {
-
+  display: boolean = false;
   userDetail :User
   loginForm: FormGroup;
   signupForm: FormGroup;
@@ -128,5 +128,7 @@ export class AdminLoginComponent implements OnInit {
   }
 
 
-
+  showDialog() {
+    this.display = true;
+  }
 }

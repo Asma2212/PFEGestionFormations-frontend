@@ -25,6 +25,7 @@ import { ProfilComponent } from './Modules/first-login/profil/profil.component';
 import { ConfirmationComponent } from './Modules/first-login/confirmation/confirmation.component';
 import { SecuriteComponent } from './Modules/first-login/securite/securite.component';
 import { PhotoComponent } from './Modules/first-login/photo/photo.component';
+import {ChatComponent} from "./Modules/message/chat/chat.component";
 
 const routes: Routes =[
   {
@@ -87,10 +88,14 @@ children:[
   {path: 'photo', component: PhotoComponent}
 ]
 
-},
+},  { path: 'message', pathMatch: 'full',
+    component: ChatComponent
+  },
   { path: '**', pathMatch: 'full',
   component: PagenotfoundComponent
-}, 
+},
+
+
 
 ];
 
