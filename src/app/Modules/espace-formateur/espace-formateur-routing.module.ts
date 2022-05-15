@@ -5,9 +5,10 @@ import {SessionComponent} from "../FreeAcess/access-free/session/session.compone
 import {DashboardFormateurComponent} from "./dashboard-formateur/dashboard-formateur.component";
 import {CalendarFormateurComponent} from "./calendar-formateur/calendar-formateur.component";
 import { FirstLoginFormateurComponent } from './first-login-formateur/first-login-formateur.component';
+import { ProfilFormateurComponent } from './profil-formateur/profil-formateur.component';
 
 const routes: Routes = [{
-  path: 's',
+  path: '',
   component : DashboardFormateurComponent,
   children: [
     {
@@ -17,6 +18,9 @@ const routes: Routes = [{
     {
       path: 'firstLogin',
       component: FirstLoginFormateurComponent,
+    },    {
+      path: 'profil',
+      component: ProfilFormateurComponent,
     },
   ]
 }

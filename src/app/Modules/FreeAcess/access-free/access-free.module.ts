@@ -64,9 +64,9 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
         ConfirmDialogModule,
 
     ],
-    exports : [
-NavBarComponent
-    ] ,providers: [
+    exports: [
+      NavBarComponent
+  ],providers: [
     DatePipe]
 })
 export class AccessFreeModule { }

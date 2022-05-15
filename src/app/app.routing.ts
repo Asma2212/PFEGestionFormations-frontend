@@ -69,8 +69,7 @@ const routes: Routes =[
     {path:'sessiononline',
     component:SessionOnlineComponent}]
   },
-  {path:'formateur_dashboard',
-    component:DashboardFormateurComponent,
+  {path:'formateur',
     loadChildren: () => import('./Modules/espace-formateur/espace-formateur.module').then(m => m.EspaceFormateurModule)
 
   },
