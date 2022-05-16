@@ -1,4 +1,5 @@
 <div class="container">
+    <p-progressBar mode="determinate" [style]="{'height': '6px'}"></p-progressBar>
     <div class="row">
             <div class="col-lg-4">
                <div class="profile-card-4 z-depth-3">
@@ -129,19 +130,19 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Prenom</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" [value]="formateur.firstName">
+                                    <input class="form-control" type="text" [value]="formateur.firstName" [(ngModel)]="formateur.firstName">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Nom</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" [value]="formateur.lastName">
+                                    <input class="form-control" type="text" [value]="formateur.lastName" [(ngModel)]="formateur.lastName">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Email</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="email" [value]="formateur.email">
+                                    <input class="form-control" type="email" [value]="formateur.email" [(ngModel)]="formateur.email">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -153,7 +154,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Date de Naissance</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="date" [value]="formateur.dateNaiss">
+                                    <input class="form-control" type="date" [value]="formateur.dateNaiss" [(ngModel)]="formateur.dateNaiss">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -175,19 +176,19 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Ancien Mot de passe</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333">
+                                    <input class="form-control" type="password" value="11111122333" [(ngModel)]="pass1">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Nouveau Mot de passe</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333">
+                                    <input class="form-control" type="password" value="11111122333" [(ngModel)]="pass1">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Confirme</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333">
+                                    <input class="form-control" type="password" value="11111122333" [(ngModel)]="pass2">
                                 </div>
                             </div>
                             <div class="form-group row">

@@ -12,9 +12,10 @@ import {HomeDetailsComponent} from "./home-details/home-details.component";
 import {ContainerComponent} from "../../espace-candidat/container/container.component";
 
 const routes: Routes = [{
-  path: 'home',
+  path: '',
   component : HomePageComponent,
   children: [
+    {path:'', redirectTo: 'home1', pathMatch: 'full'},
     {
       path: 'session/:id',
       component: SessionComponent,

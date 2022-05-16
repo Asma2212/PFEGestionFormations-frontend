@@ -211,6 +211,7 @@ deleteCandidat(candidat: Candidat) {
             });
             this.candidat = null;
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'Candidat Supprimer', life: 3000});
+            this.router.navigate(["/candidats/list"])
         }
     });
 }
@@ -234,7 +235,9 @@ if(this.homme){
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {
       console.log("data update candidat",data)
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
-       window.location.reload();
+      // window.location.reload();
+      this.candidatDialog = false;
+       this.router.navigate(["/candidats/list"])
     });
 
 }
@@ -245,7 +248,7 @@ else {
     this.candidatService.saveCandidat(this.candidat).subscribe( data => {
       console.log("data save candidat",data)
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Ajouter', life: 3000});
-      window.location.reload();
+      this.router.navigate(["/candidats/list"])
       this.candidatDialog = false;
       this.imgURL = false ;
       this.candidat = null;
