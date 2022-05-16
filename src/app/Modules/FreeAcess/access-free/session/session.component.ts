@@ -13,6 +13,8 @@ import {ConfirmationService} from "primeng/api";
 import {SessionFormationService} from 'app/services/SessionFormation.service';
 import {data} from 'jquery';
 import {DatePipe} from "@angular/common";
+import { Observable } from 'rxjs';
+import { UploadFileService } from 'app/services/upload-file.service';
 
 @Component({
   selector: 'app-session',
@@ -23,27 +25,31 @@ export class SessionComponent implements OnInit {
 
   ListSessionOfCandidat: SessionFormation[];
   username1 = this.localStorage.retrieve("username")
-  checked1: boolean = false;
-
-  checked2: boolean = true;
-  inscrit: boolean = false;
+  checked1: boolean ;
+nbSessG : number ;
+maxG : number ;
+  checked2: boolean 
+  inscrit: boolean
   val: number;
   private errors: any;
   session: SessionFormation;
   dosentExist: boolean;
   private id: number;
   disabled: any;
-  constructor(private localStorage: LocalStorageService, public sessionService: SessionService, private route: ActivatedRoute, private toast: NgToastService, public dialog: MatDialog, private confirmationService: ConfirmationService, private sessionFormationService: SessionFormationService,public datepipe: DatePipe) {
+  fileInfos : Observable<any>
+  constructor(private localStorage: LocalStorageService, public sessionService: SessionService, private route: ActivatedRoute, private toast: NgToastService, public dialog: MatDialog, private confirmationService: ConfirmationService, private sessionFormationService: SessionFormationService,public datepipe: DatePipe,private uploadService : UploadFileService) {
   }
 
   ngOnInit(): void {
-
+    this.checked1 = true ;
+    this.checked2 = true;
+    this.inscrit = false;
     this.id = this.route.snapshot.params['id']
     console.log("ID", this.id)
     this.val = 3;
-
     this.getbyIDSession(this.id)
     this.checkIfSessionInCandidat()
+    this.fileInfos = this.uploadService.getFiles();
 
 
   }
@@ -80,6 +86,45 @@ export class SessionComponent implements OnInit {
   }
 
 
+  checkNmbMax1(): boolean{
+    var nbSession=0;
+    var listofCandidats;
+    var i=0 ;
+      this.sessionService.getSession(this.id).toPromise().then(
+        data => {
+          listofCandidats = data.listeCandidat;
+          console.log("list of candidats" + listofCandidats);
+          if(listofCandidats.length==0){
+            console.log("0 candidats in this session");
+          }
+          else {
+            console.log("i am here")
+            listofCandidats.forEach(value => {
+              console.log("candidat number" + (i + 1), value)
+
+
+              nbSession++; //nis7sbou 9adéh 3andna min candidats fi sessions ili éna féha
+
+            })
+            console.log("nombre de candidats qui son't inscrit dans cette session" ,nbSession)
+          }
+
+          if (nbSession + 1 > data.nbMaxCandidat ) {
+            console.log("its full u can't register no more")
+            /*const input = document.getElementById('bt-inscrire') as HTMLInputElement | null;
+            input?.setAttribute('disabled', '');*/
+            this.disabled = true 
+            console.log("uuu") ;
+         // this.toast.error({detail: "Échec!", summary:"errooorrr", duration: 3000})
+           return true ;
+
+          }
+         // return false ;
+        }
+
+      )
+      return false ;
+  }
   checkNmbMax(){
     var nbSession=0;
     var listofCandidats;
@@ -117,7 +162,6 @@ export class SessionComponent implements OnInit {
 
 
   inscri() {
-
     //var nombreMax;
 
     // test local storage si oui
@@ -130,81 +174,121 @@ export class SessionComponent implements OnInit {
     }
     //si il est authentifier
     else {
-      const username = this.localStorage.retrieve("username")
-      console.log("username" + username)
-      const routeId = this.route.snapshot.params['id'];
-
-      this.sessionService.getCandidaSession(username).toPromise().then(data => {
-        this.ListSessionOfCandidat = data;
-        console.log("list of sessions of a candidats" + this.ListSessionOfCandidat);
-        if(this.ListSessionOfCandidat.length==0){
-          console.log("say hii")
-
-          self.sessionService.ToInscrire(username, routeId).subscribe(data => {
-            console.log("the data" + data);
-            self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
-
-            self.inscrit = true
-          }), error => {
-            self.toast.error({detail: "Échec!", summary: error.error.message, duration: 3000});
-          }
-        }
-        this.ListSessionOfCandidat.forEach(function (value) {
-
-          if (value.idSession == routeId) {
-            //console.log("the rout"+routeId)
-
-            console.log("candiat already registred to the session ")
-            self.toast.error({detail: "Échec!", summary: "candiat already registred to the session ", duration: 3000});
-
-            return;
-          } else{ //kén mich registered {
-
-            //kén il nombre maykaffich
-/*
-            if (this.dosentExist) {
-              this.sessionFormationService.getSessions().toPromise().then(
-                data => {
-                  listSession = data;
-                  console.log("list of sessions " + listSession);
-
-                  listSession.forEach(value => {
 
 
-                    if (value.idSession == this.id) {
-                      nbSession++;
-                    }
-                  })
-                  if (nbSession + 1 > this.session.nbMaxCandidat && this) {
-                    const input = document.getElementById('bt-inscrire') as HTMLInputElement | null;
-                    input?.setAttribute('disabled', '');
 
+      var nbSession=0;
+      var listofCandidats;
+      var i=0 ;
+        this.sessionService.getSession(this.id).toPromise().then(
+          data => {
+            listofCandidats = data.listeCandidat;
+            console.log("list of candidats" + listofCandidats);
+            if(listofCandidats.length==0){
+              console.log("0 candidats in this session");
+            }
+            else {
+              console.log("i am here")
+              listofCandidats.forEach(value => {
+                console.log("candidat number" + (i + 1), value)
+  
+  
+                nbSession++; //nis7sbou 9adéh 3andna min candidats fi sessions ili éna féha
+  
+              })
+              console.log("nombre de candidats qui son't inscrit dans cette session" ,nbSession)
+            }
+  
+            if (nbSession + 1 > data.nbMaxCandidat ) {
+              console.log("its full u can't register no more")
+              /*const input = document.getElementById('bt-inscrire') as HTMLInputElement | null;
+              input?.setAttribute('disabled', '');*/
+              //this.disabled = true 
+              console.log("uuu") ;
+            this.toast.error({detail: "Échec!", summary:"errooorrr", duration: 3000})
+             return true ;
+  
+            }      else {
+              const username = this.localStorage.retrieve("username")
+              console.log("username" + username)
+              const routeId = this.route.snapshot.params['id'];
+        
+              this.sessionService.getCandidaSession(username).toPromise().then(data => {
+                this.ListSessionOfCandidat = data;
+                console.log("list of sessions of a candidats" + this.ListSessionOfCandidat);
+                if(this.ListSessionOfCandidat.length==0){
+                  console.log("say hii")
+        
+                  self.sessionService.ToInscrire(username, routeId).subscribe(data => {
+                    console.log("xxxxx " + data);
+                    self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
+        
+                    self.inscrit = true
+                  }), error => {
+                    self.toast.error({detail: "Échec!", summary: error.error.message, duration: 3000});
                   }
                 }
-              )
-
+                this.ListSessionOfCandidat.forEach(function (value) {
+        
+                  if (value.idSession == routeId) {
+                    //console.log("the rout"+routeId)
+        
+                    console.log("candiat already registred to the session ")
+                    self.toast.error({detail: "Échec!", summary: "candiat already registred to the session ", duration: 3000});
+        
+                    return;
+                  } else{ //kén mich registered {
+        
+                    //kén il nombre maykaffich
+        /*
+                    if (this.dosentExist) {
+                      this.sessionFormationService.getSessions().toPromise().then(
+                        data => {
+                          listSession = data;
+                          console.log("list of sessions " + listSession);
+        
+                          listSession.forEach(value => {
+        
+        
+                            if (value.idSession == this.id) {
+                              nbSession++;
+                            }
+                          })
+                          if (nbSession + 1 > this.session.nbMaxCandidat && this) {
+                            const input = document.getElementById('bt-inscrire') as HTMLInputElement | null;
+                            input?.setAttribute('disabled', '');
+        
+                          }
+                        }
+                      )
+        
+                    }
+        */
+        
+                    //
+                    console.log("say hii")
+        
+                    self.sessionService.ToInscrire(username, routeId).subscribe(data => {
+                      console.log("the data" + data);
+                      self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
+        
+                      self.inscrit = true
+                    }), error => {
+                      self.toast.error({detail: "Échec!", summary: error.error.message, duration: 3000});
+                    }
+        
+                  }
+                });
+              })
+        
+        
+              // sinon popup Vous devez vous connecter d'abord
             }
-*/
-
-            //
-            console.log("say hii")
-
-            self.sessionService.ToInscrire(username, routeId).subscribe(data => {
-              console.log("the data" + data);
-              self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
-
-              self.inscrit = true
-            }), error => {
-              self.toast.error({detail: "Échec!", summary: error.error.message, duration: 3000});
-            }
-
+           // return false ;
           }
-        });
-      })
-
-
-      // sinon popup Vous devez vous connecter d'abord
-    }
+  
+        )
+  }
   }
 
   /*  annuler() {
@@ -226,7 +310,8 @@ export class SessionComponent implements OnInit {
 
         })
         this.inscrit = false
-        location.reload();
+       // location.reload();
+       // this.ngOnInit()
 
       }
     });
@@ -265,6 +350,7 @@ export class SessionComponent implements OnInit {
 
           if (value.idSession == this.id) {
 
+           
             this.inscrit = true
             //nombreMax=value.nbMaxCandidat
             return;
@@ -289,4 +375,8 @@ export class SessionComponent implements OnInit {
   private opnInscriptionDialog() {
     const dialogRef = this.dialog.open(CandidatRegisterComponent)
   }
+
+  testImage(t : string){
+    return t.includes("image") ;
+ }
 }

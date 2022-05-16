@@ -11,9 +11,10 @@ import {NavBarComponent} from "./nav-bar/nav-bar.component";
 import {HomeDetailsComponent} from "./home-details/home-details.component";
 
 const routes: Routes = [{
-  path: 'home',
+  path: '',
   component : HomePageComponent,
   children: [
+    {path:'', redirectTo: 'home1', pathMatch: 'full'},
     {
       path: 'session/:id',
       component: SessionComponent,

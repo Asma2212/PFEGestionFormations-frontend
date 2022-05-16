@@ -50,24 +50,7 @@ const routes: Routes =[
     loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
 */
   {path: 'home',
-  component : HomePageComponent,
-  children: [
-  {
-    path: 'session/:id',
-    component: SessionComponent,
-  },
-  {  path: 'formation',
-    component: FormationsViewerComponent,
-  },
-  {  path: 'home1',
-    component: HomePage1Component,
-  },
-  {path:'detailsHome',
-    component:HomeDetailsComponent
-
-    },
-    {path:'sessiononline',
-    component:SessionOnlineComponent}]
+  loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
   },
   {path:'formateur',
     loadChildren: () => import('./Modules/espace-formateur/espace-formateur.module').then(m => m.EspaceFormateurModule)

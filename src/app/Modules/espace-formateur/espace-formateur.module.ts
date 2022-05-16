@@ -18,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -39,7 +41,9 @@ FullCalendarModule.registerPlugins([
     FullCalendarModule,
     AccessFreeModule,
     FormsModule,
-    InputNumberModule
+    InputNumberModule,
+    ProgressSpinnerModule,
+    ProgressBarModule
     /* FullCalendarModule,
      CalendarModule,*/
 

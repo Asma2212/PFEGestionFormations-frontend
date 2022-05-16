@@ -20,6 +20,9 @@ export class ProfilFormateurComponent implements OnInit {
   nbAvenir : number ;
   nbPasser : number ;
   age : number ; 
+  pass1 : string ;
+  pass2 : string ; 
+  
   constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService) { }
 
   ngOnInit(): void {
