@@ -74,6 +74,9 @@ const routes: Routes =[
     loadChildren: () => import('./Modules/espace-formateur/espace-formateur.module').then(m => m.EspaceFormateurModule)
 
   },
+  {path:'candidat',
+  loadChildren:() =>import('./Modules/espace-candidat/espace-candidat.module').then(m =>m.EspaceCandidatModule)},
+
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},
   {path:'login/formateur',component:FormatuerLoginComponent},
  /* {path:"register/candidat",component:CandidatRegisterComponent},*/
