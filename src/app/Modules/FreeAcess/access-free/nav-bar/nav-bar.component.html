@@ -31,11 +31,11 @@
     </a>&ndash;&gt;-->
     <a href="home/home1" class="active">Accueil</a>
     <a href="home/formation" class="active">Liste des formations</a>
-    <a href="#" class="active">Espace Candidat</a>
-    <a href="login/formateur" class="active">Espace Formateur</a>
-    <a href="#" class="active">Contact </a>
+    <a href="#" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur'">Espace Candidat</a>
+    <a href="login/formateur" class="active" *ngIf="this.localStorage.retrieve('role')!='candidat'">Espace Formateur</a>
+    <a href="#" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur'||this.localStorage.retrieve('role')!='candidat' ">Contact </a>
 
-    <a href="/home">+216-71 460 100</a></div>
+    <a href="/home" *ngIf="this.localStorage.retrieve('role')!='formateur'|| this.localStorage.retrieve('role')!='candidat' " >+216-71 460 100</a></div>
   <div class="user-settings">
     <div class="dark-light">
       <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
@@ -50,10 +50,16 @@
       </svg>
     </div>
     <div class="user-name">
-      <button class="custom-btn btn-11">s'inscrire &nbsp; <i class=" pi pi-arrow-right
-"></i>
+      <button class="custom-btn btn-11" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')!='candidat' ">s'inscrire &nbsp; <i class=" pi pi-arrow-right">
+      </i>
         <div class="dot"></div>
       </button>
+      <button class="custom-btn btn-11" *ngIf="this.localStorage.retrieve('role')=='formateur' || this.localStorage.retrieve('role')=='candidat'" >&nbsp; Se déconnecter &nbsp; &nbsp; <i class=" pi pi-arrow-right">
+      </i>
+        <div class="dot"></div>
+      </button>
+
+
     </div>
   </div>
 </div>

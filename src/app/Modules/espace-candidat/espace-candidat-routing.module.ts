@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {ContainerComponent} from "./container/container.component";
 import {CalendarFormateurComponent} from "../espace-formateur/calendar-formateur/calendar-formateur.component";
 import {NavBarCandidatComponent} from "./nav-bar-candidat/nav-bar-candidat.component";
+import {DashboardCandidatComponent} from "./dashboard-candidat/dashboard-candidat.component";
 
 const routes: Routes = [{
   path: '',
@@ -11,6 +12,9 @@ const routes: Routes = [{
    {
       path: 'nav',
       component: NavBarCandidatComponent,
+    }, {
+    path:"dasboardCandidat",
+      component:DashboardCandidatComponent,
     }
     ]
 }];

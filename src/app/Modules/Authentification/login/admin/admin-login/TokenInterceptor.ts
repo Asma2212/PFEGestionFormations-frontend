@@ -22,9 +22,11 @@ export class TokenInterceptor implements HttpInterceptor {
 
         return next.handle(request).pipe(catchError(error => {
             if (error instanceof HttpErrorResponse && error.status === 401) {
-
               console.log("bad credentials")
               this.toast.error({detail:"Échec de la connexion !",summary:"vérifier vos informations",duration:3000});
+              //return this.handle401Error(request, next);
+
+
                 return
             } else {
                 return throwError(error);

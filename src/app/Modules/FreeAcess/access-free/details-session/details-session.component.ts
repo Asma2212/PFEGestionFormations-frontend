@@ -14,7 +14,7 @@ export class DetailsSessionComponent implements OnInit {
   @Input() planning: Map<string,string>;
   @Input()descriptionSession:string
   @Input()categories:Categorie[]
-
+  @Input()nbMawParticipant:number
   isReadMore = true
   isReadMoree = true
   isReadMoreee = true

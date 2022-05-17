@@ -26,6 +26,8 @@ import { ConfirmationComponent } from './Modules/first-login/confirmation/confir
 import { SecuriteComponent } from './Modules/first-login/securite/securite.component';
 import { PhotoComponent } from './Modules/first-login/photo/photo.component';
 import {ChatComponent} from "./Modules/message/chat/chat.component";
+import {AuthGuardCandidatGuard} from "./Modules/Authentification/services/guardCandidat/auth-guard-candidat.guard";
+import {CandidatGuard} from "./Modules/Authentification/services/guardCandidat/candidat.guard";
 
 const routes: Routes =[
   {
@@ -57,11 +59,11 @@ const routes: Routes =[
     loadChildren: () => import('./Modules/espace-formateur/espace-formateur.module').then(m => m.EspaceFormateurModule)
 
   },
-  {path:'candidat',
+  {path:'candidat',canActivate:[AuthGuardCandidatGuard],
   loadChildren:() =>import('./Modules/espace-candidat/espace-candidat.module').then(m =>m.EspaceCandidatModule)},
 
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},
-  {path:'login/formateur',component:FormatuerLoginComponent},
+  {path:'login/formateur',component:FormatuerLoginComponent,canActivate:[CandidatGuard]},
  /* {path:"register/candidat",component:CandidatRegisterComponent},*/
  {path:'firstLogin',
 component:FirstLoginComponent,

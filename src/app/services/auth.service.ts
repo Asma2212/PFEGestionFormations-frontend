@@ -10,6 +10,7 @@ import {Roles} from "../models/Roles";
 import {Router} from "@angular/router";
 import {User} from "../models/User";
 import {data} from "jquery";
+import {CandidatRequestSignupPayload} from "../Modules/Authentification/payload/CandidatRequestSignupPayload";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ import {data} from "jquery";
 export class AuthService {
   url="http://localhost:8080/api/auth/admin/";
   urlFormateur="http://localhost:8080/formateur/";
+  urlCandidat="http://localhost:8080/candidat/signup";
    a:string ;
   theUserRole:string;
 
@@ -130,10 +132,18 @@ export class AuthService {
     return (!!this.getJwtToken()&& this.localStorage.retrieve("role")=="admin")
 
   }
+  isLoggedInCandidat():boolean{
+    return (!!this.getJwtToken()&& this.localStorage.retrieve("role")=="candidat")
+
+  }
   signup(signupRequestPayload: loginRequestPayload): Observable<any> {
     console.log(signupRequestPayload)
 
     return this.http.post<any>(this.url+'signup', signupRequestPayload);
+  }
+  signupCandidat(candidatRequestSignupPayload:CandidatRequestSignupPayload){
+    console.log(candidatRequestSignupPayload);
+    return this.http.post<any>(this.urlCandidat,candidatRequestSignupPayload);
   }
   currentUserDetail():Observable<any>{
 
