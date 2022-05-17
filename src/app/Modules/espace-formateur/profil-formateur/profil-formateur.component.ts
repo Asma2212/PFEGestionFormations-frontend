@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Formateur } from 'app/models/Formateur';
+import { SessionFormation } from 'app/models/SessionFormation';
 import { FormateurService } from 'app/services/formateur.service';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { MessageService } from 'primeng/api';
@@ -22,6 +23,7 @@ export class ProfilFormateurComponent implements OnInit {
   age : number ; 
   pass1 : string ;
   pass2 : string ; 
+  session : SessionFormation[] ;
   
   constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService) { }
 
@@ -29,6 +31,7 @@ export class ProfilFormateurComponent implements OnInit {
     this.nbPasser=0;
     this.nbAvenir=0;
     this.formateurService.getFormateurById(3).toPromise().then(data => {
+      console.log("daataaa2",data)
       this.formateur = data ;
       this.age = new Date().getFullYear() - new Date(this.formateur.dateNaiss).getFullYear()
       this.date1 = new Date(this.formateur.dateNaiss)
@@ -36,13 +39,17 @@ export class ProfilFormateurComponent implements OnInit {
       this.femme = "Femme" ;
       else
       this.homme = "Homme"
-      console.log("aaa",data.sessionFormationList);
-     /* this.nbPasser = this.formateur.sessionFormationList.filter(s => 
+      this.formateurService.getSessionByFormateur(3).toPromise().then(data =>{
+        this.formateur.sessionFormationList = data
+        console.log("daataaa1",data)
+      
+      console.log("aaa",this.formateur.sessionFormationList);
+     this.nbPasser = this.formateur.sessionFormationList.filter(s => 
         new Date(s.dateFinSession) < new Date()).length ;
         this.nbAvenir = this.formateur.sessionFormationList.filter(s => 
-          new Date(s.dateDebSession) > new Date()).length*/
+          new Date(s.dateDebSession) > new Date()).length
 
-    })
+    })})
     this.fileInfos = this.uploadService.getFiles();
   }
   testImage(t : string){

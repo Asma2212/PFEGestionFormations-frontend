@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Formateur } from 'app/models/Formateur';
 import { Observable } from 'rxjs';
 import {FileSystemFileEntry} from 'ngx-file-drop';
+import { SessionFormation } from 'app/models/SessionFormation';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,9 @@ export class FormateurService {
   getFormateurById(idF : number): Observable<Formateur> {
     return this.http.get<Formateur>(this.url +idF);
   }
-
+  getSessionByFormateur(id: number) :Observable<SessionFormation[]> {
+  return this.http.get<SessionFormation[]>(this.url+"listSession/"+id)
+  }
   /*deleteAllFormateur(formateurs : Formateur[] ) : Observable<any> {		
 		return this.http.post<any>(this.url + 'deleteAllFormateurs', formateurs)
   } */

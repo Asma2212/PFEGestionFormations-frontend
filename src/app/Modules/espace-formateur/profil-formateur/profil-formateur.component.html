@@ -4,7 +4,7 @@
             <div class="col-lg-4">
                <div class="profile-card-4 z-depth-3">
                 <div class="card">
-                  <div class="card-body text-center rounded-top" style="background-color: #ff0000;">
+                  <div class="card-body text-center rounded-top" style="background-color: #c90d0d">
                    <div class="user-box"  *ngFor="let file of fileInfos | async">
                         <p *ngIf="testImage(file.type) && file.name == formateur.photo">
                           <img [src]="file.url"/>
@@ -124,25 +124,25 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Numero CIN</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" [value]="formateur.username"  [(ngModel)]="formateur.username" maxlength="8" minlength="8">
+                                    <input class="form-control" name="username" type="text" [value]="formateur.username"  [(ngModel)]="formateur.username" maxlength="8" minlength="8">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Prenom</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" [value]="formateur.firstName" [(ngModel)]="formateur.firstName">
+                                    <input class="form-control" name="firstName" type="text" [value]="formateur.firstName" [(ngModel)]="formateur.firstName">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Nom</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" [value]="formateur.lastName" [(ngModel)]="formateur.lastName">
+                                    <input class="form-control" name="lastName" type="text" [value]="formateur.lastName" [(ngModel)]="formateur.lastName">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Email</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="email" [value]="formateur.email" [(ngModel)]="formateur.email">
+                                    <input class="form-control" name="email" type="email" [value]="formateur.email" [(ngModel)]="formateur.email">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -154,7 +154,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Date de Naissance</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="date" [value]="formateur.dateNaiss" [(ngModel)]="formateur.dateNaiss">
+                                    <input class="form-control" name="dateNaiss" type="date" [value]="formateur.dateNaiss" [(ngModel)]="formateur.dateNaiss">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -176,19 +176,19 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Ancien Mot de passe</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333" [(ngModel)]="pass1">
+                                    <input class="form-control" name="pass1" type="password" value="11111122333" [(ngModel)]="pass1">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Nouveau Mot de passe</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333" [(ngModel)]="pass1">
+                                    <input class="form-control" name="pass1" type="password" value="11111122333" [(ngModel)]="pass1">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Confirme</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="password" value="11111122333" [(ngModel)]="pass2">
+                                    <input class="form-control" name="pass2" type="password" value="11111122333" [(ngModel)]="pass2">
                                 </div>
                             </div>
                             <div class="form-group row">
