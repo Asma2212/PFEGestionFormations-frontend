@@ -16,7 +16,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { Candidat } from 'app/models/Candidat';
 
-@Component({ 
+@Component({
   selector: 'app-candidat-register',
   templateUrl: './candidat-register.component.html',
   styleUrls: ['./candidat-register.component.scss']
@@ -91,6 +91,7 @@ export class CandidatRegisterComponent implements OnInit {
       photo :'',
       department: null,
       classe: null,
+      phone:'',
 /*
       MyImage:'',
 */
@@ -152,20 +153,26 @@ export class CandidatRegisterComponent implements OnInit {
 
   }
   signup() {
-    console.log("username" + this.signupForm.get('username_signup').value + "email" + this.signupForm.get('email_signup').value + "password_signup" + this.signupForm.get('password_signup').value)
+    console.log("username" + this.signupForm.get('username_signup').value + "email" +
+      this.signupForm.get('email_signup').value +
+      "password_signup" + this.signupForm.get('password_signup').value+
+      "date de naissance"+this.signupForm.get('date_naiss').value+
+      "genre"+this.signupForm.get('genre').value+"phone number"+
+      this.signupForm.get('phone').value+"department",
+      this.signupForm.get('department').value+"classe",
+      this.signupForm.get('classe').value)
 //this.upload1()
     this.loginRequestPayload.username = this.signupForm.get('username_signup').value;
     this.loginRequestPayload.email = this.signupForm.get('email_signup').value;
     this.loginRequestPayload.password = this.signupForm.get('password_signup').value;
-    
-   // this.loginRequestPayload.photo = this.file.name ;
+      this.loginRequestPayload.classe= this.signupForm.get('classe').value
+    // this.loginRequestPayload.photo = this.file.name ;
     this.authService.signupCandidat(this.loginRequestPayload).subscribe(data => {
       this.isError_signup = false;
-      this.router.navigate(['/login/admin']);
+      this.router.navigate(['/candidat/dasboardCandidat']);
 
     }, error => {
       console.log(error)
-      this.isError_signup = true;
       throwError(error);
       this.errors = error.error.message;
     });
@@ -173,10 +180,14 @@ export class CandidatRegisterComponent implements OnInit {
   }
   departementSelected(){
    const dep = this.signupForm.get('department').value
+/*
    console.log("mloueeel",dep)
+*/
     if(dep[0]){
       this.d = dep[0];
+/*
       console.log("hhheeey",this.d);
+*/
       //console.log("cc",this.candidat.department.id);
       this.depSelected = true ;
       this.listClass = dep[0].classes ;
@@ -223,7 +234,7 @@ export class CandidatRegisterComponent implements OnInit {
       this.progress = 0;
       this.currentFile = this.selectedFile.item(0);
       console.log("current file",this.currentFile);
-      
+
       this.uploadService.upload(this.currentFile).subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress) {

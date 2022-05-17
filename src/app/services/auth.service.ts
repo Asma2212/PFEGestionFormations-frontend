@@ -141,6 +141,7 @@ export class AuthService {
 
     return this.http.post<any>(this.url+'signup', signupRequestPayload);
   }
+
   signupCandidat(candidatRequestSignupPayload:CandidatRequestSignupPayload){
     console.log(candidatRequestSignupPayload);
     return this.http.post<any>(this.urlCandidat,candidatRequestSignupPayload);
