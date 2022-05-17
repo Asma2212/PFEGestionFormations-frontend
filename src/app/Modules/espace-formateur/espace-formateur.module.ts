@@ -20,6 +20,14 @@ import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ProgressBarModule} from 'primeng/progressbar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { DataViewModule } from 'primeng/dataview';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -43,7 +51,16 @@ FullCalendarModule.registerPlugins([
     FormsModule,
     InputNumberModule,
     ProgressSpinnerModule,
-    ProgressBarModule
+    ProgressBarModule,
+    ConfirmDialogModule,
+    ToastModule,
+    DialogModule,
+    DataViewModule,
+    ToolbarModule,
+    DropdownModule,
+    InputTextModule,
+    TooltipModule,
+    ToolbarModule
     /* FullCalendarModule,
      CalendarModule,*/
 

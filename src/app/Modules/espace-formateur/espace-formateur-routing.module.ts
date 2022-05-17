@@ -6,6 +6,7 @@ import {DashboardFormateurComponent} from "./dashboard-formateur/dashboard-forma
 import {CalendarFormateurComponent} from "./calendar-formateur/calendar-formateur.component";
 import { FirstLoginFormateurComponent } from './first-login-formateur/first-login-formateur.component';
 import { ProfilFormateurComponent } from './profil-formateur/profil-formateur.component';
+import { FormationAvenirComponent } from './formation-avenir/formation-avenir.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,7 +22,10 @@ const routes: Routes = [{
     },    {
       path: 'profil',
       component: ProfilFormateurComponent,
-    },
+    },{
+      path: 'avenir',
+      component: FormationAvenirComponent,
+    }
   ]
 }
 ];
