@@ -68,7 +68,7 @@
     </div>
   </div>
 </div>
-<div class="card">
+<div class="card" >
   <div class="card--content">
     <h1>{{session.formationSession.titre}}</h1>
     <span>{{session.formationSession.details}}</span>
@@ -132,10 +132,10 @@
 </div>
 
 
-<div class="surface-card p-5 border" style="margin-right: 5%">
+<div  class="surface-card p-5 border" style="margin-right: 5%">
   <div class="text-3xl font-medium text-900 " style="margin-left: 7%">Formateur(s)</div>
   <ul>
-    <li *ngFor="let obj of session.listeFormateurs;">  {{obj.firstName}} {{obj.lastName}}</li>
+    <li style="margin-left: 7%" *ngFor="let obj of session.listeFormateurs;"><h4 class="deepshadow">{{obj.firstName}} {{obj.lastName}}</h4></li>
   </ul>
 </div>
 
@@ -145,6 +145,8 @@
                        [planning]="session.planning"
                      [descriptionSession]="session.descriptionSession"
                      [categories]="session.formationSession.listCategories"
+                     [nbMawParticipant]="session.nbMaxCandidat"
+
 ></app-details-session>
 
 

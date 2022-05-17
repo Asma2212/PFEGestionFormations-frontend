@@ -9,6 +9,7 @@ import {FormationsViewerComponent} from "./formations-viewer/formations-viewer.c
 import {HomePage1Component} from "./home-page1/home-page1.component";
 import {NavBarComponent} from "./nav-bar/nav-bar.component";
 import {HomeDetailsComponent} from "./home-details/home-details.component";
+import {ContainerComponent} from "../../espace-candidat/container/container.component";
 
 const routes: Routes = [{
   path: '',
@@ -31,10 +32,16 @@ const routes: Routes = [{
     },
     {path:"nav",
     component:NavBarComponent}
+    /*{path:'candidat',
+      loadChildren:() =>import('../../espace-candidat/espace-candidat.module').then(m =>m.EspaceCandidatModule)},
+*/,{
+  path:"candidat",
+      component:ContainerComponent
+    }
 
+  ],
 
-  ]
-}
+} ,
 ];
 
 @NgModule({

@@ -3,13 +3,13 @@
         <div class="container-fluid">
             <div class="row">
     <div class="card">
-  <!--  
+  <!--
         <p-toolbar styleClass="mb-4">
             <ng-template pTemplate="left">
                 <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
                 <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
             </ng-template>
-    
+
             <ng-template pTemplate="right">
                 <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
                 <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
@@ -19,7 +19,7 @@
             [(selection)]="selectedFormations" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
     -->
-    
+
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-sm p-button-success mr-2" (click)="openNew()" ></button>
@@ -43,8 +43,8 @@
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
                 </span>
-            </div> 
-            
+            </div>
+
         </ng-template>
             <ng-template pTemplate="header">
                 <tr>
@@ -61,7 +61,7 @@
             </ng-template>
                 <ng-template pTemplate="body" let-formation>
                     <tr>
-                   <td> 
+                   <td>
                        <p-tableCheckbox [value]="formation"></p-tableCheckbox>
                    </td>
                    <td>{{formation.titre}}</td>
@@ -72,7 +72,7 @@
                           </p>
                         </div>
                     </td>
-                   
+
                    <td>{{formation.charge_horaire}}</td>
                    <td>
                        <ul *ngFor="let categorie of formation.listCategories">
@@ -90,17 +90,17 @@
 
 
                 </ng-template>
-       
-    
+
+
           <ng-template pTemplate="summary">
                 <div class="flex align-items-center justify-content-between">
                     En total il y'a {{formations ? formations.length : 0 }} formations.
-                    
+
                 </div>
-            </ng-template> 
-        
+            </ng-template>
+
         </p-table>
-    
+
     </div>
    <p-dialog [(visible)]="formationDialog" [style]="{width: '450px'}" header="Foramtion Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
         <ng-template pTemplate="content">
@@ -118,13 +118,13 @@
                   <br>
                   </div>
             <div *ngIf="imgURL && !formation.idFormation">
-                <img [src]="imgURL" height="150">    
+                <img [src]="imgURL" height="150">
             </div>
             <div *ngIf="formation.image">
               <div *ngFor="let file of fileInfos | async">
                 <p class="list-group-item" *ngIf="testImage(file.type) && file.name == formation.image">
                   <img [src]="file.url" height="150">
-                </p></div>   
+                </p></div>
           </div>
             <div *ngIf="currentFile1" class="progress">
               <div
@@ -148,7 +148,7 @@
                 <textarea id="description" pInputTextarea [(ngModel)]="formation.details" required rows="3" cols="20"></textarea>
             </div>
 
-    
+
             <div class="field">
                 <label class="mb-3">Categorie</label>
                 <!--<input type="text" pInputText id="categorie" [(ngModel)]="cat" required autofocus />-->
@@ -173,14 +173,14 @@
                     </div>
                 </div>-->
             </div>
-     
+
                 <div class="field">
                     <label for="chargeHorraire">charge Horraire</label>
                     <input type="text" pInputText id="chargeHorraire" [(ngModel)]="formation.charge_horaire" required autofocus />
                     <small class="p-error" *ngIf="submitted && !formation.charge_horaire">charge Horraire est requis.</small>
                 </div>
         </ng-template>
-    
+
         <ng-template pTemplate="footer">
             <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
             <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveFormation()"></button>
@@ -206,7 +206,7 @@
     </ng-template>
 </p-dialog>
 
-    
+
 </div>
 </div>
 </div>
@@ -214,14 +214,14 @@
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
 <p-dialog header="{{titreDetail}}" [(visible)]="displayReadMore" [style]="{width: '350px'}">
-    
+
     <p>{{detailForm}}</p>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="displayReadMore=false" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
 <!-- -->
-<div class="center">
+<!--<div class="center">
     <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
                    (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
         <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
@@ -244,4 +244,4 @@
         </table>
     </div>
     <button mat-button (click)="uploadVideo()" >Upload Video</button>
-</div>
+</div>-->

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LocalStorageService} from "ngx-webstorage";
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavBarComponent implements OnInit {
   items: any;
 
-  constructor() { }
+  constructor(public localStorage: LocalStorageService,) { }
 
   ngOnInit(): void {
     console.log("navbar works")

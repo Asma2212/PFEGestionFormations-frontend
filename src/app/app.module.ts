@@ -49,7 +49,9 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 import {NgToastModule} from "ng-angular-popup";
 import {MatDialogModule} from "@angular/material/dialog";
-import { NavBarComponent } from './Modules/FreeAcess/access-free/nav-bar/nav-bar.component';
+import {ChatComponent} from "./Modules/message/chat/chat.component";
+import {VirtualScrollerModule} from "primeng/virtualscroller";
+import {DialogModule} from "primeng/dialog";
 //import { ChatComponent } from './Modules/message/chat/chat.component';
 
 @NgModule({
@@ -90,7 +92,7 @@ import { NavBarComponent } from './Modules/FreeAcess/access-free/nav-bar/nav-bar
     NgxWebstorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }), MessageModule, TooltipModule, MatFormFieldModule, PasswordModule, MultiSelectModule
+    }), MessageModule, TooltipModule, MatFormFieldModule, PasswordModule, MultiSelectModule, VirtualScrollerModule, DialogModule
   ],
   declarations: [
     AppComponent,
@@ -99,8 +101,7 @@ import { NavBarComponent } from './Modules/FreeAcess/access-free/nav-bar/nav-bar
     AdminLoginComponent,
     FormatuerLoginComponent,
     CandidatRegisterComponent,
-   // NavBarComponent
-    //ChatComponent,
+    ChatComponent,
   ],
   providers: [MessageService, HttpClient,
 
@@ -110,10 +111,10 @@ import { NavBarComponent } from './Modules/FreeAcess/access-free/nav-bar/nav-bar
       multi: true
     }]
   ],
-  exports: [
-    CandidatRegisterComponent,
-   // NavBarComponent
-  ],
+    exports: [
+        CandidatRegisterComponent,
+        ChatComponent
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

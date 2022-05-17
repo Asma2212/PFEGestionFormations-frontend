@@ -108,3 +108,8 @@
 
 </body>
 </html>
+<p-dialog  header="Title"   position="right" [(visible)]="display">
+  <app-chat></app-chat>
+</p-dialog>
+
+<button type="button" (click)="showDialog()" icon="pi pi-info-circle" label="Show"></button>

@@ -31,4 +31,9 @@ export class SessionService {
   ToDesinscrire(Username : string, sessionId:number):Observable<Object> {
   return this.http.delete(this.urlSession+"deinscription/"+sessionId+"/"+Username, { responseType: 'text' });
 }
+
+ListInscription(Username:String):Observable<SessionFormation[]>{
+    return  this.http.get<SessionFormation[]>(this.urlCandidat+Username);
+}
+
 }
