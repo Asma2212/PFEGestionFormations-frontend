@@ -7,6 +7,7 @@ import {CalendarFormateurComponent} from "./calendar-formateur/calendar-formateu
 import { FirstLoginFormateurComponent } from './first-login-formateur/first-login-formateur.component';
 import { ProfilFormateurComponent } from './profil-formateur/profil-formateur.component';
 import { FormationAvenirComponent } from './formation-avenir/formation-avenir.component';
+import { DetailSessionFormateurComponent } from './detail-session-formateur/detail-session-formateur.component';
 
 const routes: Routes = [{
   path: '',
@@ -25,6 +26,9 @@ const routes: Routes = [{
     },{
       path: 'avenir',
       component: FormationAvenirComponent,
+    },{
+      path: 'detail/session',
+      component: DetailSessionFormateurComponent,
     }
   ]
 }

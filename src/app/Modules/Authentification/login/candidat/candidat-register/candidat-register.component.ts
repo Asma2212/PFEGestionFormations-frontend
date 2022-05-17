@@ -157,8 +157,9 @@ export class CandidatRegisterComponent implements OnInit {
     this.loginRequestPayload.username = this.signupForm.get('username_signup').value;
     this.loginRequestPayload.email = this.signupForm.get('email_signup').value;
     this.loginRequestPayload.password = this.signupForm.get('password_signup').value;
+    
    // this.loginRequestPayload.photo = this.file.name ;
-    this.authService.signup(this.loginRequestPayload).subscribe(data => {
+    this.authService.signupCandidat(this.loginRequestPayload).subscribe(data => {
       this.isError_signup = false;
       this.router.navigate(['/login/admin']);
 

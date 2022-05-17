@@ -28,6 +28,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
+import { DetailSessionFormateurComponent } from './detail-session-formateur/detail-session-formateur.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -41,7 +42,8 @@ FullCalendarModule.registerPlugins([
     FirstLoginFormateurComponent,
     FormationAvenirComponent,
     HistoriqueFormationComponent,
-    ProfilFormateurComponent
+    ProfilFormateurComponent,
+    DetailSessionFormateurComponent
   ],
   imports: [
     CommonModule,
