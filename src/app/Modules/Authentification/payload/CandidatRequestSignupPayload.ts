@@ -11,6 +11,7 @@ export class CandidatRequestSignupPayload{
   password: string;
   genre : string;
   photo : string ;
+  phone :string
 /*
   MyImage : string ;
 */
