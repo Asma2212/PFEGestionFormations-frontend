@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 import {User} from "../models/User";
 import {data} from "jquery";
 import {CandidatRequestSignupPayload} from "../Modules/Authentification/payload/CandidatRequestSignupPayload";
+import { Candidat } from 'app/models/Candidat';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ import {CandidatRequestSignupPayload} from "../Modules/Authentification/payload/
 export class AuthService {
   url="http://localhost:8080/api/auth/admin/";
   urlFormateur="http://localhost:8080/formateur/";
-  urlCandidat="http://localhost:8080/candidat/signup";
+  urlCandidat="http://localhost:8080/candidat/";
    a:string ;
   theUserRole:string;
 
@@ -57,8 +58,8 @@ export class AuthService {
         }));
   }
 
-  loginFormateur(loginRequestPayload: loginRequestPayload) {
-    return this.http.post<any>(this.urlFormateur+"signin", loginRequestPayload)
+  loginFormateur(loginRequestPayload: loginRequestPayload):Observable<boolean> {
+    return this.http.post<LoginResponsePayload>(this.urlFormateur+"signin", loginRequestPayload)
       .pipe(map(data => {
         console.log(data);
         this.roleFormateur="ROLE_FORMATEUR";
@@ -85,15 +86,14 @@ export class AuthService {
       }*/));
   }
 
-  loginCandidat(loginRequestPayload: loginRequestPayload) {
-    return this.http.post<any>(this.urlFormateur+"signin", loginRequestPayload)
+  loginCandidat(loginRequestPayload: loginRequestPayload):Observable<boolean> {
+    return this.http.post<LoginResponsePayload>(this.urlCandidat+"signin", loginRequestPayload)
       .pipe(map(data => {
         console.log(data);
-        this.roleFormateur="ROLE_FORMATEUR";
-        if (data.roles.includes(this.roleFormateur)){
+        if (data.roles.includes("ROLE_CONDIDAT")){
           this.localStorage.store('authenticationToken', data.accessToken);
           this.localStorage.store('username', data.username);
-          this.localStorage.store('role',"formateur");}
+          this.localStorage.store('role',"candidat");}
 
 
 
@@ -142,9 +142,9 @@ export class AuthService {
     return this.http.post<any>(this.url+'signup', signupRequestPayload);
   }
 
-  signupCandidat(candidatRequestSignupPayload:CandidatRequestSignupPayload){
+  signupCandidat(candidatRequestSignupPayload:Candidat){
     console.log(candidatRequestSignupPayload);
-    return this.http.post<any>(this.urlCandidat,candidatRequestSignupPayload);
+    return this.http.post<any>(this.urlCandidat+"signup2",candidatRequestSignupPayload);
   }
   currentUserDetail():Observable<any>{
 

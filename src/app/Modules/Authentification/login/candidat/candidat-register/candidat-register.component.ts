@@ -15,6 +15,7 @@ import {DepartementService} from "../../../../../services/departement.service";
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { Candidat } from 'app/models/Candidat';
+import { Egenre } from 'app/models/GenreEnum';
 
 @Component({
   selector: 'app-candidat-register',
@@ -30,7 +31,8 @@ export class CandidatRegisterComponent implements OnInit {
   isError: boolean;
   isError_signup: boolean;
 
-  loginRequestPayload: CandidatRequestSignupPayload;
+  loginRequestPayload: Candidat;
+  loginRequest : loginRequestPayload;
   validateEmail = true;
   private errors: string;
   minDate: Date;
@@ -81,20 +83,27 @@ export class CandidatRegisterComponent implements OnInit {
     this.maxDate = new Date(currentYear -10, 11, 31);
 
     this.loginRequestPayload = {
-      username: '',
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-      dateNaiss: null,
-      genre: '',
-      photo :'',
-      department: null,
-      classe: null,
-      phone:'',
-/*
-      MyImage:'',
-*/
+      id : 0 ,
+      username : "", //cin
+      password : "",
+      firstName : "",
+      email : "",
+      role : [] ,
+      lastName : "",
+      numTel : 0 ,
+      dateNaiss : null ,
+      genre : null,
+      bio : "",
+      photo : "", 
+      department : null, // TI , GC , GM , GE (enum) // niveauEtude : string ; // licence / master (enum)
+      classe : null
+
+    };
+
+    this.loginRequest = {
+      username : "", //cin
+      password : "",
+      email : "",
 
     };
 
@@ -134,18 +143,19 @@ export class CandidatRegisterComponent implements OnInit {
     console.log("username" + this.loginForm.get('username').value + "email" + this.loginForm.get('email').value + "password" + this.loginForm.get('password').value)
 
 
-    this.loginRequestPayload.username = this.loginForm.get('username').value;
-    this.loginRequestPayload.email = this.loginForm.get('email').value;
-    this.loginRequestPayload.password = this.loginForm.get('password').value;
+    this.loginRequest.username = this.loginForm.get('username').value;
+    this.loginRequest.email = this.loginForm.get('email').value;
+    this.loginRequest.password = this.loginForm.get('password').value;
 
-    this.authService.login(this.loginRequestPayload).subscribe(data => {
+    this.authService.loginCandidat(this.loginRequest).subscribe(data => {
       this.isError = false;
       console.log("you are here")
       this.router.navigate(['/ggggg']);
 
+
     }, error => {
       this.isError = true;
-      console.log("error occured")
+      console.log("error occured",error)
       //throwError(error);
       //this.errors = error.error.message;
 
@@ -153,29 +163,42 @@ export class CandidatRegisterComponent implements OnInit {
 
   }
   signup() {
-    console.log("username" + this.signupForm.get('username_signup').value + "email" +
-      this.signupForm.get('email_signup').value +
-      "password_signup" + this.signupForm.get('password_signup').value+
-      "date de naissance"+this.signupForm.get('date_naiss').value+
-      "genre"+this.signupForm.get('genre').value+"phone number"+
-      this.signupForm.get('phone').value+"department",
-      this.signupForm.get('department').value+"classe",
-      this.signupForm.get('classe').value)
-//this.upload1()
+    console.log("deeep",
+      this.signupForm.get('department').value)
+this.upload1()
+this.loginRequestPayload.photo = this.file.name;
+if(this.signupForm.get('genre').value == "femme"){
+
+  console.log("geenre",Egenre.FEMME);
+   this.loginRequestPayload.genre = {id : 2 , name : Egenre.FEMME} ;
+}
+if(this.signupForm.get('genre').value == "homme"){
+
+ this.loginRequestPayload.genre = {id : 1 , name : Egenre.HOMME} ;
+}
     this.loginRequestPayload.username = this.signupForm.get('username_signup').value;
+    this.loginRequestPayload.firstName = this.signupForm.get('first_name').value;
+    this.loginRequestPayload.lastName = this.signupForm.get('last_name').value;
     this.loginRequestPayload.email = this.signupForm.get('email_signup').value;
     this.loginRequestPayload.password = this.signupForm.get('password_signup').value;
-      this.loginRequestPayload.classe= this.signupForm.get('classe').value
+      this.loginRequestPayload.classe= this.signupForm.get('classe').value[0]
+      this.loginRequestPayload.numTel= this.signupForm.get('phone').value
+      this.loginRequestPayload.department= this.signupForm.get('department').value[0]
+      this.loginRequestPayload.dateNaiss= this.signupForm.get('date_naiss').value
+
     // this.loginRequestPayload.photo = this.file.name ;
+    console.log("signUP",this.loginRequestPayload)
     this.authService.signupCandidat(this.loginRequestPayload).subscribe(data => {
+      console.log("registred")
       this.isError_signup = false;
+      this.login()
       this.router.navigate(['/candidat/dasboardCandidat']);
 
     }, error => {
-      console.log(error)
+      console.log(error.error.message)
       throwError(error);
       this.errors = error.error.message;
-    });
+    }); 
 
   }
   departementSelected(){
@@ -209,7 +232,7 @@ export class CandidatRegisterComponent implements OnInit {
       if (event.target.files.length > 0)
       {
         this.selectedFile = event.target.files;
-        const file = event.target.files[0];
+       this.file = event.target.files[0];
         //this.userFile = file;
        // this.f['profile'].setValue(file);
 
@@ -221,8 +244,8 @@ export class CandidatRegisterComponent implements OnInit {
 
       var reader = new FileReader();
 
-      this.imagePath = file;
-      reader.readAsDataURL(file);
+      this.imagePath = this.file;
+      reader.readAsDataURL(this.file);
       reader.onload = (_event) => {
         this.imgURL = reader.result;
       }

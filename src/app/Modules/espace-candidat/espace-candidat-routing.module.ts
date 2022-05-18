@@ -13,7 +13,7 @@ const routes: Routes = [{
       path: 'nav',
       component: NavBarCandidatComponent,
     }, {
-    path:"dasboardCandidat",
+    path:'dasboardCandidat',
       component:DashboardCandidatComponent,
     }
     ]
