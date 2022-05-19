@@ -55,7 +55,7 @@
                                 <div class="session-list-action">
                                     <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="top">{{session.nbMaxCandidat}}</span>
                                     <div>
-                                      <a routerLink="/formateur/detail/session"> <button pButton pRipple icon="pi pi-search" class="p-button-outlined p-button-success" style="width: 100px;" (click)="showMore(session)"> Details&nbsp;&nbsp; </button> </a> 
+                                      <a routerLink="/formateur/detail/session/{{session.idSession}}"> <button pButton pRipple icon="pi pi-search" class="p-button-outlined p-button-success" style="width: 100px;" (click)="showMore(session)"> Details&nbsp;&nbsp; </button> </a> 
                                         </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="text-align: center;font-weight: bold;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{session.nivDifficulte}}</span>
                                 </div>
                             </div>

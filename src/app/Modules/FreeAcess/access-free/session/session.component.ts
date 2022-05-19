@@ -46,7 +46,7 @@ maxG : number ;
     this.inscrit = false;
     this.id = this.route.snapshot.params['id']
     console.log("ID", this.id)
-    this.val = 3;
+    this.val = 3; 
     this.getbyIDSession(this.id)
     this.checkIfSessionInCandidat()
     this.fileInfos = this.uploadService.getFiles();

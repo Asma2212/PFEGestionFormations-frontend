@@ -203,7 +203,7 @@ export class FormationsViewerComponent implements OnInit {
 
   }
 
-
+/**
   filterParDate() {
     console.log("sess", this.sessions)
     this.submitFilterDate = true;
@@ -250,7 +250,7 @@ export class FormationsViewerComponent implements OnInit {
       console.log(this.sessions)
     }
 
-  }
+  } */
 
   filterChange() {
     this.sessions = this.filterSessions

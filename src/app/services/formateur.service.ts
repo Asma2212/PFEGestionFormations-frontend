@@ -35,6 +35,9 @@ export class FormateurService {
   getFormateurById(idF : number): Observable<Formateur> {
     return this.http.get<Formateur>(this.url +idF);
   }
+  getFormateurByUsername(u : string): Observable<Formateur> {
+    return this.http.get<Formateur>(this.url+"get/"+u);
+  }
   getSessionByFormateur(id: number) :Observable<SessionFormation[]> {
   return this.http.get<SessionFormation[]>(this.url+"listSession/"+id)
   }

@@ -9,6 +9,7 @@ import { FormateurService } from 'app/services/formateur.service';
 import { SpecialiteService } from 'app/services/specialite.service';
 import { TicketService } from 'app/services/Ticket.service';
 import { UploadFileService } from 'app/services/upload-file.service';
+import { LocalStorageService } from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -50,7 +51,7 @@ formateur : Formateur ={
   maxDate : Date ;
   fileInfos: Observable<any>;
 
-  constructor(public formateurService : FormateurService, private router: Router,private specialiteService : SpecialiteService,private uploadService: UploadFileService) { }
+  constructor(public formateurService : FormateurService, private router: Router,private specialiteService : SpecialiteService,private uploadService: UploadFileService,private localStorage: LocalStorageService) { }
 
   ngOnInit() { 
     this.specialiteService.getAllSpecialites().toPromise().then( data =>{
@@ -64,7 +65,8 @@ formateur : Formateur ={
       {code:"p.png",name:"Autre"}
     ]
      // this.personalInformatio;
-     this.formateurService.getFormateurById(3).toPromise().then(data => {
+    // const username =  this.localStorage.retrieve("username")
+   /*  this.formateurService.getFormateurByUsername(username).toPromise().then(data => {
        this.formateur = data ;
        this.date1 = new Date(this.formateur.dateNaiss)
        if(this.formateur.genre.name == "FEMME")
@@ -72,7 +74,18 @@ formateur : Formateur ={
        else
        this.homme = "Homme"
        console.log(data);
-     })
+     })*/
+
+     //TEST
+     this.formateurService.getFormateurById(3).toPromise().then(data => {
+      this.formateur = data ;
+      this.date1 = new Date(this.formateur.dateNaiss)
+      if(this.formateur.genre.name == "FEMME")
+      this.femme = "Femme" ;
+      else
+      this.homme = "Homme"
+      console.log(data);
+    })
      this.fileInfos = this.uploadService.getFiles();
   }
 

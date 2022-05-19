@@ -73,7 +73,6 @@ export class FormatuerLoginComponent implements OnInit {
 
   }
   login() {
-    this.router.navigate(['/firstLogin']);
     console.log("username" + this.loginForm.get('username').value + "email" + this.loginForm.get('email').value + "password" + this.loginForm.get('password').value)
 
 
@@ -82,8 +81,10 @@ export class FormatuerLoginComponent implements OnInit {
     this.loginRequestPayload.password = this.loginForm.get('password').value;
     this.authService.loginFormateur(this.loginRequestPayload).subscribe(data => {
       if (data==true){
+        console.log("dataaa",data)
       this.isError = false;
-      this.router.navigate(['/dashboard']);}
+      this.router.navigate(['/firstLogin']);
+    }
      /* else { this.isError = true;
         console.log("error in login method ")}*/
 

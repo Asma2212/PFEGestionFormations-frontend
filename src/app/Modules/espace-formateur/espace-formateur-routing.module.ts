@@ -27,7 +27,7 @@ const routes: Routes = [{
       path: 'avenir',
       component: FormationAvenirComponent,
     },{
-      path: 'detail/session',
+      path: 'detail/session/:id',
       component: DetailSessionFormateurComponent,
     }
   ]

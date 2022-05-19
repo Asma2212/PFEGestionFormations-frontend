@@ -29,6 +29,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { DetailSessionFormateurComponent } from './detail-session-formateur/detail-session-formateur.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -62,7 +63,8 @@ FullCalendarModule.registerPlugins([
     DropdownModule,
     InputTextModule,
     TooltipModule,
-    ToolbarModule
+    ToolbarModule,
+    InputTextareaModule
     /* FullCalendarModule,
      CalendarModule,*/
 

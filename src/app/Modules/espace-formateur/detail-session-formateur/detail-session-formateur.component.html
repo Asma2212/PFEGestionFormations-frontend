@@ -4,7 +4,11 @@
             <div class="col-lg-8 m-15px-tb">
                 <article class="article">
                     <div class="article-img">
-                        <img src="https://via.placeholder.com/800x350/87CEFA/000000" title="" alt="">
+                        <div *ngFor="let file of fileInfos | async">
+                            <p *ngIf="testImage(file.type) && file.name == session.photoSession">
+                              <img [src]="file.url"/>
+                            </p>
+                      </div>
                     </div>
                     <div class="article-title">
                         <h6><a href="#">Lifestyle</a></h6>
@@ -41,56 +45,74 @@
                     </div>
                 </article>
                 <div class="contact-form article-comment">
-                    <h4>Leave a Reply</h4>
-                    <form id="contact-form" method="POST">
+                    <div class="container">
+                        <h1 class="card-title">PLANNING </h1>
+                        <button pButton pRipple type="button" icon="pi pi-plus" label="Ajouter" class="p-button-raised p-button-text" (click)="ajouterPlanning()"></button>
+                        <br><br>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input name="Name" id="name" placeholder="Name *" class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input name="Email" id="email" placeholder="Email *" class="form-control" type="email">
-                                </div>
-                            </div>
                             <div class="col-md-12">
-                                <div class="form-group">
-                                    <textarea name="message" id="message" placeholder="Your message *" rows="4" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="send">
-                                    <button class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
+                                <div class="main-timeline4">
+                                    <div class="timeline">
+                                        <span class="timeline-icon"></span>
+                                        <span class="year">Web Desginer</span>
+                                        <div class="timeline-content">
+                                            <p class="description">
+                                             tincidunt elit at erat tincidunt, vel vulputate arcu dapibus. Etiam accumsan ornare posuere. Nullam est.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <p-dialog [(visible)]="planningDialog" [style]="{width: '450px'}" header="Ajouter Categorie" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
+                        <ng-template pTemplate="content">
+                            <div class="field">
+                                <label for="titre">Titre</label>
+                                <input type="text" pInputText id="titre" [(ngModel)]="titre" required autofocus />
+                                <small class="p-error" *ngIf="submitted && !c.titre">titre est requis.</small>
+                            </div><br>
+                            <div class="field">
+                                <label for="description">Description</label>
+                                <textarea id="description" pInputTextarea [(ngModel)]="description" required rows="3" cols="20"></textarea>
+                            </div>
+                    
+                        </ng-template>
+                    
+                        <ng-template pTemplate="footer">
+                            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hidePlanning()"></button>
+                            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="savePlanning()"></button>
+                        </ng-template>
+                    </p-dialog>
                 </div>
             </div>
             <div class="col-lg-4 m-15px-tb blog-aside">
                 <!-- Author -->
                 <div class="widget widget-author">
                     <div class="widget-title">
-                        <h3>Author</h3>
+                        <h3>Formateurs</h3>
                     </div>
                     <div class="widget-body">
-                        <div class="media align-items-center">
+                        <div class="media align-items-center" *ngFor="let f of session.listeFormateurs">
                             <div class="avatar">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" title="" alt="">
+                                <div *ngFor="let file of fileInfos | async">
+                                    <p *ngIf="testImage(file.type) && file.name == f.photo">
+                                      <img [src]="file.url"/>
+                                    </p>
+                              </div>
                             </div>
                             <div class="media-body">
-                                <h6>Hello, I'm<br> Rachel Roth</h6>
+                                <h6><br> {{f.lastName}} {{f.firstName}}</h6>
                             </div>
                         </div>
-                        <p>I design and develop services for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores</p>
+                        <p>le(s) formateur(s) de cette session </p>
                     </div>
                 </div>
                 <!-- End Author -->
                 <!-- Trending Post -->
                 <div class="widget widget-post">
                     <div class="widget-title">
-                        <h3>Trending Now</h3>
+                        <h3>Formation</h3>
                     </div>
                     <div class="widget-body">
 
@@ -100,7 +122,7 @@
                 <!-- Latest Post -->
                 <div class="widget widget-latest-post">
                     <div class="widget-title">
-                        <h3>Latest Post</h3>
+                        <h3>Session similaire</h3>
                     </div>
                     <div class="widget-body">
                         <div class="latest-post-aside media">
@@ -169,17 +191,11 @@
                 <!-- widget Tags -->
                 <div class="widget widget-tags">
                     <div class="widget-title">
-                        <h3>Latest Tags</h3>
+                        <h3>Categories</h3>
                     </div>
                     <div class="widget-body">
-                        <div class="nav tag-cloud">
-                            <a href="#">Design</a>
-                            <a href="#">Development</a>
-                            <a href="#">Travel</a>
-                            <a href="#">Web Design</a>
-                            <a href="#">Marketing</a>
-                            <a href="#">Research</a>
-                            <a href="#">Managment</a>
+                        <div class="nav tag-cloud" *ngFor="let c of session.formationSession.listCategories">
+                            <a>{{c.titre}}</a>
                         </div>
                     </div>
                 </div>

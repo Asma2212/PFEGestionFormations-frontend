@@ -148,11 +148,10 @@ export class CandidatRegisterComponent implements OnInit {
     this.loginRequest.password = this.loginForm.get('password').value;
 
     this.authService.loginCandidat(this.loginRequest).subscribe(data => {
+
       this.isError = false;
       console.log("you are here")
       this.router.navigate(['/ggggg']);
-
-
     }, error => {
       this.isError = true;
       console.log("error occured",error)
@@ -192,7 +191,7 @@ if(this.signupForm.get('genre').value == "homme"){
       console.log("registred")
       this.isError_signup = false;
       this.login()
-      this.router.navigate(['/candidat/dasboardCandidat']);
+      this.router.navigate(['/ggggggggg']);
 
     }, error => {
       console.log(error.error.message)
