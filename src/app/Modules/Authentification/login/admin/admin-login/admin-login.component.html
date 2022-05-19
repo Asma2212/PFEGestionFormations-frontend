@@ -68,7 +68,7 @@
                         <label>CIN</label>
                         <span style="color: #ff3353" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" >CIN invalide!<i class="fa-solid fa-circle-x"></i></span>
                     </div>
-              <!--      <div class="group">
+                    <div class="group">
                         <input type="email" id="email" name="email" [email]="validateEmail"[formControlName]="'email'"    required
 
                         />
@@ -77,7 +77,7 @@
                         <label>Email</label>
                         <span style="color: #ff3353" *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">email invalide <i class="fa-solid fa-circle-x"></i></span>
 
-                    </div>-->
+                    </div>
                     <div class="group">
                         <input id="password" [formControlName]="'password'"  required type="password" minlength="5" maxlength="20" />
 

@@ -16,6 +16,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { Candidat } from 'app/models/Candidat';
 import { Egenre } from 'app/models/GenreEnum';
+import {NgToastService} from "ng-angular-popup";
 
 @Component({
   selector: 'app-candidat-register',
@@ -76,7 +77,7 @@ export class CandidatRegisterComponent implements OnInit {
     classe : null
   }
 
-  constructor(private authService: AuthService, private router: Router,private uploadService : UploadFileService, private messageService: MessageService, private toastr: ToastrService,private departementService : DepartementService) {
+  constructor(private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private messageService: MessageService, private toastr: ToastrService,private departementService : DepartementService) {
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
@@ -94,7 +95,7 @@ export class CandidatRegisterComponent implements OnInit {
       dateNaiss : null ,
       genre : null,
       bio : "",
-      photo : "", 
+      photo : "",
       department : null, // TI , GC , GM , GE (enum) // niveauEtude : string ; // licence / master (enum)
       classe : null
 
@@ -153,7 +154,9 @@ export class CandidatRegisterComponent implements OnInit {
       console.log("you are here")
       this.router.navigate(['/ggggg']);
     }, error => {
-      this.isError = true;
+      this.toast.error({detail:"enter vos informations correctements !",duration:3000});
+
+      //this.isError = true;
       console.log("error occured",error)
       //throwError(error);
       //this.errors = error.error.message;
@@ -197,7 +200,7 @@ if(this.signupForm.get('genre').value == "homme"){
       console.log(error.error.message)
       throwError(error);
       this.errors = error.error.message;
-    }); 
+    });
 
   }
   departementSelected(){

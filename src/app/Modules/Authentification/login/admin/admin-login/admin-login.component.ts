@@ -89,7 +89,9 @@ export class AdminLoginComponent implements OnInit {
       this.router.navigate(['/dashboard']);
 
     }, error => {
-      this.isError = true;
+      //this.isError = true;
+      this.toast.error({detail:"enter vos informations correctements !",duration:3000});
+
 
     });
 

@@ -87,6 +87,7 @@ export class AuthService {
   }
 
   loginCandidat(loginRequestPayload: loginRequestPayload):Observable<boolean> {
+    console.log("yeaaahhhhhhh b",loginRequestPayload)
     return this.http.post<LoginResponsePayload>(this.urlCandidat+"signin", loginRequestPayload)
       .pipe(map(data => {
         console.log(data);

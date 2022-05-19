@@ -31,12 +31,20 @@
     </a>&ndash;&gt;-->
     <a href="home/home1" class="active">Accueil</a>
     <a href="home/formation" class="active">Liste des formations</a>
-    <a href="#" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur'">Espace Candidat</a>
+    <a href="#" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')!='candidat'">Espace Candidat</a>
     <a href="login/formateur" class="active" *ngIf="this.localStorage.retrieve('role')!='candidat'">Espace Formateur</a>
-    <a href="#" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur'||this.localStorage.retrieve('role')!='candidat' ">Contact </a>
+    <a href="#" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' || this.localStorage.retrieve('role')!='candidat' ">Contact </a>
 
-    <a href="/home" *ngIf="this.localStorage.retrieve('role')!='formateur'|| this.localStorage.retrieve('role')!='candidat' " >+216-71 460 100</a></div>
-  <div class="user-settings">
+    <a  class="active" href="/home" *ngIf="this.localStorage.retrieve('role')!='formateur'|| this.localStorage.retrieve('role')!='candidat' " >+216-71 460 100</a></div>
+  <a class="active" href="/home" *ngIf=" this.localStorage.retrieve('role')=='candidat' " >List inscription</a>
+  <a class="active" href="/home" *ngIf=" this.localStorage.retrieve('role')=='candidat' " >Historique</a>
+  <a class="active" href="/home" *ngIf=" this.localStorage.retrieve('role')=='candidat' " >Favoris</a>
+  <a class="active" href="/home" *ngIf=" this.localStorage.retrieve('role')=='candidat' " >Calendrier</a>
+
+
+
+
+<div class="user-settings">
     <div class="dark-light">
       <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
            stroke-linejoin="round">
