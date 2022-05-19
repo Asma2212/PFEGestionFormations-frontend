@@ -24,13 +24,18 @@ export class ConfirmationComponent implements OnInit {
 
   complete() {
      //this.firstName = localStorage.getItem('firstName')
+     console.log("aaaaaaaaa",this.formateur)
+     this.formateur.firstLogin = true ;
      this.formateurService.updateFormateur(this.formateur).toPromise().then(data =>{
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien rempli', life: 3000});
+      console.log("updated")
       localStorage.removeItem('formateur')
       this.router.navigate(['formateur/profil']);
     },
-    err =>
+    err =>{
+      console.log("eeerrrr",err.error.message)
     this.messageService.add({severity:'error', summary: 'Erreur', detail: 'un erreur est survenue', life: 3000})
+    }
     )
   }
 

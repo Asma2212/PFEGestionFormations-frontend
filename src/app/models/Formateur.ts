@@ -19,6 +19,7 @@ export class Formateur{
     cv : string ;
     etablissement : string ;
     sessionFormationList : SessionFormation[];
+    firstLogin : boolean ;
     
 }
 

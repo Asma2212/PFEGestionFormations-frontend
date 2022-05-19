@@ -40,7 +40,8 @@ formateur : Formateur ={
   photo : "",
   cv : "",
   etablissement : "",
-  sessionFormationList : []
+  sessionFormationList : [],
+  firstLogin : false 
 }
   submitted: boolean = false;
   selectedFiles: FileList;
@@ -65,8 +66,8 @@ formateur : Formateur ={
       {code:"p.png",name:"Autre"}
     ]
      // this.personalInformatio;
-    // const username =  this.localStorage.retrieve("username")
-   /*  this.formateurService.getFormateurByUsername(username).toPromise().then(data => {
+     const username =  this.localStorage.retrieve("username")
+     this.formateurService.getFormateurByUsername(username).toPromise().then(data => {
        this.formateur = data ;
        this.date1 = new Date(this.formateur.dateNaiss)
        if(this.formateur.genre.name == "FEMME")
@@ -74,10 +75,10 @@ formateur : Formateur ={
        else
        this.homme = "Homme"
        console.log(data);
-     })*/
+     })
 
      //TEST
-     this.formateurService.getFormateurById(3).toPromise().then(data => {
+    /* this.formateurService.getFormateurById(185).toPromise().then(data => {
       this.formateur = data ;
       this.date1 = new Date(this.formateur.dateNaiss)
       if(this.formateur.genre.name == "FEMME")
@@ -85,7 +86,7 @@ formateur : Formateur ={
       else
       this.homme = "Homme"
       console.log(data);
-    })
+    })*/
      this.fileInfos = this.uploadService.getFiles();
   }
 

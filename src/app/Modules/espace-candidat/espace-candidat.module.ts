@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { EspaceCandidatRoutingModule } from './espace-candidat-routing.module';
 import { ContainerComponent } from './container/container.component';
-import { NavBarCandidatComponent } from './nav-bar-candidat/nav-bar-candidat.component';
 import {AccessFreeModule} from "../FreeAcess/access-free/access-free.module";
 import { DashboardCandidatComponent } from './dashboard-candidat/dashboard-candidat.component';
 import { RecommandedComponent } from './recommanded/recommanded.component';
@@ -16,7 +15,6 @@ import {ButtonModule} from "primeng/button";
 @NgModule({
   declarations: [
     ContainerComponent,
-    NavBarCandidatComponent,
     DashboardCandidatComponent,
     RecommandedComponent,
     ListInscriptionComponent
