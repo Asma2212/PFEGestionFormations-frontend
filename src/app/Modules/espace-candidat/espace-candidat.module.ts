@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { EspaceCandidatRoutingModule } from './espace-candidat-routing.module';
 import { ContainerComponent } from './container/container.component';
-import { NavBarCandidatComponent } from './nav-bar-candidat/nav-bar-candidat.component';
 import {AccessFreeModule} from "../FreeAcess/access-free/access-free.module";
 import { DashboardCandidatComponent } from './dashboard-candidat/dashboard-candidat.component';
 import { RecommandedComponent } from './recommanded/recommanded.component';
@@ -11,15 +10,17 @@ import { ListInscriptionComponent } from './list-inscription/list-inscription.co
 import {DataViewModule} from "primeng/dataview";
 import {DropdownModule} from "primeng/dropdown";
 import {ButtonModule} from "primeng/button";
+import { NavComponent } from './nav/nav.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
     ContainerComponent,
-    NavBarCandidatComponent,
     DashboardCandidatComponent,
     RecommandedComponent,
-    ListInscriptionComponent
+    ListInscriptionComponent,
+    NavComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +28,8 @@ import {ButtonModule} from "primeng/button";
     AccessFreeModule,
     DataViewModule,
     DropdownModule,
-    ButtonModule
+    ButtonModule,
+    FormsModule
   ]
 })
 export class EspaceCandidatModule { }

@@ -80,11 +80,11 @@ export class FormatuerLoginComponent implements OnInit {
     this.loginRequestPayload.email = this.loginForm.get('email').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
     this.authService.loginFormateur(this.loginRequestPayload).subscribe(data => {
-      if (data==true){
+
         console.log("dataaa",data)
       this.isError = false;
       this.router.navigate(['/firstLogin']);
-    }
+
      /* else { this.isError = true;
         console.log("error in login method ")}*/
 
