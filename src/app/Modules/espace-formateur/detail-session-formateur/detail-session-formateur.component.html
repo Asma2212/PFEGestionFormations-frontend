@@ -11,65 +11,84 @@
                       </div>
                     </div>
                     <div class="article-title">
-                        <h6><a href="#">Lifestyle</a></h6>
-                        <h2>They Now Bade Farewell To The Kind But Unseen People</h2>
+                        <h6><a href="#">Session</a></h6>
+                        <h2>{{session.titreSession}}</h2>
                         <div class="media">
-                            <div class="avatar">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" title="" alt="">
+                            <div style="display : flex" >
+                            <div style="width: 10%;margin-left: 15%;margin-right: 3%;margin-bottom: 3%;">
+                                <img src="../../../../assets/img/timetable.png" title="" alt="">
                             </div>
-                            <div class="media-body">
-                                <label>Rachel Roth</label>
-                                <span>26 FEB 2020</span>
+                            <div class="media-body" style="display: flex;margin-top: 1%;text-align: center;">
+                                <br>
+                            <div style="margin-right: 3%; ">
+                                <label style="font-size: 16x;">Date Debut</label>
+                                <span style="font-size: 13px;">{{session.dateDebSession}}</span>
                             </div>
+                            <div style="margin-right: 3% ; ">
+                                <label style="font-size: 16px;">-</label>
+                                <span style="font-size: 13px;">-</span>
+                            </div>
+                            <div>
+                                <label style="font-size: 16px;">Date Fin</label>
+                                <span style="font-size: 13px;">{{session.dateFinSession}}</span>
+                            </div>
+                            </div>
+
                         </div>
+                        <div style="display : flex;">
+                            <div style="width: 10%;margin-left: 3%;margin-right: 3%;margin-bottom: 3%;">
+                                <img src="../../../../assets/img/place.png" title="" alt="">
+                            </div>
+                            <div class="media-body" style="display: flex;margin-top: 1%;text-align: center;">
+                                <br>
+                            <div style="margin-right: 3%; ">
+                                <label style="font-size: 16px;">Lieu</label>
+                                <span style="font-size: 13px;">{{session.lieuSession}}</span>
+                            </div>
+                            
+                            </div>
+                            
+                        </div>
+                        </div>
+                        
+
                     </div>
                     <div class="article-content">
-                        <p>Aenean eleifend ante maecenas pulvinar montes lorem et pede dis dolor pretium donec dictum. Vici consequat justo enim. Venenatis eget adipiscing luctus lorem. Adipiscing veni amet luctus enim sem libero tellus viverra venenatis aliquam. Commodo natoque quam pulvinar elit.</p>
-                        <p>Eget aenean tellus venenatis. Donec odio tempus. Felis arcu pretium metus nullam quam aenean sociis quis sem neque vici libero. Venenatis nullam fringilla pretium magnis aliquam nunc vulputate integer augue ultricies cras. Eget viverra feugiat cras ut. Sit natoque montes tempus ligula eget vitae pede rhoncus maecenas consectetuer commodo condimentum aenean.</p>
-                        <h4>What are my payment options?</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <blockquote>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                            <p class="blockquote-footer">Someone famous in <cite title="Source Title">Dick Grayson</cite></p>
-                        </blockquote>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                    <div class="nav tag-cloud">
-                        <a href="#">Design</a>
-                        <a href="#">Development</a>
-                        <a href="#">Travel</a>
-                        <a href="#">Web Design</a>
-                        <a href="#">Marketing</a>
-                        <a href="#">Research</a>
-                        <a href="#">Managment</a>
-                    </div>
+                        <p>{{session.descriptionSession}}</p>
+                      </div>
+
                 </article>
-                <div class="contact-form article-comment">
-                    <div class="container">
-                        <h1 class="card-title">PLANNING </h1>
+                <div class="article">
+                    <div class="article-title">
+                        <h6><a href="#">PLANNING</a></h6>
                         <button pButton pRipple type="button" icon="pi pi-plus" label="Ajouter" class="p-button-raised p-button-text" (click)="ajouterPlanning()"></button>
                         <br><br>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="main-timeline4">
-                                    <div class="timeline">
+                                    <div class="timeline" *ngFor="let pp of session.planning | keyvalue">
                                         <span class="timeline-icon"></span>
-                                        <span class="year">Web Desginer</span>
+                                        <div class="year" style="display: flex;">  
+                                            <span pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text" style="color: rgb(244, 244, 248);" (click)="UpdatePlanning(pp.key,pp.value)"></span> 
+                                            <p style="margin : 13px 10px 0 0;">{{pp.key}} </p>
+                                             <span pButton pRipple icon="pi pi-minus-circle" class="p-button-rounded p-button-text" style="color: rgb(110, 0, 0);" (click)="deletePlanning(pp.key)"></span>
+                                        </div>
                                         <div class="timeline-content">
                                             <p class="description">
-                                             tincidunt elit at erat tincidunt, vel vulputate arcu dapibus. Etiam accumsan ornare posuere. Nullam est.
+                                            {{pp.value}}
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
                     </div>
                     <p-dialog [(visible)]="planningDialog" [style]="{width: '450px'}" header="Ajouter Categorie" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
                         <ng-template pTemplate="content">
                             <div class="field">
                                 <label for="titre">Titre</label>
-                                <input type="text" pInputText id="titre" [(ngModel)]="titre" required autofocus />
+                                <input type="text" pInputText id="titre" [(ngModel)]="titre" required autofocus maxlength="15"/>
                                 <small class="p-error" *ngIf="submitted && !c.titre">titre est requis.</small>
                             </div><br>
                             <div class="field">
@@ -85,6 +104,68 @@
                         </ng-template>
                     </p-dialog>
                 </div>
+                <article class="article">
+                    <div class="article-title">
+                        <button pButton pRipple type="button" label="enregistrer les modifications" icon="pi pi-check-circle" class="p-button-success p-button-text" style="float: right;"></button>
+                        <h6><a href="#">Informations supplémentaires</a></h6>
+                        
+                        <div *ngIf="!session.programme">
+                     
+                      
+                                <label class = "label-file"><i class="pi pi-external-link"></i> Exporter le programme (PDF)
+                                  <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)"/>
+                                </label>
+                <br>
+                                <button class="btn btn-primary" [disabled]="!selectedFiles" (click)="upload()">
+                                    <i class="pi pi-plus-circle"></i> Upload
+                                </button>
+                            </div>
+                                <div *ngIf="currentFile" class="progress">
+                                  <div
+                                    class="progress-bar progress-bar-info progress-bar-striped"
+                                    role="progressbar"
+                                    attr.aria-valuenow="{{ progress }}"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    [ngStyle]="{ width: progress + '%' }">
+                                    {{ progress }}%
+                                  </div>
+                                  <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
+                                </div>
+                        <div *ngIf="session.programme">
+                            <h4>Importer le programme (PDF)</h4>
+                        <div *ngFor="let file of fileInfos | async">
+                            <p class="list-group-item" *ngIf="file.name == session.programme">
+                              <a href="{{ file.url }}"> <i class="pi pi-download"></i> {{ file.name }}</a>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="media">
+                            <div style="width: 5%;margin-left: 5%;margin-right: 5%;margin-bottom: 3%;">
+                                <img src="../../../../assets/img/timetable.png" title="" alt="">
+                            </div>
+                            <div class="media-body" style="display: flex;margin-top: 3%;text-align: center;">
+                                <br>
+                            <div style="margin-right: 10% ; ">
+                                <label style="font-size: 20px;">Date Debut</label>
+                                <span style="font-size: 15px;">{{session.dateDebSession}}</span>
+                            </div>
+                            <div style="margin-right: 10% ; ">
+                                <label style="font-size: 20px;">-</label>
+                                <span style="font-size: 15px;">-</span>
+                            </div>
+                            <div>
+                                <label style="font-size: 25px;">Date Debut</label>
+                                <span style="font-size: 15px;">{{session.dateFinSession}}</span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <p>{{session.descriptionSession}}</p>
+                      </div>
+
+                </article>
             </div>
             <div class="col-lg-4 m-15px-tb blog-aside">
                 <!-- Author -->

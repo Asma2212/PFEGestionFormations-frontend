@@ -30,6 +30,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { DetailSessionFormateurComponent } from './detail-session-formateur/detail-session-formateur.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ConfirmationService } from 'primeng/api';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
