@@ -3,6 +3,7 @@ import { Formateur } from 'app/models/Formateur';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { FormateurService } from 'app/services/formateur.service';
 import { UploadFileService } from 'app/services/upload-file.service';
+import { LocalStorageService } from 'ngx-webstorage';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 
@@ -25,12 +26,14 @@ export class ProfilFormateurComponent implements OnInit {
   pass2 : string ; 
   session : SessionFormation[] ;
   
-  constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService) { }
+  constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService) { }
 
   ngOnInit(): void {
     this.nbPasser=0;
     this.nbAvenir=0;
-    this.formateurService.getFormateurById(3).toPromise().then(data => {
+    const username = this.localStorage.retrieve("username")
+    this.formateurService.getFormateurByUsername(username).toPromise().then(data => {
+     localStorage.setItem("idF",data.id.toString());
       console.log("daataaa2",data)
       this.formateur = data ;
       this.age = new Date().getFullYear() - new Date(this.formateur.dateNaiss).getFullYear()
@@ -39,7 +42,7 @@ export class ProfilFormateurComponent implements OnInit {
       this.femme = "Femme" ;
       else
       this.homme = "Homme"
-      this.formateurService.getSessionByFormateur(3).toPromise().then(data =>{
+      this.formateurService.getSessionByFormateur(this.formateur.id).toPromise().then(data =>{
         this.formateur.sessionFormationList = data
         console.log("daataaa1",data)
       
@@ -49,7 +52,8 @@ export class ProfilFormateurComponent implements OnInit {
         this.nbAvenir = this.formateur.sessionFormationList.filter(s => 
           new Date(s.dateDebSession) > new Date()).length
 
-    })})
+    })
+  })
     this.fileInfos = this.uploadService.getFiles();
   }
   testImage(t : string){

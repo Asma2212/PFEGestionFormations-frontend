@@ -11,6 +11,8 @@ import {TooltipModule} from 'primeng/tooltip';
 import {NgToastService} from "ng-angular-popup";
 import { NavBarComponent } from 'app/Modules/FreeAcess/access-free/nav-bar/nav-bar.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LocalStorageService } from 'ngx-webstorage';
+import { FormateurService } from 'app/services/formateur.service';
 
 @Component({
   selector: 'app-formatuer-login',
@@ -24,7 +26,7 @@ export class FormatuerLoginComponent implements OnInit {
   validateEmail = true;
   private errors: string ;
 
-  constructor( private authService: AuthService, private router: Router,private toast:NgToastService,private dialog : MatDialog)
+  constructor( private authService: AuthService, private router: Router,private toast:NgToastService,private dialog : MatDialog,private localStorage : LocalStorageService,private formateurService : FormateurService)
 {
     this.loginRequestPayload = {
       username: '',
@@ -80,10 +82,16 @@ export class FormatuerLoginComponent implements OnInit {
     this.loginRequestPayload.email = this.loginForm.get('email').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
     this.authService.loginFormateur(this.loginRequestPayload).subscribe(data => {
-
-        console.log("dataaa",data)
+      const username = this.localStorage.retrieve("username")
+      this.formateurService.getFormateurByUsername(username).toPromise().then(d => {
+        if(d.firstLogin)
+        this.router.navigate(['/formateur/profil']);
+        else
+        this.router.navigate(['/firstLogin']);
+      });
+      console.log("dataaa",data)
       this.isError = false;
-      this.router.navigate(['/firstLogin']);
+      
 
      /* else { this.isError = true;
         console.log("error in login method ")}*/

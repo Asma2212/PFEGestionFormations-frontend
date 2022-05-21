@@ -19,11 +19,10 @@ export class ConfirmationComponent implements OnInit {
   ngOnInit() { 
     this.fileInfos = this.uploadService.getFiles();
     this.formateur = JSON.parse(localStorage.getItem('formateur'));
-      //this.ticketInformation = this.ticketService.ticketInformation;
+    //this.ticketInformation = this.ticketService.ticketInformation;
   }
 
   complete() {
-     //this.firstName = localStorage.getItem('firstName')
      console.log("aaaaaaaaa",this.formateur)
      this.formateur.firstLogin = true ;
      this.formateurService.updateFormateur(this.formateur).toPromise().then(data =>{
