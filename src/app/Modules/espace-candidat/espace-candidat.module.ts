@@ -12,6 +12,19 @@ import {DropdownModule} from "primeng/dropdown";
 import {ButtonModule} from "primeng/button";
 import { NavComponent } from './nav/nav.component';
 import {FormsModule} from "@angular/forms";
+import {ToolbarModule} from "primeng/toolbar";
+import { ArchiveComponent } from './archive/archive.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {TabMenuModule} from "primeng/tabmenu";
+import {NgProgressModule} from "ngx-progressbar";
+import {CardModule} from "primeng/card";
+import {SharedModule} from "../shared/shared.module";
+import {FullCalendarModule} from "@fullcalendar/angular";
+import { FavorisComponent } from './favoris/favoris.component';
+import { EmptyListComponent } from './empty-list/empty-list.component';
+import { EmptyArchiveComponent } from './empty-archive/empty-archive.component';
+import {ToastModule} from "primeng/toast";
 
 
 @NgModule({
@@ -21,15 +34,23 @@ import {FormsModule} from "@angular/forms";
     RecommandedComponent,
     ListInscriptionComponent,
     NavComponent,
+    ArchiveComponent,
+    CalendarComponent,
+    FavorisComponent,
+    EmptyListComponent,
+    EmptyArchiveComponent,
   ],
-  imports: [
-    CommonModule,
-    EspaceCandidatRoutingModule,
-    AccessFreeModule,
-    DataViewModule,
-    DropdownModule,
-    ButtonModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        EspaceCandidatRoutingModule,
+        AccessFreeModule,
+        DataViewModule,
+        DropdownModule,
+        ButtonModule,
+        FormsModule,
+        NgProgressModule,
+        ToolbarModule, MatDialogModule, TabMenuModule, CardModule, SharedModule, FullCalendarModule, ToastModule,
+
+    ]
 })
 export class EspaceCandidatModule { }

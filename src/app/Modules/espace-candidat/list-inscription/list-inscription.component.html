@@ -1,0 +1,107 @@
+<ng-progress></ng-progress>
+<div class="main-content" style="margin: 10px 50px 10px 50px;">
+  <div class="container-fluid">
+
+    <ng-template [ngIf]="sessions.length!=0" [ngIfThen]="thenBlock" [ngIfElse]="elseBlock">
+      This content is never showing
+    </ng-template>
+    <ng-template  #thenBlock >
+    <div class="row">
+      <div class="card">
+
+        <p-dataView #dv [value]="sessions" [paginator]="true" [rows]="9" filterBy="titreSession"
+                    [sortField]="sortField" [sortOrder]="sortOrder" layout="list" dataKey="idSession">
+          <ng-template pTemplate="header">
+            <div class="flex flex-column md:flex-row md:justify-content-between">
+              <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="filtre : nbr candidats" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+              <span class="p-input-icon-left mb-2 md:mb-0">
+                                <i class="pi pi-search"></i>
+                                <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+                            </span>
+              <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
+          </ng-template>
+          <ng-template let-session  pTemplate="listItem">
+            <div class="col-12">
+
+              <div class="session-list-item">
+                <div *ngFor="let file of fileInfos | async">
+                  <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
+                    <img [src]="file.url"  alt="file.name" />
+                  </p>
+                </div>
+                <div class="session-list-detail" style="display: flex;">
+                  <div>
+                    <div class="session-name">{{session.titreSession}}</div>
+                    <div class="session-description">{{session.descriptionSession}}</div>
+                    <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
+                  </div>
+                  <div style="margin-left: 20%;">
+                    <strong>Formateurs :</strong> <br>
+                    <i class="pi pi-users session-category-icon"></i>
+                    <span *ngFor="let formateur of session.listeFormateurs">
+                                            <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>
+                                        <span class="session-category" *ngIf="formateur.genre.name=='FEMME'">MMe. {{formateur.lastName}} {{formateur.firstName}}</span>
+                                    <br>
+                                    </span>
+                  </div>
+                </div>
+
+
+                <div class="session-list-action">
+                  <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="top">{{session.nbMaxCandidat}}</span>
+                  <div>
+                    <a routerLink="/formateur/detail/session/{{session.idSession}}">
+                    </a>
+                  </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="text-align: center;font-weight: bold;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{session.nivDifficulte}}</span>
+                </div>
+              </div>
+            </div>
+
+          </ng-template>
+
+          <ng-template let-session pTemplate="gridItem">
+            <div class="p-col-12 p-md-3">
+              <div class="session-grid-item card" style="background-color: #dee2e632">
+                <div class="session-grid-item-top">
+                  <div>
+                    <strong>Formateurs :</strong> <br>
+                    <i class="pi pi-users session-category-icon"></i>
+                    <span *ngFor="let formateur of session.listeFormateurs">
+                                            <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>
+                                        <span class="session-category" *ngIf="formateur.genre.name=='FEMME'">MMe. {{formateur.lastName}} {{formateur.firstName}}</span>
+                                    <br>
+                                    </span>
+                  </div>
+                  <span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="font-size: small;"><strong>&nbsp;{{session.nivDifficulte}}&nbsp;</strong></span>
+                </div>
+                <div class="session-grid-item-content">
+                  <div *ngFor="let file of fileInfos | async">
+                    <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
+                      <img [src]="file.url"  alt="file.name" />
+                    </p>
+                  </div>
+                  <div class="session-name">{{session.titreSession}}</div>
+                  <div class="session-description">{{session.descriptionSession}}</div>
+                  <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
+                </div><br>
+                <div class="session-grid-item-bottom">
+                  <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="bottom" >{{session.nbMaxCandidat}}</span>
+
+                  <!--  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editsession(formation)"></button>
+                      <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteFormation(formation)"></button>
+                  [disabled]="session.inventoryStatus === 'OUTOFSTOCK'"-->
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataView>
+      </div>
+
+
+    </div>
+    </ng-template>
+    <ng-template #elseBlock >
+      <app-empty-list ></app-empty-list>  </ng-template>
+  </div></div>
+

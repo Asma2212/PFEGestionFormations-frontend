@@ -1092,3 +1092,6 @@ button {
   100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
 }
 
+:host ::ng-deep .ui-dialog .ui-dialog-titlebar{
+  background: tomato;
+}

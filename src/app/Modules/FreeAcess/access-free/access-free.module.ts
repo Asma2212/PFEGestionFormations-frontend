@@ -26,6 +26,9 @@ import { ToastModule } from "primeng/toast";
 import { SessionOnlineComponent } from './session-online/session-online.component';
 import {ChipModule} from "primeng/chip";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {DialogModule} from "primeng/dialog";
+import {MessagesModule} from "../../messages/messages.module";
+import {SharedModule} from "../../shared/shared.module";
 
 
 //import { HomeComponent } from './home/home.component';
@@ -43,27 +46,30 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     HomePage1Component,
     SessionOnlineComponent
   ],
-    imports: [
-        CommonModule,
-        AccessFreeRoutingModule,
-        CardModule,
-        ButtonModule,
-        FormsModule,
-        ToggleButtonModule,
-        RatingModule,
-        TagModule,
-        SlideMenuModule,
-        MenuModule,
-        CarouselModule,
-        AccordionModule,
-        FieldsetModule,
-        CalendarModule,
-        MultiSelectModule,
-        ToastModule,
-        ChipModule,
-        ConfirmDialogModule,
+  imports: [
+    CommonModule,
+    AccessFreeRoutingModule,
+    CardModule,
+    ButtonModule,
+    FormsModule,
+    ToggleButtonModule,
+    RatingModule,
+    TagModule,
+    SlideMenuModule,
+    MenuModule,
+    CarouselModule,
+    AccordionModule,
+    FieldsetModule,
+    CalendarModule,
+    MultiSelectModule,
+    ToastModule,
+    ChipModule,
+    ConfirmDialogModule,
+    DialogModule,
+    MessagesModule,
+    SharedModule,
 
-    ],
+  ],
     exports: [
       NavBarComponent
   ],providers: [

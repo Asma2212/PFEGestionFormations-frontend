@@ -15,6 +15,7 @@ import {SessionService} from "../../../../services/session.service";
 import {NgToastService} from "ng-angular-popup";
 import {CandidatRegisterComponent} from "../../../Authentification/login/candidat/candidat-register/candidat-register.component";
 import {MatDialog} from "@angular/material/dialog";
+import {data} from "jquery";
 
 @Component({
   selector: 'app-formations-viewer',
@@ -22,6 +23,7 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./formations-viewer.component.scss']
 })
 export class FormationsViewerComponent implements OnInit {
+  favoris: boolean;
 
   filterDateDeb: Date;
   filterDateFin: Date;
@@ -74,7 +76,7 @@ export class FormationsViewerComponent implements OnInit {
   /*
   /end
    */
-  constructor(private localStorage: LocalStorageService, private sessionservice: SessionService, private toast: NgToastService, public datepipe: DatePipe, public dialog: MatDialog, private router: Router, private sessionService: SessionFormationService, private categorieService: CategorieService, private uploadService: UploadFileService, private messageService: MessageService) {
+  constructor(public localStorage: LocalStorageService, private sessionservice: SessionService, private toast: NgToastService, public datepipe: DatePipe, public dialog: MatDialog, private router: Router, private sessionService: SessionFormationService, private categorieService: CategorieService, private uploadService: UploadFileService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -118,9 +120,9 @@ export class FormationsViewerComponent implements OnInit {
 
     const toggleButton = document.querySelector(".dark-light");
 
-    toggleButton.addEventListener("click", () => {
+  /*  toggleButton.addEventListener("click", () => {
       document.body.classList.toggle("dark-mode");
-    });
+    });*/
 
     const jobCards = document.querySelectorAll(".job-card");
     const logo = document.querySelector(".logo");
@@ -167,8 +169,34 @@ export class FormationsViewerComponent implements OnInit {
     /*
     end button s'inscrire
      */
+
+this.checkFavorit("15915915",83)
   }
 
+  checkFavorit(username:string,sessionId:number):boolean{
+    this.sessionservice.ListFavoris(username).toPromise().then(data=>{
+      data.forEach(obj=>{
+        if (obj.idSession==sessionId){
+          this.favoris=true ;
+          console.log("euhsgjhwsvhwsg",obj)
+          console.log("f",this.favoris)
+         return true
+        }
+/*        else {
+          this.favoris=false ;
+return false ;
+        }*/
+      })
+
+      },error=>{
+      this.toast.error({detail: "errorfd", duration: 3000});
+      }
+    )
+    console.log("fxxx",this.favoris)
+
+    return false
+
+  }
   testImage(t: string) {
     return t.includes("image");
   }
@@ -189,10 +217,10 @@ export class FormationsViewerComponent implements OnInit {
   }
 
   saveFormation(session) {
-    this.savedSe.set(session, true)
+    /*this.savedSe.set(session, true)
     console.log(this.savedSe)
     // localStorage.setItem("formationSaved", JSON.stringify(this.savedSe.keys()));
-    // add to candidat saved session
+    // add to candidat saved session*/
 
 
   }
@@ -596,4 +624,16 @@ console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
       (new Date(dateFinSession)
       ))
   }*/
+  saveFormation1(idSession: number, username: any) {
+    this.sessionservice.ToFavoris(username,idSession).subscribe(data=>{
+      console.log("ok")
+    },error => {
+      console.log(error);
+    })
+
+  }
+
+  deleteFormation1(idSession: number, retrieve: any) {
+
+  }
 }

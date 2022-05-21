@@ -3,21 +3,26 @@
   <div style="display: block;margin-left: 15% ; margin-top:5%">
   <h1 style="text-align: center;font-family:neo-grotesque sans-serif typeface ; font-weight:bold;font-size: 40px">Ce que vous apprenez </h1>
   <div>
+    <p-tabMenu class="bg-cyan-500 "  [model]="items"></p-tabMenu>
+
+<!--
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/candidat/mesLites']" STYLE="font-family:neo-grotesque sans-serif typeface ; font-weight: bold" >Mes listes <span class="sr-only">(current)</span></a>
+        <a class="nav-link" [routerLink]="['/candidat/myList']" STYLE="font-family:neo-grotesque sans-serif typeface ; font-weight: bold" >Mes listes <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"STYLE="font-family: 'Arial Black';">Listes des souhaits</a>
+        <a class="nav-link"[routerLink]="" STYLE="font-family: 'Arial Black';">Listes des souhaits</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"STYLE="font-family: 'Arial Black';">Archivés</a>
+        <a class="nav-link" [routerLink]="['/candidat/myArchives']"  STYLE="font-family: 'Arial Black';">Archivés</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#"STYLE="font-family: 'Arial Black';">Calendrier</a>
+        <a class="nav-link disabled" [routerLink]="['/candidat/calendar']" TYLE="font-family: 'Arial Black';">Calendrier</a>
       </li>
     </ul>
+-->
   </div>
   </div>
 </nav>
 <router-outlet></router-outlet>
+<shared-footer></shared-footer>

@@ -77,7 +77,7 @@ export class CandidatRegisterComponent implements OnInit {
     classe : null
   }
 
-  constructor(private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private messageService: MessageService, private toastr: ToastrService,private departementService : DepartementService) {
+  constructor(private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private toastr: ToastrService,private departementService : DepartementService) {
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
@@ -152,7 +152,7 @@ export class CandidatRegisterComponent implements OnInit {
 
       this.isError = false;
       console.log("you are here")
-      this.router.navigate(['/ggggg']);
+      this.router.navigate(['/candidat/myList']);
     }, error => {
       this.toast.error({detail:"enter vos informations correctements !",duration:3000});
 
@@ -171,7 +171,6 @@ this.upload1()
 this.loginRequestPayload.photo = this.file.name;
 if(this.signupForm.get('genre').value == "femme"){
 
-  console.log("geenre",Egenre.FEMME);
    this.loginRequestPayload.genre = {id : 2 , name : Egenre.FEMME} ;
 }
 if(this.signupForm.get('genre').value == "homme"){
@@ -194,7 +193,7 @@ if(this.signupForm.get('genre').value == "homme"){
       console.log("registred")
       this.isError_signup = false;
       this.login()
-      this.router.navigate(['/ggggggggg']);
+      this.router.navigate(['/candidat/myList']);
 
     }, error => {
       console.log(error.error.message)
