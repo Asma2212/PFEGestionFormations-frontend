@@ -133,7 +133,7 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
                   {{session.titreSession}}
                 </div>
                 <div class="sub-title">
-                  {{session.descriptionSession}}
+                  <div [innerHTML]="session.descriptionSession | safeHtml"></div>
                 </div>
                 <div>
                   <button class="btn" style="background-color: #8D8B76;">Voir detail</button>
@@ -223,7 +223,7 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
 
         <div class="job-card-title">{{session.titreSession}}</div>
         <div class="job-card-subtitle">
-        {{session.descriptionSession}}
+          <div [innerHTML]="session.descriptionSession | safeHtml"></div>
         </div>
         <div class="job-detail-buttons">
           <button class="search-buttons detail-button" *ngFor="let categorie of session.formationSession.listCategories">

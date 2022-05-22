@@ -39,7 +39,7 @@
                                    <div class="session-list-detail" style="display: flex;">
                                     <div>
                                     <div class="session-name">{{session.titreSession}}</div>
-                                    <div class="session-description">{{session.descriptionSession}}</div>
+                                    <div class="session-description"><div [innerHTML]="session.descriptionSession | safeHtml"></div></div>
                                     <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
                                 </div>
                                     <div style="margin-left: 20%;">
@@ -86,7 +86,7 @@
                                         </p>
                                       </div>
                                     <div class="session-name">{{session.titreSession}}</div>
-                                    <div class="session-description">{{session.descriptionSession}}</div>
+                                    <div class="session-description"><div [innerHTML]="session.descriptionSession | safeHtml"></div></div>
                                  <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
                                 </div><br>
                                 <div class="session-grid-item-bottom">

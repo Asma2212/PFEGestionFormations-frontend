@@ -36,7 +36,7 @@
     <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')=='candidat'">Espace Candidat</a>
     <a [routerLink]="" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')=='candidat'">Mon compte</a>
 
-    <a [routerLink]="['/login/formateur']" class="active" *ngIf="this.localStorage.retrieve('role')!='candidat' && this.localStorage.retrieve('role')!='formateur'">Espace Formateur</a>
+    <a [routerLink]="['/login/formateur']" class="active"  *ngIf="this.localStorage.retrieve('role')!='candidat' && this.localStorage.retrieve('role')!='formateur'">Espace Formateur</a>
     <a [routerLink]="['/#']" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')!='candidat' ">Contact </a>
     <a [routerLink]="['/formateur/avenir']" class="active" *ngIf="this.localStorage.retrieve('role')=='formateur'">Formations à venir</a>
     <a [routerLink]="['/formateur/historique']" class="active" *ngIf="this.localStorage.retrieve('role')=='formateur'">Historique des formations</a>

@@ -87,14 +87,13 @@
                                         </p>
                                       </div>
                                     <div class="session-name">{{session.titreSession}}</div>
-                                    <div class="session-description">{{session.descriptionSession}}</div>
+                                    <div class="session-description"><div [innerHTML]="session.descriptionSession | safeHtml"></div></div>
                                  <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
                                 </div><br>
                                 <div class="session-grid-item-bottom">
                                     <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="bottom" >{{session.nbMaxCandidat}}</span>
                                     <div>
-                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
-                                    <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
+                                        <a routerLink="/formateur/detail/session/{{session.idSession}}"> <button pButton pRipple icon="pi pi-search" class="p-button-outlined p-button-success" style="width: 100px;" (click)="showMore(session)"> Details&nbsp;&nbsp; </button> </a>
                                     </div>
                                     <!--  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editsession(formation)"></button>
                                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteFormation(formation)"></button>

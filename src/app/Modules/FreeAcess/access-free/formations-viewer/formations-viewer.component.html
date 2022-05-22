@@ -160,7 +160,7 @@
 
             <div class="job-card-title">{{session.titreSession}}</div>
             <div class="job-card-subtitle">
-            {{session.descriptionSession}}
+              <div [innerHTML]="session.descriptionSession | safeHtml"></div>
             </div>
             <div class="job-detail-buttons">
               <button class="search-buttons detail-button" *ngFor="let categorie of session.formationSession.listCategories">
