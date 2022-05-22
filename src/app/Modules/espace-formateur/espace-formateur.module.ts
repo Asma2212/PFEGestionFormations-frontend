@@ -31,6 +31,12 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DetailSessionFormateurComponent } from './detail-session-formateur/detail-session-formateur.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmationService } from 'primeng/api';
+import {EditorModule} from 'primeng/editor';
+import { SafeHtmlPipe } from './safe-html.pipe';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ListCandidatsDialogComponent } from './list-candidats-dialog/list-candidats-dialog.component';
+import { TableModule } from 'primeng/table';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -45,7 +51,9 @@ FullCalendarModule.registerPlugins([
     FormationAvenirComponent,
     HistoriqueFormationComponent,
     ProfilFormateurComponent,
-    DetailSessionFormateurComponent
+    DetailSessionFormateurComponent,
+    SafeHtmlPipe,
+    ListCandidatsDialogComponent
   ],
   imports: [
     CommonModule,
@@ -65,7 +73,12 @@ FullCalendarModule.registerPlugins([
     InputTextModule,
     TooltipModule,
     ToolbarModule,
-    InputTextareaModule
+    InputTextareaModule,
+    EditorModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    TableModule,
+    DynamicDialogModule
     /* FullCalendarModule,
      CalendarModule,*/
 

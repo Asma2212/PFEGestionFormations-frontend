@@ -102,6 +102,7 @@ import {DialogModule} from "primeng/dialog";
     FormatuerLoginComponent,
     CandidatRegisterComponent,
     ChatComponent,
+    
   ],
   providers: [MessageService, HttpClient,
 

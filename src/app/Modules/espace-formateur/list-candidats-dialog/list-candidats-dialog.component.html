@@ -1,0 +1,65 @@
+<p-table id="excel-table" #dt [value]="candidats" [rows]="8" [paginator]="true" [globalFilterFields]="['firstName','lastName','email','department.name','classe.name']" responsiveLayout="scroll" [rowHover]="true" dataKey="id"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+<ng-template pTemplate="caption">
+    <div style="display:flex ;">
+        <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+        </span>
+    </div>
+    
+</ng-template>
+    <ng-template pTemplate="header">
+        <tr style="background-color: rgba(202, 172, 235, 0.579);">            
+                <th>Informations Personnels</th>
+                <th>Specialité</th>
+                <th>Date de Naissance</th>
+                <!--<th>Genre</th>-->
+                <th>Etablissement</th>
+              </tr>
+           
+    </ng-template>
+        <ng-template pTemplate="body" let-candidat>
+            <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div *ngFor="let file of fileInfos | async">
+                      <p class="list-group-item" *ngIf="testImage(file.type) && file.name == candidat.photo">
+                        <img [src]="file.url"
+                        alt=""
+                        style="width: 85px; height:85px;"
+                        class="rounded-circle"
+                        />
+                      </p>
+                    </div>
+                    <div class="ms-3">
+                      <p class="fw-bold mb-1"> {{candidat.firstName}} {{candidat.lastName}}</p>
+                      <p class="text-muted mb-0"> {{candidat.email}}</p>
+                      <p class="text-muted mb-0"> {{candidat.username}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="fw-normal mb-1">{{candidat.department.name}}</p>
+                  <p class="text-muted mb-0">{{candidat.classe.name}}</p>
+                </td>
+                <td>{{candidat.dateNaiss}}</td>
+                <td>ISET Rades</td>
+          </tr>
+
+
+
+
+        </ng-template>
+
+
+  <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            En total il y'a {{candidats ? candidats.length : 0 }} candidats.
+            
+        </div>
+    </ng-template> 
+
+</p-table>
+
+

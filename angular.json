@@ -28,7 +28,10 @@
               "./node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.css",
               "./node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "./node_modules/primeng/resources/primeng.min.css"
+              "./node_modules/primeng/resources/primeng.min.css",
+              "./node_modules/quill/dist/quill.core.css", 
+              "./node_modules/quill/dist/quill.snow.css"
+              
 
             ],
             "scripts": [
@@ -40,7 +43,8 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js",
-              "src/assets/js/admin-login.js"
+              "src/assets/js/admin-login.js",
+              "node_modules/quill/dist/quill.js"
             ],
             "allowedCommonJsDependencies" : [
               "rxjs/add/operator/filter",

@@ -67,7 +67,9 @@ export class FormationAvenirComponent implements OnInit {
       this.fileInfos = this.uploadService.getFiles();
       // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
      const idF =Number(localStorage.getItem("idF"))
-  this.formateurService.getSessionByFormateur(idF).toPromise().then(data => this.sessions = data);
+  this.formateurService.getSessionByFormateur(idF).toPromise().then(data => {this.sessions = data
+    this.sessions = data.filter(s => new Date(s.dateDebSession) >= new Date())
+  });
   this.cols = [
     { field: 'idSession', header: 'Code', customExportHeader: 'Session Code' },
     { field: 'titreSession', header: 'titreSession' },

@@ -121,7 +121,7 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
       width: '70%',
       contentStyle: {"max-height": "500px", "overflow": "auto"},
       baseZIndex: 10000
-  });
+  }); 
 //update selectedFormateurs = listFormateurs
     this.ref.onClose.subscribe((formateurs: Formateur[]) =>{
       this.names=[];

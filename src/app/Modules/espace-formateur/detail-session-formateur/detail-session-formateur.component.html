@@ -1,3 +1,4 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="blog-single gray-bg">
     <div class="container">
         <div class="row align-items-start">
@@ -11,7 +12,7 @@
                       </div>
                     </div>
                     <div class="article-title">
-                        <h6><a href="#">Session</a></h6>
+                        <h6><a>Session</a></h6>
                         <h2>{{session.titreSession}}</h2>
                         <div class="media">
                             <div style="display : flex" >
@@ -54,13 +55,15 @@
 
                     </div>
                     <div class="article-content">
-                        <p>{{session.descriptionSession}}</p>
+                        <div [innerHTML]="session.descriptionSession | safeHtml"></div>
+                        <p><strong>Nombre max des candidats :</strong> &nbsp;&nbsp; {{session.nbMaxCandidat}}</p>
+                        <p><strong>Nombre des candidats inscrits :</strong> &nbsp;&nbsp; {{session.listeCandidat.length}}</p>
                       </div>
 
                 </article>
                 <div class="article">
                     <div class="article-title">
-                        <h6><a href="#">PLANNING</a></h6>
+                        <h6><a>PLANNING</a></h6>
                         <button pButton pRipple type="button" icon="pi pi-plus" label="Ajouter" class="p-button-raised p-button-text" (click)="ajouterPlanning()"></button>
                         <br><br>
                         <div class="row">
@@ -106,11 +109,11 @@
                 </div>
                 <article class="article">
                     <div class="article-title">
-                        <button pButton pRipple type="button" label="enregistrer les modifications" icon="pi pi-check-circle" class="p-button-success p-button-text" style="float: right;"></button>
-                        <h6><a href="#">Informations supplémentaires</a></h6>
+                        <button pButton pRipple type="button" label="cliquez pour enregistrer les modifications" icon="pi pi-check-circle" class="p-button-success p-button-text" style="float: right;" (click)="updateSession()"></button>
+                        <h6><a>Informations supplémentaires</a></h6>
                         
-                        <div *ngIf="!session.programme">
-                     
+                        <div>
+                            <h2 class="font-bold">Programme</h2>
                       
                                 <label class = "label-file"><i class="pi pi-external-link"></i> Exporter le programme (PDF)
                                   <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)"/>
@@ -140,29 +143,26 @@
                             </p>
                           </div>
                         </div>
-                        <div class="media">
-                            <div style="width: 5%;margin-left: 5%;margin-right: 5%;margin-bottom: 3%;">
-                                <img src="../../../../assets/img/timetable.png" title="" alt="">
+                        <div class="media"></div><br>
+                            <h2>Description</h2>
+                            <p-editor [(ngModel)]="session.descriptionSession" [style]="{'height':'170px'}"></p-editor>        
+                            <div class="media"></div>
+                        <div class="ibox-content">
+                            <h2 class="font-bold">Niveau de difficulté</h2>
+                            <div *ngFor="let niv of nivDifficulte" class="field-checkbox">
+                                <p-radioButton name="nivDiff" [value]="niv" [(ngModel)]="session.nivDifficulte" required></p-radioButton>
+                                <label for="nivDiff"  class="btn btn-info  dim">&nbsp;{{niv}}</label>
                             </div>
-                            <div class="media-body" style="display: flex;margin-top: 3%;text-align: center;">
-                                <br>
-                            <div style="margin-right: 10% ; ">
-                                <label style="font-size: 20px;">Date Debut</label>
-                                <span style="font-size: 15px;">{{session.dateDebSession}}</span>
+                            <div class="media"></div>
+                            <div class="media">
+                                <button class="btn btn-primary btn-rounded btn-block" (click)="openListCandidat()"><i class="fa fa-group"></i> Consulter la liste des candidats inscrits dans cette session</button>
                             </div>
-                            <div style="margin-right: 10% ; ">
-                                <label style="font-size: 20px;">-</label>
-                                <span style="font-size: 15px;">-</span>
-                            </div>
-                            <div>
-                                <label style="font-size: 25px;">Date Debut</label>
-                                <span style="font-size: 15px;">{{session.dateFinSession}}</span>
-                            </div>
-                            </div>
+
+            
                         </div>
                     </div>
                     <div class="article-content">
-                        <p>{{session.descriptionSession}}</p>
+                       
                       </div>
 
                 </article>
@@ -196,73 +196,61 @@
                         <h3>Formation</h3>
                     </div>
                     <div class="widget-body">
-
+                        <div class="latest-post-aside media">
+                            <div class="lpa-left media-body">
+                                <div class="lpa-title">
+                                    <h5><a>{{session.formationSession.titre}}</a></h5>
+                                </div>
+                                <div class="lpa-meta">
+                                    <a class="name" id="details">
+                                        {{session.formationSession.details}}
+                                    </a><br>
+                                    <a class="date">
+                                        Charge Horraire : {{session.formationSession.charge_horaire}}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="lpa-right">
+                                <a>
+                                    <div *ngFor="let file of fileInfos | async">
+                                        <p *ngIf="testImage(file.type) && file.name == session.formationSession.image">
+                                          <img [src]="file.url" img/>
+                                        </p>
+                                  </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- End Trending Post -->
-                <!-- Latest Post -->
                 <div class="widget widget-latest-post">
                     <div class="widget-title">
                         <h3>Session similaire</h3>
                     </div>
-                    <div class="widget-body">
+                    <div class="widget-body" *ngFor="let sess of sessionSimilaire">
                         <div class="latest-post-aside media">
                             <div class="lpa-left media-body">
                                 <div class="lpa-title">
-                                    <h5><a href="#">Prevent 75% of visitors from google analytics</a></h5>
+                                    <h5><a>{{sess.titreSession}}</a></h5>
                                 </div>
                                 <div class="lpa-meta">
-                                    <a class="name" href="#">
-                                        Rachel Roth
+                                    <a class="name">
+                                        {{sess.descriptionSession}}
+                                    </a><br>
+                                    <a class="date">
+                                        debut : {{sess.dateDebSession}}
                                     </a>
-                                    <a class="date" href="#">
-                                        26 FEB 2020
+                                    <a class="date">
+                                       fin : {{sess.dateFinSession}}
                                     </a>
                                 </div>
                             </div>
                             <div class="lpa-right">
-                                <a href="#">
-                                    <img src="https://via.placeholder.com/400x200/FFB6C1/000000" title="" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="latest-post-aside media">
-                            <div class="lpa-left media-body">
-                                <div class="lpa-title">
-                                    <h5><a href="#">Prevent 75% of visitors from google analytics</a></h5>
-                                </div>
-                                <div class="lpa-meta">
-                                    <a class="name" href="#">
-                                        Rachel Roth
-                                    </a>
-                                    <a class="date" href="#">
-                                        26 FEB 2020
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="lpa-right">
-                                <a href="#">
-                                    <img src="https://via.placeholder.com/400x200/FFB6C1/000000" title="" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="latest-post-aside media">
-                            <div class="lpa-left media-body">
-                                <div class="lpa-title">
-                                    <h5><a href="#">Prevent 75% of visitors from google analytics</a></h5>
-                                </div>
-                                <div class="lpa-meta">
-                                    <a class="name" href="#">
-                                        Rachel Roth
-                                    </a>
-                                    <a class="date" href="#">
-                                        26 FEB 2020
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="lpa-right">
-                                <a href="#">
-                                    <img src="https://via.placeholder.com/400x200/FFB6C1/000000" title="" alt="">
+                                <a>
+                                    <div *ngFor="let file of fileInfos | async">
+                                        <p *ngIf="testImage(file.type) && file.name == sess.photoSession">
+                                          <img [src]="file.url"/>
+                                        </p>
+                                  </div>
                                 </a>
                             </div>
                         </div>
@@ -275,7 +263,7 @@
                         <h3>Categories</h3>
                     </div>
                     <div class="widget-body">
-                        <div class="nav tag-cloud" *ngFor="let c of session.formationSession.listCategories">
+                        <div class="nav tag-cloud" *ngFor="let c of session.formationSession.listCategories" style="color: white;">
                             <a>{{c.titre}}</a>
                         </div>
                     </div>

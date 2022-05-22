@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionService } from 'app/services/session.service';
@@ -10,11 +10,16 @@ import { Observable } from 'rxjs';
 import { ThirdPartyDraggable } from '@fullcalendar/interaction';
 import { ConfirmationService } from 'primeng/api';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
+import { ListCandidatsDialogComponent } from '../list-candidats-dialog/list-candidats-dialog.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Formateur } from 'app/models/Formateur';
 
 @Component({
   selector: 'app-detail-session-formateur',
   templateUrl: './detail-session-formateur.component.html',
-  styleUrls: ['./detail-session-formateur.component.scss']
+  styleUrls: ['./detail-session-formateur.component.scss'],
+  providers: [DialogService],
 })
 export class DetailSessionFormateurComponent implements OnInit {
 id : number ;
@@ -41,8 +46,12 @@ currentFile1: File;
 progress1 = 0;
 message1 = '';
 cvFile: File ;
+nivDifficulte : NivDifficulteEnum[] = [NivDifficulteEnum.facile,NivDifficulteEnum.moyen,NivDifficulteEnum.avance];
+sessionSimilaire : SessionFormation[];
+selectedFormateurs : Formateur[];
+ref: DynamicDialogRef;
 
-  constructor(private route: ActivatedRoute,private sessionService : SessionService,private sessionForamtionService : SessionFormationService,private uploadService : UploadFileService,private confirmationService:ConfirmationService) { }
+  constructor(private route: ActivatedRoute,private sessionService : SessionService,private sessionForamtionService : SessionFormationService,private uploadService : UploadFileService,private confirmationService:ConfirmationService,private dialogService: DialogService,private sessionFormationService : SessionFormationService) { }
 
   ngOnInit(): void {
     this.planningDialog = false ;
@@ -56,7 +65,9 @@ cvFile: File ;
     this.sessionService.getSession(this.id).toPromise().then(data => {
       console.log("Message", data)
       this.session = data
-
+this.sessionForamtionService.getSessions().toPromise().then(d =>{
+  this.sessionSimilaire = d.filter(s => ((s.formationSession.titre == this.session.formationSession.titre) && (s.idSession != this.session.idSession)))
+})
 
     }, error => {
       console.log(error.error.message)
@@ -161,5 +172,36 @@ this.planningDialog = true ;
 
 selectFile(event) {
   this.selectedFiles = event.target.files;
+}
+
+updateSession(){
+  console.log("NIIv",this.session.nivDifficulte)
+  console.log("before update",this.session)
+  this.sessionForamtionService.updateSession(this.session).toPromise().then(
+    data =>{
+      console.log("updated perfectly",data)
+      this.getbyIDSession()
+      
+    },
+    error => {
+      console.log("erreur", error.error.message)
+    }
+  )
+}
+openListCandidat(){
+  console.log("aaa")
+  this.ref = this.dialogService.open(ListCandidatsDialogComponent, {
+    header: 'Liste des candidats',
+    width: '70%',
+    contentStyle: {"max-height": "500px", "overflow": "auto"},
+    baseZIndex: 10000
+}); 
+
+
+}
+ngOnDestroy() {
+  if (this.ref) {
+      this.ref.close();
+  }
 }
 }
