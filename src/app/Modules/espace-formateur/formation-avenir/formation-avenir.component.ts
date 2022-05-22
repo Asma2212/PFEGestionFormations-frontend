@@ -24,6 +24,7 @@ export class FormationAvenirComponent implements OnInit {
   dateFin : Date;
     formSess : Formation[] = [];
     sessions: SessionFormation[];
+    sessionsAll: SessionFormation[];
     session : SessionFormation ;
     selectedFormateurs : Formateur[];
   
@@ -68,7 +69,7 @@ export class FormationAvenirComponent implements OnInit {
       // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
      const idF =Number(localStorage.getItem("idF"))
   this.formateurService.getSessionByFormateur(idF).toPromise().then(data => {this.sessions = data
-    this.sessions = data.filter(s => new Date(s.dateFinSession) >= new Date())
+this.sessionsAll = data
   });
   this.cols = [
     { field: 'idSession', header: 'Code', customExportHeader: 'Session Code' },
@@ -204,5 +205,14 @@ export class FormationAvenirComponent implements OnInit {
 
     showMore(session : SessionFormation){
       
+    }
+    historique(){
+      this.sessions = this.sessionsAll.filter(s => new Date(s.dateFinSession) < new Date())
+    }
+    encours(){
+      this.sessions = this.sessionsAll.filter(s => new Date(s.dateFinSession) >= new Date() &&  new Date(s.dateDebSession) <= new Date())
+    }
+    avenir(){
+      this.sessions = this.sessionsAll.filter(s => new Date(s.dateDebSession) > new Date())
     }
   }

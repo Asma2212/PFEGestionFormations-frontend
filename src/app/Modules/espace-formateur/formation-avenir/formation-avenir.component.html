@@ -7,7 +7,13 @@
                     <ng-template pTemplate="left">
 
                     </ng-template>
-
+                    <ng-template pTemplate="left">
+                        <div class="flex">
+                            <button type="button" pButton pRipple  (click)="historique()" class="p-button-outlined p-button-secondary mr-2" label="Historique des Formations"></button>
+                            <button type="button" pButton pRipple  (click)="encours()" class="p-button-outlined p-button-warning mr-2" label="Formation En cours"></button>
+                            <button type="button" pButton pRipple  (click)="avenir()" class="p-button-outlined p-button-help mr-2" label="Formation A venir"></button>
+                        </div>
+                    </ng-template>
                     <ng-template pTemplate="right">
                         <div class="flex">
                             <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>

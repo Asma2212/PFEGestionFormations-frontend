@@ -1,10 +1,12 @@
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Formateur } from 'app/models/Formateur';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { FormateurService } from 'app/services/formateur.service';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -25,8 +27,17 @@ export class ProfilFormateurComponent implements OnInit {
   pass1 : string ;
   pass2 : string ; 
   session : SessionFormation[] ;
+
+  file: File = null;
+  public imagePath;
+  imgURL: any = null ;
+  currentFile: File;
+  message = '';
+  progress = 0;
+  selectedFile : FileList ;
+  nbEncours : number =0;
   
-  constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService) { }
+  constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
 
   ngOnInit(): void {
     this.nbPasser=0;
@@ -51,6 +62,8 @@ export class ProfilFormateurComponent implements OnInit {
         new Date(s.dateFinSession) < new Date()).length ;
         this.nbAvenir = this.formateur.sessionFormationList.filter(s => 
           new Date(s.dateDebSession) > new Date()).length
+          this.nbEncours = this.formateur.sessionFormationList.filter(s => 
+            new Date(s.dateFinSession) >= new Date() && new Date(s.dateDebSession) <= new Date()).length ;
 
     })
   })
@@ -65,4 +78,62 @@ export class ProfilFormateurComponent implements OnInit {
    })
    this.ngOnInit();
  }
+
+ onUpload(event){
+  this.selectedFile = event.target.files;
+  this.file = <File>event.target.files[0]
+  console.log(this.file)
+  var mimeType = event.target.files[0].type;
+  if (mimeType.match(/image\/*/) == null) {
+    this.message = "Only images are supported.";
+    return;
+  }
+
+  var reader = new FileReader();
+  
+  this.imagePath = this.file;
+  reader.readAsDataURL(this.file); 
+  reader.onload = (_event) => { 
+    this.imgURL = reader.result;
+    console.log("imaage",this.imgURL.url) 
+  }
+}
+upload1() {
+  this.currentFile = this.selectedFile.item(0);
+  console.log("current file",this.currentFile);
+  
+  this.uploadService.upload(this.currentFile).subscribe(
+    event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        this.message = event.body.message;
+      }
+    },
+    err => {
+      this.progress = 0;
+      console.log(err);
+      if(err.error.message.includes("constraint"))
+      this.message =" Cette image existe deja"
+      else
+      this.message = ' Un probleme est survenue';
+      this.currentFile = undefined;
+    });
+  this.selectedFile = undefined;
+}
+
+deco(){
+  console.log("I entered")
+  this.confirmationService.confirm({
+    message: 'Êtes-vous sûr de vouloir quitter?',
+    accept: () => {
+      this.localStorage.clear("authenticationToken")
+      this.localStorage.clear("username")
+      this.localStorage.clear("role")
+      localStorage.removeItem("idF")
+      this.router.navigate(["/home"])
+
+    }
+  });
+}
 }

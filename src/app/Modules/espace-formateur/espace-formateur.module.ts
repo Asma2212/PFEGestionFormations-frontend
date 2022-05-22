@@ -37,6 +37,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ListCandidatsDialogComponent } from './list-candidats-dialog/list-candidats-dialog.component';
 import { TableModule } from 'primeng/table';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {FileUploadModule} from 'primeng/fileupload';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -78,7 +79,8 @@ FullCalendarModule.registerPlugins([
     InputTextareaModule,
     RadioButtonModule,
     TableModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    FileUploadModule
     /* FullCalendarModule,
      CalendarModule,*/
 

@@ -1,207 +1,205 @@
-<div class="container">
-    <div class="row">
-            <div class="col-lg-4">
-               <div class="profile-card-4 z-depth-3">
-                <div class="card">
-                  <div class="card-body text-center rounded-top" style="background-color: #c90d0d">
-                   <div class="user-box"  *ngFor="let file of fileInfos | async">
-                        <p *ngIf="testImage(file.type) && file.name == formateur.photo">
-                          <img [src]="file.url"/>
-                        </p>
-                  </div>
-                  <h2 class="mb-1 text-white">{{formateur.lastName}} {{formateur.firstName}}</h2>
-                  <h5 class="text-light">{{formateur.etablissement}}</h5>
-                 </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container" >
+        <div class="row flex-lg-nowrap">
+        
+        
+          <div class="col">
+            <div class="row" >
+              <div class="col mb-3" >
+                <div class="card" >
                   <div class="card-body">
-                    <ul class="list-group shadow-none">
-                    <li class="list-group-item">
-                      <div class="list-icon">
-                        <i class="fa fa-phone-square"></i>
-                      </div>
-                      <div class="list-details">
-                        <span>{{formateur.numTel}}</span>
-                        <small>Numero de téléphone</small>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="list-icon">
-                        <i class="fa fa-envelope"></i>
-                      </div>
-                      <div class="list-details">
-                        <span>{{formateur.email}}</span>
-                        <small>Adresse e-mail</small>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="list-icon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <div class="list-details">
-                        <span>{{formateur.dateNaiss}}</span>
-                        <small>date de naissance</small>
-                      </div>
-                    </li>
-                    </ul>
-                    <div class="row text-center mt-4">
-                      <div class="col p-2">
-                       <h4 class="mb-1 line-height-5">{{nbAvenir}}</h4>
-                        <small class="mb-0 font-weight-bold">A venir</small>
-                       </div>
-                        <div class="col p-2">
-                          <h4 class="mb-1 line-height-5">{{nbPasser}}</h4>
-                         <small class="mb-0 font-weight-bold">Passer</small>
+                    <div class="e-profile">
+                      <div class="row" style="margin-left: 1%;">
+                        <div class="col-12 col-sm-auto mb-3" >
+                            <div *ngIf="!imgURL">
+                          <div *ngFor="let file of fileInfos | async"> 
+                                    <div *ngIf="testImage(file.type) && file.name == formateur.photo">
+                                      <img [src]="file.url" height="140px" width="140px"/>
+                                    </div>
+                          </div></div>
+                          <div *ngIf="imgURL">
+                            <img  height="140px" width="140px" [src]="imgURL" alt="bbbbbb">
+                          </div>
                         </div>
-                        <div class="col p-2">
-                         <h4 class="mb-1 line-height-5">{{nbPasser + nbAvenir}}</h4>
-                         <small class="mb-0 font-weight-bold">Tous</small>
-                        </div>
-                     </div>
-                   </div>
-                   <div class="card-footer text-center">
-                     <i class="fa fa-address-card"></i>
-                     <i class="fa fa-graduation-cap"></i>
-                     <i class="fa fa-desktop"></i>
-                     <i class="fa fa-briefcase"></i>
-                   </div>
-                 </div>
-               </div>
-            </div>
-            <div class="col-lg-8">
-               <div class="card z-depth-3">
-                <div class="card-body">
-                <ul class="nav nav-pills nav-pills-primary nav-justified">
-                    <li class="nav-item">
-                        <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="icon-note"></i> <span class="hidden-xs">Changer</span></a>
-                    </li>
-                </ul>
-                <div class="tab-content p-3">
-                    <div class="tab-pane active show" id="profile">
-                        <h2 class="mb-3" style="font-family: Castellar;">BIENVENUE <span *ngIf="formateur.genre.name == 'FEMME'">Madame</span>
-                            <span *ngIf="formateur.genre.name == 'HOMME'">Monsieur</span></h2>
-                        <div class="row">
-                            <div class="col-md-6">
-                               
-                                    <h4>Numero CIN</h4>
-                                    <p>{{formateur.username}}</p>
-                               <br>
-                                <h4>Specialité(s)</h4>
-                                <ul *ngFor="let sp of formateur.lesSpecialites">
-                                  <li> <strong> {{sp.titre}} </strong>  {{sp.description}} </li>
-                                </ul>
-                                
+                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                          <div class="text-center text-sm-left mb-2 mb-sm-0">
+                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{formateur.lastName}} {{formateur.firstName}}</h4>
+                            <p class="mb-0">{{formateur.email}}</p>
+                            <div class="text-muted"><small>{{formateur.username}}</small></div>
+                            <div class="mt-2">
+                                <label class = "label-file" class="btn btn-primary"> <i class="fa fa-fw fa-camera"></i> &nbsp;Changer Photo
+                                    <input type="file" class="input-file" accept="image/*" (change)="onUpload($event)"/>
+                                  </label>
                             </div>
-                            <div class="col-md-6">
-                                <h4>Age</h4>
-                                <h4 class="badge badge-success"  style="color: white;"><i class="fa fa-calendar"></i> {{age}} ans</h4>
-                                <hr>
-                                <span *ngFor="let sp of formateur.lesSpecialites">
-                                <h4 class="badge badge-info badge-pill" style="color: white;">{{sp.titre}}</h4>
-                            </span>
-                                <hr>
-                                <h4>CV</h4>
-                                <div *ngFor="let file of fileInfos | async">
-                                    <p class="list-group-item" *ngIf="file.name == formateur.cv">
-                                      <a href="{{ file.url }}"> <i class="pi pi-download"></i> {{ file.name }}</a>
-                                    </p>
+                          </div>
+                          <div class="text-center text-sm-right">
+                            <span class="badge badge-secondary">Formateur</span>
+                            <div class="text-muted"><small>{{formateur.etablissement}}</small></div>
+                          </div>
+                        </div>
+                      </div>
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                      </ul>
+                      <div class="tab-content pt-3">
+                        <div class="tab-pane active">
+                          <form class="form" novalidate="">
+                            <div class="row">
+                              <div class="col">
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label>Nom</label>
+                                      <input class="form-control" type="text" name="name"  [(ngModel)]="formateur.lastName">
+                                    </div>
                                   </div>
-                            </div>
-                            <div class="col-md-12"><hr style="border-top: 2px dotted black;"></div>
-                            <div class="col-md-12"  style="border: 3px solid #969696;padding-bottom: 6px;">
-                                <h4 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> A propos de moi</h4>
-                                <div>
-                                    {{formateur.bio}}
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label>Prenom</label>
+                                      <input class="form-control" type="text" name="username" [(ngModel)]="formateur.firstName">
+                                    </div>
+                                  </div>
                                 </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label>Email</label>
+                                      <input class="form-control" type="email" name="email" [(ngModel)]="formateur.email">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <div class="form-group">
+                                      <label>About</label>
+                                      <textarea class="form-control" rows="5" name="bio" [(ngModel)]="formateur.bio"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                      <div class="form-group">
+                                        <label>Date de naissance</label>
+                                        <input class="form-control" type="date" name="dateNaiss" [(ngModel)]="formateur.dateNaiss">
+                                      </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                          <div class="gender-details">
+                                            <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="homme">
+                                            <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="femme">
+                                            <label for="gender">Genre</label>
+                                            <div class="category">
+                                              <label for="dot-1">
+                                              <span class="dot one"></span>
+                                              <span class="gender">&emsp;<i class="fa fa-solid fa-mars"></i> Homme </span>
+                                            </label> 
+                                            <label for="dot-2">
+                                              <span class="dot two"></span>
+                                              <span class="gender">&emsp;<i class="fa fa-solid fa-venus"></i> Femme </span>
+                                            </label>
+                                            </div>
+                                          </div>
+                                       
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
                             </div>
+                            <div class="row">
+                              <div class="col-12 col-sm-6 mb-3">
+                                <div class="mb-2"><b>Changer Mot de passe</b></div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label>Ancien Mot de passe</label>
+                                      <input class="form-control" type="password" placeholder="••••••">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label>Nouveau Mot de passe</label>
+                                      <input class="form-control" type="password" placeholder="••••••">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label>Confirmer <span class="d-none d-xl-inline">Password</span></label>
+                                      <input class="form-control" type="password" placeholder="••••••"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                                <div class="mb-2"><b>Specialité(s)</b></div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="custom-controls-stacked px-2" *ngFor="let sp of formateur.lesSpecialites">
+                                      <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                        <label class="custom-control-label" for="notifications-blog">{{sp.titre}}</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col d-flex justify-content-end">
+                                <button class="btn btn-primary" type="submit" (click)="saveChanges()"><i class="fa fa-check"></i> Sauvgarder les modifications</button>
+                              </div>
+                            </div>
+                          </form>
+        
                         </div>
-                        <!--/row-->
+                      </div>
                     </div>
-                    <div class="tab-pane" id="edit">
-                        <form>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Numero CIN</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" name="username" type="text" [value]="formateur.username"  [(ngModel)]="formateur.username" maxlength="8" minlength="8">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Prenom</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" name="firstName" type="text" [value]="formateur.firstName" [(ngModel)]="formateur.firstName">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Nom</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" name="lastName" type="text" [value]="formateur.lastName" [(ngModel)]="formateur.lastName">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" name="email" type="email" [value]="formateur.email" [(ngModel)]="formateur.email">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">photo de profile</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="file">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Date de Naissance</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" name="dateNaiss" type="date" [value]="formateur.dateNaiss" [(ngModel)]="formateur.dateNaiss">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="text" value="" placeholder="Street">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-6">
-                                    <input class="form-control" type="text" value="" placeholder="City">
-                                </div>
-                                <div class="col-lg-3">
-                                    <input class="form-control" type="text" value="" placeholder="State">
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Ancien Mot de passe</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" name="pass1" type="password" value="11111122333" [(ngModel)]="pass1">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Nouveau Mot de passe</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" name="pass1" type="password" value="11111122333" [(ngModel)]="pass1">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Confirme</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" name="pass2" type="password" value="11111122333" [(ngModel)]="pass2">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-9">
-                                    <input type="reset" class="btn btn-secondary" value="Cancel">
-                                    <input type="button" class="btn btn-primary" value="Modifier" (click)="saveChanges()">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                  </div>
                 </div>
+              </div>
+        
+              <div class="col-12 col-md-3 mb-3">
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="px-xl-3">
+                      <button class="btn btn-block btn-secondary" (click)="deco()">
+                        <i class="fa fa-sign-out"></i>
+                        <span>Deconnecter</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Sessions de formation</h5>
+                    <ul>
+                        <li><strong> Passées :</strong> {{nbPasser}}</li>
+                        <li><strong> En cours :</strong> {{nbEncours}} </li>
+                        <li> <strong>A venir :</strong> {{nbAvenir}}</li>
+                        <li><strong> Totale :</strong> {{nbPasser + nbAvenir}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+        
           </div>
         </div>
-    </div>
+        </div> 
+</body>
+</html>

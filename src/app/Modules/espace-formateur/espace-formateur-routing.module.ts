@@ -25,7 +25,7 @@ const routes: Routes = [{
       path: 'profil',
       component: ProfilFormateurComponent,
     },{
-      path: 'avenir',
+      path: 'sessions',
       component: FormationAvenirComponent,
     },
     {

@@ -6,7 +6,7 @@
 
 </head>
 <body>
-<p-confirmDialog  ></p-confirmDialog>
+<p-confirmDialog></p-confirmDialog>
 
 <div class="header">
   <div class="logo">
@@ -38,8 +38,7 @@
 
     <a [routerLink]="['/login/formateur']" class="active"  *ngIf="this.localStorage.retrieve('role')!='candidat' && this.localStorage.retrieve('role')!='formateur'">Espace Formateur</a>
     <a [routerLink]="['/#']" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')!='candidat' ">Contact </a>
-    <a [routerLink]="['/formateur/avenir']" class="active" *ngIf="this.localStorage.retrieve('role')=='formateur'">Formations à venir</a>
-    <a [routerLink]="['/formateur/historique']" class="active" *ngIf="this.localStorage.retrieve('role')=='formateur'">Historique des formations</a>
+    <a [routerLink]="['/formateur/sessions']" class="active" *ngIf="this.localStorage.retrieve('role')=='formateur'">Mes Sessions de formations</a>
     <a  class="active" href="/home" *ngIf="this.localStorage.retrieve('role')!='formateur'&& this.localStorage.retrieve('role')!='candidat' " >+216-71 460 100</a>
   <a [routerLink]="[]"  class="active" (click)="showDialog()" *ngIf="this.localStorage.retrieve('role')=='formateur'|| this.localStorage.retrieve('role')=='candidat' " >Messages</a></div>
   <p-dialog  header="Message"   position="right" [(visible)]="display" >
