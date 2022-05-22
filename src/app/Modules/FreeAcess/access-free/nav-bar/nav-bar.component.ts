@@ -5,6 +5,7 @@ import {AuthService} from "../../../../services/auth.service";
 import {User} from "../../../../models/User";
 import {Observable} from "rxjs";
 import {UploadFileService} from "../../../../services/upload-file.service";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -23,7 +24,7 @@ export class NavBarComponent implements OnInit {
   imgURL: any = null;
   currentFile: File;
 
-  constructor( private uploadService: UploadFileService,private authService :AuthService,public localStorage: LocalStorageService,private confirmationService: ConfirmationService) { }
+  constructor( private uploadService: UploadFileService,private authService :AuthService,public localStorage: LocalStorageService,private confirmationService: ConfirmationService,private router: Router) { }
 
   ngOnInit(): void {
     this.fileInfos = this.uploadService.getFiles();
@@ -85,5 +86,11 @@ export class NavBarComponent implements OnInit {
   }
   testImage(t : string){
     return t.includes("image") ;
+  }
+
+  goToProfil(){
+    if(this.localStorage.retrieve('role')=='formateur'){
+      this.router.navigate(['/formateur/profil']);
+    }
   }
 }

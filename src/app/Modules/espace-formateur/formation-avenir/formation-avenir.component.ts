@@ -68,7 +68,7 @@ export class FormationAvenirComponent implements OnInit {
       // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
      const idF =Number(localStorage.getItem("idF"))
   this.formateurService.getSessionByFormateur(idF).toPromise().then(data => {this.sessions = data
-    this.sessions = data.filter(s => new Date(s.dateDebSession) >= new Date())
+    this.sessions = data.filter(s => new Date(s.dateFinSession) >= new Date())
   });
   this.cols = [
     { field: 'idSession', header: 'Code', customExportHeader: 'Session Code' },

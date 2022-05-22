@@ -8,6 +8,7 @@ import { FirstLoginFormateurComponent } from './first-login-formateur/first-logi
 import { ProfilFormateurComponent } from './profil-formateur/profil-formateur.component';
 import { FormationAvenirComponent } from './formation-avenir/formation-avenir.component';
 import { DetailSessionFormateurComponent } from './detail-session-formateur/detail-session-formateur.component';
+import { HistoriqueFormationComponent } from './historique-formation/historique-formation.component';
 
 const routes: Routes = [{
   path: '',
@@ -26,6 +27,10 @@ const routes: Routes = [{
     },{
       path: 'avenir',
       component: FormationAvenirComponent,
+    },
+    {
+      path: 'historique',
+      component: HistoriqueFormationComponent,
     },{
       path: 'detail/session/:id',
       component: DetailSessionFormateurComponent,
