@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {LocalStorageService} from "ngx-webstorage";
+import {ConfirmationService} from "primeng/api";
+import {AuthService} from "../../../../services/auth.service";
+import {User} from "../../../../models/User";
+import {Observable} from "rxjs";
+import {UploadFileService} from "../../../../services/upload-file.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,12 +13,24 @@ import {LocalStorageService} from "ngx-webstorage";
 })
 export class NavBarComponent implements OnInit {
   items: any;
+  display: boolean = false;
+  public TheCurrentUser: User;
+   fileInfos: Observable<any>;
+  uploadedFiles: any[] = [];
+  file: File = null;
+  fileCV: File = null;
+  public imagePath;
+  imgURL: any = null;
+  currentFile: File;
 
-  constructor(public localStorage: LocalStorageService,) { }
+  constructor( private uploadService: UploadFileService,private authService :AuthService,public localStorage: LocalStorageService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
+    this.fileInfos = this.uploadService.getFiles();
+
     console.log("navbar works")
     this.slideMenu()
+    this.currentUserData()
 
   }
 
@@ -46,4 +63,27 @@ export class NavBarComponent implements OnInit {
   }
 
 
+  confirm() {
+    console.log("I entered")
+    this.confirmationService.confirm({
+      message: 'Êtes-vous sûr de vouloir quitter?',
+      accept: () => {
+        this.localStorage.clear("authenticationToken")
+        this.localStorage.clear("username")
+        this.localStorage.clear("role")
+        window.location.reload();
+      }
+    });}
+  showDialog() {
+    this.display = true;
+  }
+  currentUserData(){
+    this.authService.currentUserDetail().subscribe(data=> {
+      this.TheCurrentUser=data ;
+
+    })
+  }
+  testImage(t : string){
+    return t.includes("image") ;
+  }
 }

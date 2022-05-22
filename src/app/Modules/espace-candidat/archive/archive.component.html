@@ -1,0 +1,29 @@
+<div class="main-content" style="margin: 10px 50px 10px 50px; background-color: #f8f3f3;">
+  <ng-template [ngIf]="sessions.length!=0" [ngIfThen]="thenBlock" [ngIfElse]="elseBlock">
+    This content is never showing
+  </ng-template>
+  <ng-template  #thenBlock >
+  <div  *ngFor="let session of sessions">
+    <p-card  header="{{session.titreSession}}" subheader="{{session.descriptionSession}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header">
+<!--
+        <img alt="Card" src="assets/showcase/images/usercard.png">
+-->  <div *ngFor="let file of fileInfos | async">
+        <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
+          <img [src]="file.url"  alt="file.name" />
+        </p>
+      </div>
+      </ng-template>
+      <ng-template pTemplate="footer" style="background-color: red !important;">
+        <i class="pi pi-calendar" style="background-color: red">
+          <span style="color: #440202 ;font-size: 20px"  >A était Terminé le{{session.dateFinSession}}</span>  </i>
+       <!-- <p-button label="Save" icon="pi pi-check"></p-button>
+        <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+                  [style]="{'margin-left': '.5em'}"></p-button>-->
+      </ng-template>
+    </p-card>
+  </div>
+  </ng-template>
+  <ng-template #elseBlock >
+    <app-empty-archive ></app-empty-archive>  </ng-template>
+</div>
