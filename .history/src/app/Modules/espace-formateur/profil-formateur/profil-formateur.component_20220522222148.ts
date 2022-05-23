@@ -37,12 +37,6 @@ export class ProfilFormateurComponent implements OnInit {
   progress = 0;
   selectedFile : FileList ;
   nbEncours : number =0;
-
-  ancPass: string ="";
-  nouvPass: string ="";
-  nouvPass2 : string ="";
-  confAnc : boolean = true;
-  diffPass : boolean = true;
   
   constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
 
@@ -93,20 +87,11 @@ export class ProfilFormateurComponent implements OnInit {
  
    this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
  } 
- if(this.nouvPass == this.nouvPass2){
-  this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).toPromise().then(data =>{
+  this.formateurService.updateFormateur(this.formateur).toPromise().then(data =>{
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
     this.router.navigate(["formateur/profil"]) 
-  },
-  error =>{
-    console.log(error)
-if(error.error.includes("invalide"))
-this.confAnc = false ;
-if(error.error.includes("differente"))
-this.diffPass = false ;
-  }
-  )
-}
+  })
+   
  }
 
  onUpload(event){

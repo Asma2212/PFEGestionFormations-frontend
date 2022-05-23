@@ -127,8 +127,7 @@
                                   <div class="col">
                                     <div class="form-group">
                                       <label>Ancien Mot de passe</label>
-                                      <input class="form-control" type="password" name="anc" placeholder="••••••" [(ngModel)]="ancPass">
-                                      <small class="p-error block" *ngIf="!confAnc">Ancienne mot de passe invalide</small>
+                                      <input class="form-control" type="password" name="anc" placeholder="••••••" [(ngModel)]="ancPass" #ancPass="ngModel">
                                     </div>
                                   </div>
                                 </div>
@@ -136,8 +135,7 @@
                                   <div class="col">
                                     <div class="form-group">
                                       <label>Nouveau Mot de passe</label>
-                                      <input class="form-control" type="password" name="pass" placeholder="••••••" [(ngModel)]="nouvPass">
-                                      <small class="p-error block" *ngIf="!diffPass">Nouvelle mot de passe doit etre diffrente de l'ancienne</small>
+                                      <input class="form-control" type="password" name="pass" placeholder="••••••" [(ngModel)]="nouvPass" #pass1="ngModel">
                                     </div>
                                   </div>
                                 </div>
@@ -145,8 +143,8 @@
                                   <div class="col">
                                     <div class="form-group">
                                       <label>Confirmer <span class="d-none d-xl-inline">Password</span></label>
-                                      <input class="form-control" name="pass2" type="password" placeholder="••••••" [(ngModel)]="nouvPass2"></div>
-                                      <small class="p-error block" *ngIf="nouvPass != nouvPass2">Confirmation invalide</small>
+                                      <input class="form-control" name="pass2" type="password" placeholder="••••••" [(ngModel)]="nouvPass2" #pass2="ngModel"></div>
+                                      <small class="p-error block" *ngIf="nouvPass != nouvPass">Confirmation invalide</small>
                                   </div>
                                 </div>
                               </div>

@@ -94,7 +94,7 @@ export class ProfilFormateurComponent implements OnInit {
    this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
  } 
  if(this.nouvPass == this.nouvPass2){
-  this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).toPromise().then(data =>{
+  this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).subscribe(data =>{
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
     this.router.navigate(["formateur/profil"]) 
   },
@@ -102,7 +102,7 @@ export class ProfilFormateurComponent implements OnInit {
     console.log(error)
 if(error.error.includes("invalide"))
 this.confAnc = false ;
-if(error.error.includes("differente"))
+if(error.error.message.includes("differente"))
 this.diffPass = false ;
   }
   )

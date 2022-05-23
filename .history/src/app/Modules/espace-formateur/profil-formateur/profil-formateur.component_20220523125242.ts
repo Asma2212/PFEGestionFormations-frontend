@@ -99,11 +99,10 @@ export class ProfilFormateurComponent implements OnInit {
     this.router.navigate(["formateur/profil"]) 
   },
   error =>{
-    console.log(error)
-if(error.error.includes("invalide"))
+if(error.error.message.includes("invalide"))
 this.confAnc = false ;
-if(error.error.includes("differente"))
-this.diffPass = false ;
+if(error.error.message.includes("differente"))
+this.confAnc = false ;
   }
   )
 }

@@ -42,7 +42,6 @@ export class ProfilFormateurComponent implements OnInit {
   nouvPass: string ="";
   nouvPass2 : string ="";
   confAnc : boolean = true;
-  diffPass : boolean = true;
   
   constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
 
@@ -99,11 +98,8 @@ export class ProfilFormateurComponent implements OnInit {
     this.router.navigate(["formateur/profil"]) 
   },
   error =>{
-    console.log(error)
-if(error.error.includes("invalide"))
+if(error.error.message.includes("invalide"))
 this.confAnc = false ;
-if(error.error.includes("differente"))
-this.diffPass = false ;
   }
   )
 }

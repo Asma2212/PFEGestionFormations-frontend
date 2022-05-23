@@ -128,7 +128,7 @@
                                     <div class="form-group">
                                       <label>Ancien Mot de passe</label>
                                       <input class="form-control" type="password" name="anc" placeholder="••••••" [(ngModel)]="ancPass">
-                                      <small class="p-error block" *ngIf="!confAnc">Ancienne mot de passe invalide</small>
+                                      <small class="p-error block" *ngIf="!confAnc">Ancien mot de passe n'est pas compatible</small>
                                     </div>
                                   </div>
                                 </div>
@@ -137,7 +137,6 @@
                                     <div class="form-group">
                                       <label>Nouveau Mot de passe</label>
                                       <input class="form-control" type="password" name="pass" placeholder="••••••" [(ngModel)]="nouvPass">
-                                      <small class="p-error block" *ngIf="!diffPass">Nouvelle mot de passe doit etre diffrente de l'ancienne</small>
                                     </div>
                                   </div>
                                 </div>

@@ -29,7 +29,7 @@ export class FormateurService {
   }
   updateFormateurPassword(formateur : Formateur,anc : string ,nouv : string) : Observable<any>{
     
-    return this.http.post<any>(this.url + 'updatePassword/'+anc+'/'+nouv,formateur);
+    return this.http.post<any>(this.url + 'updatePassword/'+anc+nouv,formateur);
   }
 
   deleteFormateur(idf : number) : Observable<any>{
