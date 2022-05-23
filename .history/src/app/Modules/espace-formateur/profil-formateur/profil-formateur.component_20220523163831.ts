@@ -86,16 +86,15 @@ export class ProfilFormateurComponent implements OnInit {
    if(this.file)
    this.formateur.photo = this.file.name
    if(this.femme){
-     
+     console.log("adddeeeddd")
      this.formateur.genre = {id : 2 , name : Egenre.FEMME} ;
   }
   if(this.homme){
  
    this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
  } 
- console.log(this.formateur)
- if((this.nouvPass.trim()) && (this.nouvPass2.trim() && (this.ancPass.trim()))){
  if(this.nouvPass == this.nouvPass2){
+   if(this.nouvPass.trim())
    this.formateur.password = this.nouvPass
   this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).toPromise().then(data =>{
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
@@ -109,21 +108,8 @@ if(error.error.includes("differente"))
 this.diffPass = false ;
   }
   )
-}}
-else{
-this.formateurService.updateFormateur(this.formateur).toPromise().then( data =>{
-  console.log("photooo",this.formateur.photo)
-  console.log(data)
-  this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
-  this.router.navigate(["formateur/profil"]) 
-},
-error =>{
-  this.messageService.add({severity:'error', summary: 'Echoué', detail: error.error.message, life: 3000});
 }
-  )
  }
-
-}
 
  onUpload(event){
   this.selectedFile = event.target.files;

@@ -145,7 +145,7 @@
                                   <div class="col">
                                     <div class="form-group">
                                       <label>Confirmer <span class="d-none d-xl-inline">Password</span></label>
-                                      <input class="form-control" name="pass2" type="password" placeholder="••••••" [(ngModel)]="nouvPass2" [disabled]="nouvPass.trim() == ''"></div>
+                                      <input class="form-control" name="pass2" type="password" placeholder="••••••" [(ngModel)]="nouvPass2" disabled="{{nouvPass.trim() && ancPass.trim()}}"></div>
                                       <small class="p-error block" *ngIf="nouvPass != nouvPass2">Confirmation invalide</small>
                                   </div>
                                 </div>

@@ -26,7 +26,7 @@ export class FormateurService {
   updateFormateur(formateur : Formateur) : Observable<any>{
     return this.http.post<any>(this.url + 'update1/'+formateur.id,formateur);
   }
-  updateFormateurPassword(formateur : Formateur,anc : string ,nouv : string) : Observable<any>{
+  updateFormateurPassword(formateur : Formateur,anc : String ,nouv : String) : Observable<any>{
     
     return this.http.post<any>(this.url + 'updatePassword/'+anc+'/'+nouv,formateur);
   }

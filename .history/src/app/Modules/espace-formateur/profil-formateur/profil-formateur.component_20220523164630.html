@@ -136,7 +136,7 @@
                                   <div class="col">
                                     <div class="form-group">
                                       <label>Nouveau Mot de passe</label>
-                                      <input class="form-control" type="password" name="pass" placeholder="••••••" [(ngModel)]="nouvPass" [disabled]="ancPass.trim() == ''">
+                                      <input class="form-control" type="password" name="pass" placeholder="••••••" [(ngModel)]="nouvPass" disabled="{{ancPass.trim() == ""}}">
                                       <small class="p-error block" *ngIf="!diffPass">Nouvelle mot de passe doit etre diffrente de l'ancienne</small>
                                     </div>
                                   </div>
@@ -145,7 +145,7 @@
                                   <div class="col">
                                     <div class="form-group">
                                       <label>Confirmer <span class="d-none d-xl-inline">Password</span></label>
-                                      <input class="form-control" name="pass2" type="password" placeholder="••••••" [(ngModel)]="nouvPass2" [disabled]="nouvPass.trim() == ''"></div>
+                                      <input class="form-control" name="pass2" type="password" placeholder="••••••" [(ngModel)]="nouvPass2" disabled="{{nouvPass.trim() && ancPass.trim()}}"></div>
                                       <small class="p-error block" *ngIf="nouvPass != nouvPass2">Confirmation invalide</small>
                                   </div>
                                 </div>
