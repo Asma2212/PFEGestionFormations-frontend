@@ -264,12 +264,11 @@
                         <div >
                           <div class="p-inputgroup">
                               <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                              <input type="text" pInputText id="nom" name="nom" [(ngModel)]="formateur.lastName" required placeholder="nom"  pattern="[a-zA-Z ]*" #lastname="ngModel"/>
+                              <input type="text" pInputText id="nom" name="nom" [(ngModel)]="formateur.lastName" required placeholder="nom"  pattern="[a-zA-Z ]*"/>
                                      
                           </div>
                       </div>
                       <small class="p-error" *ngIf="submitted && !formateur.lastName">nom est requis.</small>
-                      <small class="p-error" *ngIf="formateur.lastName && (lastname.invalid && (lastname.dirty || lastname.touched))">nom invalide.</small>
                     </div>
                     <div class="field">
                         <label for="prenom">Prenom</label>
@@ -282,7 +281,7 @@
                       </div>
                         
                         <small class="p-error" *ngIf="submitted && !formateur.firstName.trim()">prenom est requis.</small>
-                        <small class="p-error" *ngIf="formateur.firstName && (name.invalid && (name.dirty || name.touched))">prenom invalide.</small>
+                        <small class="p-error" *ngIf="formateur.firstName && (name.invalid && (name.dirty || name.touched))">nom invalide.</small>
                     </div>
                   </div><br>
                     <div class="field">
@@ -339,7 +338,6 @@
                       </label>
                       </div>
                     </div>
-                    <small class="p-error" *ngIf="!formateur.genre">genre est requis</small>
                   </div>  
                   <div>  
                   <div class="field" *ngIf="formateur.id == null && !autre ">

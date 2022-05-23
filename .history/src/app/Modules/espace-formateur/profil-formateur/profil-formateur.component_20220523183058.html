@@ -162,34 +162,15 @@
                                     </div>
                                   </div>
                                 </div><br><br>
-                                <div class="mb-2"><b>Curriculum Vitae</b></div>
+                                <div class="mb-2"><b>Specialité(s)</b></div>
                                 <div class="row">
                                   <div class="col">
-                                      <label class = "label-file"><i class="pi pi-external-link"></i> Ajouter CV format PDF
-                                        <input type="file" class="input-file" accept="application/pdf" (change)="selectFile($event)"/>
-                                      </label>
-                                      <div *ngIf="formateur.cv">
-                                        <p>{{formateur.cv}}</p>
+                                    <div class="custom-controls-stacked px-2" *ngFor="let sp of formateur.lesSpecialites">
+                                      <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                        <label class="custom-control-label" for="notifications-blog">{{sp.titre}}</label>
                                       </div>
-                      
-                                      <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-                                        Upload
-                                      </button>
-                                      <div *ngIf="currentFile" class="progress">
-                                        <div
-                                          class="progress-bar progress-bar-info progress-bar-striped"
-                                          role="progressbar"
-                                          attr.aria-valuenow="{{ progress }}"
-                                          aria-valuemin="0"
-                                          aria-valuemax="100"
-                                          [ngStyle]="{ width: progress + '%' }">
-                                          {{ progress }}%
-                                        </div>
-                                      </div>
-                                      <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
-                
-                <br>
-                                        
+                                    </div>
                                   </div>
                                 </div>
                               </div>

@@ -164,7 +164,7 @@ this.getSpecialite()
       this.specialites = data ; 
       console.log("speciaalie :",data) });
   }
- 
+
   getFilterObject(fullObj, key) {
     const uniqChk = [];
     fullObj.filter((obj) => {

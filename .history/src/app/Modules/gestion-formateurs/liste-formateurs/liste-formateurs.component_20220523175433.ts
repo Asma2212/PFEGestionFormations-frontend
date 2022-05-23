@@ -164,7 +164,7 @@ this.getSpecialite()
       this.specialites = data ; 
       console.log("speciaalie :",data) });
   }
- 
+
   getFilterObject(fullObj, key) {
     const uniqChk = [];
     fullObj.filter((obj) => {
@@ -336,6 +336,7 @@ deleteFormateur(formateur: Formateur) {
 saveFormateur() {
   var inputNom = (<HTMLInputElement>document.getElementById("nom"))?.validity.valid;
   var inputPrenom = (<HTMLInputElement>document.getElementById("prenom"))?.validity.valid;
+  console.log(typeof(this.formateur.username.toString()));
   console.log(this.femme);
   this.submitted = true;
 

@@ -164,7 +164,7 @@ this.getSpecialite()
       this.specialites = data ; 
       console.log("speciaalie :",data) });
   }
- 
+
   getFilterObject(fullObj, key) {
     const uniqChk = [];
     fullObj.filter((obj) => {
@@ -334,8 +334,7 @@ deleteFormateur(formateur: Formateur) {
 } 
 
 saveFormateur() {
-  var inputNom = (<HTMLInputElement>document.getElementById("nom"))?.validity.valid;
-  var inputPrenom = (<HTMLInputElement>document.getElementById("prenom"))?.validity.valid;
+  console.log(typeof(this.formateur.username.toString()));
   console.log(this.femme);
   this.submitted = true;
 
@@ -351,7 +350,7 @@ saveFormateur() {
   this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
 } 
 if((this.formateur.username.trim())&&(this.formateur.email.trim())&&(this.formateur.cv)&&(this.formateur.etablissement.trim())&&(this.formateur.lesSpecialites)
-&&(this.formateur.genre)&&(inputNom)&&(inputPrenom)){
+&&(this.formateur.genre)){
   if (this.formateur.id) {
     //this.genre = this.formateur.genre ;
     console.log("before update",this.formateur);
