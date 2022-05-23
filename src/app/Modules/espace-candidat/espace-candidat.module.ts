@@ -25,6 +25,7 @@ import { FavorisComponent } from './favoris/favoris.component';
 import { EmptyListComponent } from './empty-list/empty-list.component';
 import { EmptyArchiveComponent } from './empty-archive/empty-archive.component';
 import {ToastModule} from "primeng/toast";
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {ToastModule} from "primeng/toast";
         FormsModule,
         NgProgressModule,
         ToolbarModule, MatDialogModule, TabMenuModule, CardModule, SharedModule, FullCalendarModule, ToastModule,
+      ProgressBarModule,
 
     ]
 })

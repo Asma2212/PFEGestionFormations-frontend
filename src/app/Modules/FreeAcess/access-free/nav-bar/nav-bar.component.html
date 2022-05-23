@@ -33,14 +33,14 @@
     </a>&ndash;&gt;-->
     <a [routerLink]="['/home/home1']" class="active">Accueil</a>
     <a [routerLink]="['/home/formation']" class="active">Liste des formations</a>
-    <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')=='candidat'">Espace Candidat</a>
-    <a [routerLink]="" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')=='candidat'">Mon compte</a>
+    <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Espace Candidat</a>
+    <a [routerLink]="" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Mon compte</a>
 
-    <a [routerLink]="['/login/formateur']" class="active"  *ngIf="this.localStorage.retrieve('role')!='candidat' && this.localStorage.retrieve('role')!='formateur'">Espace Formateur</a>
-    <a [routerLink]="['/#']" class="active" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')!='candidat' ">Contact </a>
-    <a [routerLink]="['/formateur/sessions']" class="active" *ngIf="this.localStorage.retrieve('role')=='formateur'">Mes Sessions de formations</a>
-    <a  class="active" href="/home" *ngIf="this.localStorage.retrieve('role')!='formateur'&& this.localStorage.retrieve('role')!='candidat' " >+216-71 460 100</a>
-  <a [routerLink]="[]"  class="active" (click)="showDialog()" *ngIf="this.localStorage.retrieve('role')=='formateur'|| this.localStorage.retrieve('role')=='candidat' " >Messages</a></div>
+    <a [routerLink]="['/login/formateur']" class="active"  *ngIf="this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin' &&this.localStorage1.retrieve('role')=='formateur'">Espace Formateur</a>
+    <a [routerLink]="['/#']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat' ">Contact </a>
+    <a [routerLink]="['/formateur/sessions']" class="active" *ngIf="this.localStorage1.retrieve('role')=='formateur'">Mes Sessions de formations</a>
+    <a  class="active" href="/home" *ngIf="this.localStorage1.retrieve('role')!='formateur'&& this.localStorage1.retrieve('role')!='candidat' " >+216-71 460 100</a>
+  <a [routerLink]="[]"  class="active" (click)="showDialog()" *ngIf="this.localStorage1.retrieve('role')=='formateur'|| this.localStorage1.retrieve('role')=='candidat' " >Messages</a></div>
   <p-dialog  header="Message"   position="right" [(visible)]="display" >
     <app-messages></app-messages>
   </p-dialog>
@@ -61,19 +61,20 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-square">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2" /></svg>
   </div>-->
-  <div *ngFor="let file of fileInfos | async">
+  <div  *ngFor="let file of fileInfos | async">
     <p class="user-profile" *ngIf="testImage(file.type) && file.name == TheCurrentUser.photo">
       <img [src]="file.url"  alt="file.name" />
     </p>
   </div>
 
-  <div class="user-name" (click)="goToProfil()">{{TheCurrentUser.firstName}} {{TheCurrentUser.lastName}}</div>
+  <div class="user-name"   *ngIf="this.localStorage1.retrieve('role')=='formateur' || this.localStorage1.retrieve('role')=='candidat'" (click)="goToProfil()">{{TheCurrentUser.firstName}} {{TheCurrentUser.lastName}}</div>
     <div class="user-name">
-      <button class="custom-btn btn-11"  [routerLink]="['/register/candidat']" *ngIf="this.localStorage.retrieve('role')!='formateur' && this.localStorage.retrieve('role')!='candidat' ">s'inscrire &nbsp; <i class=" pi pi-arrow-right">
+      <button class="custom-btn btn-11"  [routerLink]="['/register/candidat']" *ngIf="(this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat') ">s'inscrire &nbsp; <i class=" pi pi-arrow-right">
       </i>
         <div class="dot"></div>
       </button>
-      <button class="custom-btn btn-11" *ngIf="this.localStorage.retrieve('role')=='formateur' || this.localStorage.retrieve('role')=='candidat'" pButton (click)="confirm()" >&nbsp; Se déconnecter &nbsp; &nbsp; <i class=" pi pi-arrow-right">
+      <button class="custom-btn btn-11"
+              *ngIf="this.localStorage1.retrieve('role')=='formateur' || this.localStorage1.retrieve('role')=='candidat'" pButton (click)="confirm()" style="font-size: 13px">&nbsp; Se déconnecter &nbsp; &nbsp; <i class=" pi pi-arrow-right">
       </i>
         <div class="dot"></div>
       </button>

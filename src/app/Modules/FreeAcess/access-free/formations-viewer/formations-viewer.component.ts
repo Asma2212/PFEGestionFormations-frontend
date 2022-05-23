@@ -40,6 +40,8 @@ export class FormationsViewerComponent implements OnInit {
   f: Formation;
   fileInfos: Observable<any>;
 
+  listFav : SessionFormation[];
+
 
 // counter
   nouvCours: number = 0;
@@ -83,7 +85,11 @@ export class FormationsViewerComponent implements OnInit {
     /**    if(localStorage.getItem("formationSaved")){
       this.savedSe = JSON.parse(localStorage.getItem("formationSaved"))
       } */
-
+    this.sessionservice.ListFavoris(this.username1).toPromise().then(data =>{
+      console.log(data)
+        this.listFav =data
+      }
+    )
     this.sessionService.getSessions().toPromise().then(data => {
       this.sessions = data
       this.filterSessions = this.sessions;
@@ -624,9 +630,12 @@ console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
       (new Date(dateFinSession)
       ))
   }*/
+  favoritvar:boolean
   saveFormation1(idSession: number, username: any) {
     this.sessionservice.ToFavoris(username,idSession).subscribe(data=>{
       console.log("ok")
+      this.favoritvar=true;
+
     },error => {
       console.log(error);
     })
@@ -634,6 +643,21 @@ console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
   }
 
   deleteFormation1(idSession: number, retrieve: any) {
+    this.sessionservice.ToDeFavoris(retrieve,idSession).subscribe(data=>{
+
+      console.log("ok delete")
+      this.favoritvar=false;
+
+    },error => {
+      console.log(error);
+    })}
+
+  testFav(session : SessionFormation) {
+
+    if(this.listFav.includes(session))
+      return true
+
+    return false
 
   }
 }

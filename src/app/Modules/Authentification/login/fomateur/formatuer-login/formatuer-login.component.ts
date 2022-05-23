@@ -77,7 +77,7 @@ export class FormatuerLoginComponent implements OnInit {
   login() {
     console.log("username" + this.loginForm.get('username').value + "email" + this.loginForm.get('email').value + "password" + this.loginForm.get('password').value)
 
-
+         console.log("gggggghere")
     this.loginRequestPayload.username = this.loginForm.get('username').value;
     this.loginRequestPayload.email = this.loginForm.get('email').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
@@ -91,7 +91,7 @@ export class FormatuerLoginComponent implements OnInit {
       });
       console.log("dataaa",data)
       this.isError = false;
-      
+
 
      /* else { this.isError = true;
         console.log("error in login method ")}*/
