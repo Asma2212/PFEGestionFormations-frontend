@@ -30,14 +30,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { DetailSessionFormateurComponent } from './detail-session-formateur/detail-session-formateur.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, SharedModule } from 'primeng/api';
 import {EditorModule} from 'primeng/editor';
-import { SafeHtmlPipe } from './safe-html.pipe';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ListCandidatsDialogComponent } from './list-candidats-dialog/list-candidats-dialog.component';
 import { TableModule } from 'primeng/table';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {FileUploadModule} from 'primeng/fileupload';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -53,8 +53,8 @@ FullCalendarModule.registerPlugins([
     HistoriqueFormationComponent,
     ProfilFormateurComponent,
     DetailSessionFormateurComponent,
-    SafeHtmlPipe,
-    ListCandidatsDialogComponent
+    ListCandidatsDialogComponent,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule,
@@ -83,8 +83,9 @@ FullCalendarModule.registerPlugins([
     FileUploadModule
     /* FullCalendarModule,
      CalendarModule,*/
-
-
+  ],
+  exports : [
+    SafeHtmlPipe
   ]
 })
 export class EspaceFormateurModule { }

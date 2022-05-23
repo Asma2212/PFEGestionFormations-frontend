@@ -29,6 +29,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {DialogModule} from "primeng/dialog";
 import {MessagesModule} from "../../messages/messages.module";
 import {SharedModule} from "../../shared/shared.module";
+import { SafeHtml1Pipe } from "./safe-html1.pipe";
+
 
 
 //import { HomeComponent } from './home/home.component';
@@ -44,7 +46,11 @@ import {SharedModule} from "../../shared/shared.module";
     NavBarComponent,
     HomeDetailsComponent,
     HomePage1Component,
-    SessionOnlineComponent
+    SessionOnlineComponent,
+    SafeHtml1Pipe
+
+
+
   ],
   imports: [
     CommonModule,

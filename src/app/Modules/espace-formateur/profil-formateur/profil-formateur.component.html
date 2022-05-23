@@ -11,6 +11,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
+    <p-toast></p-toast>
     <div class="container" >
         <div class="row flex-lg-nowrap">
         
@@ -81,14 +82,6 @@
                                   </div>
                                 </div>
                                 <div class="row">
-                                  <div class="col mb-3">
-                                    <div class="form-group">
-                                      <label>About</label>
-                                      <textarea class="form-control" rows="5" name="bio" [(ngModel)]="formateur.bio"></textarea>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row">
                                     <div class="col">
                                       <div class="form-group">
                                         <label>Date de naissance</label>
@@ -116,6 +109,15 @@
                                         </div>
                                       </div>
                                   </div>
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <div class="form-group">
+                                      <label>A propos</label>
+                                      <p-editor name="bio" [(ngModel)]="formateur.bio" [style]="{'height':'170px'}"></p-editor>       
+                                    </div>
+                                  </div>
+                                </div>
+                               
                               </div>
                             </div>
                             <div class="row">

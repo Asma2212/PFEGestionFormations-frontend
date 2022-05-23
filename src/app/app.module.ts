@@ -52,6 +52,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {ChatComponent} from "./Modules/message/chat/chat.component";
 import {VirtualScrollerModule} from "primeng/virtualscroller";
 import {DialogModule} from "primeng/dialog";
+import { EspaceFormateurModule } from './Modules/espace-formateur/espace-formateur.module';
 //import { ChatComponent } from './Modules/message/chat/chat.component';
 
 @NgModule({

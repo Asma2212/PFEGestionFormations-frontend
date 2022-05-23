@@ -107,7 +107,7 @@
             <div class="field">
                 <label for="titre">Titre</label>
                 <input type="text" pInputText id="titre" [(ngModel)]="formation.titre" required autofocus />
-                <small class="p-error" *ngIf="submitted && !formation.titre">titre est requis.</small>
+                <small class="p-error" *ngIf="submitted && !formation.titre.trim()">titre est requis.</small>
             </div><br>
             <div class="field">
             <!--<p-fileUpload mode="basic" accept="image/*" label="Import" chooseLabel="Ajouter une image" class="p-mr-2 p-d-inline-block" (onUpload)="onUpload($event)">
@@ -177,7 +177,7 @@
                 <div class="field">
                     <label for="chargeHorraire">charge Horraire</label>
                     <input type="text" pInputText id="chargeHorraire" [(ngModel)]="formation.charge_horaire" required autofocus />
-                    <small class="p-error" *ngIf="submitted && !formation.charge_horaire">charge Horraire est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !formation.charge_horaire.trim()">charge Horraire est requis.</small>
                 </div>
         </ng-template>
 

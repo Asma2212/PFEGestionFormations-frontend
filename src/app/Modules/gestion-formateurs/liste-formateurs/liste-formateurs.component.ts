@@ -23,6 +23,8 @@ import { throwIfEmpty } from 'rxjs/operators';
   styleUrls: ['./liste-formateurs.component.css']
 })
 export class ListeFormateursComponent implements OnInit {
+  spec : Specialite
+  specialiteDialog : boolean = false
   autre : boolean = false;
   etab:Etablissement ;
   selectedEtablissement: Etablissement;
@@ -150,14 +152,17 @@ filterSpecialite : Specialite[] ;
             console.log(this.dataSource.data)
           });
         
-          this.specialiteService.getAllSpecialites().toPromise().then( data =>{
-            this.specialites = data ; 
-            console.log("speciaalie :",data) });
 
 
 
+this.getSpecialite()
             
            
+  }
+  getSpecialite(){
+    this.specialiteService.getAllSpecialites().toPromise().then( data =>{
+      this.specialites = data ; 
+      console.log("speciaalie :",data) });
   }
 
   getFilterObject(fullObj, key) {
@@ -405,6 +410,30 @@ hideDialog() {
   this.homme=""
 }
 
+openSpecialite(){
+  this.specialiteDialog = true ;
+  this.spec = {
+  id : 0 ,
+  titre :"",
+  listFormateur : []
+  }
+          }
+saveSpecialite(){
+            this.specialiteService.saveSpecialite(this.spec).subscribe(data => {
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'categorie Ajouter', life: 3000});
+              this.getSpecialite
+              this.specialiteDialog = false
+            }
+              )
+          }
+hideSpecialite(){
 
+              this.specialiteDialog = false
+              this.spec = {
+                id : 0 ,
+                titre :"",
+                listFormateur : []
+                }
+          }
 
 }

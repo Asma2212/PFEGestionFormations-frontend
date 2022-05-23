@@ -1,7 +1,14 @@
-<!--
+<!--<full-calendar [options]="calendarOptions"></full-calendar>
 <full-calendar #calendar [options]="options"></full-calendar>
 -->
 <!--<p-calendar [inline]="true" [showWeek]="true"></p-calendar>-->
 
 <!--<p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>-->
-<full-calendar [options]="calendarOptions"></full-calendar>
+<br><br>
+<div class="main-content">
+  <div class="container-fluid">
+    <button class="p-button p-button-sm" (click)="toggleWeekends()" style="background-color: #03B3E6;border: none;">show weekends</button>
+    <br><br>
+    <full-calendar #calendar deepChangeDetection="true" [options]="calendarOptions"></full-calendar>
+  </div></div>
+  

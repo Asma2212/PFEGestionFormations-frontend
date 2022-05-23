@@ -4,6 +4,9 @@ import {CalendarOptions} from "@fullcalendar/angular"; // useful for typecheckin
 import {formatDate} from '@fullcalendar/angular';
 import {SessionFormation} from "../../../models/SessionFormation";
 import {DatePipe} from "@angular/common";
+import { SessionService } from 'app/services/session.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { FormateurService } from 'app/services/formateur.service';
 
 @Component({
   selector: 'app-calendar-formateur',
@@ -13,7 +16,157 @@ import {DatePipe} from "@angular/common";
 
 export class CalendarFormateurComponent implements OnInit {
 
-  events1: objCalendar[ ] = []
+  sessions : SessionFormation[];
+  events:any[] = [];
+  calendarOptions: CalendarOptions ;
+  color:string;
+  borderC:string;
+  df : Date ;
+
+  constructor(private sessionService:SessionService,private localStorage : LocalStorageService,private formateurService : FormateurService) { }
+
+
+  ngOnInit(): void {
+    const idF =Number(localStorage.getItem("idF"))
+    this.formateurService.getSessionByFormateur(idF).toPromise().then(data => {this.sessions = data
+  this.sessions = data
+        console.log("sss",this.sessions)
+        this.sessions.forEach(s => {
+          console.log("fin",new Date(s.dateFinSession),"date",new Date("2022-05-05"))
+          s.dateDebSession=new Date(s.dateDebSession);
+          s.dateFinSession = new Date(s.dateFinSession)
+          if(s.dateFinSession < new Date()){
+      this.color = '#E10000'
+      this.borderC = '#960000'
+      }
+      else{
+      this.color = '#03B3E6'
+      this.borderC ='#0b81a2'
+       }
+      
+          this.events.push({
+            title  : s.titreSession,
+            start  : s.dateDebSession,
+            end    : s.dateFinSession,
+            backgroundColor: this.color,
+          borderColor: this.borderC
+          })
+        });
+      
+          this.calendarOptions= {
+            initialDate : '2022-05-05',
+            locale: 'fr' ,
+            initialView: 'dayGridMonth',
+            dateClick: this.handleDateClick.bind(this), // bind is important!
+            eventSources: [
+            
+              // your event source
+              {
+                events: this.events,
+          // an option!
+                textColor: 'white',
+                
+                 // an option!
+              },
+              
+          
+              // any other event sources...
+          
+            ],
+            headerToolbar: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay',
+              
+          },
+          editable: true,
+          selectable:true,
+          selectMirror: true,
+          dayMaxEvents: true ,
+          displayEventTime: false,
+         // weekends: false
+          };
+      }
+        );
+    
+/**   this.sessions = [
+    {
+      idSession : 0,
+      titreSession : "Full 2",
+      lieuSession : "",
+      descriptionSession : "formation certifié", 
+      dateDebSession : new Date(2022,4,1),
+      dateFinSession : new Date(2022,4,4),
+      photoSession : "../../../../../assets/img/forma.jpg",
+      planning : null,
+      programme : "",
+      nivDifficulte : NivDifficulteEnum.avance ,
+      nbMaxCandidat : 10,
+      formationSession : null,
+      listeFormateurs : null,
+      listeCandidat : null,
+    },{
+      idSession : 1,
+      titreSession : "Full stack dev",
+      lieuSession : "",
+      descriptionSession : "formation certifié", 
+      dateDebSession : new Date(),
+      dateFinSession : new Date(),
+      photoSession : "../../../../../assets/img/forma.jpg",
+      planning : null,
+      programme : "",
+      nivDifficulte : NivDifficulteEnum.avance ,
+      nbMaxCandidat : 10,
+      formationSession : null,
+      listeFormateurs : null,
+      listeCandidat : null,
+    },{
+      idSession : 2,
+      titreSession : "Full stack dev",
+      lieuSession : "",
+      descriptionSession : "formation certifié", 
+      dateDebSession : new Date(),
+      dateFinSession : new Date(),
+      photoSession : "../../../../../assets/img/forma.jpg",
+      planning : null,
+      programme : "",
+      nivDifficulte : NivDifficulteEnum.avance ,
+      nbMaxCandidat : 10,
+      formationSession : null,
+      listeFormateurs : null,
+      listeCandidat : null,
+    },{
+      idSession : 3,
+      titreSession : "xxxxxx",
+      lieuSession : "",
+      descriptionSession : "formation certifié", 
+      dateDebSession : new Date(),
+      dateFinSession : new Date(),
+      photoSession : "../../../../../assets/img/forma.jpg",
+      planning : null,
+      programme : "",
+      nivDifficulte : NivDifficulteEnum.avance ,
+      nbMaxCandidat : 10,
+      formationSession : null,
+      listeFormateurs : null,
+      listeCandidat : null,
+    },
+  ] */
+
+    
+  }
+  handleDateClick(arg) {
+    alert('date click! ' + arg.dateStr)
+  }
+  toggleWeekends() {
+    this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
+  }
+
+}
+
+
+
+ /** events1: objCalendar[ ] = []
   randomColor :string
   options: any;
 
@@ -70,8 +223,8 @@ getsessioncalendar(){
 
       for (let i = 0; i < this.sessions.length; i++) {
         const datepipe: DatePipe = new DatePipe('en-US')
-        let start = datepipe.transform(this.sessions[i].dateDebSession, 'YYYY-MM-dd')
-        let end = datepipe.transform(this.sessions[i].dateFinSession, 'YYYY-MM-dd')
+        let start = datepipe.transform(new Date(this.sessions[i].dateDebSession), 'YYYY-MM-dd')
+        let end = datepipe.transform(new Date(this.sessions[i].dateFinSession), 'YYYY-MM-dd')
 
         const obj: objCalendar = {
           title: this.sessions[i].titreSession,
@@ -99,3 +252,4 @@ interface objCalendar {
   backgroundColor: string;
   eventBorderColor:string ;
 }
+ */

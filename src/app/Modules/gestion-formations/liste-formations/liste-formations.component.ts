@@ -202,7 +202,7 @@ export class ListeFormationsComponent implements OnInit {
       console.log("heeeeyy",this.formation,this.formation.titre,this.formation.listCategories,this.formation.image);
      const formData = new  FormData();
     
-      if (this.formation.titre.trim()) {
+      if ((this.formation.titre.trim())&&(this.formation.charge_horaire.trim())&&(this.formation.listCategories)) {
           if (this.formation.idFormation) {
               this.formations[this.findIndexById(this.formation.idFormation.toString())] = this.formation;
               this.formationService.updateFormation(this.formation).subscribe( data => {

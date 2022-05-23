@@ -2,6 +2,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Formateur } from 'app/models/Formateur';
+import { Egenre } from 'app/models/GenreEnum';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { FormateurService } from 'app/services/formateur.service';
 import { UploadFileService } from 'app/services/upload-file.service';
@@ -53,6 +54,7 @@ export class ProfilFormateurComponent implements OnInit {
       this.femme = "Femme" ;
       else
       this.homme = "Homme"
+      console.log(this.femme)
       this.formateurService.getSessionByFormateur(this.formateur.id).toPromise().then(data =>{
         this.formateur.sessionFormationList = data
         console.log("daataaa1",data)
@@ -73,10 +75,23 @@ export class ProfilFormateurComponent implements OnInit {
     return t.includes("image") ;
  }
  saveChanges(){
+   if(this.imgURL)
+   this.upload1();
+   if(this.file)
+   this.formateur.photo = this.file.name
+   if(this.femme){
+     console.log("adddeeeddd")
+     this.formateur.genre = {id : 2 , name : Egenre.FEMME} ;
+  }
+  if(this.homme){
+ 
+   this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
+ } 
   this.formateurService.updateFormateur(this.formateur).toPromise().then(data =>{
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
-   })
-   this.ngOnInit();
+    this.router.navigate(["formateur/profil"]) 
+  })
+   
  }
 
  onUpload(event){

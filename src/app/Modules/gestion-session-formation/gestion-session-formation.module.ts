@@ -43,6 +43,7 @@ import { SliderModule } from 'primeng/slider';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {EditorModule} from 'primeng/editor';
+import { EspaceFormateurModule } from '../espace-formateur/espace-formateur.module';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {EditorModule} from 'primeng/editor';
     FormateursDialogComponent
 ],
   imports: [
+    EspaceFormateurModule,
     ContextMenuModule,
     ProgressBarModule,
     CommonModule,

@@ -16,6 +16,10 @@ export class SpecialiteService {
     return this.http.get<Specialite[]>(this.url + 'all');
   }
 
+  saveSpecialite(sp : Specialite) : Observable<any>{
+
+    return this.http.post<any>(this.url + 'add',sp);
+  }
  /* saveFormateur(formateur : Formateur) : Observable<any>{
 
     return this.http.post<any>(this.url + 'signup',formateur);

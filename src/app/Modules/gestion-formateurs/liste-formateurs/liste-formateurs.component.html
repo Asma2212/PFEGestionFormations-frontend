@@ -253,7 +253,7 @@
                         </p-inputNumber>  
                                 
                         </div>
-                        <small class="p-error" *ngIf="submitted && !formateur.username">cin est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !formateur.username.trim()">cin est requis.</small>
                         <small class="p-error" *ngIf="submitted && formateur.username.toString().length < 8">cin doit etre composer de 8 chiffres.</small>
                     </div>
                         
@@ -268,7 +268,7 @@
                                      
                           </div>
                       </div>
-                      <small class="p-error" *ngIf="submitted && !formateur.lastName">nom est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !formateur.lastName.trim()">nom est requis.</small>
                     </div>
                     <div class="field">
                         <label for="prenom">Prenom</label>
@@ -280,7 +280,7 @@
                           </div>
                       </div>
                         
-                        <small class="p-error" *ngIf="submitted && !formateur.firstName">prenom est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !formateur.firstName.trim()">prenom est requis.</small>
                     </div>
                   </div><br>
                     <div class="field">
@@ -291,7 +291,7 @@
                               <input type="email" pInputText id="email" [(ngModel)]="formateur.email" required placeholder="adresse e-mail"/>
                                   
                           </div>
-                          <small class="p-error" *ngIf="submitted && !formateur.email">email est requis.</small>
+                          <small class="p-error" *ngIf="submitted && !formateur.email.trim()">email est requis.</small>
                       </div>
                         
                         
@@ -305,7 +305,6 @@
                         <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span>
                           <p-inputMask mask="99-999-999" [(ngModel)]="formateur.numTel" placeholder="99-999-999"></p-inputMask>
                         </div>
-                          <small class="p-error" *ngIf="submitted && !formateur.numTel">num tel est requis.</small>
                         </div> </div><br>
                     <div class="field">
                       <label for="dateNaiss">Date de naissance</label>
@@ -315,7 +314,6 @@
                             <input type="date" pInputText id="dateNaiss" [(ngModel)]="formateur.dateNaiss"  max="2018-12-31"/>
                                 
                         </div>
-                        <small class="p-error" *ngIf="submitted && !formateur.dateNaiss">date naissance est requis.</small>
                     </div>
                         
                        
@@ -339,7 +337,7 @@
                       </div>
                     </div>
                   </div>  
-                  <div style="display: flex;">  
+                  <div>  
                   <div class="field" *ngIf="formateur.id == null && !autre ">
                     <div >
                       <div style="display: flex;">
@@ -354,16 +352,16 @@
                                               </p-multiSelect>
                       </div>
                     </div>
-                    <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !formateur.etablissement.trim()">etablissement est requis.</small>
                   </div>     
                   <div class="field" *ngIf="formateur.id || autre">
                     <div >
                       <div style="display: flex;">
                           <span class="p-inputgroup-addon"><i class="pi pi-building"></i></span>
-                          <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="saisi l'etablissement" autofocus/>
+                          <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="entrez l'etablissement" autofocus/>
                               
                       </div>
-                      <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !formateur.etablissement.trim()">etablissement est requis.</small>
                   </div>
                         
                         
@@ -374,6 +372,8 @@
                     <div style="display: flex;">
                         <span class="p-inputgroup-addon"><i class="pi pi-sitemap"></i></span>
                       <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip" [style]="{maxWidth: '200px'}"></p-multiSelect>
+                      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                      <button pButton pRipple type="button" class="p-button-outlined" icon ="pi pi-plus-circle" label="Autre specialité" (click)="openSpecialite()"></button>
                     </div>
                       <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité est requis.</small>
                   </div></div>    </div><br>
@@ -403,16 +403,7 @@
                       </div>
                       <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
 
-                      <div class="card">
-                        <div class="card-header">List of Files</div>
-                        <ul
-                          class="list-group list-group-flush"
-                          *ngFor="let file of fileInfos | async">
-                          <li class="list-group-item">
-                         <a href="{{ file.url }}">{{ file.name }}</a>
-                          </li>
-                        </ul>
-                      </div><br>
+<br>
                         </div>
 
                 </ng-template>
@@ -425,6 +416,21 @@
             
             
               </p-dialog>
+              <p-dialog [(visible)]="specialiteDialog" [style]="{width: '450px'}" header="Ajouter Specialité" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
+                <ng-template pTemplate="content">
+                    <div class="field">
+                        <label for="titre">Titre</label>
+                        <input type="text" pInputText id="titre" [(ngModel)]="spec.titre" required autofocus />
+                        <small class="p-error" *ngIf="submitted && !spec.titre">titre est requis.</small>
+                    </div><br>
+            
+                </ng-template>
+            
+                <ng-template pTemplate="footer">
+                    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideSpecialite()"></button>
+                    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveSpecialite(c)"></button>
+                </ng-template>
+            </p-dialog>
           
         </div>
         <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

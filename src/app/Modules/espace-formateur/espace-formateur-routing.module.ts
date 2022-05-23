@@ -15,7 +15,7 @@ const routes: Routes = [{
   component : DashboardFormateurComponent,
   children: [
     {
-      path: 'calendar_formateur',
+      path: 'calendar',
       component: CalendarFormateurComponent,
     },
     {
