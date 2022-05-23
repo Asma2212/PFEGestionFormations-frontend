@@ -84,7 +84,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatPaginatorModule,
         MatFormFieldModule
 
-        
+
     ],  providers: [HttpClient]
 
 })

@@ -32,9 +32,11 @@ export class AuthService {
   constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router) {
 
   }
+
   login(loginRequestPayload: loginRequestPayload): Observable<boolean> {
     return this.http.post<LoginResponsePayload>(this.url+"signin", loginRequestPayload)
         .pipe(map(data => {
+          console.log("heres")
           console.log(data);
           this.a="ROLE_ADMIN";
           if (data.roles.includes(this.a)){

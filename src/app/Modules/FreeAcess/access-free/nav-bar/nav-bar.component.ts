@@ -24,16 +24,15 @@ export class NavBarComponent implements OnInit {
   imgURL: any = null;
   currentFile: File;
 
-  constructor( private uploadService: UploadFileService,private authService :AuthService,public localStorage: LocalStorageService,private confirmationService: ConfirmationService,private router: Router) { }
+  constructor( private uploadService: UploadFileService,private authService :AuthService,public localStorage1: LocalStorageService,private confirmationService: ConfirmationService,private router: Router) { }
 
   ngOnInit(): void {
     this.fileInfos = this.uploadService.getFiles();
 
-    console.log("navbar works")
     this.slideMenu()
-    this.currentUserData()
+    this.currentUserData()}
 
-  }
+
 
   slideMenu(){
     this.items = [
@@ -69,9 +68,9 @@ export class NavBarComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Êtes-vous sûr de vouloir quitter?',
       accept: () => {
-        this.localStorage.clear("authenticationToken")
-        this.localStorage.clear("username")
-        this.localStorage.clear("role")
+        this.localStorage1.clear("authenticationToken")
+        this.localStorage1.clear("username")
+        this.localStorage1.clear("role")
         window.location.reload();
       }
     });}
@@ -89,8 +88,19 @@ export class NavBarComponent implements OnInit {
   }
 
   goToProfil(){
-    if(this.localStorage.retrieve('role')=='formateur'){
+    if(this.localStorage1.retrieve('role')=='formateur'){
       this.router.navigate(['/formateur/profil']);
     }
+
+    if(this.localStorage1.retrieve('role')=='candidat'){
+      this.router.navigate(['/mizél']);
+    }
+    else {return}
   }
+/*  retrieveelement():boolean{
+
+/!*
+    return(localStorage.length===0);
+*!/
+  }*/
 }

@@ -139,7 +139,6 @@ export class CandidatRegisterComponent implements OnInit {
       this.listDep = data ;
       console.log("departement :",data) });
   }
-
   login() {
     console.log("username" + this.loginForm.get('username').value + "email" + this.loginForm.get('email').value + "password" + this.loginForm.get('password').value)
 
@@ -165,8 +164,8 @@ export class CandidatRegisterComponent implements OnInit {
 
   }
   signup() {
-    console.log("deeep",
-      this.signupForm.get('department').value)
+   /* console.log("deeep",
+      this.signupForm.get('department').value)*/
 this.upload1()
 this.loginRequestPayload.photo = this.file.name;
 if(this.signupForm.get('genre').value == "femme"){
@@ -188,11 +187,15 @@ if(this.signupForm.get('genre').value == "homme"){
       this.loginRequestPayload.dateNaiss= this.signupForm.get('date_naiss').value
 
     // this.loginRequestPayload.photo = this.file.name ;
+/*
     console.log("signUP",this.loginRequestPayload)
+*/
     this.authService.signupCandidat(this.loginRequestPayload).subscribe(data => {
+/*
       console.log("registred")
+*/
       this.isError_signup = false;
-      this.login()
+      this.loginAfterSignup( this.loginRequestPayload.username, this.loginRequestPayload.email, this.loginRequestPayload.password)
       this.router.navigate(['/candidat/myList']);
 
     }, error => {
@@ -202,6 +205,30 @@ if(this.signupForm.get('genre').value == "homme"){
     });
 
   }
+  loginAfterSignup(username:string,email:string,password:string) {
+
+
+    this.loginRequest.username = username
+    this.loginRequest.email = email
+    this.loginRequest.password = password
+
+    this.authService.loginCandidat(this.loginRequest).subscribe(data => {
+
+      this.isError = false;
+      console.log("you are here")
+      this.router.navigate(['/candidat/myList']);
+    }, error => {
+      this.toast.error({detail:"enter vos informations correctements !",duration:3000});
+
+      //this.isError = true;
+      console.log("error occured",error)
+      //throwError(error);
+      //this.errors = error.error.message;
+
+    });
+
+  }
+
   departementSelected(){
    const dep = this.signupForm.get('department').value
 /*
