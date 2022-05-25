@@ -32,6 +32,7 @@ export class DetailsSessionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   showTextee() {

@@ -151,9 +151,9 @@
                   <img [src]="file.url"  alt="file.name" />
                 </p>
               </div>
-               <div style="position: absolute;" style="float: right;" (click)="saveFormation1(session.idSession,this.localStorage.retrieve('username'))" *ngIf="!testFav(session)"> <i  class="pi pi-bookmark" style="color: #c90d0d; font-size: 20px;"></i></div>
+               <div style="position: absolute;" style="float: right;" (click)="saveFormation1(session.idSession,this.localStorage.retrieve('username'))"> <i  class="pi pi-bookmark" style="color: #c90d0d; font-size: 20px;"></i></div>
                <div style="position: absolute;" style="float: right;"
-                    (click)="deleteFormation1(session.idSession,this.localStorage.retrieve('username'))"> <i *ngIf="testFav(session)" class="pi pi-bookmark-fill" style="color: #c90d0d; font-size: 20px;"></i></div>
+                    (click)="deleteFormation1(session.idSession,this.localStorage.retrieve('username'))"> <i  class="pi pi-bookmark-fill" style="color: #c90d0d; font-size: 20px;"></i></div>
          </div>
             <!--    <div class="menu-dot"></div>-->
             </div>

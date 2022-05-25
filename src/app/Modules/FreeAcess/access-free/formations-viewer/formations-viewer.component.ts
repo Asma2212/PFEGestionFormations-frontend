@@ -89,7 +89,9 @@ export class FormationsViewerComponent implements OnInit {
       this.savedSe = JSON.parse(localStorage.getItem("formationSaved"))
       } */
 
+/*
     this.testFav()
+*/
 
     this.sessionService.getSessions().toPromise().then(data => {
       this.sessions = data
@@ -657,6 +659,7 @@ console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
       console.log(error);
     })}
 
+/*
   testFav() {
     console.log("?")
 
@@ -667,6 +670,7 @@ this.sessionservice.ListFavoris("00000006").pipe(
 }))
 
   }
+*/
 /*
   getDataSynchronous() {
     var request = new XMLHttpRequest();
@@ -704,4 +708,6 @@ this.sessionservice.ListFavoris("00000006").pipe(
        }
      )
   }
+
+
 }

@@ -45,6 +45,7 @@ ListInscription(Username:String):Observable<SessionFormation[]>{
 
   return  this.http.get<SessionFormation[]>(this.urlCandidat+Username);
 }
+
 ListFavoris(UserName:string):Observable<SessionFormation[]>{
     return this.http.get<SessionFormation[]>(this.urlCandidat1+"listFavorite/"+UserName);
 }

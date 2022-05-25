@@ -4,17 +4,19 @@ import { FormGroup } from '@angular/forms';
 import { Formation } from 'app/models/Formation';
 import { environment } from 'environments/environment';
 import { Observable, of } from 'rxjs';
+import {SessionFormation} from "../models/SessionFormation";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormationService {
 
-  public dataForm:  FormGroup; 
+  public dataForm:  FormGroup;
       formData = new FormData();
       listform : Formation [];
   //url = environment.urls.url + environment.urls.formationApi;
   url = 'http://localhost:8080/formation/';
+  urlSession="http://localhost:8080/api/session/formation/";
   constructor(private http: HttpClient) {}
 
   getAllFormations(): Observable<Formation[]> {
@@ -25,14 +27,14 @@ export class FormationService {
 
     return this.http.post<any>(this.url + 'save1',formation);
   }
-  
+
   saveFormationData(formData : FormData) : Observable<any>{
 
-    return this.http.post<FormData>(this.url + 'save',formData, {  
-      reportProgress: true,  
-      observe: 'events'  
+    return this.http.post<FormData>(this.url + 'save',formData, {
+      reportProgress: true,
+      observe: 'events'
     }
-    
+
 );
   }
 
@@ -56,15 +58,18 @@ export class FormationService {
 			}),
 			responseType: 'text' as 'json'
 		}; */
-		
+
 		return this.http.post<any>(this.url + 'deleteAllFormations', formations)
     //.map(resp => {return resp;}).catch(err => {console.log(err);});
-		
+
 		//console.log('resp: ' + resp);
       //return this.http.delete<any>(this.url + 'deleteAllFormations');
 
       //return of({});
       }
+      getAllSessionsOfFormation(idF:number):Observable<SessionFormation[]>{
+        return this.http.get<SessionFormation[]>(this.urlSession +idF);
 
+      }
 
 }

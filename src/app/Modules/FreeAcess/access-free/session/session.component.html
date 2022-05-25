@@ -5,23 +5,23 @@
 </header>
 
 <body>
-
+<div [hidden]="hideboolean">
 <div
-  class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap">
-  <div class="font-bold mr-8">🔥 Hot Deals!</div>
+     class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap" >
+  <div class="font-bold mr-8">🔥 Bonnes affaires!</div>
   <div class="align-items-center hidden lg:flex">
-    <span class="line-height-3">Libero voluptatum atque exercitationem praesentium provident odit.</span>
+    <span class="line-height-3">Développez vos compétences grâce à des cours,des formations proposés par l'ISET de Rades.</span>
   </div>
   <a class="flex align-items-center ml-2 mr-8">
-    <a class="text-white" href="#"><span class="underline font-bold">Learn More</span></a>
+    <a class="text-white" href="#"><span class="underline font-bold">Apprendre encore plus</span></a>
   </a>
   <a pRipple
      class="flex align-items-center no-underline justify-content-center border-circle text-gray-50 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150"
      style="width:2rem; height: 2rem">
-    <i class="pi pi-times"></i>
+    <i class="pi pi-times" (click)="hide()"></i>
   </a>
 </div>
-
+</div>
 <div class="surface-section px-4 py-5 md:px-6 lg:px-8">
   <ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
     <li>
@@ -49,15 +49,16 @@
       <div class="flex align-items-center text-700 flex-wrap">
         <div class="mr-5 flex align-items-center mt-3">
           <i class="pi pi-users mr-2"></i>
-          <span>332 Active Users</span>
+          <span style="background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);">{{AllCandidats}} Utilisateurs actifs</span>
         </div>
         <div class="mr-5 flex align-items-center mt-3">
           <i class="pi pi-globe mr-2"></i>
-          <span>9402 Sessions</span>
+          <span style="  background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);">{{numberOfSessionInFormation}} Sessions</span>
         </div>
         <div class="flex align-items-center mt-3">
           <i class="pi pi-clock mr-2"></i>
-          <span>2.32m Avg. Duration</span>
+          <span style=" background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);
+}">3minutes Moy. Durée </span>
         </div>
       </div>
     </div>
@@ -72,22 +73,28 @@
   <div class="card--content">
     <h1 style="font-family:'Segoe UI ';font-weight: bold;font-size: 1.6rem;margin-right: 1%">{{session.formationSession.titre}}</h1>
     <span style="font-family:'Segoe UI ';">{{session.formationSession.details}}</span>
-    <ul>
-      <li><span  style="color: #e8c92b">{{score}}</span>
+    <ul style="">
+      <li style=" border:2px outset #FC0;
+    border-radius:5px;
+    background-color:#004680; color: #fff1e9" > Evaluation :<span style="color: #e8c92b">{{score}}stars</span>
       </li>
       <li style="">
-
-          <p-rating [iconOnStyle]="{'color':'#af1028'}"[(ngModel)]="score" [cancel]="false" [readonly]="true" (onRate)="showGlobalRating()"></p-rating>
-
+        <a target="_blank" href="#">
+        <p-rating [iconOnStyle]="{'color':'#ffe539'}"[(ngModel)]="score" [cancel]="false" [readonly]="true" (onRate)="showGlobalRating()"></p-rating>
+        </a>
       </li>
 
       <li>
-        <a target="_blank" href="https://twitter.com/Theo_KlMan">
-          5888 participants
+        <a target="_blank" href="#" style="    border:2px outset #FC0;
+    border-radius:5px;
+    background-color:#2f0080;">
+          {{nInscriCandidat}} participants
         </a>
       </li>
       <li>
-        <a tagret="_blank" href="#">
+        <a tagret="_blank" href="#" style="    border:2px outset #FC0;
+    border-radius:5px;
+    background-color:navy;">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left"
                viewBox="0 0 16 16">
             <path
@@ -100,10 +107,15 @@
     </ul>
 
   </div>
+
 </div>
 <div class="test">
 
-  <p-card [header]=session.titreSession [subheader]=" 'lieu session :'+session.lieuSession" [style]="{width: '360px'
+  <!--
+  width: '360px'
+  -->
+  <p-card [header]=session.titreSession [subheader]=" 'lieu session :'+session.lieuSession"
+          [style]="{'width': '100%'
 }" styleClass="p-card-shadow-5">
     <ng-template pTemplate="header">
       <div *ngFor="let file of fileInfos | async">

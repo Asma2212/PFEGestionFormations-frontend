@@ -149,7 +149,7 @@ export class AuthService {
     console.log(candidatRequestSignupPayload);
     return this.http.post<any>(this.urlCandidat+"signup2",candidatRequestSignupPayload);
   }
-  currentUserDetail():Observable<any>{
+  currentUserDetail():Observable<User>{
 
     return this.http.get<User>(this.url+"currentUser/"+ this.getUserName());
 

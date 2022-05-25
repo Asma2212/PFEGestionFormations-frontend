@@ -15,6 +15,8 @@ import {data} from 'jquery';
 import {DatePipe} from "@angular/common";
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'app/services/upload-file.service';
+import {FormationService} from "../../../../services/formation.service";
+import {CandidatService} from "../../../../services/candidat.service";
 
 @Component({
   selector: 'app-session',
@@ -39,10 +41,14 @@ export class SessionComponent implements OnInit {
   private id: number;
   disabled: any;
   fileInfos: Observable<any>
+   nInscriCandidat: number;
+   numberOfSessionInFormation: number;
+   AllCandidats: number;
 
 
   constructor(private localStorage: LocalStorageService,
-              public sessionService: SessionService, private route: ActivatedRoute, private toast: NgToastService, public dialog: MatDialog, private confirmationService: ConfirmationService, private sessionFormationService: SessionFormationService, public datepipe: DatePipe, private uploadService: UploadFileService) {
+              private  candidatService:CandidatService,
+              public sessionService: SessionService, private route: ActivatedRoute, private toast: NgToastService, public dialog: MatDialog, private confirmationService: ConfirmationService, private sessionFormationService: SessionFormationService, private formationService :FormationService,public datepipe: DatePipe, private uploadService: UploadFileService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +64,9 @@ export class SessionComponent implements OnInit {
 
 
     this.showGlobalRating();
+    this.numberOfCandidats();
+    this.nomberOfCandidats();
+
   }
 
   getbyIDSession(id: number) {
@@ -381,6 +390,7 @@ export class SessionComponent implements OnInit {
    * rating
    */
   score:number ;
+  hideboolean=false;
 
   showGlobalRating(){this.sessionService.showGlobalRating(this.id).subscribe(
     data=>{
@@ -388,4 +398,32 @@ export class SessionComponent implements OnInit {
 ,error => {console.log(error)}
 )
 }
+
+  hide() {
+this.hideboolean=true;
+  }
+  /**
+   * number of candidats
+   */
+  numberOfCandidats(){
+    this.sessionService.getSession(this.id).subscribe(data=>
+    {this.numberOfSessions(data.formationSession.idFormation)
+      this.nInscriCandidat=data.listeCandidat.length ;
+    })
+  }
+  numberOfSessions(id:number){
+    this.formationService.getAllSessionsOfFormation(id).subscribe(data=>{
+
+      this.numberOfSessionInFormation=data.length
+    },
+      error => {console.log(error)})
+  }
+  nomberOfCandidats(){
+    this.candidatService. getAllCandidats().subscribe(data=>
+
+    {
+      this.AllCandidats=data.length;
+    })
+
+  }
 }
