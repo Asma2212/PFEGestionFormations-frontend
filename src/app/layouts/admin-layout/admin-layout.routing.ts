@@ -51,7 +51,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent ,canActivate: [AuthGuradGuard]},
     { path: 'user-profile',   component: UserProfileComponent ,canActivate: [AuthGuradGuard]},
     {
-        path: 'formation',
+        path: 'GestionFormation',
           loadChildren: () => import('../../Modules/gestion-formations/gestion-formations.module').then(m => m.GestionFormationsModule)
         ,canActivate: [AuthGuradGuard] },
     {
