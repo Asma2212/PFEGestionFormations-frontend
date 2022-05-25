@@ -59,23 +59,16 @@ body{margin-top:20px;}
 
 /* Blog Sidebar
 -------------------*/
-.blog-aside{
-    position: sticky;
-    height: 900px;
-    top: 10px;
-    bottom: 50%;
-}
 .blog-aside .widget {
   box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
   border-radius: 5px;
-  overflow: hidden;
+
+
   background: #ffffff;
   margin-top: 15px;
   margin-bottom: 15px;
   width: 100%;
-  display: inline-block;
   vertical-align: top;
-
 }
 .blog-aside .widget-body {
   padding: 15px;

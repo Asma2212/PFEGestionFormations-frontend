@@ -60,10 +60,8 @@ body{margin-top:20px;}
 /* Blog Sidebar
 -------------------*/
 .blog-aside{
-    position: sticky;
-    height: 900px;
-    top: 10px;
-    bottom: 50%;
+  position: fixed;
+  margin-left: 500px;
 }
 .blog-aside .widget {
   box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
