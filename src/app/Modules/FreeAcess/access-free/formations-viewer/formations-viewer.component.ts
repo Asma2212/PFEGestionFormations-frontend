@@ -16,6 +16,7 @@ import {NgToastService} from "ng-angular-popup";
 import {CandidatRegisterComponent} from "../../../Authentification/login/candidat/candidat-register/candidat-register.component";
 import {MatDialog} from "@angular/material/dialog";
 import {data} from "jquery";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-formations-viewer',
@@ -74,10 +75,12 @@ export class FormationsViewerComponent implements OnInit {
   dosentExist: boolean;
 
   disabled: any;
+  score: any;
 
   /*
   /end
    */
+  private ListReviews: any;
   constructor(public localStorage: LocalStorageService, private sessionservice: SessionService, private toast: NgToastService, public datepipe: DatePipe, public dialog: MatDialog, private router: Router, private sessionService: SessionFormationService, private categorieService: CategorieService, private uploadService: UploadFileService, private messageService: MessageService) {
   }
 
@@ -85,11 +88,9 @@ export class FormationsViewerComponent implements OnInit {
     /**    if(localStorage.getItem("formationSaved")){
       this.savedSe = JSON.parse(localStorage.getItem("formationSaved"))
       } */
-    this.sessionservice.ListFavoris(this.username1).toPromise().then(data =>{
-      console.log(data)
-        this.listFav =data
-      }
-    )
+
+    this.testFav()
+
     this.sessionService.getSessions().toPromise().then(data => {
       this.sessions = data
       this.filterSessions = this.sessions;
@@ -176,10 +177,14 @@ export class FormationsViewerComponent implements OnInit {
     end button s'inscrire
      */
 
+/*
 this.checkFavorit("15915915",83)
+*/
+    console.log(this.listFav,"fhfhhfhfhfhhf")
+
   }
 
-  checkFavorit(username:string,sessionId:number):boolean{
+/*  checkFavorit(username:string,sessionId:number):boolean{
     this.sessionservice.ListFavoris(username).toPromise().then(data=>{
       data.forEach(obj=>{
         if (obj.idSession==sessionId){
@@ -188,10 +193,10 @@ this.checkFavorit("15915915",83)
           console.log("f",this.favoris)
          return true
         }
-/*        else {
+/!*        else {
           this.favoris=false ;
 return false ;
-        }*/
+        }*!/
       })
 
       },error=>{
@@ -202,7 +207,7 @@ return false ;
 
     return false
 
-  }
+  }*/
   testImage(t: string) {
     return t.includes("image");
   }
@@ -652,12 +657,51 @@ console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
       console.log(error);
     })}
 
-  testFav(session : SessionFormation) {
+  testFav() {
+    console.log("?")
 
-    if(this.listFav.includes(session))
-      return true
+this.sessionservice.ListFavoris("00000006").pipe(
+      map(d=>{
+  this.listFav=d
+        console.log("herrrr",d)
+}))
 
-    return false
+  }
+/*
+  getDataSynchronous() {
+    var request = new XMLHttpRequest();
+    request.open("GET", "http://localhost:8080/candidat/listFavorite/00000006",false);
 
+    request.onload = function() {
+      if (request.status != 200) {
+        console.log('Error')
+        return
+      }else {console.log("nicceee")}}}
+*/
+    /*request.addEventListener("load", onLoad);*/
+
+
+    /*  request.open('GET', `http://localhost:8080/candidat/listFavorite/${this.username1}`, false);  // `false`
+  /!*
+      request.send({});
+  *!/
+
+      if (request.status === 200) {
+        console.log("édddddqsdqsd",request.response)
+        return request.response
+      } else {
+        throw new Error('request failed');
+      }
+    }*/
+  /**
+   * rating
+   */
+  ShowAllRating() {
+     this.sessionservice.showAllratings().subscribe(
+       data=>{
+         this.ListReviews=data;
+
+       }
+     )
   }
 }

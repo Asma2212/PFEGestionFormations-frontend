@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {Categorie} from "../../../../models/Categorie";
 
 @Component({
   selector: 'app-details-session',
   templateUrl: './details-session.component.html',
-  styleUrls: ['./details-session.component.scss']
+  styleUrls: ['./details-session.component.scss'],
+
 })
 export class DetailsSessionComponent implements OnInit {
 

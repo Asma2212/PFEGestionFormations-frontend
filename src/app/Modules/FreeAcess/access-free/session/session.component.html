@@ -25,7 +25,7 @@
 <div class="surface-section px-4 py-5 md:px-6 lg:px-8">
   <ul class="list-none p-0 m-0 flex align-items-center font-medium mb-3">
     <li>
-      <a class="text-500 no-underline line-height-3 cursor-pointer">Acceuil</a>
+      <a class="text-500 no-underline line-height-3 cursor-pointer" href="home/formation">Acceuil</a>
     </li>
 
 
@@ -70,15 +70,17 @@
 </div>
 <div class="card" >
   <div class="card--content">
-    <h1>{{session.formationSession.titre}}</h1>
-    <span>{{session.formationSession.details}}</span>
+    <h1 style="font-family:'Segoe UI ';font-weight: bold;font-size: 1.6rem;margin-right: 1%">{{session.formationSession.titre}}</h1>
+    <span style="font-family:'Segoe UI ';">{{session.formationSession.details}}</span>
     <ul>
-      <li>
-        <a target="_blank" href="https://github.com/TheoKleman">
-
-          <p-rating readonly="true" [cancel]="false" [(ngModel)]="val"></p-rating>
-        </a>
+      <li><span  style="color: #e8c92b">{{score}}</span>
       </li>
+      <li style="">
+
+          <p-rating [iconOnStyle]="{'color':'#af1028'}"[(ngModel)]="score" [cancel]="false" [readonly]="true" (onRate)="showGlobalRating()"></p-rating>
+
+      </li>
+
       <li>
         <a target="_blank" href="https://twitter.com/Theo_KlMan">
           5888 participants
@@ -101,7 +103,8 @@
 </div>
 <div class="test">
 
-  <p-card [header]=session.titreSession [subheader]=" 'lieu session :'+session.lieuSession" [style]="{width: '360px'}" styleClass="p-card-shadow-5">
+  <p-card [header]=session.titreSession [subheader]=" 'lieu session :'+session.lieuSession" [style]="{width: '360px'
+}" styleClass="p-card-shadow-5">
     <ng-template pTemplate="header">
       <div *ngFor="let file of fileInfos | async">
         <p *ngIf="testImage(file.type) && file.name == session.photoSession">
@@ -118,7 +121,8 @@
 <!--
       <Button *ngIf="!inscrit" (click)="inscri()">S'inscrire</Button>
 -->
-      <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+      <p-confirmDialog                  key="uniqueidofdialog"
+                                        header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
       <button class="p-button-danger" *ngIf="inscrit"  (click)="confirm()" pButton icon="pi pi-check" label="annuler"></button>
 <!--
