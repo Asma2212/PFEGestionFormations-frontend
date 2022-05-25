@@ -30,6 +30,7 @@ import {DialogModule} from "primeng/dialog";
 import {MessagesModule} from "../../messages/messages.module";
 import {SharedModule} from "../../shared/shared.module";
 import { SafeHtml1Pipe } from "./safe-html1.pipe";
+import { ReviewingComponent } from './reviewing/reviewing.component';
 
 
 
@@ -47,7 +48,8 @@ import { SafeHtml1Pipe } from "./safe-html1.pipe";
     HomeDetailsComponent,
     HomePage1Component,
     SessionOnlineComponent,
-    SafeHtml1Pipe
+    SafeHtml1Pipe,
+    ReviewingComponent
 
 
 

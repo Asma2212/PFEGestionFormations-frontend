@@ -14,6 +14,7 @@ export class SessionService {
   urlCandidat='http://localhost:8080/candidat/all/session/';
   urlSession="http://localhost:8080/api/session/";
 urlCandidat1="http://localhost:8080/candidat/";
+urlEvaluation="http://localhost:8080/rating/";
   constructor(private http: HttpClient,) {
 
   }
@@ -47,4 +48,18 @@ ListInscription(Username:String):Observable<SessionFormation[]>{
 ListFavoris(UserName:string):Observable<SessionFormation[]>{
     return this.http.get<SessionFormation[]>(this.urlCandidat1+"listFavorite/"+UserName);
 }
+
+  addrating(username: string, idSession: number, rating: string):Observable<any> {
+    return  this.http.post(this.urlEvaluation+"add/"+idSession+"/"+username,rating);
+
+  }
+
+  showGlobalRating( idSession) :Observable<number>{
+    return this.http.get<number>(this.urlEvaluation+"All/"+idSession)
+  }
+
+  showAllratings():Observable<any> {
+    return this.http.get<any>(this.urlEvaluation+"All");
+
+  }
 }
