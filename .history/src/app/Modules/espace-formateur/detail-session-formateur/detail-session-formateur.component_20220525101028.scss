@@ -60,10 +60,14 @@ body{margin-top:20px;}
 /* Blog Sidebar
 -------------------*/
 .blog-aside{
+  position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
     position: sticky;
     height: 900px;
-    top: 10px;
-    bottom: 50%;
+
+    bottom: auto;
 }
 .blog-aside .widget {
   box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
