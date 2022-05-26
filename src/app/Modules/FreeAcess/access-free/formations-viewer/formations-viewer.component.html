@@ -106,8 +106,8 @@
             </button>
         </p>
         <div class="row">
-          <div class="col">
-            <div class="collapse multi-collapse" id="multiCollapseExample1">
+          <div class="col" *ngIf="filt">
+            <div class="collapse multi-collapse" id="multiCollapseExample1" >
               <div class="card card-body">
                 <div style="display: flex">
                  
@@ -129,7 +129,7 @@
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="filt">
             <div class="collapse multi-collapse" id="multiCollapseExample2">
               <div class="card card-body">
                 <p><strong>Filtre par categorie :</strong> </p>
@@ -150,7 +150,7 @@
               <div>
                <div  *ngFor="let file of fileInfos | async">
                 <p *ngIf="testImage(file.type) && file.name == session.photoSession">
-                  <img [src]="file.url"  alt="file.name" />
+                  <img [src]="file.url"  alt="file.name" (click)="detailSession(session)"/>
                 </p>
               </div>
                <div style="position: absolute;" style="float: right;" *ngIf="!listFav.includes(session)" (click)="saveFormation1(session,this.localStorage.retrieve('username'))"> <i  class="pi pi-bookmark" style="color: #c90d0d; font-size: 20px;"></i></div>
@@ -171,7 +171,7 @@
               </button>
             </div>
             <div class="job-card-buttons">
-              <button *ngIf="!sessionsCandidat.includes(session)" (click)="inscri(session)" class="search-buttons card-buttons"
+              <button *ngIf="!sessionsCandidat.includes(session)" (click)="inscri(session)" [disabled]="funcTest(session.dateFinSession,session.listeCandidat.length,session.nbMaxCandidat)" class="search-buttons card-buttons"
 
               >S'inscrire</button>
               <button  *ngIf="sessionsCandidat.includes(session)" (click)="annuler(session)"  class="search-buttons card-buttons" >Annuler</button>

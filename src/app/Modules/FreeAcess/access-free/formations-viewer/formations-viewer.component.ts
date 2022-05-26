@@ -660,6 +660,7 @@ return false ;
   funcTest(dateFinSession: Date, length: number, nbMaxCandidat: number) {
 console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
     return ((length >= nbMaxCandidat)||(new Date(dateFinSession) < new Date()))
+    this.session.nbMaxCandidat
   }
 
 
