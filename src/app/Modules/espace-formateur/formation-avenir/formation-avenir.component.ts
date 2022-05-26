@@ -66,9 +66,9 @@ export class FormationAvenirComponent implements OnInit {
     ngOnInit() {
   
       this.fileInfos = this.uploadService.getFiles();
-      // this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
+      // this.sessionService.getSessions().subscribe(data => this.sessions = data);
      const idF =Number(localStorage.getItem("idF"))
-  this.formateurService.getSessionByFormateur(idF).toPromise().then(data => {this.sessions = data
+  this.formateurService.getSessionByFormateur(idF).subscribe(data => {this.sessions = data
 this.sessionsAll = data
   });
   this.cols = [

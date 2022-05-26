@@ -84,13 +84,13 @@ dateFin : Date;
 
   ngOnInit() {
 
-    this.formationService.getAllFormations().toPromise().then( data => {
+    this.formationService.getAllFormations().subscribe( data => {
       this.listeFormations = data ;
         console.log("everthing is okay geet",data)
       });
 
     this.fileInfos = this.uploadService.getFiles();
-     this.sessionService.getSessions().toPromise().then(data => this.sessions = data);
+     this.sessionService.getSessions().subscribe(data => this.sessions = data);
 
 this.cols = [
   { field: 'idSession', header: 'Code', customExportHeader: 'Session Code' },

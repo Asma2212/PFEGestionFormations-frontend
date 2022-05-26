@@ -28,7 +28,7 @@ export class CalendarFormateurComponent implements OnInit {
 
   ngOnInit(): void {
     const idF =Number(localStorage.getItem("idF"))
-    this.formateurService.getSessionByFormateur(idF).toPromise().then(data => {this.sessions = data
+    this.formateurService.getSessionByFormateur(idF).subscribe(data => {this.sessions = data
   this.sessions = data
         console.log("sss",this.sessions)
         this.sessions.forEach(s => {
@@ -207,7 +207,7 @@ export class CalendarFormateurComponent implements OnInit {
 
   }
   getSession() {
-    this.eventService.getEvents().toPromise().then(events => {
+    this.eventService.getEvents().subscribe(events => {
       this.sessions = events
       console.log("what theee" + this.sessions.length)
       this.getsessioncalendar()

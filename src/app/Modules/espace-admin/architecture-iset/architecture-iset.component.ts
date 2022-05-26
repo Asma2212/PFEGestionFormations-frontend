@@ -27,7 +27,7 @@ export class ArchitectureIsetComponent implements OnInit {
     constructor(private messageService: MessageService,private departementService : DepartementService) {}
 
     ngOnInit() {
-this.departementService.getAllDepartements().toPromise().then(data => {
+this.departementService.getAllDepartements().subscribe(data => {
     this.departements = data 
     console.log(this.departements)
 this.departements.forEach(dep => {

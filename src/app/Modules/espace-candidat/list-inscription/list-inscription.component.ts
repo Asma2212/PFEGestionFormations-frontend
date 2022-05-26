@@ -37,7 +37,7 @@ export class ListInscriptionComponent implements OnInit {
   ngOnInit() {
     this.fileInfos = this.uploadService.getFiles();
 
-    this.sessionService.ListInscription(this.localstorage.retrieve("username")).toPromise().then(data => {
+    this.sessionService.ListInscription(this.localstorage.retrieve("username")).subscribe(data => {
 
         this.sessions = data
       console.log("all the inscription sessions of the condidat",this.sessions)

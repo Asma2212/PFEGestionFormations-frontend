@@ -140,7 +140,7 @@ export class UserProfileComponent implements OnInit{
 
      this.TheCurrentUser.genre = {id : 1 , name : Egenre.HOMME} ;
     }
-    this.userService.updateFormateur(this.TheCurrentUser).toPromise().then(data => {
+    this.userService.updateFormateur(this.TheCurrentUser).subscribe(data => {
       console.log(data)
       window.location.reload();
 

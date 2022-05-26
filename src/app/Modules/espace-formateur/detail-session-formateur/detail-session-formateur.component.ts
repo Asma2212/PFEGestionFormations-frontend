@@ -62,10 +62,10 @@ ref: DynamicDialogRef;
 
   getbyIDSession() {
     this.id = this.route.snapshot.params['id']
-    this.sessionService.getSession(this.id).toPromise().then(data => {
+    this.sessionService.getSession(this.id).subscribe(data => {
       console.log("Message", data)
       this.session = data
-this.sessionForamtionService.getSessions().toPromise().then(d =>{
+this.sessionForamtionService.getSessions().subscribe(d =>{
   this.sessionSimilaire = d.filter(s => ((s.formationSession.titre == this.session.formationSession.titre) && (s.idSession != this.session.idSession)))
 })
 
@@ -89,7 +89,7 @@ this.planningDialog = true ;
    this.session.planning[this.titre] = this.description;
   console.log("base",this.session.planning,"mnaa",this.plan)
 //this.session.planning = this.plan ;
-   this.sessionForamtionService.updateSession(this.session).toPromise().then(
+   this.sessionForamtionService.updateSession(this.session).subscribe(
      data =>{
        console.log("added perfectly",data)
        this.hidePlanning()
@@ -120,7 +120,7 @@ this.planningDialog = true ;
         if(keyPlanning == key) delete this.session.planning[key];
      });
       console.log("base",this.session.planning,"mnaa",this.plan)
-       this.sessionForamtionService.updateSession(this.session).toPromise().then(
+       this.sessionForamtionService.updateSession(this.session).subscribe(
          data =>{
            console.log("added perfectly",data)
            this.getbyIDSession()
@@ -177,7 +177,7 @@ selectFile(event) {
 updateSession(){
   console.log("NIIv",this.session.nivDifficulte)
   console.log("before update",this.session)
-  this.sessionForamtionService.updateSession(this.session).toPromise().then(
+  this.sessionForamtionService.updateSession(this.session).subscribe(
     data =>{
       console.log("updated perfectly",data)
       this.getbyIDSession()

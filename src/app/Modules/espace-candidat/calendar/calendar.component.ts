@@ -21,7 +21,7 @@ export class CalendarComponent implements OnInit {
   constructor(private sessionService:SessionService,private Localstorage:LocalStorageService) { }
 
   ngOnInit(): void {
-    this.sessionService.getCandidaSession(this.Localstorage.retrieve("username")).toPromise().then(data => {
+    this.sessionService.getCandidaSession(this.Localstorage.retrieve("username")).subscribe(data => {
         this.sessions = data
         this.sessions.forEach(s => {
           s.dateDebSession = new Date(s.dateDebSession);

@@ -26,7 +26,7 @@ export class ListCandidatsDialogComponent implements OnInit {
 
     ngOnInit() {
       this.id = this.route.snapshot.params['id']
-      this.sessionService.getSession(this.id).toPromise().then(data => {
+      this.sessionService.getSession(this.id).subscribe(data => {
         console.log("Message", data)
         this.candidats = data.listeCandidat ;
   

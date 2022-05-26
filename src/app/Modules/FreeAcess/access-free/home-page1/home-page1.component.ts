@@ -38,7 +38,7 @@ export class HomePage1Component implements OnInit {
   
   ngOnInit(): void {
 
-    this.sessionService.getSessions().toPromise().then(data =>{ this.sessions = data})
+    this.sessionService.getSessions().subscribe(data =>{ this.sessions = data})
     this.fileInfos = this.uploadService.getFiles();
 
 

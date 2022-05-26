@@ -83,7 +83,7 @@ export class FormatuerLoginComponent implements OnInit {
     this.loginRequestPayload.password = this.loginForm.get('password').value;
     this.authService.loginFormateur(this.loginRequestPayload).subscribe(data => {
       const username = this.localStorage.retrieve("username")
-      this.formateurService.getFormateurByUsername(username).toPromise().then(d => {
+      this.formateurService.getFormateurByUsername(username).subscribe(d => {
         if(d.firstLogin)
         this.router.navigate(['/formateur/profil']);
         else

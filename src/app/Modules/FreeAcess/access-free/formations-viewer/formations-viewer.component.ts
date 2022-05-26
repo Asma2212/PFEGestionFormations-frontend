@@ -1,6 +1,6 @@
 import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive } from '@angular/router';
 import { Categorie } from 'app/models/Categorie';
 import { Formation } from 'app/models/Formation';
 import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
@@ -8,7 +8,7 @@ import { SessionFormation } from 'app/models/SessionFormation';
 import { CategorieService } from 'app/services/categorie.service';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import { UploadFileService } from 'app/services/upload-file.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import {LocalStorageService} from "ngx-webstorage";
 import {SessionService} from "../../../../services/session.service";
@@ -17,6 +17,8 @@ import {CandidatRegisterComponent} from "../../../Authentification/login/candida
 import {MatDialog} from "@angular/material/dialog";
 import {data} from "jquery";
 import {map} from "rxjs/operators";
+import { CandidatService } from 'app/services/candidat.service';
+import { Candidat } from 'app/models/Candidat';
 
 @Component({
   selector: 'app-formations-viewer',
@@ -41,7 +43,7 @@ export class FormationsViewerComponent implements OnInit {
   f: Formation;
   fileInfos: Observable<any>;
 
-  listFav : SessionFormation[];
+  listFav : SessionFormation[] = [];
 
 
 // counter
@@ -76,12 +78,36 @@ export class FormationsViewerComponent implements OnInit {
 
   disabled: any;
   score: any;
+  sessionsCandidat : SessionFormation[];
 
   /*
   /end
    */
   private ListReviews: any;
-  constructor(public localStorage: LocalStorageService, private sessionservice: SessionService, private toast: NgToastService, public datepipe: DatePipe, public dialog: MatDialog, private router: Router, private sessionService: SessionFormationService, private categorieService: CategorieService, private uploadService: UploadFileService, private messageService: MessageService) {
+
+  testInscritVar : boolean = false ;
+  testFavorisVar : boolean = false ;
+  se : SessionFormation ;
+  candidat : Candidat = {
+    id : 0 ,
+    username : "", //cin
+    password : "",
+    firstName : "",
+    email : "",
+    role : [] ,
+    lastName : "",
+    numTel : 0 ,
+    dateNaiss : null ,
+    genre : null,
+    bio : "",
+    photo : "",
+    department : null, // TI , GC , GM , GE (enum) // niveauEtude : string ; // licence / master (enum)
+    classe : null,
+    sessionFormationList : []
+
+  };
+ username :string ="";
+  constructor(public localStorage: LocalStorageService, private sessionservice: SessionService, private toast: NgToastService, public datepipe: DatePipe, public dialog: MatDialog, private router: Router, private sessionService: SessionFormationService, private categorieService: CategorieService, private uploadService: UploadFileService, private messageService: MessageService,private candidatService : CandidatService,private confirmationService : ConfirmationService) {
   }
 
   ngOnInit(): void {
@@ -93,8 +119,25 @@ export class FormationsViewerComponent implements OnInit {
     this.testFav()
 */
 
-    this.sessionService.getSessions().toPromise().then(data => {
+this.username = this.localStorage.retrieve("username")
+if(this.username)
+    this.sessionService.getSessions().subscribe(data => {
       this.sessions = data
+      this.candidatService.getCandidatByUsername(this.username).subscribe(data =>{
+        this.candidat = data
+        this.sessionsCandidat = this.sessions.filter(s => s.listeCandidat.filter(c=> c.id == this.candidat.id).length == 1)
+        console.log("seesss",this.sessionsCandidat)
+      })
+      this.sessionservice.ListFavoris(this.username).subscribe(data =>{
+        this.listFav = data
+        console.log("candidat fav",this.listFav.includes)
+       this.listFav.forEach(f => {
+         if(this.sessions.filter(s=> s.idSession == f.idSession).length==1)
+         this.se = this.sessions.filter(s=> s.idSession == f.idSession)[0]
+         this.listFav.push(this.se)
+       });
+      })
+
       this.filterSessions = this.sessions;
       this.toutCours = this.sessions.length;
       this.sessions.forEach(s => {
@@ -110,7 +153,7 @@ export class FormationsViewerComponent implements OnInit {
           this.aVenir++;
       });
     });
-    this.categorieService.getAllCategories().toPromise().then(data => {
+    this.categorieService.getAllCategories().subscribe(data => {
       this.cat = data;
       console.log("everthing is okay geet categorie", data)
     });
@@ -187,7 +230,7 @@ this.checkFavorit("15915915",83)
   }
 
 /*  checkFavorit(username:string,sessionId:number):boolean{
-    this.sessionservice.ListFavoris(username).toPromise().then(data=>{
+    this.sessionservice.ListFavoris(username).subscribe(data=>{
       data.forEach(obj=>{
         if (obj.idSession==sessionId){
           this.favoris=true ;
@@ -402,7 +445,7 @@ return false ;
     var nbSession = 0;
     var listofCandidats;
     var i = 0;
-    this.sessionservice.getSession(id).toPromise().then(
+    this.sessionservice.getSession(id).subscribe(
       data => {
         listofCandidats = data.listeCandidat;
         console.log("list of candidats" + listofCandidats);
@@ -434,7 +477,7 @@ return false ;
   }
 
   checkIfSessionInCandidat(id: number) {
-    this.sessionservice.getSession(id).toPromise().then(data => {
+    this.sessionservice.getSession(id).subscribe(data => {
       console.log("java date" + data.dateFinSession)
       const now = this.datepipe.transform(new Date(), 'yyyy-MM-dd')
 
@@ -452,7 +495,7 @@ return false ;
 
     //tchouf kén il condidat inscrit lil session lil button annullé
     if (this.localStorage.retrieve("role") == "candidat") {
-      this.sessionservice.getCandidaSession(this.username1).toPromise().then(data => {
+      this.sessionservice.getCandidaSession(this.username1).subscribe(data => {
         //console.log("daaataaaaa",data)
         this.ListSessionOfCandidat = data;
         // console.log("daaataaaaa8888",this.ListSessionOfCandidat)
@@ -488,7 +531,7 @@ return false ;
 
   }
 
-  inscri(id: number) {
+  inscri(sess : SessionFormation) {
     //var nombreMax;
 
     // test local storage si oui
@@ -506,7 +549,7 @@ return false ;
       var nbSession = 0;
       var listofCandidats;
       var i = 0;
-      this.sessionservice.getSession(id).toPromise().then(
+      this.sessionservice.getSession(sess.idSession).subscribe(
         data => {
           listofCandidats = data.listeCandidat;
           console.log("list of candidats" + listofCandidats);
@@ -538,13 +581,13 @@ return false ;
             console.log("username" + username)
 
 
-            this.sessionservice.getCandidaSession(username).toPromise().then(data => {
+            this.sessionservice.getCandidaSession(username).subscribe(data => {
               this.ListSessionOfCandidat = data;
               console.log("list of sessions of a candidats" + this.ListSessionOfCandidat);
               if (this.ListSessionOfCandidat.length == 0) {
                 console.log("say hii")
-
-                self.sessionservice.ToInscrire(username, id).subscribe(data => {
+                this.sessionsCandidat.push(sess);
+                self.sessionservice.ToInscrire(username, sess.idSession).subscribe(data => {
                   console.log("xxxxx " + data);
                   self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
 
@@ -555,7 +598,7 @@ return false ;
               }
               this.ListSessionOfCandidat.forEach(function (value) {
 
-                if (value.idSession == id) {
+                if (value.idSession == sess.idSession) {
 
 
                   console.log("candiat already registred to the session ")
@@ -568,12 +611,11 @@ return false ;
                   return;
                 } else {
                   console.log("say hii")
-
-                  self.sessionservice.ToInscrire(username, id).subscribe(data => {
+                  self.sessionservice.ToInscrire(username, sess.idSession).subscribe(data => {
                     console.log("the data" + data);
                     self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
-
                     self.inscrit = true
+                   
                   }), error => {
                     self.toast.error({detail: "Échec!", summary: error.error.message, duration: 3000});
                   }
@@ -588,7 +630,27 @@ return false ;
           // return false ;
         }
       )
+      this.router.navigate(["/home/formation"])
     }
+  }
+  annuler(sess : SessionFormation) {
+      this.confirmationService.confirm({
+        message: 'Are you sure that you want to perform this action?',
+        accept: () => {
+          this.sessionsCandidat = this.sessionsCandidat.filter(a=> a.idSession != sess.idSession)
+          this.sessionservice.ToDesinscrire(this.username1, sess.idSession).subscribe(data => {
+            console.log(data + "hettetetett")
+            this.toast.success({detail: "success", summary: data.toString(), duration: 3000});
+  
+          })
+          this.inscrit = false
+          // location.reload();
+          // this.ngOnInit()
+  
+        }
+      });
+
+
   }
 
   private opnInscriptionDialog() {
@@ -609,7 +671,7 @@ console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
     var listofCandidats;
     var i=0 ;
     var res:boolean=false
-    this.sessionservice.getSession(idSession).toPromise().then(
+    this.sessionservice.getSession(idSession).subscribe(
       data => {   listofCandidats = data.listeCandidat;
         console.log("list of candidats" + listofCandidats);
         if(listofCandidats.length==0){
@@ -638,8 +700,9 @@ console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
       ))
   }*/
   favoritvar:boolean
-  saveFormation1(idSession: number, username: any) {
-    this.sessionservice.ToFavoris(username,idSession).subscribe(data=>{
+  saveFormation1(sess : SessionFormation, username: any) {
+    this.listFav.push(sess)
+    this.sessionservice.ToFavoris(username,sess.idSession).subscribe(data=>{
       console.log("ok")
       this.favoritvar=true;
 
@@ -649,8 +712,9 @@ console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
 
   }
 
-  deleteFormation1(idSession: number, retrieve: any) {
-    this.sessionservice.ToDeFavoris(retrieve,idSession).subscribe(data=>{
+  deleteFormation1(sess : SessionFormation, retrieve: any) {
+    this.listFav = this.listFav.filter(f=> f.idSession != sess.idSession)
+    this.sessionservice.ToDeFavoris(retrieve,sess.idSession).subscribe(data=>{
 
       console.log("ok delete")
       this.favoritvar=false;
@@ -709,5 +773,31 @@ this.sessionservice.ListFavoris("00000006").pipe(
      )
   }
 
+  testInscrit(sess : SessionFormation){
+    if(this.candidat){
+      this.testInscritVar = false ; 
+return false ;
+    }else{
+  this.testInscritVar = true ; 
+  return true
+}
+
+  }
+  testFavoris(sess : SessionFormation){    
+    this.sessionservice.ListFavoris(this.username).subscribe(data =>{
+      this.listFav = data
+      console.log("candidat fav",this.listFav.includes)
+   
+    if(this.listFav.includes(sess)){
+      this.testFavorisVar = true
+      return true
+}
+else
+{
+  this.testFavorisVar = false
+  return false
+}
+})
+}
 
 }
