@@ -145,7 +145,7 @@ if(this.username)
           this.nouvCours++;
         if (new Date(s.dateFinSession) < new Date())
           this.archive++;
-        if (s.listeCandidat.length < s.nbMaxCandidat)
+        if ((s.listeCandidat.length < s.nbMaxCandidat) && (new Date(s.dateDebSession) > new Date()))
           this.OuvertInscrit++;
         if ((new Date() >= new Date(s.dateDebSession)) && (new Date() <= new Date(s.dateFinSession)))
           this.enCours++;
@@ -388,12 +388,12 @@ return false ;
     }
     if (this.ouvertInscritCheck == true) {
       this.sessions = this.sessions.filter(s =>
-        s.listeCandidat.length < s.nbMaxCandidat
+       ((s.listeCandidat.length < s.nbMaxCandidat) && (new Date(s.dateDebSession) > new Date()))
       );
     }
     if (this.enCoursCheck == true) {
       this.sessions = this.sessions.filter(s =>
-        (new Date() >= new Date(s.dateDebSession)) && (new Date() <= new Date(s.dateFinSession))
+        (new Date() >= new Date(s.dateDebSession)) && (new Date() > new Date(s.dateDebSession))
       );
     }
     if (this.aVenirCheck == true) {
@@ -657,9 +657,9 @@ return false ;
     const dialogRef = this.dialog.open(CandidatRegisterComponent)
   }
 
-  funcTest(dateFinSession: Date, length: number, nbMaxCandidat: number) {
+  funcTest(length: number, nbMaxCandidat: number,dateDebSession: Date,) {
 console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
-    return ((length >= nbMaxCandidat)||(new Date(dateFinSession) < new Date()))
+    return ((length >= nbMaxCandidat)||(new Date(dateDebSession) <= new Date()) )
     this.session.nbMaxCandidat
   }
 

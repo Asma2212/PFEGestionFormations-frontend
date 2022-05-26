@@ -171,7 +171,7 @@
               </button>
             </div>
             <div class="job-card-buttons">
-              <button *ngIf="!sessionsCandidat.includes(session)" (click)="inscri(session)" [disabled]="funcTest(session.dateFinSession,session.listeCandidat.length,session.nbMaxCandidat)" class="search-buttons card-buttons"
+              <button *ngIf="!sessionsCandidat.includes(session)" (click)="inscri(session)" [disabled]="funcTest(session.listeCandidat.length,session.nbMaxCandidat,session.dateDebSession)" class="search-buttons card-buttons"
 
               >S'inscrire</button>
               <button  *ngIf="sessionsCandidat.includes(session)" (click)="annuler(session)"  class="search-buttons card-buttons" >Annuler</button>
