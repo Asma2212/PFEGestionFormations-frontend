@@ -38,6 +38,7 @@ import { TableModule } from 'primeng/table';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { MatInputModule } from '@angular/material/input';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -80,7 +81,9 @@ FullCalendarModule.registerPlugins([
     RadioButtonModule,
     TableModule,
     DynamicDialogModule,
-    FileUploadModule
+    FileUploadModule,
+    MatInputModule,
+    RadioButtonModule
     /* FullCalendarModule,
      CalendarModule,*/
   ],

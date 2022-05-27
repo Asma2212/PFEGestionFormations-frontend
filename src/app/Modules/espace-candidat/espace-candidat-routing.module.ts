@@ -9,6 +9,7 @@ import {ArchiveComponent} from "./archive/archive.component";
 import {CalendarComponent} from "./calendar/calendar.component";
 import {FavorisComponent} from "./favoris/favoris.component";
 import {EmptyListComponent} from "./empty-list/empty-list.component";
+import { ProfilCandidatComponent } from './profil-candidat/profil-candidat.component';
 
 const routes: Routes = [{
   path: '',
@@ -30,7 +31,10 @@ const routes: Routes = [{
     },{
     path:"n",
       component:NavComponent
-    }
+    },{
+      path:"profil",
+        component:ProfilCandidatComponent
+      }
     ]
 }];
 

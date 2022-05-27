@@ -1,23 +1,26 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Candidat } from 'app/models/Candidat';
 import { Formateur } from 'app/models/Formateur';
 import { Egenre } from 'app/models/GenreEnum';
 import { SessionFormation } from 'app/models/SessionFormation';
+import { CandidatService } from 'app/services/candidat.service';
 import { FormateurService } from 'app/services/formateur.service';
+import { SessionFormationService } from 'app/services/SessionFormation.service';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-profil-formateur',
-  templateUrl: './profil-formateur.component.html',
-  styleUrls: ['./profil-formateur.component.scss']
+  selector: 'app-profil-candidat',
+  templateUrl: './profil-candidat.component.html',
+  styleUrls: ['./profil-candidat.component.scss']
 })
-export class ProfilFormateurComponent implements OnInit {
+export class ProfilCandidatComponent implements OnInit {
   selectedFiles: FileList;
-  formateur : Formateur
+  candidat : Candidat
   date1 : Date ;
   femme : string;
   homme : string;
@@ -43,37 +46,42 @@ export class ProfilFormateurComponent implements OnInit {
   nouvPass2 : string ="";
   confAnc : boolean = true;
   diffPass : boolean = true;
+  sessionsCandidat : SessionFormation[]
+  sessions : SessionFormation[]
   
-  constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
+  constructor(private sessionService : SessionFormationService,private candidatService : CandidatService ,private uploadService : UploadFileService,private messageService : MessageService ,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
 
   ngOnInit(): void {
     this.nbPasser=0;
     this.nbAvenir=0;
     const username = this.localStorage.retrieve("username")
-    this.formateurService.getFormateurByUsername(username).subscribe(data => {
-     localStorage.setItem("idF",data.id.toString());
+    this.sessionService.getSessions().subscribe(data => {
+      this.sessions = data
+    this.candidatService.getCandidatByUsername(username).subscribe(data => {
+      this.sessionsCandidat = this.sessions.filter(s => s.listeCandidat.filter(c=> c.id == this.candidat.id).length == 1)
+        console.log("seesss",this.sessionsCandidat)
+     localStorage.setItem("idC",data.id.toString());
       console.log("daataaa2",data)
-      this.formateur = data ;
-      this.age = new Date().getFullYear() - new Date(this.formateur.dateNaiss).getFullYear()
-      this.date1 = new Date(this.formateur.dateNaiss)
-      if(this.formateur.genre.name == "FEMME")
+      this.candidat = data ;
+      this.age = new Date().getFullYear() - new Date(this.candidat.dateNaiss).getFullYear()
+      this.date1 = new Date(this.candidat.dateNaiss)
+      if(this.candidat.genre.name == "FEMME")
       this.femme = "Femme" ;
       else
       this.homme = "Homme"
       console.log(this.femme)
-      this.formateurService.getSessionByFormateur(this.formateur.id).subscribe(data =>{
-        this.formateur.sessionFormationList = data
-        console.log("daataaa1",data)
-      
-      console.log("aaa",this.formateur.sessionFormationList);
-     this.nbPasser = this.formateur.sessionFormationList.filter(s => 
-        new Date(s.dateFinSession) < new Date()).length ;
-        this.nbAvenir = this.formateur.sessionFormationList.filter(s => 
-          new Date(s.dateDebSession) > new Date()).length
-          this.nbEncours = this.formateur.sessionFormationList.filter(s => 
-            new Date(s.dateFinSession) >= new Date() && new Date(s.dateDebSession) <= new Date()).length ;
 
-    })
+        this.candidat.sessionFormationList = this.sessionsCandidat
+      
+      console.log("aaa",this.candidat.sessionFormationList);
+     this.nbPasser = this.candidat.sessionFormationList.filter(s => 
+        new Date(s.dateFinSession) < new Date()).length ;
+        this.nbAvenir = this.candidat.sessionFormationList.filter(s => 
+          new Date(s.dateDebSession) > new Date()).length
+          this.nbEncours = this.candidat.sessionFormationList.filter(s => 
+            new Date(s.dateFinSession) >= new Date() && new Date(s.dateDebSession) <= new Date()).length ;
+          })
+    
   })
     this.fileInfos = this.uploadService.getFiles();
   }
@@ -84,22 +92,22 @@ export class ProfilFormateurComponent implements OnInit {
    if(this.imgURL)
    this.upload1();
    if(this.file)
-   this.formateur.photo = this.file.name
+   this.candidat.photo = this.file.name
    if(this.femme){
      
-     this.formateur.genre = {id : 2 , name : Egenre.FEMME} ;
+     this.candidat.genre = {id : 2 , name : Egenre.FEMME} ;
   }
   if(this.homme){
  
-   this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
+   this.candidat.genre = {id : 1 , name : Egenre.HOMME} ;
  } 
- console.log(this.formateur)
+ console.log(this.candidat)
  if((this.nouvPass.trim()) && (this.nouvPass2.trim() && (this.ancPass.trim()))){
  if(this.nouvPass == this.nouvPass2){
-   this.formateur.password = this.nouvPass
-  this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).subscribe(data =>{
+   this.candidat.password = this.nouvPass
+  this.candidatService.updateCandidatPassword(this.candidat,this.ancPass,this.nouvPass).subscribe(data =>{
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
-    this.router.navigate(["formateur/profil"]) 
+    this.router.navigate(["candidat/profil"]) 
   },
   error =>{
     console.log(error)
@@ -111,11 +119,11 @@ this.diffPass = false ;
   )
 }}
 else{
-this.formateurService.updateFormateur(this.formateur).subscribe( data =>{
-  console.log("photooo",this.formateur.photo)
+this.candidatService.updateCandidat(this.candidat).subscribe( data =>{
+  console.log("photooo",this.candidat.photo)
   console.log(data)
   this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
-  this.router.navigate(["formateur/profil"]) 
+  this.router.navigate(["candidat/profil"]) 
 },
 error =>{
   this.messageService.add({severity:'error', summary: 'Echoué', detail: error.error.message, life: 3000});
@@ -183,34 +191,6 @@ deco(){
   });
 }
 
-selectFile(event) {
-  this.selectedFiles = event.target.files;
-  this.formateur.cv = this.selectedFiles[0].name ;
-}
-upload() {
-  this.progress = 0;
-  this.currentFile = this.selectedFiles.item(0);
-  console.log("current file",this.currentFile);
-  this.formateur.cv=this.currentFile.name ;
-  this.uploadService.upload(this.currentFile).subscribe(
-    event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.message = event.body.message;
-        this.fileInfos = this.uploadService.getFiles();
-      }
-    },
-    err => {
-      this.progress = 0;
-      console.log(err);
-      if(err.error.message.includes("constraint"))
-      this.message =" Ce fichier existe deja"
-      else
-      this.message = ' Un probleme est survenue';
-      this.currentFile = undefined;
-    });
-    this.formateur.cv = this.currentFile.name ;
-  this.selectedFiles = undefined;
-}
+
+
 }

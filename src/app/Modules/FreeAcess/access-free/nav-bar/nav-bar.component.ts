@@ -93,7 +93,7 @@ export class NavBarComponent implements OnInit {
     }
 
     if(this.localStorage1.retrieve('role')=='candidat'){
-      this.router.navigate(['/mizél']);
+      this.router.navigate(['/candidat/profil']);
     }
     else {return}
   }

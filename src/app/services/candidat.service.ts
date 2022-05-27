@@ -37,5 +37,9 @@ import { Observable } from "rxjs";
         getCandidatByUsername(u : string): Observable<Candidat> {
           return this.http.get<Candidat>(this.url+"get/"+u);
         }
+        updateCandidatPassword(candidat : Candidat,anc : string ,nouv : string) : Observable<any>{
+    
+          return this.http.post<any>(this.url + 'updatePassword/'+anc+'/'+nouv,candidat);
+        }
   
   }
