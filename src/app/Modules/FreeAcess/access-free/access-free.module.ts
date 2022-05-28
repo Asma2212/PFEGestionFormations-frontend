@@ -31,6 +31,8 @@ import {MessagesModule} from "../../messages/messages.module";
 import {SharedModule} from "../../shared/shared.module";
 import { SafeHtml1Pipe } from "./safe-html1.pipe";
 import { ReviewingComponent } from './reviewing/reviewing.component';
+import {BlockUIModule} from "primeng/blockui";
+import {PanelModule} from "primeng/panel";
 
 
 
@@ -76,6 +78,8 @@ import { ReviewingComponent } from './reviewing/reviewing.component';
     DialogModule,
     MessagesModule,
     SharedModule,
+    BlockUIModule,
+    PanelModule,
 
   ],
     exports: [

@@ -1,13 +1,13 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-
-<div id="main-content" class="blog-page" style="margin-top: 3%; margin-left: 6%">
+<body >
+<div id="main-content" class="blog-page" style="margin-top: 3%; margin-left: 6%" >
   <div class="container">
 
     <div class="row clearfix">
       <div  class="col-lg-8 col-md-12 left-box">
 
 
-        <div class="card single_post">
+        <div class="card single_post" style="" >
           <div class="body" >
             <div class="img-post">
             </div>
@@ -32,7 +32,7 @@
               {{ isReadMore ? 'Read More': 'Read Less' }}-->
           <!--  </button>-->
         </div>
-        <div class="card" style="border: solid">
+        <div class="card shadow-6" style="border: solid ;">
           <div class="header">
             <div class="icon-box col-md-6 col-6 text-3xl font-medium text-900 mb-3">Prérequis</div>
             <div class="icon-box col-md-6 col-6">
@@ -98,7 +98,7 @@
 
         </div>
 
-        <div class="surface-card p-4  shadow-3 border-round">
+        <div class="surface-card p-4  shadow-5 border-round">
           <div class="text-3xl font-medium text-900 mb-3">Description
             <button class="p-button-sm" (click)="showTexte()" pButton type="button"
                     class="p-button-help"> {{ isReadMoree ? 'afficher plus' : 'afficher moins' }}</button>
@@ -166,7 +166,7 @@
           </div>
         </div>-->
         <!--formateur open-->
-        <div class="card">
+        <div class="card shadow-6">
           <div class="card-body">
             This is some text within a card body.
           </div>
@@ -183,7 +183,7 @@
 <!--
         <div class="card"></div> <div class="card"></div>
 -->
-        <div class="card " style=" margin-top: 400px;margin-left: 20%;
+        <div class="card shadow-6 " style=" margin-top: 400px;margin-left: 20%;
         background: linear-gradient(135deg, #3e00bb, rgba(255,136,0,0.53)) fixed;" >
           <div class="header">
             <h2>Categories </h2>
@@ -196,28 +196,36 @@
             </ul>
           </div>
         </div>
-        <div class="card" style="margin-left: 20%;">
+        <div class="card shadow-6" style="margin-left: 20%;">
           <div class="header">
-            <h2>Details session</h2>
+            <h2>                <img width="20" src="
+https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
+              Details session</h2>
           </div>
           <div class="body widget popular-post">
             <div class="row">
               <div class="col-lg-12">
                 <div class="single_post">
-                  <p class="m-b-0">dateDebSession</p>
-                  <span>{{dateDebSession}}</span>
+                  <p class="m-b-0 text-xl" >  <img width="25" src="
+           https://cdn-icons-png.flaticon.com/128/3652/3652191.png
+">dateDebSession</p>
+                  <span class="fancy text-xl">{{dateDebSession}}</span>
                   <div class="img-post">
                   </div>
                 </div>
                 <div class="single_post">
-                  <p class="m-b-0">dateDfinSession</p>
-                  <span>{{dateFinSession}}</span>
+                  <p class="m-b-0 text-xl" ><img width="25" src="
+           https://cdn-icons-png.flaticon.com/128/3652/3652191.png
+">
+                    dateDfinSession</p>
+                  <span class="fancy text-xl">{{dateFinSession}}</span>
                   <div class="img-post">
                   </div>
                 </div>
                 <div class="single_post">
-                  <p class="m-b-0">nombre max participant</p>
-                  <span>{{nbMawParticipant}}</span>
+                  <p class="m-b-0">
+                   <img width="25" src="https://cdn-icons.flaticon.com/png/128/3429/premium/3429402.png?token=exp=1653510155~hmac=917169941fafcdb786a1bcf8632521f5"> nombre max participant</p>
+                  <span class="fancy text-xl">{{nbMawParticipant}}</span>
                   <div class="img-post">
                   </div>
                 </div>
@@ -225,12 +233,22 @@
             </div>
           </div>
         </div>
-        <div class="card"  style="margin-left: 20%;">
-          <div class="header">
-            <h2>Instagram Post</h2>
+        <div class="ratee" style="margin-left: 20%;  background:#31394D;
+">
+         <!-- <div class="header">
+            <h2>Avis</h2>
           </div>
-          <div class="body widget">
-            <ul class="list-unstyled instagram-plugin m-b-0">
+          <div class="body widget">-->
+            <p-blockUI [target]="pnl" [blocked]="showRating()">
+              <i class="pi pi-lock" style="font-size: 3rem"></i>
+            </p-blockUI>
+            <p-panel #pnl header="Noter cette session" styleClass="mt-4">
+              <p class="m-0">.</p>
+              <p-rating [(ngModel)]="score" [cancel]="false" (onRate)="addRating()"></p-rating>
+
+            </p-panel>
+
+            <!--<ul class="list-unstyled instagram-plugin m-b-0">
               <li><a href="javascript:void(0);"><img src="https://via.placeholder.com/100x100/87CEFA/000000"
                                                      alt="image description"></a></li>
               <li><a href="javascript:void(0);"><img src="https://via.placeholder.com/100x100/87CEFA/000000"
@@ -249,12 +267,14 @@
                                                      alt="image description"></a></li>
               <li><a href="javascript:void(0);"><img src="https://via.placeholder.com/100x100/87CEFA/000000"
                                                      alt="image description"></a></li>
-            </ul>
+            </ul>-->
+<!--
           </div>
+-->
         </div>
 
 
-        <div class="card"  style="margin-left: 20%;">
+        <div class="card shadow-6"  style="margin-left: 20%;">
           <div class="header">
             <h2>Email Newsletter <small>Get our products/news earlier than others, let’s get in touch.</small></h2>
           </div>
@@ -272,3 +292,4 @@
 
   </div>
 </div>
+</body>

@@ -63,4 +63,9 @@ ListFavoris(UserName:string):Observable<SessionFormation[]>{
     return this.http.get<any>(this.urlEvaluation+"All");
 
   }
+
+  PutMyDefaultRating(username, idSession):Observable<number> {
+    return this.http.get<number>(this.urlEvaluation+idSession+"/"+username);
+
+  }
 }

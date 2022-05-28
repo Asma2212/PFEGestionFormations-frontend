@@ -1,5 +1,14 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {Categorie} from "../../../../models/Categorie";
+import {SessionService} from "../../../../services/session.service";
+import {LocalStorageService} from "ngx-webstorage";
+import {ActivatedRoute} from "@angular/router";
+import {NgToastService} from "ng-angular-popup";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmationService} from "primeng/api";
+import {SessionFormationService} from "../../../../services/SessionFormation.service";
+import {DatePipe} from "@angular/common";
+import {UploadFileService} from "../../../../services/upload-file.service";
 
 @Component({
   selector: 'app-details-session',
@@ -19,6 +28,7 @@ export class DetailsSessionComponent implements OnInit {
   isReadMore = true
   isReadMoree = true
   isReadMoreee = true
+  score: number;
 
   showText() {
     this.isReadMore = !this.isReadMore
@@ -28,14 +38,49 @@ export class DetailsSessionComponent implements OnInit {
     this.isReadMoree = !this.isReadMoree
   }
 
-  constructor() {
+  username;
+  idSession;
+  constructor(private sessionService:SessionService,private localstorage:LocalStorageService
+    , private route: ActivatedRoute, private toast: NgToastService, public dialog: MatDialog, private confirmationService: ConfirmationService, private sessionFormationService: SessionFormationService,public datepipe: DatePipe,private uploadService : UploadFileService) {
   }
+
 
   ngOnInit(): void {
+    this.username=this.localstorage.retrieve("username");
+    this.idSession = this.route.snapshot.params['id'];
+
+    this.PuTheRating();
 
   }
+  addRating(){
+    this.sessionService.addrating(this.username,83,this.score.toString()).subscribe(
+      data=>
+      {
+        console.log(data,"here$");
+
+      },error => {
+        console.log(error);
+      }
+    )
+  }
+
 
   showTextee() {
     this.isReadMoreee = !this.isReadMoreee
   }
+showRating(){
+
+  return ((
+    new Date(this.dateFinSession) < new Date() || this.localstorage.retrieve("role")!="candidat")
+  );
+
 }
+  MyRating:number;
+PuTheRating(){
+    this.sessionService.PutMyDefaultRating(this.username,this.idSession).subscribe(data=>
+      {
+        this.score = data},error => {console.log(error)}
+    )
+}
+
+  }

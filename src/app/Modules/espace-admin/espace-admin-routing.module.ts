@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminCalendarComponent } from './admin-calendar/admin-calendar.component';
 import { ArchitectureIsetComponent } from './architecture-iset/architecture-iset.component';
 import { EspaceAdminComponent } from './espace-admin/espace-admin.component';
+import {GestionSuggestionComponent} from "./gestion-suggestion/gestion-suggestion.component";
 
 const routes: Routes = [{
   path: 'Admin',
@@ -15,8 +16,11 @@ const routes: Routes = [{
     {
       path: 'Architecture',
       component: ArchitectureIsetComponent,
+    },{
+    path:'Suggestions',
+      component:GestionSuggestionComponent
     }
-    
+
   ]
 }];
 
