@@ -7,11 +7,23 @@
   <button pButton pRipple type="button"  icon="pi pi-user-plus"  class="p-button-raised p-button-warning p-button-outlined" (click)="openNew(candidat)"></button><!--ajouter()-->
   <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
         <i class="pi pi-search"></i>
-        <input pInputText type="text" (keyup)="applyFilter($event.target.value)" matInput placeholder="Search..." />
+        <input pInputText type="text" [(ngModel)]="filterValue" (keyup)="applyFilter()" matInput placeholder="Search..." />
       </span>
 </div>
 <!--    <p-splitButton icon="pi pi-user-plus" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton> --> 
         <br><br>
+        <span class="p-input-icon-left" style="margin-left: 60px;margin-right: 0px;border: 2px;">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon" style="background-color: rgba(251, 227, 210, 0.374);border-color: rgb(123, 86, 72);color: rgb(123, 93, 72);"><i class="pi pi-filter"></i> &nbsp; filtrer par departement</span>
+            <p-multiSelect [options]="listDep" [(ngModel)]="filterDep" [selectionLimit]="1" (onClick)="applyFilter()"  optionLabel="name" display="chip"></p-multiSelect>
+          </div>
+              </span><br><br>
+              <span class="p-input-icon-left" style="margin-left: 60px;margin-right: 0px;border: 2px;">
+                <div class="p-inputgroup">
+                  <span class="p-inputgroup-addon" style="background-color: rgba(251, 227, 210, 0.374);border-color: rgb(123, 86, 72);color: rgb(123, 93, 72);"><i class="pi pi-filter"></i> &nbsp; filtrer par classe</span>
+                <p-multiSelect [options]="listClassAll" [(ngModel)]="filterClass" [selectionLimit]="1" (onClick)="applyFilter()"  optionLabel="name" display="chip"></p-multiSelect>
+                </div>
+              </span><br><br>
         <div class="row">
             <!--(onClick)="save('info')"-->
 <!--            <div class="col-md-3" *ngFor="let i of counter(5)"><!--*ngFor="let candidat of candidats"-->
@@ -42,7 +54,7 @@
                   <tr style="background-color: rgba(235, 215, 172, 0.579);">
                     <th>&emsp;Informations Personnels</th>
                     <th>Classe</th>
-                    <th>Date de Naissance</th>
+                    <th>Date de Naissance</th> 
                     <!--<th>Genre</th>-->
                     <th>Etablissement</th>
                     <th>&emsp;Actions</th>

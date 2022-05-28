@@ -28,8 +28,9 @@ export class ListeCandidatsComponent implements OnInit {
   depSelected : boolean = false ;
   candidats: Candidat[];
   candidat : Candidat ;
-  listDep : Department[];
-  listClass : Classe[];
+  listDep : Department[] = [];
+  listClass : Classe[] = [];
+  listClassAll : Classe[] =[];
   sortOptions: SelectItem[];
   groupedSpecialites: SelectItemGroup[];
   depItem : SelectItemGroup ;
@@ -52,6 +53,9 @@ export class ListeCandidatsComponent implements OnInit {
   progress1 = 0;
   message1 = '';
   fileInfos: Observable<any>;
+  filterDep : Department;
+  filterClass : Classe;
+  filterValue : string ="";
 
   constructor(private candidatService : CandidatService ,private uploadService : UploadFileService ,private departementService : DepartementService, private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
 
@@ -60,7 +64,13 @@ export class ListeCandidatsComponent implements OnInit {
 
     this.departementService.getAllDepartements().subscribe( data =>{
       this.listDep = data ;
-      console.log("departement :",data) });
+      console.log("departement :",data)
+    this.listDep.forEach(d => {
+     d.classes.forEach(c => {
+       this.listClassAll.push(c)
+     });
+      
+    }); });
 
 
   /*    this.listDep.forEach(dep => {
@@ -295,14 +305,22 @@ hideDialog() {
 
 }
 
-applyFilter(filterValue : string){
-  console.log("ff",filterValue);
- let filterValueLower = filterValue.toLowerCase();
-if(filterValue === '') {
-this.candidats=this.allCandidats;
+applyFilter(){
+  this.candidats= this.allCandidats
+  console.log("ff",this.filterValue);
+ let filterValueLower = this.filterValue.toLowerCase();
+if(this.filterValue != '') {
+this.candidats= this.allCandidats.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(this.filterValue));
 }
-else{
-this.candidats= this.allCandidats.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(filterValue));
+if(this.filterDep != null){
+  let filterValueLower = this.filterDep[0].name.toLowerCase();
+  console.log("ff1",this.filterDep[0].name);
+this.candidats = this.candidats.filter(f => f.department.name.toLowerCase().includes(filterValueLower));
+}
+if(this.filterClass != null){
+  this.candidats = this.candidats.filter(f =>
+    f.classe.name === this.filterClass[0].name)
+    
 }
 }
 
