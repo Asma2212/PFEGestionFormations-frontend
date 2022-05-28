@@ -27,7 +27,7 @@ export class ArchiveComponent implements OnInit {
   ngOnInit(): void {
     this.fileInfos = this.uploadService.getFiles();
 
-    this.sessionService.ListInscription(this.localstorage.retrieve("username")).toPromise().then(data => {
+    this.sessionService.ListInscription(this.localstorage.retrieve("username")).subscribe(data => {
       if (data.length==0){return}
       else
         data.forEach( obj =>

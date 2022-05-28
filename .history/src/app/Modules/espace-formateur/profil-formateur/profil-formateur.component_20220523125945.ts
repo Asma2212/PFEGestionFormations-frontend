@@ -50,7 +50,7 @@ export class ProfilFormateurComponent implements OnInit {
     this.nbPasser=0;
     this.nbAvenir=0;
     const username = this.localStorage.retrieve("username")
-    this.formateurService.getFormateurByUsername(username).toPromise().then(data => {
+    this.formateurService.getFormateurByUsername(username).subscribe(data => {
      localStorage.setItem("idF",data.id.toString());
       console.log("daataaa2",data)
       this.formateur = data ;
@@ -61,7 +61,7 @@ export class ProfilFormateurComponent implements OnInit {
       else
       this.homme = "Homme"
       console.log(this.femme)
-      this.formateurService.getSessionByFormateur(this.formateur.id).toPromise().then(data =>{
+      this.formateurService.getSessionByFormateur(this.formateur.id).subscribe(data =>{
         this.formateur.sessionFormationList = data
         console.log("daataaa1",data)
       
@@ -94,7 +94,7 @@ export class ProfilFormateurComponent implements OnInit {
    this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
  } 
  if(this.nouvPass == this.nouvPass2){
-  this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).toPromise().then(data =>{
+  this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).subscribe(data =>{
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
     this.router.navigate(["formateur/profil"]) 
   },

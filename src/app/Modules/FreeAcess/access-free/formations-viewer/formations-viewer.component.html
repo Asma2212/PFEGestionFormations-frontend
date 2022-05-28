@@ -96,6 +96,7 @@
         </div>
       </div>
       <div class="searched-jobs">
+
         <p>
           <button class="p-button p-button-outlined p-button-rounded p-button-danger" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" (click)="func()" aria-controls="multiCollapseExample1 multiCollapseExample2">
 
@@ -105,10 +106,11 @@
             </button>
         </p>
         <div class="row">
-          <div class="col">
-            <div class="collapse multi-collapse" id="multiCollapseExample1">
+          <div class="col" *ngIf="filt">
+            <div class="collapse multi-collapse" id="multiCollapseExample1" >
               <div class="card card-body">
                 <div style="display: flex">
+                 
                   <p style="margin-top: 13px;"><strong> Filtre par date :</strong></p>
                   <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text" (click)="filterChange()"></button>
                   <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text" (click)="clearDateFilter()"></button>
@@ -127,7 +129,7 @@
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="filt">
             <div class="collapse multi-collapse" id="multiCollapseExample2">
               <div class="card card-body">
                 <p><strong>Filtre par categorie :</strong> </p>
@@ -148,12 +150,12 @@
               <div>
                <div  *ngFor="let file of fileInfos | async">
                 <p *ngIf="testImage(file.type) && file.name == session.photoSession">
-                  <img [src]="file.url"  alt="file.name" />
+                  <img [src]="file.url"  alt="file.name" (click)="detailSession(session)"/>
                 </p>
               </div>
-               <div style="position: absolute;" style="float: right;" (click)="saveFormation1(session.idSession,this.localStorage.retrieve('username'))"> <i  class="pi pi-bookmark" style="color: #c90d0d; font-size: 20px;"></i></div>
-               <div style="position: absolute;" style="float: right;"
-                    (click)="deleteFormation1(session.idSession,this.localStorage.retrieve('username'))"> <i  class="pi pi-bookmark-fill" style="color: #c90d0d; font-size: 20px;"></i></div>
+               <div style="position: absolute;" style="float: right;" *ngIf="!listFav.includes(session)" (click)="saveFormation1(session,this.localStorage.retrieve('username'))"> <i  class="pi pi-bookmark" style="color: #c90d0d; font-size: 20px;"></i></div>
+               <div style="position: absolute;" style="float: right;" *ngIf="listFav.includes(session)"
+                    (click)="deleteFormation1(session,this.localStorage.retrieve('username'))"> <i  class="pi pi-bookmark-fill" style="color: #c90d0d; font-size: 20px;"></i></div>
          </div>
             <!--    <div class="menu-dot"></div>-->
             </div>
@@ -169,10 +171,10 @@
               </button>
             </div>
             <div class="job-card-buttons">
-              <button *ngIf="!inscrit" (click)="inscri(session.idSession)" class="search-buttons card-buttons"
+              <button *ngIf="!sessionsCandidat.includes(session)" (click)="inscri(session)" [disabled]="funcTest(session.listeCandidat.length,session.nbMaxCandidat,session.dateDebSession)" class="search-buttons card-buttons"
 
               >S'inscrire</button>
-              <button  *ngIf="inscrit"   class="search-buttons card-buttons" >Annuler</button>
+              <button  *ngIf="sessionsCandidat.includes(session)" (click)="annuler(session)"  class="search-buttons card-buttons" >Annuler</button>
               <button class="search-buttons card-buttons-msg" (click)="detailSession(session)">plus de details</button>
 
             </div>

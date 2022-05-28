@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
 
     ngOnInit() {
       this.fileInfos = this.uploadService.getFiles();
-        this.formateurService.getAllFormateurs().toPromise().then(data => this.formateurs = data);
+        this.formateurService.getAllFormateurs().subscribe(data => this.formateurs = data);
         this.selectedFormateurs=this.config.data ;
     }
 

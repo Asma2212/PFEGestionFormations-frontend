@@ -63,11 +63,11 @@ export class ListeFormationsComponent implements OnInit {
  
   ngOnInit() {
       this.fileInfos = this.uploadService.getFiles();
-      this.categorieService.getAllCategories().toPromise().then( data => {
+      this.categorieService.getAllCategories().subscribe( data => {
         this.categories = data ;
           console.log("everthing is okay geet categorie",data)
         });
-      this.formationService.getAllFormations().toPromise().then( data => {
+      this.formationService.getAllFormations().subscribe( data => {
               this.formations = data ;
                 console.log("everthing is okay geet",data)
               });
@@ -365,7 +365,7 @@ listFormations : null
         saveCategorie(){
           this.categorieService.saveCategorie(this.c).subscribe(data => {
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'categorie Ajouter', life: 3000});
-            this.categorieService.getAllCategories().toPromise().then( data => {
+            this.categorieService.getAllCategories().subscribe( data => {
               this.categories = data ;
                 console.log("everthing is okay geet categorie222",data)
               });

@@ -58,11 +58,11 @@ monthData : any[] = []
   constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
 
   ngOnInit() {
-this.formationService.getAllFormations().toPromise().then(d=>{
+this.formationService.getAllFormations().subscribe(d=>{
   this.formations = d
   this.nbFormations = d.length;
 })
-  this.sessionService.getSessions().toPromise().then(d=>{
+  this.sessionService.getSessions().subscribe(d=>{
     this.sessions = d
     this.nbSessions = d.length
     this.sessList = d.filter(s=> new Date().getFullYear == new Date(s.dateDebSession).getFullYear)
@@ -98,7 +98,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
       }]
     };
   })
-  this.candidatService.getAllCandidats().toPromise().then(d => {
+  this.candidatService.getAllCandidats().subscribe(d => {
       this.candidats = d;
       this.nbCandidats = d.length
       this.depCand = d ;
@@ -128,7 +128,7 @@ this.formationService.getAllFormations().toPromise().then(d=>{
     };
 
   })
-  this.formateurService.getAllFormateurs().toPromise().then(d => {
+  this.formateurService.getAllFormateurs().subscribe(d => {
     this.formateurs = d;
     this.nbFormateurs = d.length
 })

@@ -69,7 +69,7 @@ export class SessionComponent implements OnInit {
   }
 
   getbyIDSession(id: number) {
-    this.sessionService.getSession(id).toPromise().then(data => {
+    this.sessionService.getSession(id).subscribe(data => {
       console.log("Message", data)
       this.session = data
 
@@ -104,7 +104,7 @@ export class SessionComponent implements OnInit {
     var nbSession = 0;
     var listofCandidats;
     var i = 0;
-    this.sessionService.getSession(this.id).toPromise().then(
+    this.sessionService.getSession(this.id).subscribe(
       data => {
         listofCandidats = data.listeCandidat;
         console.log("list of candidats" + listofCandidats);
@@ -137,7 +137,7 @@ export class SessionComponent implements OnInit {
     var nbSession = 0;
     var listofCandidats;
     var i = 0;
-    this.sessionService.getSession(this.id).toPromise().then(
+    this.sessionService.getSession(this.id).subscribe(
       data => {
         listofCandidats = data.listeCandidat;
         console.log("list of candidats" + listofCandidats);
@@ -182,7 +182,7 @@ export class SessionComponent implements OnInit {
       var nbSession = 0;
       var listofCandidats;
       var i = 0;
-      this.sessionService.getSession(this.id).toPromise().then(
+      this.sessionService.getSession(this.id).subscribe(
         data => {
           listofCandidats = data.listeCandidat;
           console.log("list of candidats" + listofCandidats);
@@ -214,7 +214,7 @@ export class SessionComponent implements OnInit {
             console.log("username" + username)
             const routeId = this.route.snapshot.params['id'];
 
-            this.sessionService.getCandidaSession(username).toPromise().then(data => {
+            this.sessionService.getCandidaSession(username).subscribe(data => {
               this.ListSessionOfCandidat = data;
               console.log("list of sessions of a candidats" + this.ListSessionOfCandidat);
               if (this.ListSessionOfCandidat.length == 0) {
@@ -247,7 +247,7 @@ export class SessionComponent implements OnInit {
                   //kén il nombre maykaffich
                   /*
                               if (this.dosentExist) {
-                                this.sessionFormationService.getSessions().toPromise().then(
+                                this.sessionFormationService.getSessions().subscribe(
                                   data => {
                                     listSession = data;
                                     console.log("list of sessions " + listSession);
@@ -322,7 +322,7 @@ export class SessionComponent implements OnInit {
   }
 
   checkIfSessionInCandidat() {
-    this.sessionService.getSession(this.id).toPromise().then(data => {
+    this.sessionService.getSession(this.id).subscribe(data => {
       console.log("java date" + data.dateFinSession)
       const now = this.datepipe.transform(new Date(), 'yyyy-MM-dd')
 
@@ -340,7 +340,7 @@ export class SessionComponent implements OnInit {
 
     //tchouf kén il condidat inscrit lil session lil button annullé
     if (this.localStorage.retrieve("role") == "candidat") {
-      this.sessionService.getCandidaSession(this.username1).toPromise().then(data => {
+      this.sessionService.getCandidaSession(this.username1).subscribe(data => {
         //console.log("daaataaaaa",data)
         this.ListSessionOfCandidat = data;
         // console.log("daaataaaaa8888",this.ListSessionOfCandidat)

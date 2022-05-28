@@ -58,7 +58,7 @@ export class ListeCandidatsComponent implements OnInit {
   ngOnInit() {
     this.fileInfos = this.uploadService.getFiles();
 
-    this.departementService.getAllDepartements().toPromise().then( data =>{
+    this.departementService.getAllDepartements().subscribe( data =>{
       this.listDep = data ;
       console.log("departement :",data) });
 
@@ -95,7 +95,7 @@ export class ListeCandidatsComponent implements OnInit {
     }
   ];*/
 
-     this.candidatService.getAllCandidats().toPromise().then(
+     this.candidatService.getAllCandidats().subscribe(
        data => {
        this.candidats = data ;
        this.allCandidats = this.candidats ;

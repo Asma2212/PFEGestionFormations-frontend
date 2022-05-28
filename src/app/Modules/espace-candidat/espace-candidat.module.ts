@@ -26,6 +26,7 @@ import { EmptyListComponent } from './empty-list/empty-list.component';
 import { EmptyArchiveComponent } from './empty-archive/empty-archive.component';
 import {ToastModule} from "primeng/toast";
 import {ProgressBarModule} from "primeng/progressbar";
+import { ProfilCandidatComponent } from './profil-candidat/profil-candidat.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {ProgressBarModule} from "primeng/progressbar";
     FavorisComponent,
     EmptyListComponent,
     EmptyArchiveComponent,
+    ProfilCandidatComponent,
   ],
     imports: [
         CommonModule,

@@ -55,7 +55,7 @@ formateur : Formateur ={
   constructor(public formateurService : FormateurService, private router: Router,private specialiteService : SpecialiteService,private uploadService: UploadFileService,private localStorage: LocalStorageService) { }
 
   ngOnInit() { 
-    this.specialiteService.getAllSpecialites().toPromise().then( data =>{
+    this.specialiteService.getAllSpecialites().subscribe( data =>{
       this.specialites = data ; 
       console.log("speciaalie :",data) });
     this.listEtablissement = [
@@ -67,7 +67,7 @@ formateur : Formateur ={
     ]
      // this.personalInformatio;
      const username =  this.localStorage.retrieve("username")
-     this.formateurService.getFormateurByUsername("90000000").toPromise().then(data => {
+     this.formateurService.getFormateurByUsername("90000000").subscribe(data => {
        this.formateur = data ;
        this.date1 = new Date(this.formateur.dateNaiss)
        if(this.formateur.genre.name == "FEMME")
@@ -78,7 +78,7 @@ formateur : Formateur ={
      })
 
      //TEST
-    /* this.formateurService.getFormateurById(185).toPromise().then(data => {
+    /* this.formateurService.getFormateurById(185).subscribe(data => {
       this.formateur = data ;
       this.date1 = new Date(this.formateur.dateNaiss)
       if(this.formateur.genre.name == "FEMME")

@@ -143,7 +143,7 @@ filterSpecialite : Specialite[] ;
   }
 ];
     
-        this.formateurService.getAllFormateurs().toPromise().then( data => {
+        this.formateurService.getAllFormateurs().subscribe( data => {
           this.formateurs = data ;
             console.log("everthing is okay geet",data)
             console.log("****",this.formateurs)
@@ -160,7 +160,7 @@ this.getSpecialite()
            
   }
   getSpecialite(){
-    this.specialiteService.getAllSpecialites().toPromise().then( data =>{
+    this.specialiteService.getAllSpecialites().subscribe( data =>{
       this.specialites = data ; 
       console.log("speciaalie :",data) });
   }

@@ -22,7 +22,7 @@ export class AdminCalendarComponent implements OnInit {
   constructor(private sessionService:SessionFormationService) { }
 
   ngOnInit(): void {
-    this.sessionService.getSessions().toPromise().then(data =>
+    this.sessionService.getSessions().subscribe(data =>
       { console.log(data);
         this.sessions = data
         console.log("sss",this.sessions)

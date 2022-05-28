@@ -25,7 +25,7 @@ export class ConfirmationComponent implements OnInit {
   complete() {
      console.log("aaaaaaaaa",this.formateur)
      this.formateur.firstLogin = true ;
-     this.formateurService.updateFormateur(this.formateur).toPromise().then(data =>{
+     this.formateurService.updateFormateur(this.formateur).subscribe(data =>{
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien rempli', life: 3000});
       console.log("updated")
       localStorage.removeItem('formateur')

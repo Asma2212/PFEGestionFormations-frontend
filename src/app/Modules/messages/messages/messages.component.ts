@@ -19,7 +19,7 @@ export class MessagesComponent implements OnInit,OnDestroy {
   constructor(private http: HttpClient,public webSocketService: WebSocketService,private localStorage: LocalStorageService,) { }
 
   ngOnInit(): void {
-    this.webSocketService.getAllchat().toPromise().then(data=>
+    this.webSocketService.getAllchat().subscribe(data=>
     {      this.ListChat=data
       console.log("chat",this.ListChat);
 
