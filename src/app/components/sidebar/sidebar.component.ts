@@ -15,9 +15,11 @@ export const ROUTES: RouteInfo[] = [
     { path: '/candidats/list', title: 'Gestion Candidats',  icon:'school', class: '' },
     { path: '/sessionsFormation', title: 'Sessions de formation',  icon:'add', class: '' },
     { path: '/Admin/Calendar', title: 'Calendar',  icon:'calendar_today', class: '' },
-    { path: '/Admin/Architecture', title: 'Departement',  icon:'table_chart', class: '' }
+    { path: '/Admin/Architecture', title: 'Departement',  icon:'table_chart', class: '' },
+  { path: '/Admin/Suggestions', title: 'Suggestions candidats',  icon:'view_list', class: '' }
+
 ];
- 
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',

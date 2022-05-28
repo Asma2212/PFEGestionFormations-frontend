@@ -18,6 +18,12 @@ import { TabViewModule } from 'primeng/tabview';
 import { ArchitectureIsetComponent } from './architecture-iset/architecture-iset.component';
 import {OrganizationChartModule} from 'primeng/organizationchart';
 import { ToastModule } from 'primeng/toast';
+import { GestionSuggestionComponent } from './gestion-suggestion/gestion-suggestion.component';
+import {TableModule} from "primeng/table";
+import {MultiSelectModule} from "primeng/multiselect";
+import {DropdownModule} from "primeng/dropdown";
+import {SliderModule} from "primeng/slider";
+import {ProgressBarModule} from "primeng/progressbar";
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -29,21 +35,27 @@ FullCalendarModule.registerPlugins([
   declarations: [
     AdminCalendarComponent,
     EspaceAdminComponent,
-    ArchitectureIsetComponent
+    ArchitectureIsetComponent,
+    GestionSuggestionComponent
   ],
   imports: [
     CommonModule,
     EspaceAdminRoutingModule,
     FullCalendarModule,
-        FormsModule,
-        DialogModule,
-        InputTextModule,
-        CalendarModule,
-        CheckboxModule,
-        ButtonModule,
-        TabViewModule,
-        OrganizationChartModule,
-        ToastModule
+    FormsModule,
+    DialogModule,
+    InputTextModule,
+    CalendarModule,
+    CheckboxModule,
+    ButtonModule,
+    TabViewModule,
+    OrganizationChartModule,
+    ToastModule,
+    TableModule,
+    MultiSelectModule,
+    DropdownModule,
+    SliderModule,
+    ProgressBarModule
   ]
 })
 export class EspaceAdminModule { }

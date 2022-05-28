@@ -4,7 +4,7 @@
   <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css'>
 </header>
 
-<body>
+<body >
 <div [hidden]="hideboolean">
 <div
      class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap" >
@@ -45,7 +45,7 @@
   </ul>
   <div class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
     <div>
-      <div class="font-medium text-3xl text-900">Customers</div>
+      <div class="font-medium text-3xl text-900">Session</div>
       <div class="flex align-items-center text-700 flex-wrap">
         <div class="mr-5 flex align-items-center mt-3">
           <i class="pi pi-users mr-2"></i>
@@ -53,7 +53,7 @@
         </div>
         <div class="mr-5 flex align-items-center mt-3">
           <i class="pi pi-globe mr-2"></i>
-          <span style="  background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);">{{numberOfSessionInFormation}} Sessions</span>
+          <span style="  background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);">{{numberOfSessionInFormation}} Sessions similaires</span>
         </div>
         <div class="flex align-items-center mt-3">
           <i class="pi pi-clock mr-2"></i>
@@ -69,7 +69,7 @@
     </div>
   </div>
 </div>
-<div class="card" >
+<div class="card"  >
   <div class="card--content">
     <h1 style="font-family:'Segoe UI ';font-weight: bold;font-size: 1.6rem;margin-right: 1%">{{session.formationSession.titre}}</h1>
     <span style="font-family:'Segoe UI ';">{{session.formationSession.details}}</span>
@@ -148,7 +148,9 @@
 </div>
 
 
-<div  class="surface-card p-5 border" style="margin-right: 5%">
+<div  class="surface-card p-5 border  " style="margin-right: 5%;background-image: url(https://i.pinimg.com/736x/eb/3b/9e/eb3b9e51cab01a9c44fb1bd547106c34.jpg);background-repeat: no-repeat;
+;
+">
   <div class="text-3xl font-medium text-900 " style="margin-left: 7%">Formateur(s)</div>
   <ul>
     <li style="margin-left: 7%" *ngFor="let obj of session.listeFormateurs;"><h4 class="deepshadow">{{obj.firstName}} {{obj.lastName}}</h4></li>

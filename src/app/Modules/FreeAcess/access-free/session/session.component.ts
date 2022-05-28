@@ -22,7 +22,6 @@ import {CandidatService} from "../../../../services/candidat.service";
   selector: 'app-session',
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 
 })
 export class SessionComponent implements OnInit {

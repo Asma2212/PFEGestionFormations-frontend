@@ -72,6 +72,7 @@ body {
   font-size: 120%;
 }
 .test{
+
   max-width: 400px;
 
   z-index: 1;
@@ -128,7 +129,10 @@ h1.deepshadow {
     background-position: 0% 50%;
   }
 }
-/*
-rating
- */
-
+.design{
+  background-color: #0c7cd5;
+  flex-grow: 1;
+  align-self: start;
+  position: sticky;
+  top: var(--offset);
+}
