@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AccordionModule} from 'primeng/accordion';
 import {ToastModule} from 'primeng/toast';
-import {TableModule} from 'primeng/table';
+import {TableHeaderCheckbox, TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
 import {ToolbarModule} from 'primeng/toolbar';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
@@ -39,6 +39,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import {InputMaskModule} from 'primeng/inputmask';
 import {NgxFileDropModule} from 'ngx-file-drop';
 import {HttpClientModule,HttpClient} from "@angular/common/http";
+import { GestionCategorieComponent } from './gestion-categorie/gestion-categorie.component';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 //import {} from 'primeng/';
 
@@ -46,7 +49,11 @@ import {HttpClientModule,HttpClient} from "@angular/common/http";
 @NgModule({
   declarations: [
     ListeFormationsComponent,
-  ],
+    GestionCategorieComponent,
+  ],  
+  entryComponents: [
+    GestionCategorieComponent
+],
   imports: [
     CommonModule,
     GestionFormationsRoutingModule,
@@ -91,9 +98,12 @@ import {HttpClientModule,HttpClient} from "@angular/common/http";
     InputMaskModule,
     NgxFileDropModule,
     InputNumberModule,
+    DynamicDialogModule,
+    ToggleButtonModule,
 
 
-    MatTableModule
+    MatTableModule,
+    
 
 
   ],  providers: [HttpClient]

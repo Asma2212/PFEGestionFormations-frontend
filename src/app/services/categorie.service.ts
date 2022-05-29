@@ -9,16 +9,16 @@ import { Observable } from "rxjs";
 export class CategorieService {
 
 //url = environment.urls.auth.endpoint + environment.urls.plateform.endpoint + environment.urls.plateform.formationApi;
-url = 'http://localhost:8080/categorie';
+url = 'http://localhost:8080/categorie/';
 constructor(private http: HttpClient) {}
 
 getAllCategories(): Observable<Categorie[]> {
-  return this.http.get<Categorie[]>(this.url + '/getAll');
+  return this.http.get<Categorie[]>(this.url + 'getAll');
 }
 
 saveCategorie(categorie : Categorie) : Observable<any>{
 
-    return this.http.post<any>(this.url + '/save',categorie);
+    return this.http.post<any>(this.url + 'save',categorie);
   }
 
   uploadVideo(fileEntry: File) : Observable<any> {
@@ -28,4 +28,12 @@ saveCategorie(categorie : Categorie) : Observable<any>{
 
     return this.http.post("http://localhost:8080/api/videos", formData)
   }
+
+  deleteCategorie(idc : number) : Observable<any>{
+
+    return this.http.delete<any>(this.url + 'delete/'+ idc);
+    }
+    deleteAllCategories(categories : Categorie[] ) : Observable<any> {
+      return this.http.post<any>(this.url + 'deleteAll', categories)
+        }
 }

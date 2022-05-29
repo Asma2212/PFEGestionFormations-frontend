@@ -15,7 +15,6 @@ import { TabViewModule } from 'primeng/tabview';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { AjouterFormateurComponent } from './ajouter-formateur/ajouter-formateur.component';
 import { GestionFormateursComponent } from './gestion-formateurs/gestion-formateurs.component';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'primeng/api';
@@ -41,7 +40,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     ListeFormateursComponent,
-    AjouterFormateurComponent,
     GestionFormateursComponent
   ],
     imports: [

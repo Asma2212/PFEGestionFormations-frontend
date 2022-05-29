@@ -113,10 +113,10 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
 
 
 
-  suivantSession() {
+  suivantSession() { 
     console.log("aaa")
     this.ref = this.dialogService.open(FormateursDialogComponent, {
-      header: 'Choose formateurs',
+      header: 'choisir formateurs',
       data : this.selectedFormateurs,
       width: '70%',
       contentStyle: {"max-height": "500px", "overflow": "auto"},
@@ -135,7 +135,7 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
 
           });
 
-            this.messageService.add({severity:'info', summary: 'formateur Selected', detail: this.namesStr});
+            this.messageService.add({severity:'info', summary: 'formateur Selectionné', detail: this.namesStr});
         }
     });
 
@@ -251,7 +251,7 @@ saveSession(){
       console.log("before update",this.session);
       this.sessionService.updateSession(this.session).subscribe( data => {
         console.log("data update session",data);
-        this.messageService.add({severity:'success', summary: 'Successful', detail: 'session Updated', life: 3000});
+        this.messageService.add({severity:'success', summary: 'Succés', detail: 'session mis à jour', life: 3000});
       window.location.reload();
       });
 
@@ -260,12 +260,12 @@ saveSession(){
 
       this.sessionService.saveSession(this.session).subscribe( data => {
         console.log("data save session",data);
-        this.messageService.add({severity:'success', summary: 'Successful', detail: 'session ajouter', life: 3000});
+        this.messageService.add({severity:'success', summary: 'Succés', detail: 'session ajoutée', life: 3000});
         window.location.reload();
       },
       error =>
      {
-      this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000});
+      this.messageService.add( {severity:'error', summary:'Erreur', detail: error.error.message, life: 3000});
       this.session.photoSession = null ;
     console.log("exception occured");});
   }}
@@ -281,7 +281,7 @@ saveSession(){
             console.log(session.idSession);
             this.sessionService.deleteSession(session.idSession).subscribe( data => {
               console.log("data Session Supprimer",data)
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'session Supprimer', life: 3000});
+              this.messageService.add({severity:'success', summary: 'Succés', detail: 'session Supprimée', life: 3000});
               window.location.reload();
             });
             this.session = null;

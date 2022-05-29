@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { GestionCandidatsRoutingModule } from './gestion-candidats-routing.module';
 import { GestionCandidatComponent } from './gestion-candidat/gestion-candidat.component';
 import { ListeCandidatsComponent } from './liste-candidats/liste-candidats.component';
-import { AjouterCandidatComponent } from './ajouter-candidat/ajouter-candidat.component';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -31,7 +30,6 @@ import { CalendarModule } from 'primeng/calendar';
   declarations: [
     GestionCandidatComponent,
     ListeCandidatsComponent,
-    AjouterCandidatComponent
   ],
   imports: [
     CalendarModule,

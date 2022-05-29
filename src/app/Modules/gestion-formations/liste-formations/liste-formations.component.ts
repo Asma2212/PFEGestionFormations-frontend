@@ -13,6 +13,9 @@ import * as html2pdf from 'html2pdf.js' ;
 import {FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'app/services/upload-file.service';
+import { GestionCandidatComponent } from 'app/Modules/gestion-candidats/gestion-candidat/gestion-candidat.component';
+import { GestionCategorieComponent } from '../gestion-categorie/gestion-categorie.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-liste-formations',
   templateUrl: './liste-formations.component.html',
@@ -23,6 +26,7 @@ import { UploadFileService } from 'app/services/upload-file.service';
             display: block;
         }
     `],
+      providers: [DialogService],
   styleUrls: ['./liste-formations.component.css']
 })
 export class ListeFormationsComponent implements OnInit {
@@ -56,10 +60,11 @@ export class ListeFormationsComponent implements OnInit {
     progress1 = 0;
     message1 = '';
     fileInfos: Observable<any>;
+    ref: DynamicDialogRef;
 
   //statuses: any[]; , private messageService: MessageService, private confirmationService: ConfirmationService
 
-  constructor(private formationService: FormationService,private uploadService : UploadFileService, private categorieService : CategorieService,private confirmationService : ConfirmationService , private messageService : MessageService ) { }
+  constructor(private formationService: FormationService,private uploadService : UploadFileService, private categorieService : CategorieService,private confirmationService : ConfirmationService , private messageService : MessageService,private dialogService: DialogService ) { }
  
   ngOnInit() {
       this.fileInfos = this.uploadService.getFiles();
@@ -358,8 +363,8 @@ this.categorieDialog = true ;
 this.c = {
 id : 0 ,
 titre :"",
-description : "",
-listFormations : null
+Description : "",
+ListFormations : null
 }
         }
         saveCategorie(){
@@ -378,8 +383,28 @@ listFormations : null
             this.c = {
               id : 0 ,
               titre :"",
-              description : "",
-              listFormations : null
+              Description : "",
+              ListFormations : null
               }
         }
+        
+  gestionCategorie() { 
+    console.log("aaa")
+    this.ref = this.dialogService.open(GestionCategorieComponent, {
+      header: 'liste des categories',
+      width: '40%',
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex: 10000
+  }); 
+  this.ref.onClose.subscribe((cat : Categorie) =>{
+    if (cat) {
+        this.messageService.add({severity:'info', summary: 'Product Selected', detail: cat.titre});
+    }
+});
+  }
+  ngOnDestroy() {
+    if (this.ref) {
+        this.ref.close();
+    }
+}
 }

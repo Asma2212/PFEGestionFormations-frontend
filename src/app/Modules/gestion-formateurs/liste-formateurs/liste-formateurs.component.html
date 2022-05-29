@@ -6,7 +6,7 @@
 <br> 
 <span class="p-input-icon-left" style="margin-left: 60px;margin-right: 0px;border: 2px;">
   <div style="display: flex;">
-    <span class="p-inputgroup-addon" style="background-color: rgb(255, 255, 255);"><i class="pi pi-filter"></i> &nbsp; filtrer par etablissement</span>
+    <span class="p-inputgroup-addon" style="background-color: rgb(255, 255, 255); color: rgb(125, 53, 206);"><i class="pi pi-filter"></i> &nbsp; filtrer par etablissement</span>
         <p-multiSelect [options]="listEtablissement" [(ngModel)]="filterEtab" (onClick)="applyFilter()"  matInput [selectionLimit]="1" optionLabel="name" display="chip" (click)="selectEtab()">
           <ng-template let-etab pTemplate="item">
               <div style="display:flex;">
@@ -19,7 +19,7 @@
       </span>
       <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
         <div style="display: flex;">
-          <span class="p-inputgroup-addon"  style="background-color: rgb(255, 255, 255);"><i class="pi pi-filter"></i> &nbsp; filtrer par specialité</span>
+          <span class="p-inputgroup-addon"  style="background-color: rgb(255, 255, 255);color: rgb(125, 53, 206);"><i class="pi pi-filter"></i> &nbsp; filtrer par specialité</span>
         <p-multiSelect [options]="specialites" [(ngModel)]="filterSpecialite" [selectionLimit]="1" (onClick)="applyFilter()"  optionLabel="titre" display="chip"></p-multiSelect>
         </div>
       </span>

@@ -1,0 +1,80 @@
+<div class="card">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Ajouter" icon ="pi pi-plus-circle" class="p-button-sm p-button-outlined mr-2" (click)="openCategorie()" ></button>
+            <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-sm p-button-danger" (click)="deleteSelectedCategories()" [disabled]="!selectedCategories || !selectedCategories.length"></button>
+        </ng-template>
+
+    </p-toolbar>
+
+<p-table id="excel-table" #dt [value]="categories" [rows]="6" [paginator]="true" [globalFilterFields]="['titre']" responsiveLayout="scroll"
+[(selection)]="selectedCategories"  [rowHover]="true" dataKey="id"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+<ng-template pTemplate="caption">
+    <div style="display:flex ;">
+        <h2>Gestion des categories</h2>
+        <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+        </span>
+    </div>
+</ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="titre">Titre <p-sortIcon field="titre"></p-sortIcon></th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </ng-template>
+        <ng-template pTemplate="body" let-categorie>
+            <tr>
+           <td>
+               <p-tableCheckbox [value]="categorie"></p-tableCheckbox>
+           </td>
+           <td>{{categorie.titre}}</td>
+            <td>{{categorie.description}}</td>
+
+           <td>
+             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editCategorie(categorie)"></button>
+               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteCategorie(categorie)"></button>
+           </td>
+       </tr>
+
+
+
+
+        </ng-template>
+
+
+  <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            En total il y'a {{formations ? formations.length : 0 }} formations.
+
+        </div>
+    </ng-template>
+
+</p-table>
+
+</div>
+<p-dialog [(visible)]="categorieDialog" [style]="{width: '450px'}" header="Ajouter Categorie" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="titre">Titre</label>
+            <input type="text" pInputText id="titre" [(ngModel)]="c.titre" required autofocus />
+            <small class="p-error" *ngIf="submitted && !c.titre">titre est requis.</small>
+        </div><br>
+        <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="c.description" required rows="3" cols="20"></textarea>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideCategorie()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveCategorie(c)"></button>
+    </ng-template>
+</p-dialog>

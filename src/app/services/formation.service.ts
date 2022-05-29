@@ -49,23 +49,8 @@ export class FormationService {
     }
 
     deleteAllFormation(formations : Formation[] ) : Observable<any> {
-/**      console.log("listaa",formations);
-      const data = {"formations" : formations};
-		const options = {
-			headers: new HttpHeaders({
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			}),
-			responseType: 'text' as 'json'
-		}; */
-
 		return this.http.post<any>(this.url + 'deleteAllFormations', formations)
-    //.map(resp => {return resp;}).catch(err => {console.log(err);});
 
-		//console.log('resp: ' + resp);
-      //return this.http.delete<any>(this.url + 'deleteAllFormations');
-
-      //return of({});
       }
       getAllSessionsOfFormation(idF:number):Observable<SessionFormation[]>{
         return this.http.get<SessionFormation[]>(this.urlSession +idF);

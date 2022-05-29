@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AjouterCandidatComponent } from './ajouter-candidat/ajouter-candidat.component';
 import { GestionCandidatComponent } from './gestion-candidat/gestion-candidat.component';
 import { ListeCandidatsComponent } from './liste-candidats/liste-candidats.component';
 
@@ -11,9 +10,6 @@ const routes: Routes = [{
     {
       path: 'list',
       component: ListeCandidatsComponent,
-    },{
-      path: 'ajouter',
-      component: AjouterCandidatComponent,
     }
   ]
 }
