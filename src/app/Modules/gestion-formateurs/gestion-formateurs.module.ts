@@ -35,13 +35,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { GestionSpecialiteComponent } from './gestion-specialite/gestion-specialite.component';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 
 @NgModule({
   declarations: [
     ListeFormateursComponent,
-    GestionFormateursComponent
+    GestionFormateursComponent,
+    GestionSpecialiteComponent
   ],
+  entryComponents: [
+    GestionSpecialiteComponent
+],
     imports: [
         CommonModule,
         GestionFormateursRoutingModule,
@@ -80,7 +86,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatTableModule,
         MatSelectModule,
         MatPaginatorModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        DynamicDialogModule
 
 
     ],  providers: [HttpClient]

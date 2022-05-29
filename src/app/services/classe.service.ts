@@ -8,18 +8,23 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class DepartementService {
-    url = "http://localhost:8080/api/test/"
+export class ClasseService {
+    url = "http://localhost:8080/classe/"
     constructor(private http: HttpClient) {}
 
-    getAllDepartements(): Observable<Department[]> {
-        return this.http.get<Department[]>(this.url + 'allDep');
-      }
-      getAllClassesByDep(id:number): Observable<Classe[]> {
-        return this.http.get<Classe[]>(this.url + 'all/dep/'+id);
-      }
-      saveDepartement(dep : Department) : Observable<any>{
 
-        return this.http.post<any>('http://localhost:8080/dep/save',dep);
+    getAllClasses(): Observable<Classe[]> {
+      return this.http.get<Classe[]>(this.url + 'all');
+    }
+    saveClasse(c : Classe) : Observable<any>{
+
+      return this.http.post<any>(this.url + 'add',c);
+    }
+    deleteClasse(id : number) : Observable<any>{
+
+      return this.http.delete<any>(this.url + 'delete/'+ id);
       }
-}
+deleteAllClasses(classes : Classe[] ) : Observable<any> {
+        return this.http.post<any>(this.url + 'deleteAll', classes)
+          }
+        }

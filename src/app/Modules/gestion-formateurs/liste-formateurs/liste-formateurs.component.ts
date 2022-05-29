@@ -16,11 +16,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { throwIfEmpty } from 'rxjs/operators';
+import { GestionSpecialiteComponent } from '../gestion-specialite/gestion-specialite.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-liste-formateurs',
   templateUrl: './liste-formateurs.component.html',
-  styleUrls: ['./liste-formateurs.component.css']
+  styleUrls: ['./liste-formateurs.component.css'],
+  providers: [DialogService],
 })
 export class ListeFormateursComponent implements OnInit {
   spec : Specialite
@@ -68,6 +71,7 @@ filterSpecialite : Specialite[] ;
   message1 = '';
   fileInfos: Observable<any>;
   cvFile: File ;
+  ref: DynamicDialogRef;
 
 
   dataSource = new MatTableDataSource();
@@ -77,7 +81,7 @@ filterSpecialite : Specialite[] ;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private formateurService : FormateurService ,private uploadService: UploadFileService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) {   
+  constructor(private formateurService : FormateurService ,private uploadService: UploadFileService ,private specialiteService : SpecialiteService ,private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService,private dialogService: DialogService) {   
   this.filterSelectObj = [
     {
       name: 'ID',
@@ -437,5 +441,18 @@ hideSpecialite(){
                 listFormateur : []
                 }
           }
+gestionSpecialite() {
+this.ref = this.dialogService.open(GestionSpecialiteComponent, {
+  header: 'liste des spécialités',
+  width: '40%',
+  contentStyle: {"max-height": "500px", "overflow": "auto"},
+  baseZIndex: 10000
+}); 
+}
+ngOnDestroy() {
+if (this.ref) {
+    this.ref.close();
+}
 
+}
 }

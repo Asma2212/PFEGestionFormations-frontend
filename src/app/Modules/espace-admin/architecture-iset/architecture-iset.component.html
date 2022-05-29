@@ -1,7 +1,10 @@
 <div class="main-content">
     <div class="container-fluid">
         <p-toast [style]="{marginTop: '80px'}"></p-toast>
-        <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
+        <div style="display: flex;">
+        <button pButton pRipple label="Gestion Departement" icon="pi pi-list" class="p-button-sm p-button-raised mr-2" (click)="gestionDepartement()"></button>
+        <button pButton pRipple label="Gestion Classe" icon="pi pi-list" class="p-button-sm p-button-raised mr-2" (click)="gestionClasse()"></button>
+    </div> <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"
             styleClass="company">
             <ng-template let-node pTemplate="person" >
                 <div class="node-header">{{node.label}}</div>
@@ -18,3 +21,4 @@
 
 
     </div></div>
+    <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

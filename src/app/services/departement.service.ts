@@ -9,17 +9,27 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class DepartementService {
-    url = "http://localhost:8080/api/test/"
+    url = "http://localhost:8080/dep/"
     constructor(private http: HttpClient) {}
 
     getAllDepartements(): Observable<Department[]> {
-        return this.http.get<Department[]>(this.url + 'allDep');
+        return this.http.get<Department[]>(this.url + 'all');
       }
       getAllClassesByDep(id:number): Observable<Classe[]> {
-        return this.http.get<Classe[]>(this.url + 'all/dep/'+id);
+        return this.http.get<Classe[]>(this.url + 'allDep/classe/'+id);
+      }
+      getDepartementByClass(id:number): Observable<Department> {
+        return this.http.get<Department>(this.url + 'getDep/Byclasse/'+id);
       }
       saveDepartement(dep : Department) : Observable<any>{
 
-        return this.http.post<any>('http://localhost:8080/dep/save',dep);
+        return this.http.post<any>(this.url + 'add',dep);
       }
+      deleteDepartement(id : number) : Observable<any>{
+
+        return this.http.delete<any>(this.url + 'delete/'+ id);
+        }
+deleteAllDepartements(dep : Department[] ) : Observable<any> {
+          return this.http.post<any>(this.url + 'deleteAll', dep)
+            }
 }

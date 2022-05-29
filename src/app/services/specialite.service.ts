@@ -38,5 +38,11 @@ export class SpecialiteService {
 		return this.http.post<any>(this.url + 'deleteAllFormateurs', formateurs)
 
       }*/
+ deleteSpecialite(id : number) : Observable<any>{
 
+        return this.http.delete<any>(this.url + 'delete/'+ id);
+        }
+  deleteAllSpecialites(specialites : Specialite[] ) : Observable<any> {
+          return this.http.post<any>(this.url + 'deleteAll', specialites)
+            }
 }

@@ -1,0 +1,85 @@
+<div class="card">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Ajouter" icon ="pi pi-plus-circle" class="p-button-sm p-button-outlined mr-2" (click)="openClasse()" ></button>
+            <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-sm p-button-danger" (click)="deleteSelectedClasses()" [disabled]="!selectedClasses || !selectedClasses.length"></button>
+        </ng-template>
+
+    </p-toolbar>
+
+<p-table id="excel-table" #dt [value]="classes" [rows]="6" [paginator]="true" [globalFilterFields]="['name']" responsiveLayout="scroll"
+[(selection)]="selectedClasses"  [rowHover]="true" dataKey="id"
+currentPageReportTemplate="montrant {first} à {last} de {totalRecords} classes" [showCurrentPageReport]="true">
+<ng-template pTemplate="caption">
+    <div style="display:flex ;">
+        <h2>Gestion des classe</h2>
+        <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+        </span>
+    </div>
+</ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+            <th>Departement</th>
+            <th></th>
+        </tr>
+    </ng-template>
+        <ng-template pTemplate="body" let-classe>
+            <tr>
+           <td>
+               <p-tableCheckbox [value]="classe"></p-tableCheckbox>
+           </td>
+           <td>{{classe.name}}</td>
+<td>
+    
+</td>
+           <td>
+             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded mr-2" (click)="editClasse(classe)"></button>
+               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteClasse(classe)"></button>
+           </td>
+       </tr>
+
+
+
+
+        </ng-template>
+
+
+  <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+            En total il y'a {{classes ? classes.length : 0 }} classes.
+
+        </div>
+    </ng-template>
+
+</p-table>
+
+</div>
+<p-dialog [(visible)]="classeDialog" [style]="{width: '450px'}" header="Ajouter classe" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="dep">choisir le departement</label>
+            <p-multiSelect [options]="depList" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Choisir le departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" ></p-multiSelect>
+            <small class="p-error" *ngIf="submitted && !classe.department">departement est requis.</small>
+        </div>
+        <div class="field">
+            <label for="nom">Nom du classe</label>
+            <input type="text" pInputText id="nom" [(ngModel)]="classe.name" required autofocus />
+            <small class="p-error" *ngIf="submitted && !classe.name">nom est requis.</small>
+        </div>
+        
+        
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideClasse()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveClasse(c)"></button>
+    </ng-template>
+</p-dialog>
+
+

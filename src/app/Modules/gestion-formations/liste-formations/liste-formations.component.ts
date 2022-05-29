@@ -396,11 +396,6 @@ ListFormations : null
       contentStyle: {"max-height": "500px", "overflow": "auto"},
       baseZIndex: 10000
   }); 
-  this.ref.onClose.subscribe((cat : Categorie) =>{
-    if (cat) {
-        this.messageService.add({severity:'info', summary: 'Product Selected', detail: cat.titre});
-    }
-});
   }
   ngOnDestroy() {
     if (this.ref) {

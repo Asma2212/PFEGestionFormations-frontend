@@ -4,11 +4,15 @@ import { Department } from 'app/models/Departement';
 import { DepartementService } from 'app/services/departement.service';
 import { Children } from 'preact/compat';
 import { MessageService, TreeNode } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { GestionClasseComponent } from '../gestion-classe/gestion-classe.component';
+import { GestionDepartementComponent } from '../gestion-departement/gestion-departement.component';
 
 @Component({
   selector: 'app-architecture-iset',
   templateUrl: './architecture-iset.component.html',
-  styleUrls: ['./architecture-iset.component.scss']
+  styleUrls: ['./architecture-iset.component.scss'],
+  providers: [DialogService]
 })
 export class ArchitectureIsetComponent implements OnInit {
 
@@ -22,9 +26,10 @@ export class ArchitectureIsetComponent implements OnInit {
     classSpec : any[] = [] ;
     depC : Classe[] ;
     classNiv : any[] = [] ;
+    ref: DynamicDialogRef;
 
 
-    constructor(private messageService: MessageService,private departementService : DepartementService) {}
+    constructor(private messageService: MessageService,private departementService : DepartementService,private dialogService : DialogService) {}
 
     ngOnInit() {
 this.departementService.getAllDepartements().subscribe(data => {
@@ -193,4 +198,27 @@ console.log("eeee",this.child1)
     onNodeSelect(event) {
         this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
     }
+
+    gestionDepartement(){
+        this.ref = this.dialogService.open(GestionDepartementComponent, {
+            header: 'liste des Departements',
+            width: '50%',
+            contentStyle: {"max-height": "500px", "overflow": "auto"},
+            baseZIndex: 10000
+          }); 
+          }
+          ngOnDestroy() {
+          if (this.ref) {
+              this.ref.close();
+          }
+          
+          }
+    gestionClasse(){
+        this.ref = this.dialogService.open(GestionClasseComponent, {
+            header: 'liste des classes',
+            width: '50%',
+            contentStyle: {"max-height": "500px", "overflow": "auto"},
+            baseZIndex: 10000
+          }); 
+          }
 }

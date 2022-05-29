@@ -24,6 +24,12 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {DropdownModule} from "primeng/dropdown";
 import {SliderModule} from "primeng/slider";
 import {ProgressBarModule} from "primeng/progressbar";
+import { GestionClasseComponent } from './gestion-classe/gestion-classe.component';
+import { GestionDepartementComponent } from './gestion-departement/gestion-departement.component';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessageModule } from 'primeng/message';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -36,7 +42,9 @@ FullCalendarModule.registerPlugins([
     AdminCalendarComponent,
     EspaceAdminComponent,
     ArchitectureIsetComponent,
-    GestionSuggestionComponent
+    GestionSuggestionComponent,
+    GestionClasseComponent,
+    GestionDepartementComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +63,13 @@ FullCalendarModule.registerPlugins([
     MultiSelectModule,
     DropdownModule,
     SliderModule,
-    ProgressBarModule
+    ProgressBarModule,
+    DynamicDialogModule,
+    ToolbarModule,
+    TableModule,
+    ConfirmDialogModule,
+    MessageModule,
+    MultiSelectModule
   ]
 })
 export class EspaceAdminModule { }
