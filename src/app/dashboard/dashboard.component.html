@@ -1,7 +1,73 @@
           <p-confirmDialog  ></p-confirmDialog>
+          <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
 
 <div class="main-content">
   <div class="container-fluid">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+               <div class="col">
+                 <div class="card radius-10 border-start border-0 border-3 border-info">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <p class="mb-0 text-secondary">Totale Formations</p>
+                                <h4 class="my-1 text-info">{{nbFormations}}</h4>
+                                <p class="mb-0 font-13">+2.5% from last week</p>
+                            </div>
+                            <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class="fas fa-book"></i>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+               </div>
+               <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-danger">
+                   <div class="card-body">
+                       <div class="d-flex align-items-center">
+                           <div>
+                               <p class="mb-0 text-secondary">Totale Sessions Formation</p>
+                               <h4 class="my-1 text-danger">{{nbSessions}}</h4>
+                               <p class="mb-0 font-13">+5.4% from last week</p>
+                           </div>
+                           <div class="widgets-icons-2 rounded-circle bg-gradient-bloody text-white ms-auto"><i class="fas fa-duotone fa-chalkboard"></i>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-success">
+                   <div class="card-body">
+                       <div class="d-flex align-items-center">
+                           <div>
+                               <p class="mb-0 text-secondary">Totale Formateurs</p>
+                               <h4 class="my-1 text-success">{{nbFormateurs}}</h4>
+                               <p class="mb-0 font-13">-4.5% from last week</p>
+                           </div>
+                           <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class="fas fa-users"></i>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card radius-10 border-start border-0 border-3 border-warning">
+                   <div class="card-body">
+                       <div class="d-flex align-items-center">
+                           <div>
+                               <p class="mb-0 text-secondary">Totale Candidats</p>
+                               <h4 class="my-1 text-warning">{{nbCandidats}}</h4>
+                               <p class="mb-0 font-13">+8.4% from last week</p>
+                           </div>
+                           <div class="widgets-icons-2 rounded-circle bg-gradient-blooker text-white ms-auto"><i class="fas fa-duotone fa-user-graduate"></i>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+              </div> 
+            </div>
+        </div>
       <div class="row">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
                 <div class="col-xl-3 col-lg-6">

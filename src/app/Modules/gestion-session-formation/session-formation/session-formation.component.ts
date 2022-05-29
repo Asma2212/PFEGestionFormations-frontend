@@ -247,6 +247,7 @@ saveSession(){
       this.session.listeFormateurs.push(formateur)
     });
   }
+  if(this.session.titreSession && this.session.nbMaxCandidat && this.session.dateDebSession && this.session.dateFinSession && this.session.listeFormateurs && this.session.formationSession){
     if (this.session.idSession) {
       console.log("before update",this.session);
       this.sessionService.updateSession(this.session).subscribe( data => {
@@ -268,7 +269,7 @@ saveSession(){
       this.messageService.add( {severity:'error', summary:'Erreur', detail: error.error.message, life: 3000});
       this.session.photoSession = null ;
     console.log("exception occured");});
-  }}
+  }}}
   }
 
   deleteSession(session : SessionFormation) {

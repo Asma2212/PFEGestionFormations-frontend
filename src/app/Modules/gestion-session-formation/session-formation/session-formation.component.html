@@ -5,7 +5,7 @@
             <div class="card">
                 <p-toolbar styleClass="mb-4">
                     <ng-template pTemplate="left">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-raised p-button-text mr-2" (click)="openNew()" ></button>
+                        <button pButton pRipple label="Ajouter" icon="pi pi-plus" class="p-button-raised p-button-text mr-2" (click)="openNew()" ></button>
                     </ng-template>
 
                     <ng-template pTemplate="right">
@@ -63,6 +63,7 @@
                         </div>
 
                     </ng-template>
+        
 
                     <ng-template let-session pTemplate="gridItem">
                         <div class="p-col-12 p-md-3">
@@ -102,7 +103,12 @@
                             </div>
                         </div>
                     </ng-template>
+                    
                 </p-dataView>
+                    <div class="flex align-items-center justify-content-between" style="font-weight: bold; font-size: 15px;">
+                        En total il y'a {{sessions ? sessions.length : 0 }} Sessions.
+    
+                    </div>
             </div>
 
             <p-dialog [(visible)]="sessionDialog" [style]="{width: '450px'}" header="Session Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
@@ -179,7 +185,7 @@
                                                 </ng-template>
                                             </p-multiSelect>
 
-                  <small class="p-error" *ngIf="submitted && !formSess">formation est requis.</small>
+                  <small class="p-error" *ngIf="submitted && !session.formationSession">formation est requis.</small>
                 </div><br>
                     <label> niveau de difficulté </label>
                     <div *ngFor="let niv of nivDifficulte" class="field-checkbox">

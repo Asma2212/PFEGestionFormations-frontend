@@ -393,7 +393,7 @@ return false ;
     }
     if (this.enCoursCheck == true) {
       this.sessions = this.sessions.filter(s =>
-        (new Date() >= new Date(s.dateDebSession)) && (new Date() > new Date(s.dateDebSession))
+        (new Date() >= new Date(s.dateDebSession)) && (new Date() <= new Date(s.dateFinSession))
       );
     }
     if (this.aVenirCheck == true) {
