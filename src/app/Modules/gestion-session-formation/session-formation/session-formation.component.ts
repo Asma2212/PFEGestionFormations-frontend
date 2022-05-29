@@ -232,7 +232,7 @@ hideDialog() {
 }
 saveSession(){
   this.submitted = true ;
-  if(this.session.nbMaxCandidat<30){
+  if(this.session.nbMaxCandidat<30){ // && this.session.
   this.session.formationSession = this.formSess[0];
   console.log("session bch tetbaath :",this.session)
   if(this.file){

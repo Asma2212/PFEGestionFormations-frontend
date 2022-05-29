@@ -19,6 +19,7 @@ export class GestionCategorieComponent implements OnInit {
   categorieDialog : boolean = false ;
   selectedCategories : Categorie[];
   c : Categorie ;
+  submitted : boolean = false ;
 
   constructor( public ref: DynamicDialogRef, public config: DynamicDialogConfig, private categorieService : CategorieService, private messageService : MessageService,private confirmationService : ConfirmationService) { }
 
@@ -35,8 +36,10 @@ export class GestionCategorieComponent implements OnInit {
     ListFormations : []
     }
             }
-            saveCategorie(){
-              this.categorieService.saveCategorie(this.c).subscribe(data => {
+            saveCategorie(cat : Categorie){
+              this.submitted = true
+              if(cat.titre)
+              this.categorieService.saveCategorie(cat).subscribe(data => {
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'categorie Ajouter', life: 3000});
                 this.categorieService.getAllCategories().subscribe( data => {
                   this.categories = data ;

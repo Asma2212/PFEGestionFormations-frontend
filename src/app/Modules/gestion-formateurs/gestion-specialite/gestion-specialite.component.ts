@@ -18,6 +18,7 @@ export class GestionSpecialiteComponent implements OnInit {
   specialiteDialog : boolean = false ;
   selectedspecialites : Specialite[];
   sp : Specialite ;
+  submitted : boolean = false ;
 
   constructor( public ref: DynamicDialogRef, public config: DynamicDialogConfig, private specialiteService : SpecialiteService, private messageService : MessageService,private confirmationService : ConfirmationService) { }
 
@@ -37,6 +38,8 @@ export class GestionSpecialiteComponent implements OnInit {
     }
             }
             savespecialite(){
+              this.submitted = true
+              if(this.sp.titre)
               this.specialiteService.saveSpecialite(this.sp).subscribe(data => {
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'specialite Ajouter', life: 3000});
                 this.getSpec();

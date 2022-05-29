@@ -23,6 +23,7 @@ export class GestionClasseComponent implements OnInit {
   dep : string;
   d:Department ;
   listD:Department ;
+  submitted : boolean = false ;
 
   constructor( public ref: DynamicDialogRef, public config: DynamicDialogConfig, private classeService : ClasseService, private messageService : MessageService,private confirmationService : ConfirmationService,private departementService : DepartementService) { }
 
@@ -69,6 +70,8 @@ this.classes = data
     }
             }
             saveClasse(){
+              this.submitted = true
+              if(this.classe.name && this.classe.department)
               this.classeService.saveClasse(this.classe).subscribe(data => {
                 this.messageService.add({severity:'success', summary: 'Succés', detail: 'classe ajouté', life: 3000});
                 this.getAllClasse()

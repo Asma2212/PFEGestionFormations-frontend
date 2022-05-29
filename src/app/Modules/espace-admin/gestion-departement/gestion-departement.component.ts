@@ -14,6 +14,7 @@ export class GestionDepartementComponent implements OnInit {
   departementDialog : boolean = false ;
   selectedDepartements : Department[];
   dep : Department ;
+  submitted : boolean = false ;
 
   constructor( public ref: DynamicDialogRef, public config: DynamicDialogConfig, private departementService : DepartementService, private messageService : MessageService,private confirmationService : ConfirmationService) { }
 
@@ -34,6 +35,8 @@ export class GestionDepartementComponent implements OnInit {
     }
 }
             saveDepartement(){
+              this.submitted = true
+              if(this.dep.name)
               this.departementService.saveDepartement(this.dep).subscribe(data => {
                 this.messageService.add({severity:'success', summary: 'Succés', detail: 'Departement ajouté', life: 3000});
                 this.getAllDep()
