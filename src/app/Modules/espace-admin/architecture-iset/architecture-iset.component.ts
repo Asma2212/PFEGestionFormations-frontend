@@ -27,6 +27,7 @@ export class ArchitectureIsetComponent implements OnInit {
     depC : Classe[] ;
     classNiv : any[] = [] ;
     ref: DynamicDialogRef;
+    nomDep : string ;
 
 
     constructor(private messageService: MessageService,private departementService : DepartementService,private dialogService : DialogService) {}
@@ -37,7 +38,25 @@ this.departementService.getAllDepartements().subscribe(data => {
     console.log(this.departements)
 this.departements.forEach(dep => {
     this.classNiv  = [] ;
-    if (dep.name.toLowerCase().includes("informatique")) {
+    this.nomDep = dep.name
+        this.depC =  dep.classes.filter(c => 
+            c.name.includes("L1") )
+            this.depC.forEach(c => {
+                this.class.push({
+                    label: c.name,
+                    //styleClass: 'department-cfo'
+                })})
+                this.classNiv.push(
+                    {
+                        label: 'L1',
+                       // type: 'person',
+                        styleClass: 'department-cfo',
+                        expanded: true,
+                       // data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
+                        children:this.class 
+                        
+                    });
+                    this.class = [];
        this.depC =  dep.classes.filter(c => 
             c.name.includes("L2") )
             this.depC.forEach(c => {
@@ -77,24 +96,43 @@ this.departements.forEach(dep => {
                                     
                                 });
                                 this.class = [];
-        this.depC =  dep.classes.filter(c => 
-                                    c.name.includes("L1") )
-                                    this.depC.forEach(c => {
-                                        this.class.push({
-                                            label: c.name,
-                                            //styleClass: 'department-cfo'
-                                        })})
-                                        this.classNiv.push(
-                                            {
-                                                label: 'L1',
-                                               // type: 'person',
-                                                styleClass: 'department-cfo',
-                                                expanded: true,
-                                               // data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
-                                                children:this.class 
-                                                
-                                            });
-                                            this.class = [];
+
+                                            this.depC =  dep.classes.filter(c => 
+                                                c.name.includes("M1") )
+                                                this.depC.forEach(c => {
+                                                    this.class.push({
+                                                        label: c.name,
+                                                        //styleClass: 'department-cfo'
+                                                    })})
+                                                    this.classNiv.push(
+                                                        {
+                                                            label: 'M1',
+                                                           // type: 'person',
+                                                            styleClass: 'department-cfo',
+                                                            expanded: true,
+                                                           // data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
+                                                            children:this.class 
+                                                            
+                                                        });
+                                                        this.class = [];
+                                                        this.depC =  dep.classes.filter(c => 
+                                                            c.name.includes("M2") )
+                                                            this.depC.forEach(c => {
+                                                                this.class.push({
+                                                                    label: c.name,
+                                                                    //styleClass: 'department-cfo'
+                                                                })})
+                                                                this.classNiv.push(
+                                                                    {
+                                                                        label: 'M2',
+                                                                       // type: 'person',
+                                                                        styleClass: 'department-cfo',
+                                                                        expanded: true,
+                                                                       // data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
+                                                                        children:this.class 
+                                                                        
+                                                                    });
+                                                                    this.class = [];
 
         this.child1.push(
             {
@@ -106,77 +144,8 @@ this.departements.forEach(dep => {
             }
         )
     
-    }
-    if (dep.name.toLowerCase().includes("electrique")) {
-        this.depC =  dep.classes.filter(c => 
-             c.name.includes("L2") )
-             this.depC.forEach(c => {
-                 this.class.push({
-                     label: c.name,
-                     styleClass: 'person'
-                 })
-                 console.log("L2 : ",this.class)
-             })
-                 this.classNiv.push(
-                     {
-                         label: 'L2',
-                        // type: 'person',
-                         styleClass: 'department-cfo',
-                         expanded: true,
-                        // data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
-                         children:this.class 
-                         
-                     });
-                     console.log("L2 niv : ",this.classNiv)
-                     this.class = [];
-         this.depC =  dep.classes.filter(c => 
-                         c.name.includes("L3") )
-                         this.depC.forEach(c => {
-                             this.class.push({
-                                 label: c.name,
-                                // styleClass: 'department-cfo'
-                             })})
-                             this.classNiv.push(
-                                 {
-                                     label: 'L3',
-                                    // type: 'person',
-                                     styleClass: 'department-cfo',
-                                     expanded: true,
-                                    // data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
-                                     children:this.class 
-                                     
-                                 });
-                                 this.class = [];
-         this.depC =  dep.classes.filter(c => 
-                                     c.name.includes("L1") )
-                                     this.depC.forEach(c => {
-                                         this.class.push({
-                                             label: c.name,
-                                             //styleClass: 'department-cfo'
-                                         })})
-                                         this.classNiv.push(
-                                             {
-                                                 label: 'L1',
-                                                // type: 'person',
-                                                 styleClass: 'department-cfo',
-                                                 expanded: true,
-                                                // data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
-                                                 children:this.class 
-                                                 
-                                             });
-                                             this.class = [];
- 
-         this.child1.push(
-             {
-                 label: dep.name,
-                 styleClass: 'department-cfo',
-                 expanded: true,
-                // data: {name:'Saul Goodman', 'avatar': 'saul.jpg'},
-                 children: this.classNiv
-             }
-         )
-     
-     }
+    
+
 
 
 });
@@ -196,7 +165,7 @@ console.log("eeee",this.child1)
     }
 
     onNodeSelect(event) {
-        this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
+        this.messageService.add({severity: 'success', summary: 'Selectionnée', detail: event.node.label});
     }
 
     gestionDepartement(){

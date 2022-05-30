@@ -65,7 +65,7 @@ currentPageReportTemplate="montrant {first} à {last} de {totalRecords} classes"
         <div class="field">
             <label for="dep">choisir le departement</label>
             <p-multiSelect [options]="depList" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Choisir le departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" ></p-multiSelect>
-            <small class="p-error" *ngIf="submitted && !classe.department">departement est requis.</small>
+            <small class="p-error" *ngIf="submitted && !d">departement est requis.</small>
         </div>
         <div class="field">
             <label for="nom">Nom du classe</label>

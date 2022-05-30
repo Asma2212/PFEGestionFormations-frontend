@@ -22,7 +22,7 @@ export class GestionClasseComponent implements OnInit {
   cl : Classe ;
   dep : string;
   d:Department ;
-  listD:Department ;
+  listD:Department[] = [] ;
   submitted : boolean = false ;
 
   constructor( public ref: DynamicDialogRef, public config: DynamicDialogConfig, private classeService : ClasseService, private messageService : MessageService,private confirmationService : ConfirmationService,private departementService : DepartementService) { }
@@ -71,13 +71,22 @@ this.classes = data
             }
             saveClasse(){
               this.submitted = true
-              if(this.classe.name && this.classe.department)
-              this.classeService.saveClasse(this.classe).subscribe(data => {
+              console.log("saved classe",this.classe)
+              if(this.classe.name && this.d)
+              {
+              this.classeService.saveClasse(this.classe,this.d.id).subscribe(data => {
                 this.messageService.add({severity:'success', summary: 'Succés', detail: 'classe ajouté', life: 3000});
                 this.getAllClasse()
+                this.classe = {
+                  id : 0 ,
+                  name : "",
+                  department : null ,
+                  candidat : []
+                  }
+                  this.d = null ;
                 this.classeDialog = false
               }
-                )
+                )}
             }
             hideClasse(){
                 this.classeDialog= false ;
@@ -91,6 +100,10 @@ this.classes = data
             }
             
   editClasse(c : Classe){
+    this.departementService.getDepartementByClass(c.id).subscribe(data =>{
+      this.d = data 
+      this.listD.push(this.d)
+    })
     this.classeDialog = true ;
     this.classe = c
   }
@@ -149,7 +162,7 @@ this.classes = data
     console.log("hhheeey",this.d);
    // this.depSelected = true ;
    // this.listClass = dep[0].classes ;
-   this.classe.department = dep[0];
+  // this.classe.department = this.d;
   }}
 
 }

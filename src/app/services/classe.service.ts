@@ -16,9 +16,9 @@ export class ClasseService {
     getAllClasses(): Observable<Classe[]> {
       return this.http.get<Classe[]>(this.url + 'all');
     }
-    saveClasse(c : Classe) : Observable<any>{
+    saveClasse(c : Classe,id : number) : Observable<any>{
 
-      return this.http.post<any>(this.url + 'add',c);
+      return this.http.post<any>(this.url + 'add/'+id,c);
     }
     deleteClasse(id : number) : Observable<any>{
 
