@@ -25,6 +25,10 @@ export class DepartementService {
 
         return this.http.post<any>(this.url + 'add',dep);
       }
+      updateDepartement(dep : Department) : Observable<any>{
+
+        return this.http.post<any>(this.url + 'update',dep);
+      }
       deleteDepartement(id : number) : Observable<any>{
 
         return this.http.delete<any>(this.url + 'delete/'+ id);

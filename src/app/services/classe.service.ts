@@ -20,6 +20,10 @@ export class ClasseService {
 
       return this.http.post<any>(this.url + 'add/'+id,c);
     }
+    updateClasse(c : Classe,id : number) : Observable<any>{
+
+      return this.http.post<any>(this.url + 'update/'+id,c);
+    }
     deleteClasse(id : number) : Observable<any>{
 
       return this.http.delete<any>(this.url + 'delete/'+ id);

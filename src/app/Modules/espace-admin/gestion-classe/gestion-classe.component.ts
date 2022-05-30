@@ -74,9 +74,23 @@ this.classes = data
               console.log("saved classe",this.classe)
               if(this.classe.name && this.d)
               {
+                if(this.classe.id != 0 ){
+                  
+                  this.classeService.updateClasse(this.classe,this.d.id).subscribe(data => {
+                    this.messageService.add({severity:'success', summary: 'Succés', detail: 'classe ajouté', life: 3000});
+                    this.getAllClasse()
+                    
+                  }
+    
+                    )}
+                else{
               this.classeService.saveClasse(this.classe,this.d.id).subscribe(data => {
                 this.messageService.add({severity:'success', summary: 'Succés', detail: 'classe ajouté', life: 3000});
                 this.getAllClasse()
+                
+              }
+
+                )}
                 this.classe = {
                   id : 0 ,
                   name : "",
@@ -84,9 +98,7 @@ this.classes = data
                   candidat : []
                   }
                   this.d = null ;
-                this.classeDialog = false
-              }
-                )}
+                this.classeDialog = false}
             }
             hideClasse(){
                 this.classeDialog= false ;
