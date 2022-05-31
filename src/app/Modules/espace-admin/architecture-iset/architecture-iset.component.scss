@@ -1,10 +1,20 @@
 :host ::ng-deep .p-organizationchart {
+    .company{
+width: 20px;
+    }
     .p-person {
         padding: 0;
         border: 0 none;
-        width: 13%;
+        width: 5%;
+        
     }
-
+.classe-style{
+        font-size: 13px;
+        width: auto;
+        padding: 10px;
+        margin: 0;
+        display: block;
+}
 
     .node-header {
         background-color: #758fff;
@@ -17,8 +27,16 @@
     }
 
     .department-cfo {
-        background-color: #939aff;
+        background-color: #7780fd;
         color: #ffffff;
+        font-size: 13px;
+        width: auto;
+        padding: 10px;
+        margin: 0;
+
+    }
+    .department-cfo .ui-node-toggler {
+        color: #8a0a39 !important;
     }
 
     .department-coo {
@@ -31,3 +49,4 @@
         color: #ffffff;
     }
 }
+

@@ -44,7 +44,7 @@ this.departements.forEach(dep => {
             this.depC.forEach(c => {
                 this.class.push({
                     label: c.name,
-                    //styleClass: 'department-cfo'
+                    styleClass: 'classe-style'
                 })})
                 this.classNiv.push(
                     {
@@ -62,7 +62,7 @@ this.departements.forEach(dep => {
             this.depC.forEach(c => {
                 this.class.push({
                     label: c.name,
-                    styleClass: 'person'
+                    styleClass: 'classe-style'
                 })
                 console.log("L2 : ",this.class)
             })
@@ -83,7 +83,7 @@ this.departements.forEach(dep => {
                         this.depC.forEach(c => {
                             this.class.push({
                                 label: c.name,
-                               // styleClass: 'department-cfo'
+                               styleClass: 'classe-style'
                             })})
                             this.classNiv.push(
                                 {
@@ -102,7 +102,7 @@ this.departements.forEach(dep => {
                                                 this.depC.forEach(c => {
                                                     this.class.push({
                                                         label: c.name,
-                                                        //styleClass: 'department-cfo'
+                                                        styleClass: 'classe-style'
                                                     })})
                                                     this.classNiv.push(
                                                         {
@@ -120,7 +120,7 @@ this.departements.forEach(dep => {
                                                             this.depC.forEach(c => {
                                                                 this.class.push({
                                                                     label: c.name,
-                                                                    //styleClass: 'department-cfo'
+                                                                    styleClass: 'classe-style'
                                                                 })})
                                                                 this.classNiv.push(
                                                                     {
