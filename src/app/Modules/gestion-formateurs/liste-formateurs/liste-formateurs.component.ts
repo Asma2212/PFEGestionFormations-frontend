@@ -313,6 +313,7 @@ testImage(t : string){
     this.femme = "Femme" ;
     else
     this.homme = "Homme"
+    this.getSpecialite()
    // this.setGenre();
 
 }
@@ -390,6 +391,7 @@ counter(i: number) {
   return new Array(i);
 }
 openNew(formateur: Formateur) {
+  this.getSpecialite()
   this.formateur = {...formateur};
   //this.imgURL = formateur.photo ;
   this.formateurDialog = true;

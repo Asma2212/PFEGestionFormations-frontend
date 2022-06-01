@@ -69,10 +69,6 @@ export class ListeFormationsComponent implements OnInit {
 
   ngOnInit() {
       this.fileInfos = this.uploadService.getFiles();
-      this.categorieService.getAllCategories().subscribe( data => {
-        this.categories = data ;
-          console.log("everthing is okay geet categorie",data)
-        });
       this.formationService.getAllFormations().subscribe( data => {
               this.formations = data ;
                 console.log("everthing is okay geet",data)
@@ -80,9 +76,16 @@ export class ListeFormationsComponent implements OnInit {
 
 
   }
+  getAllCat(){
+    this.categorieService.getAllCategories().subscribe( data => {
+      this.categories = data ;
+        console.log("everthing is okay geet categorie",data)
+      });
+  }
 
   openNew() {
       this.formationDialog = true;
+      this.getAllCat()
       this.formation = {  idFormation:  0,
         titre : "",
         charge_horaire : "",
@@ -120,6 +123,7 @@ export class ListeFormationsComponent implements OnInit {
   }
 
   editFormation(formation: Formation) {
+    this.getAllCat()
       this.formation = {...formation};
       this.imgURL = formation.image ;
       this.formationDialog = true;
