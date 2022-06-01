@@ -65,7 +65,7 @@ export class ListeFormationsComponent implements OnInit {
   //statuses: any[]; , private messageService: MessageService, private confirmationService: ConfirmationService
 
   constructor(private formationService: FormationService,private uploadService : UploadFileService, private categorieService : CategorieService,private confirmationService : ConfirmationService , private messageService : MessageService,private dialogService: DialogService ) { }
- 
+
   ngOnInit() {
       this.fileInfos = this.uploadService.getFiles();
       this.categorieService.getAllCategories().subscribe( data => {
@@ -89,7 +89,7 @@ export class ListeFormationsComponent implements OnInit {
         image : "" ,
         listCategories : null ,
       sessionFormations : null};
-      this.submitted = false;  
+      this.submitted = false;
 
   }
 
@@ -113,7 +113,7 @@ export class ListeFormationsComponent implements OnInit {
                           }
                       );
               this.selectedFormations = null;
-              
+
           }
       });
   }
@@ -127,8 +127,12 @@ export class ListeFormationsComponent implements OnInit {
 
   deleteFormation(formation: Formation) {
       this.confirmationService.confirm({
-          message: 'Are you sure you want to delete ' + formation.titre + '?',
-          header: 'Confirm',
+        acceptLabel:"supprimer",
+        acceptButtonStyleClass:"p-button-info",
+        rejectLabel:"annuler",
+        rejectButtonStyleClass:"p-button-danger",
+          message: 'Etes-vous sûr que vous voulez supprimer ' + formation.titre + '?',
+          header: 'Confirmer',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
               this.formations = this.formations.filter(val => val.idFormation !== formation.idFormation);
@@ -188,14 +192,14 @@ export class ListeFormationsComponent implements OnInit {
       this.message = "Only images are supported.";
       return;
     }
- 
+
     var reader = new FileReader();
-    
+
     this.imagePath = this.file;
-    reader.readAsDataURL(this.file); 
-    reader.onload = (_event) => { 
+    reader.readAsDataURL(this.file);
+    reader.onload = (_event) => {
       this.imgURL = reader.result;
-      console.log("imaage",this.imgURL) 
+      console.log("imaage",this.imgURL)
     }
 
   }
@@ -206,7 +210,7 @@ export class ListeFormationsComponent implements OnInit {
       this.formation.image=this.file.name ;
       console.log("heeeeyy",this.formation,this.formation.titre,this.formation.listCategories,this.formation.image);
      const formData = new  FormData();
-    
+
       if ((this.formation.titre.trim())&&(this.formation.charge_horaire.trim())&&(this.formation.listCategories)) {
           if (this.formation.idFormation) {
               this.formations[this.findIndexById(this.formation.idFormation.toString())] = this.formation;
@@ -215,25 +219,25 @@ export class ListeFormationsComponent implements OnInit {
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation Updated', life: 3000});
                 window.location.reload();
               });
-              
+
           }
           else {
             this.formation.image=this.file.name ;
               this.formations.push(this.formation);
            /*   this.formationService.saveFormationData(formData).subscribe( data => {
-              
+
                 console.log("data type",data.type)
                 console.log("data get",data.get)
                 console.log("data",data)
               }); */
               console.log("heeedhyyy",this.formation)
-              
+
               this.formationService.saveFormation(this.formation).subscribe( data => {
                 console.log("data save Formation",data)
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'formation ajouter', life: 3000});
                 window.location.reload();
               });
-              
+
           }
 
           this.formations = [...this.formations];
@@ -387,15 +391,15 @@ ListFormations : null
               ListFormations : null
               }
         }
-        
-  gestionCategorie() { 
+
+  gestionCategorie() {
     console.log("aaa")
     this.ref = this.dialogService.open(GestionCategorieComponent, {
       header: 'liste des categories',
       width: '40%',
       contentStyle: {"max-height": "500px", "overflow": "auto"},
       baseZIndex: 10000
-  }); 
+  });
   }
   ngOnDestroy() {
     if (this.ref) {
