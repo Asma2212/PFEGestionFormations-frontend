@@ -48,6 +48,7 @@ export class ListeFormationsComponent implements OnInit {
   selectedFormations: Formation[];
 
   submitted: boolean;
+  submitted1: boolean;
   file: File = null;
   public imagePath;
   imgURL: any;
@@ -371,8 +372,10 @@ Description : "",
 ListFormations : null
 }
         }
-        saveCategorie(){
-          this.categorieService.saveCategorie(this.c).subscribe(data => {
+        saveCategorie(cat : Categorie){
+          this.submitted1 = true
+          if(cat.titre)
+          this.categorieService.saveCategorie(cat).subscribe(data => {
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'categorie Ajouter', life: 3000});
             this.categorieService.getAllCategories().subscribe( data => {
               this.categories = data ;
