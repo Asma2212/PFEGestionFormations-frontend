@@ -210,7 +210,11 @@ export class ListeCandidatsComponent implements OnInit {
 
 deleteCandidat(candidat: Candidat) {
     this.confirmationService.confirm({
-        message: 'Are you sure you want to delete ?',//' + candidat.name + 'Are you sure you want to delete' + candidat.name + ' ?'
+      acceptLabel:"supprimer",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"annuler",
+      rejectButtonStyleClass:"p-button-info",
+        message: 'Etes-vous sûr que vous voulez supprimer '+candidat.lastName +' '+ candidat.firstName+' ?',//' + candidat.name + 'Are you sure you want to delete' + candidat.name + ' ?'
         header: 'Confirm',
         icon: 'pi pi-exclamateur-triangle',
         accept: () => {
@@ -228,6 +232,10 @@ deleteCandidat(candidat: Candidat) {
 
 saveCandidat() {
   this.submitted = true;
+  var inputNom = (<HTMLInputElement>document.getElementById("nom"))?.validity.valid;
+  var inputPrenom = (<HTMLInputElement>document.getElementById("prenom"))?.validity.valid;
+  if (this.file)
+  this.candidat.photo=this.file.name ;
   console.log(this.candidat)
  // if(this.file)
   //this.candidat.photo=this.file.name ;
@@ -241,6 +249,8 @@ if(this.homme){
 
  this.candidat.genre = {id : 1 , name : Egenre.HOMME} ;
 }
+if((this.candidat.username)&&(this.candidat.email.trim())&&(this.candidat.department)&&(this.candidat.classe)
+&&(this.candidat.genre)&&(inputNom)&&(inputPrenom)){
   if (this.candidat.id) {
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {
       console.log("data update candidat",data)
@@ -271,7 +281,7 @@ else {
   this.messageService.add({severity:'error', summary: 'Error', detail: error.error.message, life: 3000});
 });
    }
-
+  }
       //this.candidats = [...this.candidats];
 
 
@@ -302,6 +312,8 @@ hideDialog() {
   this.depSelected = false ;
   this.femme ="";
   this.homme="";
+  this.listD = []
+  this.listC = []
 
 }
 

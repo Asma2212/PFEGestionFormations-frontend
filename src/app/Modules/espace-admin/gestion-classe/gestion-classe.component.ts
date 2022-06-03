@@ -121,7 +121,11 @@ this.classes = data
   }
   deleteClasse(d : Classe){
       this.confirmationService.confirm({
-          message: 'vous etes sur vous voulez supprimer le classe ' + d.name + '?',
+        acceptLabel:"supprimer",
+        acceptButtonStyleClass:"p-button-danger",
+        rejectLabel:"annuler",
+        rejectButtonStyleClass:"p-button-info",
+          message: 'Etes-vous sûr que vous voulez supprimer la classe ' + d.name + '?',
           header: 'Confirm',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
@@ -145,7 +149,11 @@ this.classes = data
   }
   deleteSelectedClasses(){
     this.confirmationService.confirm({
-      message: 'vous etes sur vous voulez supprimer les classes selectionnées ?',
+      acceptLabel:"supprimer",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"annuler",
+      rejectButtonStyleClass:"p-button-info",
+        message: 'Etes-vous sûr que vous voulez supprimer  les classes selectionnées ?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

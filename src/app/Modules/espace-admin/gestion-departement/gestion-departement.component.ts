@@ -61,7 +61,11 @@ export class GestionDepartementComponent implements OnInit {
   }
   deleteDepartement(d : Department){
       this.confirmationService.confirm({
-          message: 'vous etes sur vous voulez supprimer le departement ' + d.name + '?',
+        acceptLabel:"supprimer",
+        acceptButtonStyleClass:"p-button-danger",
+        rejectLabel:"annuler",
+        rejectButtonStyleClass:"p-button-info",
+          message: 'Etes-vous sûr que vous voulez supprimer  le departement ' + d.name + '?',
           header: 'Confirm',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
@@ -85,7 +89,11 @@ export class GestionDepartementComponent implements OnInit {
   }
   deleteSelectedDepartements(){
     this.confirmationService.confirm({
-      message: 'vous etes sur vous voulez supprimer les departements selectionnées ?',
+      acceptLabel:"supprimer",
+      acceptButtonStyleClass:"p-button-info",
+      rejectLabel:"annuler",
+      rejectButtonStyleClass:"p-button-danger",
+        message: 'Etes-vous sûr que vous voulez supprimer les departements selectionnées ?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

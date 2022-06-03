@@ -320,7 +320,11 @@ testImage(t : string){
 
 deleteFormateur(formateur: Formateur) {
     this.confirmationService.confirm({
-        message: 'Are you sure you want to delete ?',//' + formateur.name + 'Are you sure you want to delete' + formateur.name + ' ?'
+      acceptLabel:"supprimer",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"annuler",
+      rejectButtonStyleClass:"p-button-info",
+        message: 'Etes-vous sûr que vous voulez supprimer '+formateur.lastName+' '+formateur.firstName+' ?',//' + formateur.name + 'Are you sure you want to delete' + formateur.name + ' ?'
         header: 'Confirm',
         icon: 'pi pi-exclamateur-triangle',
         accept: () => {

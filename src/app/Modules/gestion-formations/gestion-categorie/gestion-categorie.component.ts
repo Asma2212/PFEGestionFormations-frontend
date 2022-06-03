@@ -65,7 +65,11 @@ export class GestionCategorieComponent implements OnInit {
   }
   deleteCategorie(cat : Categorie){
       this.confirmationService.confirm({
-          message: 'Are you sure you want to delete ' + cat.titre + '?',
+        acceptLabel:"supprimer",
+        acceptButtonStyleClass:"p-button-danger",
+        rejectLabel:"annuler",
+        rejectButtonStyleClass:"p-button-info",
+          message: 'Etes-vous sûr que vous voulez supprimer ' + cat.titre + '?',
           header: 'Confirm',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {

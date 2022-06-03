@@ -120,8 +120,6 @@ export class CandidatRegisterComponent implements OnInit {
       email: new FormControl('')
   })
 
-
-
     this.signupForm = new FormGroup({
       username_signup: new FormControl(''),
       password_signup: new FormControl(''),

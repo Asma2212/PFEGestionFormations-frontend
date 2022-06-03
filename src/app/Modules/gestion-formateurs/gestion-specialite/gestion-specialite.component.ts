@@ -62,7 +62,11 @@ export class GestionSpecialiteComponent implements OnInit {
   }
   deletespecialite(spec : Specialite){
       this.confirmationService.confirm({
-          message: 'vous etes sur vous voulez supprimer la specialité selectionnée ' + spec.titre + '?',
+        acceptLabel:"supprimer",
+        acceptButtonStyleClass:"p-button-danger",
+        rejectLabel:"annuler",
+        rejectButtonStyleClass:"p-button-info",
+          message: 'Etes-vous sûr que vous voulez supprimer la specialité selectionnée ' + spec.titre + '?',
           header: 'Confirm',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
@@ -81,7 +85,11 @@ export class GestionSpecialiteComponent implements OnInit {
   }
   deleteSelectedspecialites(){
     this.confirmationService.confirm({
-      message: 'vous etes sur vous voulez supprimer les specialites selectionnées ?',
+      acceptLabel:"supprimer",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"annuler",
+      rejectButtonStyleClass:"p-button-info",
+        message: 'Etes-vous sûr que vous voulez supprimer les specialites selectionnées ?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

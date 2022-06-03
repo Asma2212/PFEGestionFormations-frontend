@@ -200,15 +200,25 @@
                         <small class="p-error" *ngIf="submitted && !candidat.username">cin est requis.</small>
                     </div><br>
                     <div class="field">
-                        <label for="nom">Nom</label>
-                        <input type="text" pInputText id="nom" [(ngModel)]="candidat.lastName" required />
-                        <small class="p-error" *ngIf="submitted && !candidat.lastName">nom est requis.</small>
-                    </div><br>
-                    <div class="field">
-                        <label for="prenom">Prenom</label>
-                        <input type="text" pInputText id="prenom" [(ngModel)]="candidat.firstName" required />
-                        <small class="p-error" *ngIf="submitted && !candidat.firstName">prenom est requis.</small>
-                    </div><br>
+                      <label for="nom">Nom</label>
+                     
+                            <input type="text" pInputText id="nom" name="nom" [(ngModel)]="candidat.lastName" required placeholder="nom"  pattern="[a-zA-Z ]*" #lastname="ngModel"/>
+                               
+                  
+                    <small class="p-error" *ngIf="submitted && !candidat.lastName">nom est requis.</small>
+                    <small class="p-error" *ngIf="candidat.lastName && (lastname.invalid && (lastname.dirty || lastname.touched))">nom invalide.</small>
+                  </div>
+                  <div class="field">
+                      <label for="prenom">Prenom</label>
+                     
+                            <input type="text" pInputText id="prenom" name="prenom" [(ngModel)]="candidat.firstName" required  placeholder="prenom"  pattern="[a-zA-Z ]*" #name="ngModel"/>
+                                
+                  
+                      
+                      <small class="p-error" *ngIf="submitted && !candidat.firstName.trim()">prenom est requis.</small>
+                      <small class="p-error" *ngIf="candidat.firstName && (name.invalid && (name.dirty || name.touched))">prenom invalide.</small>
+                  </div>
+                  <br>
                     <div class="field">
                         <label for="email">Email</label>
                         <input type="email" pInputText id="email" [(ngModel)]="candidat.email" required />
