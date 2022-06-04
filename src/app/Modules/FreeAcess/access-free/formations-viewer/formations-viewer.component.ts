@@ -153,6 +153,24 @@ if(this.username)
           this.aVenir++;
       });
     });
+else
+this.sessionService.getSessions().subscribe(data => {
+  this.sessions = data
+  this.filterSessions = this.sessions;
+  this.toutCours = this.sessions.length;
+  this.sessions.forEach(s => {
+    if (new Date(s.dateDebSession) > new Date())
+      this.nouvCours++;
+    if (new Date(s.dateFinSession) < new Date())
+      this.archive++;
+    if ((s.listeCandidat.length < s.nbMaxCandidat) && (new Date(s.dateDebSession) > new Date()))
+      this.OuvertInscrit++;
+    if ((new Date() >= new Date(s.dateDebSession)) && (new Date() <= new Date(s.dateFinSession)))
+      this.enCours++;
+    if (new Date(s.dateDebSession) > new Date())
+      this.aVenir++;
+  });
+});
     this.categorieService.getAllCategories().subscribe(data => {
       this.cat = data;
       console.log("everthing is okay geet categorie", data)

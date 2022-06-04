@@ -33,6 +33,7 @@ import { SafeHtml1Pipe } from "./safe-html1.pipe";
 import { ReviewingComponent } from './reviewing/reviewing.component';
 import {BlockUIModule} from "primeng/blockui";
 import {PanelModule} from "primeng/panel";
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -51,7 +52,8 @@ import {PanelModule} from "primeng/panel";
     HomePage1Component,
     SessionOnlineComponent,
     SafeHtml1Pipe,
-    ReviewingComponent
+    ReviewingComponent,
+    ContactComponent
 
 
 
