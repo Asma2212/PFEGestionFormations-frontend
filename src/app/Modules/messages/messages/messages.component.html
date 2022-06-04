@@ -1,3 +1,5 @@
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <!--<header>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Chat app</a>
@@ -56,7 +58,7 @@
 </head>
 <main>
   <!-- partial:index.partial.html -->
-  <div class="app-container">
+  <!--<div class="app-container">
 
 
     <div class="app-main">
@@ -97,15 +99,21 @@
             *ngIf="chatMessage.user==this.localStorage.retrieve('username'); then template1 else template2"></ng-container>
           <ng-template #template1>
             <div class="message-wrapper reverse">
-              <img class="message-pp"
-                   src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
-                   alt="profile-pic">
+              
+              
               <div class="message-box-wrapper">
-                <span>  {{chatMessage.user}}:</span>
+                <span>  {{chatMessage.firstName}}{{chatMessage.lastName}}:</span>
                 <div class="message-box" style="max-width: 100%" >
                   {{chatMessage.message}}  </div>
                 <span>9h ago</span>
               </div>
+              <span *ngFor="let file of fileInfos | async">
+                <p *ngIf="testImage(file.type) && file.name == chatMessage.photo">
+                  <img class="message-pp" [src]="file.url"
+                  alt="profile-pic"
+                  />
+                </p>
+              </span>
             </div>
           </ng-template>
           <ng-template #template2>
@@ -127,6 +135,7 @@
 
 
         </div>
+        
       </div>
 
       <form (ngSubmit)="sendMessage(sendForm)" #sendForm="ngForm">
@@ -147,8 +156,105 @@
 
 
 
-  </div>
+  </div>-->
+
   <!-- partial -->
 </main>
+<div>
+  <!-- DIRECT CHAT DANGER -->
+  <div class="box box-danger direct-chat direct-chat-danger">
+    <div class="box-header with-border"><img src="../../../../assets/img/chat.png" width="60px" alt="Message User Image">
+      <h3 class="box-title">Chat Direct</h3>
+
+      <div class="box-tools pull-right">
+        <span data-toggle="tooltip" title="{{webSocketService.chatMessages.length}} Nouveau Message" class="badge bg-red">{{webSocketService.chatMessages.length}}</span>
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
+          <i class="fa fa-comments"></i></button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <!-- Conversations are loaded here -->
+      <div class="direct-chat-messages">
+        <div class="direct-chat-msg right">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-right">Bienvenue dans notre chat</span>
+            <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+          </div>
+          <!-- /.direct-chat-info -->
+          <img class="direct-chat-img" src="../../../../assets/img/helloIcon.png" alt="Message User Image"><!-- /.direct-chat-img -->
+          <div class="direct-chat-text">
+            N'hesitez par de posez vos questions
+          </div>
+          <!-- /.direct-chat-text -->
+        </div>
+        <!-- Message. Default to the left -->
+        <div class="direct-chat-msg" *ngFor="let chatMessage of webSocketService.chatMessages">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-left">{{chatMessage.firstName}}{{chatMessage.lastName}}:</span>
+            <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+          </div>
+          <!-- /.direct-chat-info -->
+          <span *ngFor="let file of fileInfos | async">
+            <p *ngIf="testImage(file.type) && file.name == chatMessage.photo">
+              <img class="direct-chat-img" [src]="file.url"
+              alt="profile-pic"
+              />
+            </p>
+          </span>
+          <div class="direct-chat-text">
+            {{chatMessage.message}}
+          </div>
+          <!-- /.direct-chat-text -->
+        </div>
+        <!-- /.direct-chat-msg -->
+
+        <!-- Message to the right -->
+        
+        <!-- /.direct-chat-msg -->
+      </div>
+      <!--/.direct-chat-messages-->
+
+      <!-- Contacts are loaded here -->
+      <div class="direct-chat-contacts">
+        <ul class="contacts-list">
+          <li>
+            <a href="#">
+              <img class="contacts-list-img" src="https://bootdey.com/img/Content/user_1.jpg">
+
+              <div class="contacts-list-info">
+                    <span class="contacts-list-name">
+                      Count Dracula
+                      <small class="contacts-list-date pull-right">2/28/2015</small>
+                    </span>
+                <span class="contacts-list-msg">How have you been? I was...</span>
+              </div>
+              <!-- /.contacts-list-info -->
+            </a>
+          </li>
+          <!-- End Contact Item -->
+        </ul>
+        <!-- /.contatcts-list -->
+      </div>
+      <!-- /.direct-chat-pane -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      <form (ngSubmit)="sendMessage(sendForm)" #sendForm="ngForm">
+        <div class="input-group">
+          <input type="text" placeholder="Type Message ..." class="form-control" name="message" id="input-message" ngModel> 
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-danger btn-flat">Send</button>
+              </span>
+        </div>
+      </form>
+    </div>
+    <!-- /.box-footer-->
+  </div>
+  <!--/.direct-chat -->
+</div>
 </html>
 

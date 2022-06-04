@@ -359,7 +359,7 @@
                                               </p-multiSelect>
                       </div>
                     </div>
-                    <small class="p-error" *ngIf="submitted && !formateur.etablissement.trim()">etablissement est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est requis.</small>
                   </div>     
                   <div class="field" *ngIf="formateur.id || autre">
                     <div >
@@ -368,7 +368,7 @@
                           <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="entrez l'etablissement" autofocus/>
                               
                       </div>
-                      <small class="p-error" *ngIf="submitted && !formateur.etablissement.trim()">etablissement est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est requis.</small>
                   </div>
                         
                         

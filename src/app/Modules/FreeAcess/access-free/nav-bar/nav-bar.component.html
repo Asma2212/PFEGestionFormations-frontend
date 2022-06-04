@@ -22,7 +22,7 @@
     </svg>-->
     <!--<img src="https://i.pinimg.com/originals/a7/4a/65/a74a6592ac29c378cc03c600a03fc78e.png" alt="" width="45px"/>-->
     <p>&nbsp;&nbsp;</p>
-    <img src="../../../../../assets/img/logo2Clean.png" width="210px">
+    <img src="../../../../../assets/img/logo2Clean.png" width="210px" (click)="goHome()">
   </div>
   <div class="header-menu">
 <!--    <a href="#" class="active">
@@ -33,13 +33,13 @@
     </a>&ndash;&gt;-->
     <a [routerLink]="['/home/home1']" class="active">Accueil</a>
     <a [routerLink]="['/home/formation']" class="active">Liste des formations</a>
-    <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Espace Candidat</a>
+    <a [routerLink]="['/register/candidat']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin'">Espace Candidat</a>
+    <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Ma liste</a>
     <a [routerLink]="" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Mon compte</a>
 
-    <a [routerLink]="['/login/formateur']" class="active"  *ngIf="this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin' &&this.localStorage1.retrieve('role')=='formateur'">Espace Formateur</a>
-    <a [routerLink]="['/#']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat' ">Contact </a>
+    <a [routerLink]="['/login/formateur']" class="active"  *ngIf="this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin' &&this.localStorage1.retrieve('role')!='formateur'">Espace Formateur</a>
+    <a [routerLink]="['/home/contact']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat' ">Contact </a>
     <a [routerLink]="['/formateur/sessions']" class="active" *ngIf="this.localStorage1.retrieve('role')=='formateur'">Mes Sessions de formations</a>
-    <a  class="active" href="/home" *ngIf="this.localStorage1.retrieve('role')!='formateur'&& this.localStorage1.retrieve('role')!='candidat' " >+216-71 460 100</a>
   <a [routerLink]="[]"  class="active" (click)="showDialog()" *ngIf="this.localStorage1.retrieve('role')=='formateur'|| this.localStorage1.retrieve('role')=='candidat' " >Messages</a></div>
   <p-dialog  header="Message"   position="right" [(visible)]="display" >
     <app-messages></app-messages>

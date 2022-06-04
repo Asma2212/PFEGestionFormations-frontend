@@ -359,7 +359,7 @@ saveFormateur() {
 
   this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
 } 
-if((this.formateur.username.trim())&&(this.formateur.email.trim())&&(this.formateur.cv)&&(this.formateur.etablissement.trim())&&(this.formateur.lesSpecialites)
+if((this.formateur.username)&&(this.formateur.email.trim())&&(this.formateur.cv)&&(this.formateur.etablissement)&&(this.formateur.lesSpecialites)
 &&(this.formateur.genre)&&(inputNom)&&(inputPrenom)){
   if (this.formateur.id) {
     //this.genre = this.formateur.genre ;
@@ -433,7 +433,7 @@ openSpecialite(){
 saveSpecialite(){
             this.specialiteService.saveSpecialite(this.spec).subscribe(data => {
               this.messageService.add({severity:'success', summary: 'Successful', detail: 'categorie Ajouter', life: 3000});
-              this.getSpecialite
+              this.getSpecialite()
               this.specialiteDialog = false
             }
               )

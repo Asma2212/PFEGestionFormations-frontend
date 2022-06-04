@@ -97,6 +97,9 @@ export class NavBarComponent implements OnInit {
     }
     else {return}
   }
+  goHome(){
+    this.router.navigate(['/home']);
+  }
 /*  retrieveelement():boolean{
 
 /!*

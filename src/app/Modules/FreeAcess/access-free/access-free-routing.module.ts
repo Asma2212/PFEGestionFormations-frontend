@@ -10,6 +10,7 @@ import {NavBarComponent} from "./nav-bar/nav-bar.component";
 import {HomeDetailsComponent} from "./home-details/home-details.component";
 import {ContainerComponent} from "../../espace-candidat/container/container.component";
 import {ReviewingComponent} from "./reviewing/reviewing.component";
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [{
   path: '',
@@ -23,6 +24,9 @@ const routes: Routes = [{
     {  path: 'formation',
       component: FormationsViewerComponent,
     },
+    {  path: 'contact',
+    component: ContactComponent,
+  },
     {  path: 'home1',
       component: HomePage1Component,
     },

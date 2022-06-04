@@ -15,4 +15,7 @@ import { Observable } from "rxjs";
     updateFormateur(user : User) : Observable<any>{
         return this.http.post<any>(this.url + 'update/',user);
       }
+      getUser(username : string) : Observable<any>{
+        return this.http.get<any>('http://localhost:8080/api/test/user/'+username);
+      }
   }

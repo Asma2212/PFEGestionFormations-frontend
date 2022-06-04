@@ -9,6 +9,10 @@ import {HttpClient} from "@angular/common/http";
 import {chat} from "googleapis/build/src/apis/chat";
 import {data} from "jquery";
 import {ChatResponse} from "../../../models/ChatResponse";
+import { UserService } from 'app/services/user.service';
+import { User } from 'app/models/User';
+import { UploadFileService } from 'app/services/upload-file.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -17,10 +21,13 @@ import {ChatResponse} from "../../../models/ChatResponse";
 export class ChatComponent implements OnInit,OnDestroy {
 ListChat:ChatResponse[];
 ListSaving :ChatResponse[]=[];
+user1 : User
+fileInfos: Observable<any>;
 
-  constructor(private http: HttpClient,public webSocketService: WebSocketService,private localStorage: LocalStorageService,) { }
+  constructor(private http: HttpClient,public webSocketService: WebSocketService,private localStorage: LocalStorageService,private userService : UserService,private uploadService: UploadFileService) { }
 
   ngOnInit(): void {
+    this.fileInfos = this.uploadService.getFiles();
     this.webSocketService.getAllchat().subscribe(data=>
     {      this.ListChat=data
 console.log("chat",this.ListChat);
@@ -35,7 +42,9 @@ console.log("chat",this.ListChat);
     this.webSocketService.closeWebSocket();
   }
   sendMessage(sendForm: NgForm) {
-    var chatMessageDto = new ChatMessageDto(this.localStorage.retrieve("username"), sendForm.value.message);
+    this.userService.getUser(this.localStorage.retrieve("username")).subscribe(data =>{ 
+      this.user1 =data
+      var chatMessageDto = new ChatMessageDto(this.localStorage.retrieve("username"), sendForm.value.message,this.user1.firstName,this.user1.lastName,this.user1.photo);
     var chat=new ChatResponse();
     chat.userChat=this.localStorage.retrieve("username")
     this.webSocketService.sendMessage(chatMessageDto);
@@ -49,7 +58,7 @@ console.log("chat",this.ListChat);
 
     sendForm.controls.message.reset();
 
-  }
+  })}
 
 
 }
