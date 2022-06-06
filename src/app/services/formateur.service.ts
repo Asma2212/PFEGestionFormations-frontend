@@ -44,9 +44,13 @@ export class FormateurService {
   getSessionByFormateur(id: number) :Observable<SessionFormation[]> {
   return this.http.get<SessionFormation[]>(this.url+"listSession/"+id)
   }
-  /*deleteAllFormateur(formateurs : Formateur[] ) : Observable<any> {		
-		return this.http.post<any>(this.url + 'deleteAllFormateurs', formateurs)
-  } */
+  envoyerCodeFormateur(f : Formateur) : Observable<any>{
+    
+    return this.http.post<any>(this.url + 'codeFormateur',f);
+  }
+  getFormateurByEmail(email : string): Observable<Formateur> {
+    return this.http.get<Formateur>(this.url+"getEmailForm/"+email);
+  }
 
 
 

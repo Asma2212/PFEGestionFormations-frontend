@@ -196,8 +196,8 @@
               <p-dialog [(visible)]="enterEmailDialog" [style]="{width: '450px'}" header="Retrouvez votre compte" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
                 <ng-template pTemplate="content">
                     <div class="field">
-                        <label for="titre">Veuillez entrer votre adresse e-mail pour rechercher votre compte.</label>
-                        <input type="text" pInputText id="titre" [(ngModel)]="email" required autofocus />
+                        <label for="email">Veuillez entrer votre adresse e-mail pour rechercher votre compte.</label>
+                        <input type="text" pInputText id="email" [(ngModel)]="email" required autofocus />
                         <small class="p-error" *ngIf="submitted && !email">email est requis.</small>
                         <small class="p-error" *ngIf="!testEmail && email">email inexistant.</small>
                     </div><br>
@@ -210,20 +210,22 @@
                 </ng-template>
             </p-dialog>
             <p-dialog [(visible)]="verifierEmailDialog" [style]="{width: '450px'}" header="Réinitialiser votre mot de passe" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
-              <ng-template pTemplate="content">
-                <p>vous allez recevoir votre code de réinitialisation du mot de passe par e-mail :</p>
-                <p>{{email}}</p>
+              <ng-template pTemplate="content" style="display: flex;">
+                <div style="width: 55%;float: right;">
+                <p>vous allez recevoir votre code de réinitialisation du mot de passe par e-mail à:</p>
+                <p><img src="../../../../../../assets/img/email.png" width="50px">{{email}}</p>
+              </div>
                 <div>
-                  <div>
-                  <div *ngFor="let file of fileInfos | async">
+                  <div style="width:40%;float: left;">
+                  <div *ngFor="let file of fileInfos | async" >
                     <p class="list-group-item" *ngIf="testImage(file.type) && file.name == cand.photo">
                       <img [src]="file.url"
                       alt=""
-                      style="width: 85px; height:85px;"
+                      style="width: 100px; height:100px;padding-left: 7%;"
                       />
                     </p>
                   </div>
-                  <p>{{cand.firstName}} {{cand.lastName}}</p></div>
+                  <p style="text-align : center">{{cand.firstName}} {{cand.lastName}}</p></div>
               </div>
                   
                   <br>
@@ -238,13 +240,13 @@
           <p-dialog [(visible)]="verifierCodeDialog" [style]="{width: '450px'}" header="Verifier code" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
             <ng-template pTemplate="content">
                 <div class="field">
-                    <label for="titre">Merci de vérifier dans vos e-mails que vous avez reçu un message avec votre code. Celui-ci est composé de 8 chiffres</label>
-                    <input type="text" pInputText id="titre" [(ngModel)]="code" required autofocus placeholder="entrer le code"/>
+                    <label for="code">Merci de vérifier dans vos e-mails que vous avez reçu un message avec votre code. Celui-ci est composé de 8 chiffres</label>
+                    <input type="text" pInputText id="code" [(ngModel)]="code" required autofocus placeholder="entrer le code" maxlength="8"/>
                     <small class="p-error" *ngIf="submitted && !code">code est requis.</small>
                     <small class="p-error" *ngIf="!confirmCode && code">code Invalide.</small>
                 </div><br>
-                <div>Nous avons envoyé votre code à : {{email}}</div>
-                <button pButton pRipple type="button" class="p-button-text" (click)="envoyer()">Renvoyer le code</button>
+                <label>Nous avons envoyé votre code à : <strong>{{email}}</strong></label>
+                <button pButton pRipple type="button" class="p-button-text" (click)="envoyer(cand)">Renvoyer le code</button>
             </ng-template>
         
             <ng-template pTemplate="footer">

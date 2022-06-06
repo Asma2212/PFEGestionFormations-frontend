@@ -7,6 +7,7 @@ import * as $ from "jquery";
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { Router } from '@angular/router';
+import { DateComponent, DateEnv } from '@fullcalendar/core';
 
 @Component({
   selector: 'app-home1-page',
@@ -15,9 +16,15 @@ import { Router } from '@angular/router';
 })
 export class HomePage1Component implements OnInit {
   sessions : SessionFormation[] ;
+  sessionsCetteSemaine : SessionFormation[] ;
+  sessionsAVenir : SessionFormation[] ;
+  sessionsPassees : SessionFormation[] ;
 	responsiveOptions;
   images: any[];
   fileInfos: Observable<any>;
+  monDate :Date = new Date();
+  readMore : boolean = false ;
+  readLess : boolean = true ;
 
   responsiveOptions1:any[] = [
       {
@@ -38,7 +45,28 @@ export class HomePage1Component implements OnInit {
   
   ngOnInit(): void {
 
-    this.sessionService.getSessions().subscribe(data =>{ this.sessions = data})
+    this.sessionService.getSessions().subscribe(data =>{ 
+      this.sessions = data
+      this.sessionsAVenir = this.sessions.filter(s => (new Date(s.dateDebSession).getMonth() == new Date().getMonth() || new Date(s.dateDebSession).getMonth() == new Date().getMonth()+1 ) )
+      this.sessionsPassees = this.sessions.filter(s => new Date(s.dateFinSession)< new Date() && new Date(s.dateFinSession).getMonth() <= new Date().getMonth()-1)
+      const nb = new Date(new Date().getFullYear(),new Date().getMonth(), 0).getDate()
+      const nb1 = new Date().getDate()+7 ;
+      if(nb1 > nb)
+      {
+        this.monDate.setDate(nb1-nb)
+      if(new Date().getMonth() == 12){
+      this.monDate.setMonth(1)
+      this.monDate.setFullYear(new Date().getFullYear()+1)
+      }
+      else
+      this.monDate.setMonth(new Date().getMonth() + 1)
+    }
+    else{
+      this.monDate.setDate(nb1)
+    }
+
+      this.sessionsCetteSemaine = this.sessions.filter(s => new Date(s.dateDebSession) < this.monDate && new Date(s.dateFinSession) > new Date())
+    })
     this.fileInfos = this.uploadService.getFiles();
 
 
@@ -46,7 +74,7 @@ export class HomePage1Component implements OnInit {
       {
           breakpoint: '1024px',
           numVisible: 3,
-          numScroll: 3
+          numScroll: 3 
       },
       {
           breakpoint: '768px',

@@ -347,7 +347,8 @@ this.testEmail = false ;
   this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse Email inexistante", life: 3000});
 }
       )
-    }}
+    }
+  }
 
     envoyer(cand){
       if(this.verifierCodeDialog == false )
@@ -359,6 +360,7 @@ this.submitted = false
       })
     }
     annuler(){
+      this.email = ""
 this.code = ""
 this.verifierCodeDialog = false ; 
 this.submitted = false
@@ -394,8 +396,8 @@ this.submitted = false
         }
       }
       Retour(){
-        this.email = ""
-        this.code = ""
+        this.email =""
+        this.code =""
         this.changePasswordDialog = false ;
         this.submitted = false
       }
@@ -404,8 +406,9 @@ this.submitted = false
         if(this.password && this.password2){
           this.cand.password = this.password ;
           this.candidatService.updateCandidatPass(this.cand).subscribe(data => {
-            this.messageService.add({severity:'successful', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec la nouvelle mot de passe", life: 3000});
-            this.submitted = false
+            this.Retour()
+            this.messageService.add({severity:'success', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec la nouvelle mot de passe", life: 3000});
+            
           })
         }
       }

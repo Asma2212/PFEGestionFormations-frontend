@@ -97,11 +97,12 @@
                           </ul>
                       </div>
                   </h6>
-                    <p>
-                      L’ISET de Radès est habilité à concevoir et mettre en oeuvre des programmes de formation continue<br>
-Ce service a pour mission de planifier, organiser et mettre en oeuvre des programmes et actions de formation au profit des entreprises privées et établissements publics.
-                      </p>
-                    <a class="butn small margin-10px-top md-no-margin-top" href="event-details.html">Read More <i class="fas fa-long-arrow-alt-right margin-10px-left"></i></a>
+                      <p>L’ISET de Radès est habilité à concevoir et mettre en oeuvre des programmes de formation continue
+                        <span id="dots" *ngIf="!readMore">...</span>
+                        <span *ngIf="readMore == true"><br>Ce service a pour mission de planifier, organiser et mettre en oeuvre des programmes et actions de formation au profit des entreprises privées et établissements publics.</span></p>
+
+                    <a class="butn small margin-10px-top md-no-margin-top" style="cursor: pointer;" (click)="readMore = true" id="myBtn" *ngIf="!readMore">Lire la Suite <i class="fas fa-long-arrow-alt-right margin-10px-left"></i></a>
+                    <a class="butn small margin-10px-top md-no-margin-top" style="cursor: pointer;" (click)="readMore = false" id="myBtn" *ngIf="readMore"><i class="fas fa-long-arrow-alt-left margin-10px-left"></i> Lire Moins </a>
                 </div>
             </div>
         </div>
@@ -119,7 +120,7 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
       <div class="searched-sort">Trier par: <span class="post-time">Le plus récent </span><span class="menu-icon">▼</span></div>
      </div>
             <br>
-      <p-carousel [value]="sessions" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions" >
+      <p-carousel [value]="sessionsCetteSemaine" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="7000" [responsiveOptions]="responsiveOptions" >
         <ng-template let-session pTemplate="item" class="card">
             <div class="product-item-content" style="padding-right: 3%;">
                 <div  *ngFor="let file of fileInfos | async">
@@ -130,13 +131,18 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
       <br>
               <div class="content">
                 <div class="title">
-                  {{session.titreSession}}
+                 <strong> {{session.titreSession}}</strong>
                 </div>
                 <div class="sub-title">
                   <div [innerHTML]="session.descriptionSession | safeHtml"></div>
                 </div>
                 <div>
-                  <button class="btn" style="background-color: #8D8B76;">Voir detail</button>
+                  <button class="search-buttons detail-button" style="color: black;" *ngFor="let categorie of session.formationSession.listCategories">
+                    {{categorie.titre}}
+                  </button>
+                </div>
+                <div>
+                  <button class="search-buttons card-buttons-msg" style="background-color: #c2b7b7cb; color: rgb(109, 109, 109);"  (click)="detailSession(session)">plus de details</button>
                 </div>
               </div>
             </div>
@@ -160,7 +166,7 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
                             <li>Notre objectif cert à rendre les formations continue intégrer dans l'ISET </li>
                         </ul>
                         <div class="btn-box">
-                            <a href="#" class="theme-btn btn-style-one">Contact Us</a>
+                            <a routerLink="/home/contact" class="theme-btn btn-style-one" style="cursor: pointer;">Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -168,8 +174,8 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
                 <!-- Image Column -->
                 <div class="image-column col-lg-6 col-md-12 col-sm-12">
                     <div class="inner-column wow fadeInLeft">
-                        <figure class="image-1"><a href="#" class="lightbox-image" data-fancybox="images"><img src="../../../../../assets/img/Iset.jpg" alt=""></a></figure>
-                        <figure class="image-2"><a href="#" class="lightbox-image" data-fancybox="images"><img src="../../../../../assets/img/iset1.jpg" style="width: 55%;margin-right: 30%;"></a></figure>
+                        <figure class="image-1"><a  class="lightbox-image" data-fancybox="images"><img src="../../../../../assets/img/Iset.jpg" alt=""></a></figure>
+                        <figure class="image-2"><a  class="lightbox-image" data-fancybox="images"><img src="../../../../../assets/img/iset1.jpg" style="width: 55%;margin-right: 30%;"></a></figure>
                     </div>
                 </div>
             </div>
@@ -180,8 +186,8 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
     </section>
 
   <br><br>
-  <h2>Les formation à venir</h2>
-     <p-carousel [value]="sessions" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="4000" [responsiveOptions]="responsiveOptions">
+  <h2>Les formations disponible tout au long du mois prochain</h2>
+     <p-carousel [value]="sessionsAVenir" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="4000" [responsiveOptions]="responsiveOptions">
       <ng-template let-session pTemplate="item">
           <div class="product-item">
               <div class="product-item-content" style="background-color: rgba(255, 255, 255, 0.479);">
@@ -193,10 +199,10 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
                   <div>
                       <h2 class="mb-1">{{session.titreSession}}</h2>
                       <span >{{session.titreSession}}</span>
-                      <h6 class="mt-0 mb-3">De <strong>{{session.dateDebSession}}</strong> jusqu'à <strong>{{session.dateFinSession}}</strong></h6>
-                      <div class="car-buttons mt-5">
-                          <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search" (click)="detailSession(session)"></p-button>
-                          <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
+                      <h5 class="mt-0 mb-3">De <strong>{{session.dateDebSession}}</strong> jusqu'à <strong>{{session.dateFinSession}}</strong></h5>
+                      <div >
+                        <button class="search-buttons card-buttons-msg" (click)="detailSession(session)" style="width: 40%;">plus de details</button>
+              <br>
                       </div>
                   </div>
               </div>
@@ -205,10 +211,10 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
   </p-carousel>
 <br>
 <h2>
-  Les formation passées
+  Les formations passées
 </h2>
      <div class="job-cards" >
-      <div class="job-card" *ngFor="let session of sessions">
+      <div class="job-card" *ngFor="let session of sessionsPassees">
 
         <div class="job-card-header">
           <div>
@@ -231,7 +237,6 @@ Ce service a pour mission de planifier, organiser et mettre en oeuvre des progra
           </button>
         </div>
         <div class="job-card-buttons">
-          <button class="search-buttons card-buttons" [disabled]="session.nbMaxCandidat == session.listeCandidat.length">S'inscrire</button>
           <button class="search-buttons card-buttons-msg" (click)="detailSession(session)">plus de details</button>
 
         </div>

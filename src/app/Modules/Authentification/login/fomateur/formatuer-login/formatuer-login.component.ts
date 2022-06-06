@@ -13,6 +13,7 @@ import { NavBarComponent } from 'app/Modules/FreeAcess/access-free/nav-bar/nav-b
 import { MatDialog } from '@angular/material/dialog';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FormateurService } from 'app/services/formateur.service';
+import { Formateur } from 'app/models/Formateur';
 
 @Component({
   selector: 'app-formatuer-login',
@@ -25,8 +26,22 @@ export class FormatuerLoginComponent implements OnInit {
   loginRequestPayload: loginRequestPayload;
   validateEmail = true;
   private errors: string ;
+  enterEmailDialog : boolean = false ;
+  email : string = "";
+  forma : Formateur ;
+  verifierEmailDialog : boolean = false ;
+  testEmail : boolean = true ;
+  submitted : boolean = false;
+  code : string =""
+  codeValide : string = ""
+  verifierCodeDialog : boolean = false;
+  changePasswordDialog : boolean = false;
+  password : string =""
+  password2 : string = ""
+  confirm : boolean = true ;
+  confirmCode : boolean = true;
 
-  constructor( private authService: AuthService, private router: Router,private toast:NgToastService,private dialog : MatDialog,private localStorage : LocalStorageService,private formateurService : FormateurService)
+  constructor( private authService: AuthService, private router: Router,private toast:NgToastService,private dialog : MatDialog,private localStorage : LocalStorageService,private formateurService : FormateurService,private messageService : MessageService)
 {
     this.loginRequestPayload = {
       username: '',
@@ -38,7 +53,7 @@ export class FormatuerLoginComponent implements OnInit {
     if( $('.logoContainer').length){
     $(function() {
 
-      var images = ['https://scontent.ftun16-1.fna.fbcdn.net/v/t1.6435-9/79696496_3527236330684677_4297932696039981056_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=b9115d&_nc_ohc=MUBNmTHI6PYAX-kIXCz&tn=svxw5LAQ1zZb89RM&_nc_ht=scontent.ftun16-1.fna&oh=00_AT81oIyWg3U9X8mMsq_0bF8P32Gga_OLYtHvpxoDsczEcw&oe=628A6F43', 'https://scontent.ftun16-1.fna.fbcdn.net/v/t1.6435-9/79696496_3527236330684677_4297932696039981056_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=b9115d&_nc_ohc=MUBNmTHI6PYAX-kIXCz&tn=svxw5LAQ1zZb89RM&_nc_ht=scontent.ftun16-1.fna&oh=00_AT81oIyWg3U9X8mMsq_0bF8P32Gga_OLYtHvpxoDsczEcw&oe=628A6F43', 'https://scontent.ftun16-1.fna.fbcdn.net/v/t1.6435-9/79696496_3527236330684677_4297932696039981056_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=b9115d&_nc_ohc=MUBNmTHI6PYAX-kIXCz&tn=svxw5LAQ1zZb89RM&_nc_ht=scontent.ftun16-1.fna&oh=00_AT81oIyWg3U9X8mMsq_0bF8P32Gga_OLYtHvpxoDsczEcw&oe=628A6F43', 'https://scontent.ftun16-1.fna.fbcdn.net/v/t1.6435-9/79696496_3527236330684677_4297932696039981056_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=b9115d&_nc_ohc=MUBNmTHI6PYAX-kIXCz&tn=svxw5LAQ1zZb89RM&_nc_ht=scontent.ftun16-1.fna&oh=00_AT81oIyWg3U9X8mMsq_0bF8P32Gga_OLYtHvpxoDsczEcw&oe=628A6F43'];
+      var images = ['../../../../../../assets/img/formateurBackground.jpg', '../../../../../../assets/img/formateurBackground.jpg', '../../../../../../assets/img/formateurBackground.jpg'];
 
       $('#container').append('<style>#container, .acceptContainer:before, #logoContainer:before {background: url(' + images[Math.floor(Math.random() * images.length)] + ') center fixed }');
 
@@ -114,6 +129,97 @@ export class FormatuerLoginComponent implements OnInit {
   complete(){
     this.dialog.open(NavBarComponent)
   }
+
+  PasMoiDialog(){
+    this.verifierEmailDialog = false;
+    this.enterEmailDialog = true ;
+    this.email = ""
+    this.submitted = false
+  }
+  hideDialog(){
+    this.enterEmailDialog = false ;
+    this.email = ""
+    this.submitted = false
+  }
+  valider(email){
+    this.submitted = true ;
+    if(email != ""){
+    this.formateurService.getFormateurByEmail(email).subscribe(data => {
+this.forma = data ;
+this.submitted = false
+this.enterEmailDialog = false ;
+this.verifierEmailDialog = true ;
+this.submitted = false
+}, err=>{
+this.testEmail = false ;
+this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse Email inexistante", life: 3000});
+}
+    )
+  }
+}
+
+  envoyer(forma){
+    if(this.verifierCodeDialog == false )
+    this.verifierCodeDialog = true ; 
+    this.formateurService.envoyerCodeFormateur(forma).subscribe(data =>{
+this.codeValide = data 
+this.verifierEmailDialog = false;
+this.submitted = false
+    })
+  }
+  annuler(){
+    this.email = ""
+this.code = ""
+this.verifierCodeDialog = false ; 
+this.submitted = false
+
+  }
+  verifierCode(code){
+    this.submitted = true
+if(this.codeValide == code){
+this.verifierCodeDialog = false ; 
+this.changePasswordDialog = true
+this.submitted = false
+  }
+  else{
+    this.confirmCode = false
+    this.messageService.add({severity:'error', summary: 'Code Invalide', detail: "code invalide", life: 3000});
+  }
+}
+
+confirmPass(){
+  if(this.password != this.password2)
+  this.confirm = false ;
+  else
+  this.confirm = true ;
+    }
+    validateur(){
+      if( this.confirm==true){
+        console.log('ok');
+        return 'green';
+      }
+      else{
+        console.log('leeee');
+        return 'red';
+      }
+    }
+    Retour(){
+      this.email =""
+      this.code =""
+      this.changePasswordDialog = false ;
+      this.submitted = false
+    }
+    ChangePassword(){
+      this.submitted = true ;
+      if(this.password && this.password2){
+        this.forma.password = this.password ;
+        this.formateurService.updateFormateur(this.forma).subscribe(data => {
+          this.Retour()
+          this.messageService.add({severity:'success', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec la nouvelle mot de passe", life: 3000});
+          
+        })
+      }
+    }
   }
 
 
