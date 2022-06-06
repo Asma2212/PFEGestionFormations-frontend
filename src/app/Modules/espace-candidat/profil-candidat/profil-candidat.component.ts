@@ -69,7 +69,6 @@ export class ProfilCandidatComponent implements OnInit {
       this.femme = "Femme" ;
       else
       this.homme = "Homme"
-      console.log(this.femme)
 
         this.candidat.sessionFormationList = this.sessionsCandidat
       
@@ -93,21 +92,20 @@ export class ProfilCandidatComponent implements OnInit {
    this.upload1();
    if(this.file)
    this.candidat.photo = this.file.name
-   if(this.femme){
-     
+   if(this.candidat.genre.name == "FEMME"){
      this.candidat.genre = {id : 2 , name : Egenre.FEMME} ;
   }
-  if(this.homme){
- 
+  if(this.candidat.genre.name == "HOMME"){
+  
    this.candidat.genre = {id : 1 , name : Egenre.HOMME} ;
- } 
+  }
  console.log(this.candidat)
  if((this.nouvPass.trim()) && (this.nouvPass2.trim() && (this.ancPass.trim()))){
  if(this.nouvPass == this.nouvPass2){
    this.candidat.password = this.nouvPass
   this.candidatService.updateCandidatPassword(this.candidat,this.ancPass,this.nouvPass).subscribe(data =>{
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
-    this.router.navigate(["candidat/profil"]) 
+    this.router.navigateByUrl('/candidat/profil') 
   },
   error =>{
     console.log(error)

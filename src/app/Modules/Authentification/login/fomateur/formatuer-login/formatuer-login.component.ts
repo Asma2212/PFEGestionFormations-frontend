@@ -87,7 +87,7 @@ export class FormatuerLoginComponent implements OnInit {
         if(d.firstLogin)
         this.router.navigate(['/formateur/profil']);
         else
-        this.router.navigate(['/firstLogin']);
+        this.router.navigate(['/firstLogin/profil']);
       });
       console.log("dataaa",data)
       this.isError = false;

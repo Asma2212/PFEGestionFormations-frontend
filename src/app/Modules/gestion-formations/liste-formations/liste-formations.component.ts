@@ -133,9 +133,9 @@ export class ListeFormationsComponent implements OnInit {
   deleteFormation(formation: Formation) {
       this.confirmationService.confirm({
         acceptLabel:"supprimer",
-        acceptButtonStyleClass:"p-button-info",
+        acceptButtonStyleClass:"p-button-danger",
         rejectLabel:"annuler",
-        rejectButtonStyleClass:"p-button-danger",
+        rejectButtonStyleClass:"p-button-info",
           message: 'Etes-vous sûr que vous voulez supprimer ' + formation.titre + '?',
           header: 'Confirmer',
           icon: 'pi pi-exclamation-triangle',

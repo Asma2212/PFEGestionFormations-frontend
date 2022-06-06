@@ -53,6 +53,7 @@ import {ChatComponent} from "./Modules/message/chat/chat.component";
 import {VirtualScrollerModule} from "primeng/virtualscroller";
 import {DialogModule} from "primeng/dialog";
 import { EspaceFormateurModule } from './Modules/espace-formateur/espace-formateur.module';
+import { InputTextModule } from 'primeng/inputtext';
 //import { ChatComponent } from './Modules/message/chat/chat.component';
 
 @NgModule({
@@ -90,6 +91,8 @@ import { EspaceFormateurModule } from './Modules/espace-formateur/espace-formate
     ToastrModule.forRoot(),
     NgToastModule,
     MatDialogModule,
+    DialogModule,
+    InputTextModule,
     NgxWebstorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'

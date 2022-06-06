@@ -17,6 +17,7 @@ import { UploadFileService } from 'app/services/upload-file.service';
 import { Candidat } from 'app/models/Candidat';
 import { Egenre } from 'app/models/GenreEnum';
 import {NgToastService} from "ng-angular-popup";
+import { CandidatService } from 'app/services/candidat.service';
 
 @Component({
   selector: 'app-candidat-register',
@@ -26,7 +27,7 @@ import {NgToastService} from "ng-angular-popup";
 export class CandidatRegisterComponent implements OnInit {
 
 
-  n : string = "Espace Condidat";
+  n : string = "Espace Candidat";
   loginForm: FormGroup;
   signupForm: FormGroup;
   isError: boolean;
@@ -59,6 +60,20 @@ export class CandidatRegisterComponent implements OnInit {
   message = '';
   fileInfos: Observable<any>;
   selectedFile : FileList ;
+  enterEmailDialog : boolean = false ;
+  email : string = "";
+  cand : Candidat ;
+  verifierEmailDialog : boolean = false ;
+  testEmail : boolean = true ;
+  submitted : boolean = false;
+  code : string =""
+  codeValide : string = ""
+  verifierCodeDialog : boolean = false;
+  changePasswordDialog : boolean = false;
+  password : string =""
+  password2 : string = ""
+  confirm : boolean = true ;
+  confirmCode : boolean = true;
 
   candidat : Candidat = {
     id : 0,
@@ -78,7 +93,7 @@ export class CandidatRegisterComponent implements OnInit {
     sessionFormationList : []
   }
 
-  constructor(private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private toastr: ToastrService,private departementService : DepartementService) {
+  constructor(private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private toastr: ToastrService,private departementService : DepartementService,private candidatService : CandidatService,private messageService : MessageService) {
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
@@ -255,7 +270,9 @@ if(this.signupForm.get('genre').value == "homme"){
     // this.candidat.classe = classe[0];
     }
   }
-
+  testImage(t : string){
+    return t.includes("image") ;
+  }
     onUpload(event){
       if (event.target.files.length > 0)
       {
@@ -305,5 +322,91 @@ if(this.signupForm.get('genre').value == "homme"){
         });
       this.selectedFile = undefined;
     }
+    PasMoiDialog(){
+      this.verifierEmailDialog = false;
+      this.enterEmailDialog = true ;
+      this.email = ""
+      this.submitted = false
+    }
+    hideDialog(){
+      this.enterEmailDialog = false ;
+      this.email = ""
+      this.submitted = false
+    }
+    valider(email){
+      this.submitted = true ;
+      if(email != ""){
+      this.candidatService.getCandidatByEmail(email).subscribe(data => {
+this.cand = data ;
+  this.submitted = false
+  this.enterEmailDialog = false ;
+this.verifierEmailDialog = true ;
+this.submitted = false
+}, err=>{
+this.testEmail = false ;
+  this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse Email inexistante", life: 3000});
+}
+      )
+    }}
 
+    envoyer(cand){
+      if(this.verifierCodeDialog == false )
+      this.verifierCodeDialog = true ; 
+      this.candidatService.envoyerCodeCandidat(cand).subscribe(data =>{
+this.codeValide = data 
+this.verifierEmailDialog = false;
+this.submitted = false
+      })
+    }
+    annuler(){
+this.code = ""
+this.verifierCodeDialog = false ; 
+this.submitted = false
+
+    }
+    verifierCode(code){
+      this.submitted = true
+if(this.codeValide == code){
+this.verifierCodeDialog = false ; 
+this.changePasswordDialog = true
+this.submitted = false
+    }
+    else{
+      this.confirmCode = false
+      this.messageService.add({severity:'error', summary: 'Code Invalide', detail: "code invalide", life: 3000});
+    }
+  }
+
+  confirmPass(){
+    if(this.password != this.password2)
+    this.confirm = false ;
+    else
+    this.confirm = true ;
+      }
+      validateur(){
+        if( this.confirm==true){
+          console.log('ok');
+          return 'green';
+        }
+        else{
+          console.log('leeee');
+          return 'red';
+        }
+      }
+      Retour(){
+        this.email = ""
+        this.code = ""
+        this.changePasswordDialog = false ;
+        this.submitted = false
+      }
+      ChangePassword(){
+        this.submitted = true ;
+        if(this.password && this.password2){
+          this.cand.password = this.password ;
+          this.candidatService.updateCandidatPass(this.cand).subscribe(data => {
+            this.messageService.add({severity:'successful', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec la nouvelle mot de passe", life: 3000});
+            this.submitted = false
+          })
+        }
+      }
 }

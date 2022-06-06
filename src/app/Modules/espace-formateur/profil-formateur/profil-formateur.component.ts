@@ -43,14 +43,15 @@ export class ProfilFormateurComponent implements OnInit {
   nouvPass2 : string ="";
   confAnc : boolean = true;
   diffPass : boolean = true;
+  username : string ;
   
   constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
 
   ngOnInit(): void {
     this.nbPasser=0;
     this.nbAvenir=0;
-    const username = this.localStorage.retrieve("username")
-    this.formateurService.getFormateurByUsername(username).subscribe(data => {
+    this.username = this.localStorage.retrieve("username")
+    this.formateurService.getFormateurByUsername(this.username).subscribe(data => {
      localStorage.setItem("idF",data.id.toString());
       console.log("daataaa2",data)
       this.formateur = data ;
@@ -80,26 +81,34 @@ export class ProfilFormateurComponent implements OnInit {
   testImage(t : string){
     return t.includes("image") ;
  }
+
+ getFormateur(){
+  this.formateurService.getFormateurByUsername(this.username).subscribe(data => {
+    localStorage.setItem("idF",data.id.toString());
+     console.log("daataaa2",data)
+     this.formateur = data ;
+ })
+}
  saveChanges(){
    if(this.imgURL)
    this.upload1();
    if(this.file)
    this.formateur.photo = this.file.name
-   if(this.femme){
-     
-     this.formateur.genre = {id : 2 , name : Egenre.FEMME} ;
-  }
-  if(this.homme){
+   if(this.formateur.genre.name == "FEMME"){
+    this.formateur.genre = {id : 2 , name : Egenre.FEMME} ;
+ }
+ if(this.formateur.genre.name == "HOMME"){
  
-   this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
- } 
+  this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
+ }
  console.log(this.formateur)
  if((this.nouvPass.trim()) && (this.nouvPass2.trim() && (this.ancPass.trim()))){
  if(this.nouvPass == this.nouvPass2){
    this.formateur.password = this.nouvPass
   this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).subscribe(data =>{
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
-    this.router.navigate(["formateur/profil"]) 
+    this.getFormateur()
+
   },
   error =>{
     console.log(error)
@@ -124,7 +133,11 @@ error =>{
  }
 
 }
-
+initialiseDonn(){
+  this.ancPass = ""
+  this.nouvPass = ""
+  this.nouvPass2= ""
+}
  onUpload(event){
   this.selectedFile = event.target.files;
   this.file = <File>event.target.files[0]
@@ -171,7 +184,12 @@ upload1() {
 deco(){
   console.log("I entered")
   this.confirmationService.confirm({
+    acceptLabel:"Oui",
+    acceptButtonStyleClass:"p-button-danger",
+    rejectLabel:"Non",
+    rejectButtonStyleClass:"p-button-info",
     message: 'Êtes-vous sûr de vouloir quitter?',
+    header: 'Deconnexion',
     accept: () => {
       this.localStorage.clear("authenticationToken")
       this.localStorage.clear("username")

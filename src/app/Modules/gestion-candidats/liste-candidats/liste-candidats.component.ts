@@ -1,6 +1,6 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Candidat } from 'app/models/Candidat';
 import { Classe } from 'app/models/Classe';
 import { Department } from 'app/models/Departement';
@@ -57,7 +57,7 @@ export class ListeCandidatsComponent implements OnInit {
   filterClass : Classe;
   filterValue : string ="";
 
-  constructor(private candidatService : CandidatService ,private uploadService : UploadFileService ,private departementService : DepartementService, private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService) { }
+  constructor(private candidatService : CandidatService ,private uploadService : UploadFileService ,private departementService : DepartementService, private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService,private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.fileInfos = this.uploadService.getFiles();
@@ -71,7 +71,7 @@ export class ListeCandidatsComponent implements OnInit {
      });
       
     }); });
-
+this.getAllCandidats()
 
   /*    this.listDep.forEach(dep => {
         this.depItem.label = dep.name ;
@@ -105,13 +105,16 @@ export class ListeCandidatsComponent implements OnInit {
     }
   ];*/
 
-     this.candidatService.getAllCandidats().subscribe(
-       data => {
-       this.candidats = data ;
-       this.allCandidats = this.candidats ;
-       });
 
 
+
+  }
+  getAllCandidats(){
+    this.candidatService.getAllCandidats().subscribe(
+      data => {
+      this.candidats = data ;
+      this.allCandidats = this.candidats ;
+      });
   }
 
   departementSelected(dep){
@@ -225,7 +228,7 @@ deleteCandidat(candidat: Candidat) {
             });
             this.candidat = null;
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'Candidat Supprimer', life: 3000});
-            this.router.navigate(["/candidats/list"])
+            this.getAllCandidats()
         }
     });
 }
@@ -254,10 +257,10 @@ if((this.candidat.username)&&(this.candidat.email.trim())&&(this.candidat.depart
   if (this.candidat.id) {
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {
       console.log("data update candidat",data)
-      this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Updated', life: 3000});
-      // window.location.reload();
-      this.candidatDialog = false;
-       this.router.navigate(["/candidats/list"])
+      this.messageService.add({severity:'success', summary: 'Succés', detail: 'candidat est mise à jour', life: 3000});
+       //window.location.reload();
+      this.hideDialog()
+      this.getAllCandidats()
     });
 
 }
@@ -268,17 +271,14 @@ else {
     this.candidatService.saveCandidat(this.candidat).subscribe( data => {
       console.log("data save candidat",data)
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Ajouter', life: 3000});
-      this.router.navigate(["/candidats/list"])
-      this.candidatDialog = false;
-      this.imgURL = false ;
-      this.candidat = null;
-      this.depSelected = false ;
+      this.getAllCandidats()
+      this.hideDialog()
 
     },
     error =>
    {
   console.log(error.error.message);
-  this.messageService.add({severity:'error', summary: 'Error', detail: error.error.message, life: 3000});
+  this.messageService.add({severity:'error', summary: 'Erreur', detail: error.error.message, life: 3000});
 });
    }
   }

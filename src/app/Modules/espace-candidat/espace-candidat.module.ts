@@ -27,6 +27,7 @@ import { EmptyArchiveComponent } from './empty-archive/empty-archive.component';
 import {ToastModule} from "primeng/toast";
 import {ProgressBarModule} from "primeng/progressbar";
 import { ProfilCandidatComponent } from './profil-candidat/profil-candidat.component';
+import { EditorModule } from 'primeng/editor';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { ProfilCandidatComponent } from './profil-candidat/profil-candidat.compo
         NgProgressModule,
         ToolbarModule, MatDialogModule, TabMenuModule, CardModule, SharedModule, FullCalendarModule, ToastModule,
       ProgressBarModule,
+      EditorModule
 
     ]
 })

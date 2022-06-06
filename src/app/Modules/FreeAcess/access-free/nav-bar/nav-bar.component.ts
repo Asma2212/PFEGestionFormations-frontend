@@ -66,12 +66,19 @@ export class NavBarComponent implements OnInit {
   confirm() {
     console.log("I entered")
     this.confirmationService.confirm({
-      message: 'Êtes-vous sûr de vouloir quitter?',
+      acceptLabel:"Oui",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"Non",
+      rejectButtonStyleClass:"p-button-info",
+      message: 'Êtes-vous sûr vous voulez quitter?',
+      header: 'Deconnexion',
       accept: () => {
         this.localStorage1.clear("authenticationToken")
         this.localStorage1.clear("username")
         this.localStorage1.clear("role")
-        window.location.reload();
+        if(localStorage.getItem("idF"))
+        localStorage.removeItem("idF")
+        this.router.navigate(['/home']);
       }
     });}
   showDialog() {
@@ -94,6 +101,9 @@ export class NavBarComponent implements OnInit {
 
     if(this.localStorage1.retrieve('role')=='candidat'){
       this.router.navigate(['/candidat/profil']);
+    }
+    if(this.localStorage1.retrieve('role')=='admin'){
+      this.router.navigate(['/user-profile']);
     }
     else {return}
   }

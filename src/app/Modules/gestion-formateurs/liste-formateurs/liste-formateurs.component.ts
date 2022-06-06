@@ -146,15 +146,7 @@ filterSpecialite : Specialite[] ;
       ]
   }
 ];
-    
-        this.formateurService.getAllFormateurs().subscribe( data => {
-          this.formateurs = data ;
-            console.log("everthing is okay geet",data)
-            console.log("****",this.formateurs)
-            this.allFormateurs = this.formateurs;
-            this.dataSource.data = this.formateurs ;
-            console.log(this.dataSource.data)
-          });
+  this.getAllFormateurs()  
         
 
 
@@ -163,6 +155,16 @@ this.getSpecialite()
             
            
   }
+getAllFormateurs(){
+  this.formateurService.getAllFormateurs().subscribe( data => {
+    this.formateurs = data ;
+      console.log("everthing is okay geet",data)
+      console.log("****",this.formateurs)
+      this.allFormateurs = this.formateurs;
+      this.dataSource.data = this.formateurs ;
+      console.log(this.dataSource.data)
+    });
+}
   getSpecialite(){
     this.specialiteService.getAllSpecialites().subscribe( data =>{
       this.specialites = data ; 
@@ -333,7 +335,7 @@ deleteFormateur(formateur: Formateur) {
             this.formateurService.deleteFormateur(formateur.id).subscribe( data => {
               console.log("data Formateur Supprimer",data)
               this.messageService.add({severity:'success', summary: 'Successful', detail: 'Formateur Supprimer', life: 3000});
-              window.location.reload();
+              this.getAllFormateurs()
             });
             this.formateur = null;
 
@@ -367,7 +369,8 @@ if((this.formateur.username)&&(this.formateur.email.trim())&&(this.formateur.cv)
     this.formateurService.updateFormateur(this.formateur).subscribe( data => {
       console.log("data update Formateur",data);
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
-    window.location.reload();
+      this.getAllFormateurs()
+      this.hideDialog()
     });
     
 }
@@ -380,7 +383,8 @@ else {
     this.formateurService.saveFormateur(this.formateur).subscribe( data => {
       console.log("data save Formateur",data);
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur ajouter', life: 3000});
-      window.location.reload();
+      this.getAllFormateurs()
+      this.hideDialog()
     },
     error =>
    {

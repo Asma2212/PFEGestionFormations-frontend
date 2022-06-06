@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 export class ProfilComponent implements OnInit {
   femme : string ="";
   homme : string ="";
+  cin : number ;
 firstName : string ;
 lastName : string ;
 listEtablissement : Etablissement[];
@@ -42,6 +43,7 @@ formateur : Formateur ={
   etablissement : "",
   sessionFormationList : [],
   firstLogin : false 
+
 }
   submitted: boolean = false;
   selectedFiles: FileList;
@@ -106,8 +108,8 @@ formateur : Formateur ={
    }
    this.submitted = true ;
    this.formateur.dateNaiss = this.date1
-   if(this.formateur.username.trim() && this.formateur.firstName.trim() && this.formateur.lastName.trim() && this.formateur.email.trim()
-   && this.formateur.numTel.trim() && this.formateur.etablissement.trim() && this.formateur.lesSpecialites[0] && this.formateur.cv && inputEmail && inputNom && inputPrenom){
+   if(this.formateur.username && this.formateur.firstName.trim() && this.formateur.lastName.trim() && this.formateur.email.trim()
+   && this.formateur.numTel && this.formateur.etablissement && this.formateur.lesSpecialites[0] && this.formateur.cv && inputEmail && inputNom && inputPrenom){
 
     localStorage.setItem('formateur', JSON.stringify(this.formateur));
           this.router.navigate(['firstLogin/photo']);

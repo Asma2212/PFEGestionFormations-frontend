@@ -7,6 +7,7 @@ const routes: Routes = [{
   path: 'candidats',
   component : GestionCandidatComponent,
   children: [
+    {path:'', redirectTo: 'list', pathMatch: 'full'},
     {
       path: 'list',
       component: ListeCandidatsComponent,

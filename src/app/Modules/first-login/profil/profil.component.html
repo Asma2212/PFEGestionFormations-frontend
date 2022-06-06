@@ -10,16 +10,18 @@
         </ng-template>
         <ng-template pTemplate="content">
 <!--          <div class="col-12 md:col-6 lg:col-4">
-            <span>Serial Number</span>
-            <p-inputMask mask="aaaaaaaaaaaaa" name="nom" id="nom" [(ngModel)]="formateur.lastName" required placeholder="nom" pattern="[a-zA-Z]*" #name="ngModel"></p-inputMask>
+            <span>cin</span>
+             <p-inputNumber name="cin" id="cin" [(ngModel)]="formateur.username" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [maxlength]="8" placeholder="Numero de carte d'identité">
+                        </p-inputNumber>  
         </div>-->
           <div class="field">
             <label for="cin">CIN</label>
             <div>
               <div class="p-inputgroup">
                   <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
-              <p-inputNumber id="cin" [(ngModel)]="formateur.username" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [maxlength]="8" placeholder="Numero de carte d'identité" required>
-              </p-inputNumber>  
+                  <p-inputNumber name="cin" id="cin" [(ngModel)]="formateur.username" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [maxlength]="8" placeholder="Numero de carte d'identité">
+                  </p-inputNumber>  
+               
                       
               </div>
               <small class="p-error" *ngIf="submitted && !formateur.username">cin est requis.</small>
@@ -77,7 +79,7 @@
               <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span>
                 <p-inputMask mask="99-999-999" [(ngModel)]="formateur.numTel" placeholder="99-999-999" ></p-inputMask>
               </div>
-                <small class="p-error" *ngIf="!formateur.numTel.trim()">num tel est requis.</small>
+                <small class="p-error" *ngIf="!formateur.numTel">num tel est requis.</small>
               </div> </div><br>
               <div  class="col-12 md:col-6">
             <label for="dateNaiss">Date de naissance</label>
@@ -87,7 +89,7 @@
                   <p-calendar [(ngModel)]="date1"  [readonlyInput]="true" #dateNaiss="ngModel"></p-calendar>
                   <small class="p-error block" *ngIf="formateur.dateNaiss && (dateNaiss.invalid && dateNaiss.dirty)"> adresse e-mail invalide.</small>    
               </div>
-              <small class="p-error" *ngIf="!formateur.dateNaiss">date naissance est requis.</small>
+              <small class="p-error" *ngIf="!date1">date naissance est requis.</small>
           </div>
               
              
@@ -96,8 +98,8 @@
         <div class="field">
          
           <div class="gender-details">
-            <input type="radio" name="gender" id="dot-1" value="Homme" [(ngModel)]="homme">
-            <input type="radio" name="gender" id="dot-2" value="Femme" [(ngModel)]="femme">
+            <input type="radio" name="gender" id="dot-1" value="HOMME" [(ngModel)]="homme">
+            <input type="radio" name="gender" id="dot-2" value="FEMME" [(ngModel)]="femme">
             <label for="gender">Genre</label>
             <div class="category">
               <label for="dot-1">
@@ -126,7 +128,7 @@
                           </p-multiSelect>
             </div>
           </div>
-          <small class="p-error" *ngIf="!formateur.etablissement.trim()">etablissement est requis.</small>
+          <small class="p-error" *ngIf="!formateur.etablissement">etablissement est requis.</small>
         </div>     
         <div class="col-12 md:col-6" *ngIf="formateur.id || autre">
           <div >
@@ -135,7 +137,7 @@
                 <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="saisi l'etablissement"/>
                     
             </div>
-            <small class="p-error" *ngIf="!formateur.etablissement.trim()">etablissement est requis.</small>
+            <small class="p-error" *ngIf="!formateur.etablissement">etablissement est requis.</small>
         </div>
               
               

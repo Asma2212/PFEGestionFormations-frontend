@@ -88,6 +88,7 @@ export class FormationsViewerComponent implements OnInit {
   testInscritVar : boolean = false ;
   testFavorisVar : boolean = false ;
   se : SessionFormation ;
+  isCandidat : boolean = false ;
   candidat : Candidat = {
     id : 0 ,
     username : "", //cin
@@ -118,26 +119,29 @@ export class FormationsViewerComponent implements OnInit {
 /*
     this.testFav()
 */
-
+ this.isCandidat = this.localStorage.retrieve('role')=='candidat'
 this.username = this.localStorage.retrieve("username")
-if(this.username)
     this.sessionService.getSessions().subscribe(data => {
       this.sessions = data
+      if(this.isCandidat){
       this.candidatService.getCandidatByUsername(this.username).subscribe(data =>{
         this.candidat = data
         this.sessionsCandidat = this.sessions.filter(s => s.listeCandidat.filter(c=> c.id == this.candidat.id).length == 1)
-        console.log("seesss",this.sessionsCandidat)
       })
       this.sessionservice.ListFavoris(this.username).subscribe(data =>{
+        if(!data)
+        this.listFav = []
+        else
         this.listFav = data
-        console.log("candidat fav",this.listFav.includes)
+        console.log("liste favoris",this.listFav)
        this.listFav.forEach(f => {
          if(this.sessions.filter(s=> s.idSession == f.idSession).length==1)
          this.se = this.sessions.filter(s=> s.idSession == f.idSession)[0]
          this.listFav.push(this.se)
        });
       })
-
+    }
+         
       this.filterSessions = this.sessions;
       this.toutCours = this.sessions.length;
       this.sessions.forEach(s => {
@@ -153,27 +157,9 @@ if(this.username)
           this.aVenir++;
       });
     });
-else
-this.sessionService.getSessions().subscribe(data => {
-  this.sessions = data
-  this.filterSessions = this.sessions;
-  this.toutCours = this.sessions.length;
-  this.sessions.forEach(s => {
-    if (new Date(s.dateDebSession) > new Date())
-      this.nouvCours++;
-    if (new Date(s.dateFinSession) < new Date())
-      this.archive++;
-    if ((s.listeCandidat.length < s.nbMaxCandidat) && (new Date(s.dateDebSession) > new Date()))
-      this.OuvertInscrit++;
-    if ((new Date() >= new Date(s.dateDebSession)) && (new Date() <= new Date(s.dateFinSession)))
-      this.enCours++;
-    if (new Date(s.dateDebSession) > new Date())
-      this.aVenir++;
-  });
-});
+
     this.categorieService.getAllCategories().subscribe(data => {
       this.cat = data;
-      console.log("everthing is okay geet categorie", data)
     });
     this.fileInfos = this.uploadService.getFiles();
 
@@ -231,47 +217,12 @@ this.sessionService.getSessions().subscribe(data => {
     });
 
 
-    /* button s'inscrire
 
-     */
-    //this.inscrit = false;
 
-    /*
-    end button s'inscrire
-     */
-
-/*
-this.checkFavorit("15915915",83)
-*/
-    console.log(this.listFav,"fhfhhfhfhfhhf")
 
   }
 
-/*  checkFavorit(username:string,sessionId:number):boolean{
-    this.sessionservice.ListFavoris(username).subscribe(data=>{
-      data.forEach(obj=>{
-        if (obj.idSession==sessionId){
-          this.favoris=true ;
-          console.log("euhsgjhwsvhwsg",obj)
-          console.log("f",this.favoris)
-         return true
-        }
-/!*        else {
-          this.favoris=false ;
-return false ;
-        }*!/
-      })
-
-      },error=>{
-      this.toast.error({detail: "errorfd", duration: 3000});
-      }
-    )
-    console.log("fxxx",this.favoris)
-
-    return false
-
-  }*/
-  testImage(t: string) {
+ testImage(t: string) {
     return t.includes("image");
   }
 
@@ -305,54 +256,6 @@ return false ;
 
   }
 
-/**
-  filterParDate() {
-    console.log("sess", this.sessions)
-    this.submitFilterDate = true;
-    console.log(this.filterDateDeb, this.filterDateFin)
-    if (this.filterDateDeb && this.filterDateFin) {
-      this.sessions = this.filterSessions.filter(s =>
-        this.filterDateDeb <= new Date(s.dateDebSession) && new Date(s.dateFinSession) <= this.filterDateFin
-      );
-      // this.sessions = this.
-      console.log("filter", this.sessions)
-    } else if (this.filterDateDeb) {
-      this.sessions = this.filterSessions.filter(s =>
-        new Date(s.dateDebSession) >= this.filterDateDeb
-      );
-
-    } else if (this.filterDateFin) {
-      this.sessions = this.filterSessions.filter(s =>
-        new Date(s.dateFinSession) <= this.filterDateFin
-      );
-    }
-    if (this.sessions.length == 0) {
-      this.sessions = this.filterSessions
-      console.log("aucune formation")
-    }
-  }
-
-  filtreParTitre() {
-    if (this.titreF === '') {
-      this.sessions = this.filterSessions;
-    } else {
-      let filterValueLower = this.titreF.toLowerCase();
-      this.sessions = this.filterSessions.filter(s => s.titreSession.toLowerCase().includes(filterValueLower)); //|| s.descriptionSession.toLowerCase().includes(filterValue)
-    }
-  }
-
-  filtreParCategorie() {
-    console.log(this.categorieFilter)
-    if (this.categorieFilter[0] == null) {
-      this.sessions = this.filterSessions;
-    } else {
-      this.sessions = this.filterSessions.filter(s =>
-        s.formationSession.listCategories.find(c => c.id === this.categorieFilter[0].id)
-      ); //|| s.descriptionSession.toLowerCase().includes(filterValue)
-      console.log(this.sessions)
-    }
-
-  } */
 
   filterChange() {
     this.sessions = this.filterSessions
@@ -363,13 +266,11 @@ return false ;
 
     if (this.filterDateDeb || this.filterDateFin) {
       this.submitFilterDate = true;
-      console.log(this.filterDateDeb, this.filterDateFin)
       if (this.filterDateDeb && this.filterDateFin) {
         this.sessions = this.sessions.filter(s =>
           this.testDate(s.dateDebSession, s.dateFinSession)
         );
         // this.sessions = this.
-        console.log("filter", this.sessions)
       } else if (this.filterDateDeb) {
         this.sessions = this.sessions.filter(s =>
           new Date(s.dateDebSession) >= this.filterDateDeb
@@ -391,15 +292,12 @@ return false ;
     }
 
     //*****checkbox filter :
-    console.log("==", this.archiveCheck)
-    console.log(this.nouvCoursCheck)
     if (this.nouvCoursCheck == true) {
       this.sessions = this.sessions.filter(s =>
         new Date(s.dateDebSession) > new Date()
       );
     }
     if (this.archiveCheck == true) {
-      console.log(this.archiveCheck)
       this.sessions = this.sessions.filter(s =>
         new Date(s.dateFinSession) < new Date()
       );
@@ -466,13 +364,10 @@ return false ;
     this.sessionservice.getSession(id).subscribe(
       data => {
         listofCandidats = data.listeCandidat;
-        console.log("list of candidats" + listofCandidats);
         if (listofCandidats.length == 0) {
-          console.log("0 candidats in this session");
+          console.log("0 candidats dans cette session");
         } else {
-          console.log("i am here")
           listofCandidats.forEach(value => {
-            console.log("candidat number" + (i + 1), value)
 
 
             nbSession++; //nis7sbou 9adéh 3andna min candidats fi sessions ili éna féha
@@ -505,7 +400,6 @@ return false ;
       console.log("if true or false", data.dateFinSession < nowDate, "the ending of session", dateFinSessionDate, "today", nowDate)
       if (dateFinSessionDate < nowDate) {
         //this.disabled=true
-        console.log("subscription is closeddddd");
         return true
       }
     })
@@ -556,8 +450,11 @@ return false ;
     var self = this;
     //si il n'est pas  authetifier
     if (this.localStorage.retrieve("role") !== "candidat") {
+      if(this.localStorage.retrieve("role") == "formateur" || this.localStorage.retrieve("role") == "admin")
+      this.messageService.add({severity:'error', summary: 'Désolé !', detail: "seule les candidats peuvent s'inscrire à une formations", life: 3000});
+      else{
       this.toast.error({detail: "il faut s'inscrire !", duration: 3000});
-      this.opnInscriptionDialog();
+      this.opnInscriptionDialog();}
       return
     }
     //si il est authentifier
@@ -653,7 +550,12 @@ return false ;
   }
   annuler(sess : SessionFormation) {
       this.confirmationService.confirm({
-        message: 'Are you sure that you want to perform this action?',
+        acceptLabel:"Oui",
+        acceptButtonStyleClass:"p-button-danger",
+        rejectLabel:"Non",
+        rejectButtonStyleClass:"p-button-info",
+        message: "etes vous d'annuler votre inscription pour la session?"+sess.titreSession,
+        header: 'Annuler inscription',
         accept: () => {
           this.sessionsCandidat = this.sessionsCandidat.filter(a=> a.idSession != sess.idSession)
           this.sessionservice.ToDesinscrire(this.username1, sess.idSession).subscribe(data => {
@@ -676,9 +578,7 @@ return false ;
   }
 
   funcTest(length: number, nbMaxCandidat: number,dateDebSession: Date,) {
-console.log("id",length,nbMaxCandidat,length+1 == nbMaxCandidat)
     return ((length >= nbMaxCandidat)||(new Date(dateDebSession) <= new Date()) )
-    this.session.nbMaxCandidat
   }
 
 

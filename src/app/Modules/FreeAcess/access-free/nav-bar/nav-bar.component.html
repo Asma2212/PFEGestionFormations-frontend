@@ -6,7 +6,7 @@
 
 </head>
 <body>
-<p-confirmDialog></p-confirmDialog>
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
 <div class="header">
   <div class="logo">
@@ -68,14 +68,14 @@
     </p>
   </div>
 </div>
-  <div class="user-name"   *ngIf="this.localStorage1.retrieve('role')=='formateur' || this.localStorage1.retrieve('role')=='candidat'" (click)="goToProfil()">{{TheCurrentUser.firstName}} {{TheCurrentUser.lastName}}</div>
+  <div class="user-name" *ngIf="this.localStorage1.retrieve('role')=='formateur' || this.localStorage1.retrieve('role')=='candidat' || this.localStorage1.retrieve('role')=='admin'" (click)="goToProfil()">{{TheCurrentUser.firstName}} {{TheCurrentUser.lastName}}</div>
     <div class="user-name">
-      <button class="custom-btn btn-11"  [routerLink]="['/register/candidat']" *ngIf="(this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat') ">s'inscrire &nbsp; <i class=" pi pi-arrow-right">
+      <button class="custom-btn btn-11"  [routerLink]="['/register/candidat']" *ngIf="(this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat') && this.localStorage1.retrieve('role')!='admin'">S'inscrire &nbsp; <i class=" pi pi-arrow-right">
       </i>
         <div class="dot"></div>
       </button>
       <button class="custom-btn btn-11"
-              *ngIf="this.localStorage1.retrieve('role')=='formateur' || this.localStorage1.retrieve('role')=='candidat'" pButton (click)="confirm()" style="font-size: 13px">&nbsp; Se déconnecter &nbsp; &nbsp; <i class=" pi pi-arrow-right">
+              *ngIf="this.localStorage1.retrieve('role')=='formateur' || this.localStorage1.retrieve('role')=='candidat' || this.localStorage1.retrieve('role')=='admin'" (click)="confirm()" style="padding: 0px;">Se déconnecter &nbsp;<i class=" pi pi-unlock">
       </i>
         <div class="dot"></div>
       </button>
