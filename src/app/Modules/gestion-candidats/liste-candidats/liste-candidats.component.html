@@ -260,7 +260,7 @@
                                                   </div>
                                               </ng-template>
                                           </p-multiSelect>-->
-
+ 
                       <p-multiSelect [options]="listDep" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" ></p-multiSelect>
                       <small class="p-error" *ngIf="submitted && !candidat.department">departement est requis.</small>
                       <br>

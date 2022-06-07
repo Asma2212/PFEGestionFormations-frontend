@@ -52,17 +52,16 @@ export class ProfilCandidatComponent implements OnInit {
   constructor(private sessionService : SessionFormationService,private candidatService : CandidatService ,private uploadService : UploadFileService,private messageService : MessageService ,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
 
   ngOnInit(): void {
-    this.nbPasser=0;
+    this.nbPasser=0; 
     this.nbAvenir=0;
     const username = this.localStorage.retrieve("username")
-    this.sessionService.getSessions().subscribe(data => {
-      this.sessions = data
     this.candidatService.getCandidatByUsername(username).subscribe(data => {
+      this.candidat = data ;
+      localStorage.setItem("idC",data.id.toString());
+      this.sessionService.getSessions().subscribe(data => {
+        this.sessions = data
       this.sessionsCandidat = this.sessions.filter(s => s.listeCandidat.filter(c=> c.id == this.candidat.id).length == 1)
         console.log("seesss",this.sessionsCandidat)
-     localStorage.setItem("idC",data.id.toString());
-      console.log("daataaa2",data)
-      this.candidat = data ;
       this.age = new Date().getFullYear() - new Date(this.candidat.dateNaiss).getFullYear()
       this.date1 = new Date(this.candidat.dateNaiss)
       if(this.candidat.genre.name == "FEMME")

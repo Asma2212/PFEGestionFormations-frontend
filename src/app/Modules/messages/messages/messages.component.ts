@@ -23,10 +23,12 @@ export class MessagesComponent implements OnInit,OnDestroy {
   fileInfos: Observable<any>;
   date1 : Date = new Date();
   formatDate : string = ""
+  currentUser : string ;
 
   constructor(private http: HttpClient,public webSocketService: WebSocketService,private localStorage: LocalStorageService,private userService : UserService,private uploadService: UploadFileService) { }
 
   ngOnInit(): void {
+    this.currentUser = this.localStorage.retrieve("username") ;
     var chat=new ChatResponse();
     chat.dateEnvoi = new Date();
     this.webSocketService.getAllchat().subscribe(data=>
@@ -60,7 +62,7 @@ chat.roleUser = "candidat"
 if(data.roles[0].id == 1)
 chat.roleUser = "formateur"
 console.log("aaaa",chat.roleUser)
-      var chatMessageDto = new ChatMessageDto(this.localStorage.retrieve("username"), sendForm.value.message,this.user1.firstName,this.user1.lastName,this.user1.photo,new Date(),chat.roleUser);
+      var chatMessageDto = new ChatMessageDto(this.user1.username, sendForm.value.message,this.user1.firstName,this.user1.lastName,this.user1.photo,new Date(),chat.roleUser);
       chat.userChat=this.localStorage.retrieve("username")
       this.webSocketService.sendMessage(chatMessageDto);
   

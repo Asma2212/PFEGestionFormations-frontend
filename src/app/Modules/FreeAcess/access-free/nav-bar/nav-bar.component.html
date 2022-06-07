@@ -72,7 +72,7 @@
     </p>
   </div>
 </div>
-  <div class="user-name" *ngIf="this.localStorage1.retrieve('role')=='formateur' || this.localStorage1.retrieve('role')=='candidat' || this.localStorage1.retrieve('role')=='admin'" (click)="goToProfil()">{{TheCurrentUser.firstName}} {{TheCurrentUser.lastName}}</div>
+  <div class="user-name" *ngIf="this.localStorage1.retrieve('role')=='formateur' || this.localStorage1.retrieve('role')=='candidat' || this.localStorage1.retrieve('role')=='admin'" (click)="goToProfil()" style="cursor:pointer">{{TheCurrentUser.firstName}} {{TheCurrentUser.lastName}}</div>
     <div class="user-name">
       <button class="custom-btn btn-11"  [routerLink]="['/register/candidat']" *ngIf="(this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat') && this.localStorage1.retrieve('role')!='admin'">S'inscrire &nbsp; <i class=" pi pi-arrow-right">
       </i>

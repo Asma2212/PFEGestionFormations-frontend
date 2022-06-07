@@ -186,14 +186,14 @@
           </div>
           <!-- /.direct-chat-info -->
           <img class="direct-chat-img" src="../../../../assets/img/helloIcon.png" alt="Message User Image"><!-- /.direct-chat-img -->
-          <div class="direct-chat-text" style="background: linear-gradient(rgb(149, 0, 255), rgb(253, 186, 198));">
+          <div class="direct-chat-text" style="background: linear-gradient(rgb(255, 25, 0), rgb(246, 155, 172));">
             N'hesitez pas de poser vos questions
           </div>
           <!-- /.direct-chat-text -->
         </div>
         <!-- Message. Default to the left -->
         <div class="direct-chat-msg" *ngFor="let chatMessage of ListChat">
-          <div class="direct-chat-msg right" *ngIf="chatMessage.roleUser == 'formateur'">
+          <div class="direct-chat-msg right" *ngIf="chatMessage.userChat == currentUser">
             <div class="direct-chat-info clearfix">
               <span class="direct-chat-name pull-right">{{chatMessage.firstNameUser}} {{chatMessage.lastNameUser}}: <span style="font-size: 10px;color : red">{{chatMessage.roleUser}}</span></span>
               <span class="direct-chat-timestamp pull-left">{{convertDateFormat(chatMessage.dateEnvoi)}}</span>
@@ -211,7 +211,7 @@
             </div>
             <!-- /.direct-chat-text -->
           </div>
-          <div *ngIf="chatMessage.roleUser != 'formateur'">
+          <div *ngIf="chatMessage.userChat != currentUser">
           <div class="direct-chat-info clearfix">
             <span class="direct-chat-name pull-left">{{chatMessage.firstNameUser}} {{chatMessage.lastNameUser}}: <span style="font-size: 10px;color : red">{{chatMessage.roleUser}}</span></span>
             <span class="direct-chat-timestamp pull-right">{{convertDateFormat(chatMessage.dateEnvoi)}}</span><!--23 Jan 2:00 pm-->
@@ -231,7 +231,7 @@
           <!-- /.direct-chat-text -->
         </div>
         <div class="direct-chat-msg" *ngFor="let chatMessage of webSocketService.chatMessages">
-          <div class="direct-chat-msg right" *ngIf="chatMessage.roleUser == 'formateur'">
+          <div class="direct-chat-msg right" *ngIf="chatMessage.user == currentUser">
             <div class="direct-chat-info clearfix">
               <span class="direct-chat-name pull-right">{{chatMessage.firstName}} {{chatMessage.lastName}}: <span style="font-size: 10px;color : red">{{chatMessage.role}}</span></span>
               <span class="direct-chat-timestamp pull-left">{{convertDateFormat(chatMessage.dateEnvoi)}}</span>
@@ -245,11 +245,11 @@
               </p>
             </span>
             <div class="direct-chat-text">
-              {{chatMessage.messageChat}}
+              {{chatMessage.message}}
             </div>
             <!-- /.direct-chat-text -->
           </div>
-          <div *ngIf="chatMessage.roleUser != 'formateur'">
+          <div *ngIf="chatMessage.user != currentUser">
             <div class="direct-chat-info clearfix">
             <span class="direct-chat-name pull-left">{{chatMessage.firstName}} {{chatMessage.lastName}}: <span style="font-size: 10px;color : red">{{chatMessage.roleUser}}</span></span>
             <span class="direct-chat-timestamp pull-right">{{convertDateFormat(chatMessage.dateEnvoi)}}</span>
