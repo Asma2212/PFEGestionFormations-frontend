@@ -38,15 +38,13 @@
     <a [routerLink]="" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Mon compte</a>
 
     <a [routerLink]="['/login/formateur']" class="active"  *ngIf="this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin' &&this.localStorage1.retrieve('role')!='formateur'">Espace Formateur</a>
-    <a [routerLink]="['/home/contact']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat' ">Contact </a>
     <a [routerLink]="['/formateur/sessions']" class="active" *ngIf="this.localStorage1.retrieve('role')=='formateur'">Mes Sessions de formations</a>
-  <a [routerLink]="[]"  class="active" (click)="showDialog()" *ngIf="this.localStorage1.retrieve('role')=='formateur'|| this.localStorage1.retrieve('role')=='candidat' " >Messages</a></div>
+  <a [routerLink]="[]"  class="active" (click)="showDialog()" *ngIf="this.localStorage1.retrieve('role')=='formateur'|| this.localStorage1.retrieve('role')=='candidat' " >Messages</a>
+  <a [routerLink]="['/home/contact']" class="active">Contact </a></div>
   <p-dialog  position="right" [(visible)]="display" >
     <app-messages></app-messages>
   </p-dialog>
-<!--  <p-dialog  position="right"  closable="false" width="fit-content" [(visible)]="mod" style="background: rgba(255, 255, 255, 0.244);"  *ngIf="this.localStorage1.retrieve('role')=='formateur'|| this.localStorage1.retrieve('role')=='candidat' " >
-    <img src="../../../../../assets/img/chatt.png" width="90px" position="right" (click)="showDialog()">
-  </p-dialog>-->
+
 
 
 
@@ -90,5 +88,8 @@
 </div>
 
 </body>
+<!--<button position="right"  *ngIf="this.localStorage1.retrieve('role')=='formateur'|| this.localStorage1.retrieve('role')=='candidat' " >
+  <img src="../../../../../assets/img/chatt.png" width="90px" position="right" (click)="showDialog()">
+</button>-->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
 </html>
