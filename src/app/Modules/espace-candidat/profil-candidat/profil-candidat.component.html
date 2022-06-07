@@ -81,6 +81,13 @@
                                       <input class="form-control" type="email" name="email" [(ngModel)]="candidat.email">
                                     </div>
                                   </div>
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label>Numero Télephone</label><br>
+                                      <p-inputMask  mask="99-999-999" [(ngModel)]="candidat.numTel" placeholder="99-999-999" name="tel" [style]="{height:'39px',width:'100%'}"></p-inputMask>
+                                   
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -148,12 +155,12 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                              <div class="col-12 col-sm-5 offset-sm-1 mb-3" >
                                 <div class="mb-2"><b>Departement</b></div>
                                 <div class="row">
                                   <div class="col">
                                     <div class="custom-controls-stacked px-2">
-                                      <p-multiSelect [options]="listDep" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" name="dep"></p-multiSelect>
+                                      <p-multiSelect [options]="listDep" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" name="dep" [style]="{width:'100%'}"></p-multiSelect>
                       <small class="p-error" *ngIf="!candidat.department">departement est requis.</small>
                       <br>
                      
@@ -165,7 +172,7 @@
                                 <div class="row">
                                   <div class="col">
                                     <div class="custom-controls-stacked px-2">
-                                      <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)" name="classe"></p-multiSelect>
+                                      <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)" name="classe" [style]="{width:'auto'}"></p-multiSelect>
                                       <small class="p-error" *ngIf="!candidat.classe">classe est requis.</small>
                       <br>
                      

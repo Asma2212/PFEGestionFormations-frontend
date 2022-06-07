@@ -329,11 +329,15 @@ if(this.signupForm.get('genre').value == "homme"){
       this.enterEmailDialog = true ;
       this.email = ""
       this.submitted = false
+      this.password =""
+      this.password2=""
     }
     hideDialog(){
       this.enterEmailDialog = false ;
       this.email = ""
       this.submitted = false
+      this.password =""
+      this.password2=""
     }
     valider(email){
       this.submitted = true ;
@@ -364,6 +368,8 @@ this.submitted = false
     annuler(){
       this.email = ""
 this.code = ""
+this.password =""
+this.password2=""
 this.verifierCodeDialog = false ; 
 this.submitted = false
 
@@ -408,6 +414,8 @@ this.submitted = false
         if(this.password && this.password2){
           this.cand.password = this.password ;
           this.candidatService.updateCandidatPass(this.cand).subscribe(data => {
+            this.password =""
+            this.password2=""
             this.Retour()
             this.messageService.add({severity:'success', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec la nouvelle mot de passe", life: 3000});
             

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery.transit'
 import {FormControl, FormGroup} from "@angular/forms";
 import {loginRequestPayload} from '../../../payload/login-request-payload';
-import {throwError} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {AuthService} from "../../../../../services/auth.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FormateurService } from 'app/services/formateur.service';
 import { Formateur } from 'app/models/Formateur';
+import { UploadFileService } from 'app/services/upload-file.service';
 
 @Component({
   selector: 'app-formatuer-login',
@@ -40,8 +41,9 @@ export class FormatuerLoginComponent implements OnInit {
   password2 : string = ""
   confirm : boolean = true ;
   confirmCode : boolean = true;
+  fileInfos: Observable<any>;
 
-  constructor( private authService: AuthService, private router: Router,private toast:NgToastService,private dialog : MatDialog,private localStorage : LocalStorageService,private formateurService : FormateurService,private messageService : MessageService)
+  constructor( private authService: AuthService, private router: Router,private toast:NgToastService,private dialog : MatDialog,private localStorage : LocalStorageService,private formateurService : FormateurService,private messageService : MessageService,private uploadService : UploadFileService)
 {
     this.loginRequestPayload = {
       username: '',
@@ -50,6 +52,7 @@ export class FormatuerLoginComponent implements OnInit {
     };
   }
   ngOnInit(): void {
+    this.fileInfos = this.uploadService.getFiles();
     if( $('.logoContainer').length){
     $(function() {
 
@@ -78,7 +81,6 @@ export class FormatuerLoginComponent implements OnInit {
           }, 500)
         }, 1000)
       }, 10)
-
 
     });
       /*******************************************************/
@@ -135,11 +137,15 @@ export class FormatuerLoginComponent implements OnInit {
     this.enterEmailDialog = true ;
     this.email = ""
     this.submitted = false
+    this.password =""
+    this.password2=""
   }
   hideDialog(){
     this.enterEmailDialog = false ;
     this.email = ""
     this.submitted = false
+    this.password =""
+    this.password2=""
   }
   valider(email){
     this.submitted = true ;
@@ -170,6 +176,8 @@ this.submitted = false
   annuler(){
     this.email = ""
 this.code = ""
+this.password =""
+this.password2=""
 this.verifierCodeDialog = false ; 
 this.submitted = false
 
@@ -214,11 +222,16 @@ confirmPass(){
       if(this.password && this.password2){
         this.forma.password = this.password ;
         this.formateurService.updateFormateur(this.forma).subscribe(data => {
+          this.password =""
+          this.password2=""
           this.Retour()
           this.messageService.add({severity:'success', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec la nouvelle mot de passe", life: 3000});
           
         })
       }
+    }
+    testImage(t : string){
+      return t.includes("image") ;
     }
   }
 

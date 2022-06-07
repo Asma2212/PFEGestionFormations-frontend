@@ -29,6 +29,7 @@ import {ProgressBarModule} from "primeng/progressbar";
 import { ProfilCandidatComponent } from './profil-candidat/profil-candidat.component';
 import { EditorModule } from 'primeng/editor';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { InputMaskModule } from 'primeng/inputmask';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
         ToolbarModule, MatDialogModule, TabMenuModule, CardModule, SharedModule, FullCalendarModule, ToastModule,
       ProgressBarModule,
       EditorModule,
-      MultiSelectModule
+      MultiSelectModule,
+      InputMaskModule
 
     ]
 })

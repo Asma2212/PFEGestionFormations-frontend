@@ -38,6 +38,7 @@
                                   </div>
                                    <div class="session-list-detail" style="display: flex;">
                                     <div>
+                                        
                                     <div class="session-name">{{session.titreSession}}</div>
                                     <div class="session-description"><div [innerHTML]="session.descriptionSession | safeHtml"></div></div>
                                     <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
@@ -86,6 +87,7 @@
                                           <img [src]="file.url"  alt="file.name" />
                                         </p>
                                       </div>
+                                      
                                     <div class="session-name">{{session.titreSession}}</div>
                                     <div class="session-description"><div [innerHTML]="session.descriptionSession | safeHtml"></div></div>
                                  <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
@@ -185,7 +187,7 @@
                                                 </ng-template>
                                             </p-multiSelect>
 
-                  <small class="p-error" *ngIf="submitted && !session.formationSession">formation est requis.</small>
+                  <small class="p-error" *ngIf="submitted && !formSess[0]">formation est requis.</small>
                 </div><br>
                     <label> niveau de difficulté </label>
                     <div *ngFor="let niv of nivDifficulte" class="field-checkbox">

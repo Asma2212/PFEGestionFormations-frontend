@@ -80,6 +80,13 @@
                                       <input class="form-control" type="email" name="email" [(ngModel)]="formateur.email">
                                     </div>
                                   </div>
+                                  <div class="col">
+                                    <div class="form-group">
+                                      <label>Numero Télephone</label><br>
+                                      <p-inputMask  mask="99-999-999" [(ngModel)]="formateur.numTel" placeholder="99-999-999" name="tel" [style]="{height:'39px',width:'100%'}"></p-inputMask>
+                                   
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -158,7 +165,17 @@
                                       </div>
                                     </div>
                                   </div>
-                                </div><br><br>
+                                </div><br>
+                                <div class="mb-2"><b>Etablissement</b></div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="custom-controls-stacked px-2">
+                                      <div class="custom-control">
+                                        <input class="form-control" type="etab" name="etab" [(ngModel)]="formateur.etablissement" style="margin-left:-22px ;">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div><br>
                                 <div class="mb-2"><b>Curriculum Vitae</b></div>
                                 <div class="row">
                                   <div class="col">

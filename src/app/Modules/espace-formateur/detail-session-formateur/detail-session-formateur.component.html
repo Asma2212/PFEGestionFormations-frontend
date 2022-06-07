@@ -6,13 +6,25 @@
             <div class="col-lg-8 m-15px-tb">
                 <article class="article">
                     <div class="article-img">
+                        <div *ngIf="!imgURL">
                         <div *ngFor="let file of fileInfos | async">
                             <p *ngIf="testImage(file.type) && file.name == session.photoSession">
                               <img [src]="file.url"/>
                             </p>
+                      </div></div>
+                      <div class="circle" *ngIf="imgURL">
+                        <img class="profile-pic" [src]="imgURL">
                       </div>
+                      <div style="float: right;">
+                      <label for="file" class="p-image" style="cursor: pointer;color: green;"><h4 style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size: 15px;"><a><img src="../../../../assets/img/upload.png" width="50px"> Changer L'affiche de cette session</a></h4></label>
+                          <input  type="file" id="file" class="input-file" accept="image/*" (change)="onUpload($event)" >
+                          <span style="text-align: center;margin-left: 30px;" *ngIf="imgURL"><!-- -->
+                            <button (click)="updatePhoto()" type="button" style="background-color: rgba(0, 128, 0, 0.308);border: none;padding:8px;border-radius: 5px;color: green;"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Sauvegarder</button>
+                          </span>
+                        </div>
                     </div>
                     <div class="article-title">
+                        
                         <h6><a>Session</a></h6>
                         <h2>{{session.titreSession}}</h2>
                         <div class="media">

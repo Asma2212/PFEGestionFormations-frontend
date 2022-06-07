@@ -232,8 +232,8 @@ hideDialog() {
 }
 saveSession(){
   this.submitted = true ;
-  if(this.session.nbMaxCandidat<30){ // && this.session.
   this.session.formationSession = this.formSess[0];
+  if(this.session.nbMaxCandidat<=30){ // && this.session.
   console.log("session bch tetbaath :",this.session)
   if(this.file){
     this.session.photoSession=this.file.name ;

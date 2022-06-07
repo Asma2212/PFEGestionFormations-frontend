@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { error } from 'console';
 import { Observable } from 'rxjs';
 import { ThirdPartyDraggable } from '@fullcalendar/interaction';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
 import { ListCandidatsDialogComponent } from '../list-candidats-dialog/list-candidats-dialog.component';
@@ -50,8 +50,10 @@ nivDifficulte : NivDifficulteEnum[] = [NivDifficulteEnum.facile,NivDifficulteEnu
 sessionSimilaire : SessionFormation[];
 selectedFormateurs : Formateur[];
 ref: DynamicDialogRef;
+namePhoto:string;
+selectedFile : FileList ;
 
-  constructor(private route: ActivatedRoute,private sessionService : SessionService,private sessionForamtionService : SessionFormationService,private uploadService : UploadFileService,private confirmationService:ConfirmationService,private dialogService: DialogService,private sessionFormationService : SessionFormationService) { }
+  constructor(private route: ActivatedRoute,private sessionService : SessionService,private sessionForamtionService : SessionFormationService,private uploadService : UploadFileService,private confirmationService:ConfirmationService,private dialogService: DialogService,private sessionFormationService : SessionFormationService,private messageService : MessageService) { }
 
   ngOnInit(): void {
     this.planningDialog = false ;
@@ -175,11 +177,14 @@ selectFile(event) {
 }
 
 updateSession(){
+  if(this.imgURL)
+  this.upload1()
   console.log("NIIv",this.session.nivDifficulte)
   console.log("before update",this.session)
   this.sessionForamtionService.updateSession(this.session).subscribe(
     data =>{
       console.log("updated perfectly",data)
+      this.messageService.add({severity:'success', summary: 'Données Modifié', detail: " session est mise à jour", life: 3000});
       this.getbyIDSession()
       
     },
@@ -187,6 +192,22 @@ updateSession(){
       console.log("erreur", error.error.message)
     }
   )
+}
+
+updatePhoto(){
+  if(this.imgURL){
+  this.upload1()
+  this.session.photoSession = this.file.name;
+  this.sessionForamtionService.updateSession(this.session).subscribe(
+    data =>{
+      this.messageService.add({severity:'success', summary: 'Image Modifié', detail: " session est mise à jour", life: 3000});
+      this.getbyIDSession()
+      this.imgURL=null
+    },
+    error => {
+      console.log("erreur", error.error.message)
+    }
+  )}
 }
 openListCandidat(){
   console.log("aaa")
@@ -203,5 +224,56 @@ ngOnDestroy() {
   if (this.ref) {
       this.ref.close();
   }
+}
+
+onUpload(event){
+  if (event.target.files.length > 0)
+  {
+    this.selectedFile = event.target.files;
+   this.file = event.target.files[0];
+    //this.userFile = file;
+   // this.f['profile'].setValue(file);
+
+  var mimeType = event.target.files[0].type;
+  if (mimeType.match(/image\/*/) == null) {
+    this.message = "Only images are supported.";
+    return;
+  }
+
+  var reader = new FileReader();
+
+  this.imagePath = this.file;
+  reader.readAsDataURL(this.file);
+  reader.onload = (_event) => {
+    this.imgURL = reader.result;
+  }
+  console.log("file name ", this.file.name)
+  }
+this.namePhoto=this.file.name ;
+}
+
+upload1() {
+  this.progress = 0;
+  this.currentFile = this.selectedFile.item(0);
+  console.log("current file",this.currentFile);
+
+  this.uploadService.upload(this.currentFile).subscribe(
+    event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        this.message = event.body.message;
+      }
+    },
+    err => {
+      this.progress = 0;
+      console.log(err);
+      if(err.error.message.includes("constraint"))
+      this.message =" Cette image existe deja"
+      else
+      this.message = ' Un probleme est survenue';
+      this.currentFile = undefined;
+    });
+  this.selectedFile = undefined;
 }
 }

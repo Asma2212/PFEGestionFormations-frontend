@@ -218,6 +218,7 @@ deco(){
 departementSelected(dep){
   console.log("thhis")
   if(dep[0]){
+    this.listC = []
   this.d = dep[0];
   console.log("hhheeey",this.d);
   //console.log("cc",this.candidat.department.id);
