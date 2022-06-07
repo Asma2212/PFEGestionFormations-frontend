@@ -153,10 +153,23 @@
                                 <div class="row">
                                   <div class="col">
                                     <div class="custom-controls-stacked px-2">
-                                      <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                        <label class="custom-control-label" for="notifications-blog">{{candidat.department.name}}</label>
-                                      </div>
+                                      <p-multiSelect [options]="listDep" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" name="dep"></p-multiSelect>
+                      <small class="p-error" *ngIf="!candidat.department">departement est requis.</small>
+                      <br>
+                     
+                    
+                                    </div>
+                                  </div>
+                                </div><br>
+                                <div class="mb-2"><b>Classe</b></div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="custom-controls-stacked px-2">
+                                      <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)" name="classe"></p-multiSelect>
+                                      <small class="p-error" *ngIf="!candidat.classe">classe est requis.</small>
+                      <br>
+                     
+                    
                                     </div>
                                   </div>
                                 </div><br><br>

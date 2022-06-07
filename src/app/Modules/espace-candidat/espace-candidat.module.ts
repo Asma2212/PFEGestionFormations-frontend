@@ -28,6 +28,7 @@ import {ToastModule} from "primeng/toast";
 import {ProgressBarModule} from "primeng/progressbar";
 import { ProfilCandidatComponent } from './profil-candidat/profil-candidat.component';
 import { EditorModule } from 'primeng/editor';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { EditorModule } from 'primeng/editor';
         NgProgressModule,
         ToolbarModule, MatDialogModule, TabMenuModule, CardModule, SharedModule, FullCalendarModule, ToastModule,
       ProgressBarModule,
-      EditorModule
+      EditorModule,
+      MultiSelectModule
 
     ]
 })

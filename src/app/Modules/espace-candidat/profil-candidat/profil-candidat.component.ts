@@ -12,6 +12,9 @@ import { UploadFileService } from 'app/services/upload-file.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
+import { Classe } from 'app/models/Classe';
+import { Department } from 'app/models/Departement';
+import { DepartementService } from 'app/services/departement.service';
 
 @Component({
   selector: 'app-profil-candidat',
@@ -48,8 +51,17 @@ export class ProfilCandidatComponent implements OnInit {
   diffPass : boolean = true;
   sessionsCandidat : SessionFormation[]
   sessions : SessionFormation[]
+  listC : Classe[] = [] ;
+  listD : Department[] = [];
+  d: Department ;
+  c:Classe ;
+  depSelected : boolean = false ;
+  candidats: Candidat[];
+  listDep : Department[] = [];
+  listClass : Classe[] = [];
+  listClassAll : Classe[] =[];
   
-  constructor(private sessionService : SessionFormationService,private candidatService : CandidatService ,private uploadService : UploadFileService,private messageService : MessageService ,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
+  constructor(private sessionService : SessionFormationService,private candidatService : CandidatService ,private uploadService : UploadFileService,private messageService : MessageService ,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router,private departementService : DepartementService) { }
 
   ngOnInit(): void {
     this.nbPasser=0; 
@@ -57,6 +69,21 @@ export class ProfilCandidatComponent implements OnInit {
     const username = this.localStorage.retrieve("username")
     this.candidatService.getCandidatByUsername(username).subscribe(data => {
       this.candidat = data ;
+      console.log("candidat :",this.candidat)
+      this.listD.push(this.candidat.department)
+      this.listC.push(this.candidat.classe)
+      this.listClass = this.listD[0].classes ;
+      this.depSelected = true ;
+      console.log("classs :",this.listClass,this.listC)
+      this.departementService.getAllDepartements().subscribe( data =>{
+        this.listDep = data ;
+        console.log("departement :",data)
+      this.listDep.forEach(d => {
+       d.classes.forEach(c => {
+         this.listClassAll.push(c)
+       });
+        
+      }); });
       localStorage.setItem("idC",data.id.toString());
       this.sessionService.getSessions().subscribe(data => {
         this.sessions = data
@@ -188,6 +215,22 @@ deco(){
   });
 }
 
-
-
+departementSelected(dep){
+  console.log("thhis")
+  if(dep[0]){
+  this.d = dep[0];
+  console.log("hhheeey",this.d);
+  //console.log("cc",this.candidat.department.id);
+  this.depSelected = true ;
+  this.listClass = dep[0].classes ;
+ this.candidat.department = dep[0];
+}}
+classeSelected(classe : Classe){
+  if(classe[0]){
+  console.log("classssseeee",classe[0].name);
+  this.c = classe[0];
+  //console.log("cc",this.candidat.department.id);
+ this.candidat.classe = classe[0];
+}
+}
 }
