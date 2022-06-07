@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
   items: any;
   display: boolean = false;
+  mod:boolean = true;
   public TheCurrentUser: User;
    fileInfos: Observable<any>;
   uploadedFiles: any[] = [];

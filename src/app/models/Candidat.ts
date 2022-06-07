@@ -7,6 +7,7 @@ export class Candidat {
     id : number ;
     username : string ; //cin
     password : string ;
+    created : Date ;
     firstName : string ;
     email : string ;
     role : string[];

@@ -167,7 +167,7 @@
       <h3 class="box-title">Chat Direct</h3>
 
       <div class="box-tools pull-right">
-        <span data-toggle="tooltip" title="{{webSocketService.chatMessages.length}} Nouveau Message" class="badge bg-red">{{webSocketService.chatMessages.length}}</span>
+        <span data-toggle="tooltip" title="{{webSocketService.chatMessages.length + ListChat.length}} Messages" class="badge bg-red">{{webSocketService.chatMessages.length + ListChat.length}}</span>
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
         </button>
         <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
@@ -182,20 +182,77 @@
         <div class="direct-chat-msg right">
           <div class="direct-chat-info clearfix">
             <span class="direct-chat-name pull-right">Bienvenue dans notre chat</span>
-            <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+            <span class="direct-chat-timestamp pull-left">{{convertDateFormat1()}}</span>
           </div>
           <!-- /.direct-chat-info -->
           <img class="direct-chat-img" src="../../../../assets/img/helloIcon.png" alt="Message User Image"><!-- /.direct-chat-img -->
-          <div class="direct-chat-text">
-            N'hesitez par de posez vos questions
+          <div class="direct-chat-text" style="background: linear-gradient(rgb(149, 0, 255), rgb(253, 186, 198));">
+            N'hesitez pas de poser vos questions
           </div>
           <!-- /.direct-chat-text -->
         </div>
         <!-- Message. Default to the left -->
-        <div class="direct-chat-msg" *ngFor="let chatMessage of webSocketService.chatMessages">
+        <div class="direct-chat-msg" *ngFor="let chatMessage of ListChat">
+          <div class="direct-chat-msg right" *ngIf="chatMessage.roleUser == 'formateur'">
+            <div class="direct-chat-info clearfix">
+              <span class="direct-chat-name pull-right">{{chatMessage.firstNameUser}} {{chatMessage.lastNameUser}}: <span style="font-size: 10px;color : red">{{chatMessage.roleUser}}</span></span>
+              <span class="direct-chat-timestamp pull-left">{{convertDateFormat(chatMessage.dateEnvoi)}}</span>
+            </div>
+            <!-- /.direct-chat-info -->
+            <span *ngFor="let file of fileInfos | async">
+              <p *ngIf="testImage(file.type) && file.name == chatMessage.photoUser">
+                <img class="direct-chat-img" [src]="file.url"
+                alt="profile-pic"
+                />
+              </p>
+            </span>
+            <div class="direct-chat-text">
+              {{chatMessage.messageChat}}
+            </div>
+            <!-- /.direct-chat-text -->
+          </div>
+          <div *ngIf="chatMessage.roleUser != 'formateur'">
           <div class="direct-chat-info clearfix">
-            <span class="direct-chat-name pull-left">{{chatMessage.firstName}}{{chatMessage.lastName}}:</span>
-            <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+            <span class="direct-chat-name pull-left">{{chatMessage.firstNameUser}} {{chatMessage.lastNameUser}}: <span style="font-size: 10px;color : red">{{chatMessage.roleUser}}</span></span>
+            <span class="direct-chat-timestamp pull-right">{{convertDateFormat(chatMessage.dateEnvoi)}}</span><!--23 Jan 2:00 pm-->
+          </div>
+          <!-- /.direct-chat-info -->
+          <span *ngFor="let file of fileInfos | async">
+            <p *ngIf="testImage(file.type) && file.name == chatMessage.photoUser">
+              <img class="direct-chat-img" [src]="file.url"
+              alt="profile-pic"
+              />
+            </p>
+          </span>
+          <div class="direct-chat-text">
+            {{chatMessage.messageChat}}
+          </div>
+        </div>
+          <!-- /.direct-chat-text -->
+        </div>
+        <div class="direct-chat-msg" *ngFor="let chatMessage of webSocketService.chatMessages">
+          <div class="direct-chat-msg right" *ngIf="chatMessage.roleUser == 'formateur'">
+            <div class="direct-chat-info clearfix">
+              <span class="direct-chat-name pull-right">{{chatMessage.firstName}} {{chatMessage.lastName}}: <span style="font-size: 10px;color : red">{{chatMessage.role}}</span></span>
+              <span class="direct-chat-timestamp pull-left">{{convertDateFormat(chatMessage.dateEnvoi)}}</span>
+            </div>
+            <!-- /.direct-chat-info -->
+            <span *ngFor="let file of fileInfos | async">
+              <p *ngIf="testImage(file.type) && file.name == chatMessage.photo">
+                <img class="direct-chat-img" [src]="file.url"
+                alt="profile-pic"
+                />
+              </p>
+            </span>
+            <div class="direct-chat-text">
+              {{chatMessage.messageChat}}
+            </div>
+            <!-- /.direct-chat-text -->
+          </div>
+          <div *ngIf="chatMessage.roleUser != 'formateur'">
+            <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-left">{{chatMessage.firstName}} {{chatMessage.lastName}}: <span style="font-size: 10px;color : red">{{chatMessage.roleUser}}</span></span>
+            <span class="direct-chat-timestamp pull-right">{{convertDateFormat(chatMessage.dateEnvoi)}}</span>
           </div>
           <!-- /.direct-chat-info -->
           <span *ngFor="let file of fileInfos | async">
@@ -207,7 +264,7 @@
           </span>
           <div class="direct-chat-text">
             {{chatMessage.message}}
-          </div>
+          </div></div>
           <!-- /.direct-chat-text -->
         </div>
         <!-- /.direct-chat-msg -->
@@ -247,7 +304,7 @@
         <div class="input-group">
           <input type="text" placeholder="Type Message ..." class="form-control" name="message" id="input-message" ngModel> 
               <span class="input-group-btn">
-                <button type="submit" class="btn btn-danger btn-flat">Send</button>
+                <button type="submit" class="btn btn-danger btn-flat">envoyer</button>
               </span>
         </div>
       </form>

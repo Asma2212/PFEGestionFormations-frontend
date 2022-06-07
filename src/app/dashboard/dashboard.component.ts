@@ -53,6 +53,16 @@ colorsHover : any = ["#64B5F6","#81C784","#FFB74D","rgb(255, 183, 255)"]
 i : number = 0 ;
 m : number = 0 ;
 monthData : any[] = []
+monthDataCand : any[] = []
+nbCand : number = 0
+formationsThisMonth : Formation[]
+nbFormationMonth : number ;
+formateursThisMonth : Formateur[]
+nbFormateurMonth : number ;
+candidatsThisMonth : Candidat[]
+nbCandidatMonth : number ;
+sessionsThisMonth : SessionFormation[]
+nbSessionMonth : number ;
   //config: AppConfig;
 
   constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
@@ -60,10 +70,15 @@ monthData : any[] = []
   ngOnInit() {
 this.formationService.getAllFormations().subscribe(d=>{
   this.formations = d
+this.formationsThisMonth = this.formations.filter(f => new Date(f.createdDate) <= new Date() && new Date(f.createdDate).getMonth()==new Date().getMonth() )
+this.nbFormationMonth = this.formationsThisMonth.length
+console.log(this.formationsThisMonth)
   this.nbFormations = d.length;
 })
   this.sessionService.getSessions().subscribe(d=>{
     this.sessions = d
+    this.sessionsThisMonth = this.sessions.filter(s => new Date(s.dateDebSession) <= new Date() && new Date(s.dateDebSession).getMonth()==new Date().getMonth() )
+this.nbSessionMonth = this.sessionsThisMonth.length
     this.nbSessions = d.length
     this.sessList = d.filter(s=> new Date().getFullYear == new Date(s.dateDebSession).getFullYear)
     while((this.sessList[0])||(this.m > 7)){
@@ -72,13 +87,19 @@ this.formationService.getAllFormations().subscribe(d=>{
 
       this.monthData.push(this.sessListFilter.length)
       this.sessList = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() != this.m)
+      this.nbCand = 0
+      this.sessListFilter.forEach(s => {
+        console.log(s,"lll",s.listeCandidat)
+        this.nbCand = this.nbCand+s.listeCandidat.length
+      });
+      this.monthDataCand.push(this.nbCand)
       this.m++;
 
     }
     this.multiAxisData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [{
-        label: 'Dataset 1',
+        label: 'Sessions de formation',
         backgroundColor: [
           '#EC407A',
           '#AB47BC',
@@ -91,15 +112,17 @@ this.formationService.getAllFormations().subscribe(d=>{
         yAxisID: 'y',
         data: this.monthData
       }, {
-        label: 'Dataset 2',
+        label: 'Candidats Inscrit',
         backgroundColor: '#78909C',
         yAxisID: 'y1',
-        data: [28, 48, 40, 19, 86, 27, 90]
+        data: this.monthDataCand
       }]
     };
   })
   this.candidatService.getAllCandidats().subscribe(d => {
       this.candidats = d;
+      this.candidatsThisMonth = this.candidats.filter(c => new Date(c.created) <= new Date() && new Date(c.created).getMonth()==new Date().getMonth() )
+this.nbCandidatMonth = this.candidatsThisMonth.length
       this.nbCandidats = d.length
       this.depCand = d ;
    while (this.depCand[0]) {
@@ -130,6 +153,8 @@ this.formationService.getAllFormations().subscribe(d=>{
   })
   this.formateurService.getAllFormateurs().subscribe(d => {
     this.formateurs = d;
+    this.formateursThisMonth = this.formateurs.filter(f => new Date(f.created) <= new Date() && new Date(f.created).getMonth()==new Date().getMonth() )
+this.nbFormateurMonth = this.formateursThisMonth.length
     this.nbFormateurs = d.length
 })
     /*

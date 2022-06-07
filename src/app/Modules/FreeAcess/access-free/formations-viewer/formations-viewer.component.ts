@@ -93,6 +93,7 @@ export class FormationsViewerComponent implements OnInit {
     id : 0 ,
     username : "", //cin
     password : "",
+    created : new Date() ,
     firstName : "",
     email : "",
     role : [] ,

@@ -6,6 +6,7 @@ export class Formateur{
     id : number ;
     username : string ; //cin
     password : string ;
+    created : Date ;
     firstName : string ;
     email : string ;
     lesSpecialites : Specialite[];

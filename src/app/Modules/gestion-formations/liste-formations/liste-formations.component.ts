@@ -90,6 +90,7 @@ export class ListeFormationsComponent implements OnInit {
         titre : "",
         charge_horaire : "",
         details : "" ,
+        createdDate : new Date() ,
         image : "" ,
         listCategories : null ,
       sessionFormations : null};

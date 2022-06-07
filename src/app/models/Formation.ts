@@ -6,6 +6,7 @@ export class Formation {
     titre : String ;
     charge_horaire : String ;
     details : String ;
+    createdDate : Date ;
     image : String ;
     listCategories : Categorie[];
     sessionFormations :SessionFormation[]

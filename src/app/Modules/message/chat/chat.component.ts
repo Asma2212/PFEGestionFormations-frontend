@@ -44,12 +44,16 @@ console.log("chat",this.ListChat);
   sendMessage(sendForm: NgForm) {
     this.userService.getUser(this.localStorage.retrieve("username")).subscribe(data =>{ 
       this.user1 =data
-      var chatMessageDto = new ChatMessageDto(this.localStorage.retrieve("username"), sendForm.value.message,this.user1.firstName,this.user1.lastName,this.user1.photo);
+      var chatMessageDto = new ChatMessageDto(this.localStorage.retrieve("username"), sendForm.value.message,this.user1.firstName,this.user1.lastName,this.user1.photo,new Date(),this.user1.role.toString());
     var chat=new ChatResponse();
     chat.userChat=this.localStorage.retrieve("username")
     this.webSocketService.sendMessage(chatMessageDto);
 
     chat.messageChat= sendForm.value.message;
+    chat.firstNameUser = this.user1.firstName
+    chat.lastNameUser = this.user1.lastName
+    chat.photoUser = this.user1.photo
+    chat.dateEnvoi = new Date();
     this.ListSaving.push(chat);
 
 
