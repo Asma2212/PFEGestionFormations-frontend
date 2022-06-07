@@ -257,7 +257,7 @@
         <p-dialog [(visible)]="changePasswordDialog" [style]="{width: '450px'}" header="Choisissez un nouveau mot de passe" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
           <ng-template pTemplate="content">
             <div class="field">
-              <label>Nouvelle mot de passe</label><br>
+              <label>Nouveau mot de passe</label><br>
            <p-password [(ngModel)]="password" [toggleMask]="true" required #pass="ngModel">
                <ng-template pTemplate="footer">
                    <p-divider></p-divider>

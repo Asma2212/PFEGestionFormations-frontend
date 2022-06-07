@@ -357,6 +357,7 @@ this.testEmail = false ;
   }
 
     envoyer(cand){
+      this.messageService.add({severity:'success', summary:'Code de validation', detail: 'le code de confirmation est envoyer à votre e-mail', life: 3000});
       if(this.verifierCodeDialog == false )
       this.verifierCodeDialog = true ; 
       this.candidatService.envoyerCodeCandidat(cand).subscribe(data =>{
@@ -417,7 +418,7 @@ this.submitted = false
             this.password =""
             this.password2=""
             this.Retour()
-            this.messageService.add({severity:'success', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec la nouvelle mot de passe", life: 3000});
+            this.messageService.add({severity:'success', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec le nouveau mot de passe", life: 3000});
             
           })
         }
