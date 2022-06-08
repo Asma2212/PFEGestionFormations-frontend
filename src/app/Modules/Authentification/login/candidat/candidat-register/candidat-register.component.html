@@ -10,10 +10,11 @@
 </head>
 <body>
 <app-nav-bar></app-nav-bar>
-<p-toast></p-toast>
+
 <div class="user-ragistration">
   <div class="container register">
     <div class="row">
+      <p-toast></p-toast>
       <div class="col-md-3 register-left">
         <img src="https://i.pinimg.com/originals/a7/4a/65/a74a6592ac29c378cc03c600a03fc78e.png" alt=""/>
         <h3>Bonjour !</h3>
@@ -31,7 +32,10 @@
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <h1 class="register-heading">{{n}}</h1>
-
+            <h1 *ngIf="isError">
+              AAAAAAAAAAAAAAAAA
+               
+            </h1>
             <form class="row register-form" [formGroup]="signupForm">
               <div class="col-md-4">
                 <div class="form-group" >

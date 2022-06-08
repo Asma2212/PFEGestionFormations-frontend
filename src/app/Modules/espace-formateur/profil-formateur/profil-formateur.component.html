@@ -166,12 +166,15 @@
                                     </div>
                                   </div>
                                 </div><br>
+                                <div  class="row">
+                                    <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Selectionner votre specialite" optionLabel="titre" display="chip" [style]="{maxWidth: '200px'}" name="spec" [style]="{width:'100%'}"></p-multiSelect>                                  
+                                </div>
                                 <div class="mb-2"><b>Etablissement</b></div>
                                 <div class="row">
                                   <div class="col">
                                     <div class="custom-controls-stacked px-2">
                                       <div class="custom-control">
-                                        <input class="form-control" type="etab" name="etab" [(ngModel)]="formateur.etablissement" style="margin-left:-22px ;">
+                                        <input class="form-control" type="etab" name="etab" [(ngModel)]="formateur.etablissement" style="margin-left:-49px ;">
                                       </div>
                                     </div>
                                   </div>

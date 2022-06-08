@@ -126,26 +126,7 @@ filterSpecialite : Specialite[] ;
       {separator: true},
       {label: 'Parametre', icon: 'pi pi-cog', routerLink: ['/setup']}
   ];
-  this.groupedSpecialites = [
-    {
-        label: 'Developpement web', value: 'angular.png', 
-        items: [
-            {label: 'Angular', value: 'Angular'},
-            {label: 'React', value: 'React'},
-            {label: 'Spring Boot', value: 'Spring Boot'},
-            {label: 'Node JS', value: 'Node JS'}
-        ]
-    },
-    {
-      label: 'Developpement mobile', value: 'favicon.png', 
-      items: [
-          {label: 'Android', value: 'Android'},
-          {label: 'Flutter', value: 'Flutter'},
-          {label: 'IOS', value: 'IOS'},
-          {label: 'Xamarin', value: 'Xamarin'}
-      ]
-  }
-];
+
   this.getAllFormateurs()  
         
 
@@ -361,8 +342,10 @@ saveFormateur() {
 
   this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
 } 
-if((this.formateur.username)&&(this.formateur.email.trim())&&(this.formateur.cv)&&(this.formateur.etablissement)&&(this.formateur.lesSpecialites)
-&&(this.formateur.genre)&&(inputNom)&&(inputPrenom)){
+if( this.selectedEtablissement[0].name!="Autre"){
+  this.formateur.etablissement=this.selectedEtablissement[0].name.toString() ;
+}
+if((this.formateur.username)&&(this.formateur.email.trim())&&(this.formateur.etablissement)&&(inputNom)&&(inputPrenom)){
   if (this.formateur.id) {
     //this.genre = this.formateur.genre ;
     console.log("before update",this.formateur);
@@ -371,14 +354,12 @@ if((this.formateur.username)&&(this.formateur.email.trim())&&(this.formateur.cv)
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
       this.getAllFormateurs()
       this.hideDialog()
-    });
+    },
+
+    );
     
 }
 else {
-
-    if(this.selectedEtablissement[0].name!="Autre")
-    this.formateur.etablissement=this.selectedEtablissement[0].name ;
-    console.log("heeedhyyy",this.formateur)
    // this.formateur.password = "xx"
     this.formateurService.saveFormateur(this.formateur).subscribe( data => {
       console.log("data save Formateur",data);
@@ -388,7 +369,10 @@ else {
     },
     error =>
    {
-    this.messageService.add( {severity:'error', summary:'Error', detail: error.error.message, life: 3000}); 
+      console.log("eerrrr",error)
+      if(error.error.message.includes("constraint"))
+      this.messageService.add( {severity:'error', summary:'Déja existant', detail: "Email et cin doit etre unique", life: 3000}); 
+    
     this.formateur.photo = null ;
   console.log("exception occured");});
 }

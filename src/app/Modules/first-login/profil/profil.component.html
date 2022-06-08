@@ -160,8 +160,8 @@
           </label>
           <div *ngIf="formateur.cv">
             <p>{{formateur.cv}}</p>
-          </div>
-
+          </div><br>
+          <small class="p-error" *ngIf="!formateur.cv">CV obligatoire.</small><br>
           <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
             Upload
           </button>

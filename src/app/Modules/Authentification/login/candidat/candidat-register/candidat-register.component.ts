@@ -157,23 +157,17 @@ export class CandidatRegisterComponent implements OnInit {
       console.log("departement :",data) });
   }
   login() {
-    console.log("username" + this.loginForm.get('username').value + "email" + this.loginForm.get('email').value + "password" + this.loginForm.get('password').value)
-
-
     this.loginRequest.username = this.loginForm.get('username').value;
     this.loginRequest.email = this.loginForm.get('email').value;
     this.loginRequest.password = this.loginForm.get('password').value;
 
     this.authService.loginCandidat(this.loginRequest).subscribe(data => {
-
       this.isError = false;
-      console.log("you are here")
       this.router.navigate(['/candidat/myList']);
     }, error => {
-      this.toast.error({detail:"enter vos informations correctements !",duration:3000});
-
+      this.isError = true;
+      this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse Email inexistante", life: 3000});
       //this.isError = true;
-      console.log("error occured",error)
       //throwError(error);
       //this.errors = error.error.message;
 
@@ -235,6 +229,7 @@ if(this.signupForm.get('genre').value == "homme"){
       console.log("you are here")
       this.router.navigate(['/candidat/myList']);
     }, error => {
+
       this.toast.error({detail:"enter vos informations correctements !",duration:3000});
 
       //this.isError = true;

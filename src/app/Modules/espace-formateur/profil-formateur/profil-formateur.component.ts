@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { Formateur } from 'app/models/Formateur';
 import { Egenre } from 'app/models/GenreEnum';
 import { SessionFormation } from 'app/models/SessionFormation';
+import { Specialite } from 'app/models/Specialite';
 import { FormateurService } from 'app/services/formateur.service';
+import { SpecialiteService } from 'app/services/specialite.service';
 import { UploadFileService } from 'app/services/upload-file.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -44,12 +46,16 @@ export class ProfilFormateurComponent implements OnInit {
   confAnc : boolean = true;
   diffPass : boolean = true;
   username : string ;
+  specialites : Specialite[];
   
-  constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router) { }
+  constructor(private formateurService : FormateurService ,private uploadService : UploadFileService,private messageService : MessageService,private localStorage:LocalStorageService,private confirmationService : ConfirmationService,private router : Router,private specialiteService : SpecialiteService) { }
 
   ngOnInit(): void {
     this.nbPasser=0;
     this.nbAvenir=0;
+    this.specialiteService.getAllSpecialites().subscribe( data =>{
+      this.specialites = data ; 
+      console.log("speciaalie :",data) });
     this.username = this.localStorage.retrieve("username")
     this.formateurService.getFormateurByUsername(this.username).subscribe(data => {
      localStorage.setItem("idF",data.id.toString());
@@ -61,10 +67,9 @@ export class ProfilFormateurComponent implements OnInit {
       this.femme = "Femme" ;
       else
       this.homme = "Homme"
-      console.log(this.femme)
+
       this.formateurService.getSessionByFormateur(this.formateur.id).subscribe(data =>{
         this.formateur.sessionFormationList = data
-        console.log("daataaa1",data)
       
       console.log("aaa",this.formateur.sessionFormationList);
      this.nbPasser = this.formateur.sessionFormationList.filter(s => 
@@ -90,6 +95,7 @@ export class ProfilFormateurComponent implements OnInit {
  })
 }
  saveChanges(){
+   console.log("***",this.formateur)
    if(this.imgURL)
    this.upload1();
    if(this.file)

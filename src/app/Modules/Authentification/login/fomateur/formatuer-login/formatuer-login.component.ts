@@ -106,7 +106,7 @@ export class FormatuerLoginComponent implements OnInit {
         else
         this.router.navigate(['/firstLogin/profil']);
       });
-      console.log("dataaa",data)
+
       this.isError = false;
 
 
@@ -118,7 +118,7 @@ export class FormatuerLoginComponent implements OnInit {
       this.router.navigate(['/']);*/
 
       this.isError = true;
-      this.toast.error({detail:"enter vos informations correctements !",duration:3000});
+      this.toast.error({detail:"entrer vos informations correctement !",duration:3000});
 
       /*
             this.errors=error.error.message;

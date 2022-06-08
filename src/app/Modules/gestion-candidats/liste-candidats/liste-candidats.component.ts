@@ -64,7 +64,6 @@ export class ListeCandidatsComponent implements OnInit {
 
     this.departementService.getAllDepartements().subscribe( data =>{
       this.listDep = data ;
-      console.log("departement :",data)
     this.listDep.forEach(d => {
      d.classes.forEach(c => {
        this.listClassAll.push(c)
@@ -72,39 +71,6 @@ export class ListeCandidatsComponent implements OnInit {
       
     }); });
 this.getAllCandidats()
-
-  /*    this.listDep.forEach(dep => {
-        this.depItem.label = dep.name ;
-        console.log("deep 1 ",dep.name)
-        dep.classes.forEach(c =>
-          {
-            this.classItem.label = c.Name ;
-            this.listclass.push(this.classItem);
-          })
-          this.depItem.items = this.listclass ;
-          this.groupedSpecialites.push(this.depItem);
-      });
-    this.groupedSpecialites = [
-      {
-          label: 'Developpement web', value: 'angular.png',
-          items: [
-              {label: 'Angular', value: 'Angular'},
-              {label: 'React', value: 'React'},
-              {label: 'Spring Boot', value: 'Spring Boot'},
-              {label: 'Node JS', value: 'Node JS'}
-          ]
-      },
-      {
-        label: 'Developpement mobile', value: 'favicon.png',
-        items: [
-            {label: 'Android', value: 'Android'},
-            {label: 'Flutter', value: 'Flutter'},
-            {label: 'IOS', value: 'IOS'},
-            {label: 'Xamarin', value: 'Xamarin'}
-        ]
-    }
-  ];*/
-
 
 
 
@@ -118,12 +84,9 @@ this.getAllCandidats()
   }
 
   departementSelected(dep){
-    console.log("thhis")
     if(dep[0]){
       this.listC = []
     this.d = dep[0];
-    console.log("hhheeey",this.d);
-    //console.log("cc",this.candidat.department.id);
     this.depSelected = true ;
     this.listClass = dep[0].classes ;
    this.candidat.department = dep[0];
@@ -131,9 +94,7 @@ this.getAllCandidats()
 
   classeSelected(classe : Classe){
     if(classe[0]){
-    console.log("classssseeee",classe[0].name);
     this.c = classe[0];
-    //console.log("cc",this.candidat.department.id);
    this.candidat.classe = classe[0];
   }
   }
@@ -146,7 +107,6 @@ this.getAllCandidats()
  upload1() {
   this.progress1 = 0;
   this.currentFile1 = this.selectedFiles1.item(0);
-  console.log("current file",this.currentFile1);
   this.uploadService.upload(this.currentFile1).subscribe(
     event => {
       if (event.type === HttpEventType.UploadProgress) {
@@ -168,7 +128,6 @@ this.getAllCandidats()
  onUpload(event){
   this.selectedFiles1 = event.target.files;
   this.file = <File>event.target.files[0]
-  console.log(this.file)
   var mimeType = event.target.files[0].type;
   if (mimeType.match(/image\/*/) == null) {
     this.message = "Only images are supported.";
@@ -181,7 +140,6 @@ this.getAllCandidats()
   reader.readAsDataURL(this.file);
   reader.onload = (_event) => {
     this.imgURL = reader.result;
-    console.log("imaage",this.imgURL)
   }
 }
   onSortChange(event) {
@@ -197,7 +155,6 @@ this.getAllCandidats()
       }
   }
   editCandidat(candidat: Candidat) {
-    console.log("edit",candidat)
     this.listD.push(candidat.department)
     this.listC.push(candidat.classe)
     this.depSelected = true ;
@@ -223,12 +180,10 @@ deleteCandidat(candidat: Candidat) {
         icon: 'pi pi-exclamateur-triangle',
         accept: () => {
             this.candidats = this.candidats.filter(val => val.id !== candidat.id);
-            console.log(candidat.id);
             this.candidatService.deleteCandidat(candidat.id).subscribe( data => {
-              console.log("data candidat Supprimer",data)
             });
             this.candidat = null;
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Candidat Supprimer', life: 3000});
+            this.messageService.add({severity:'success', summary: 'Succés', detail: 'Candidat Supprimer', life: 3000});
             this.getAllCandidats()
         }
     });
@@ -240,13 +195,11 @@ saveCandidat() {
   var inputPrenom = (<HTMLInputElement>document.getElementById("prenom"))?.validity.valid;
   if (this.file)
   this.candidat.photo=this.file.name ;
-  console.log(this.candidat)
  // if(this.file)
   //this.candidat.photo=this.file.name ;
  // this.candidat.department = this.listD[0];
  // this.candidat.classe = this.listC[0];
  if(this.femme){
-  console.log("geenre",Egenre.FEMME);
    this.candidat.genre = {id : 2 , name : Egenre.FEMME} ;
 }
 if(this.homme){
@@ -257,7 +210,6 @@ if((this.candidat.username)&&(this.candidat.email.trim())&&(this.candidat.depart
 &&(this.candidat.genre)&&(inputNom)&&(inputPrenom)){
   if (this.candidat.id) {
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {
-      console.log("data update candidat",data)
       this.messageService.add({severity:'success', summary: 'Succés', detail: 'candidat est mise à jour', life: 3000});
        //window.location.reload();
       this.hideDialog()
@@ -267,10 +219,8 @@ if((this.candidat.username)&&(this.candidat.email.trim())&&(this.candidat.depart
 }
 else {
   this.candidat.password="xx"
-    console.log("heeedhyyy",this.candidat)
     this.candidat.photo=this.file.name ;
     this.candidatService.saveCandidat(this.candidat).subscribe( data => {
-      console.log("data save candidat",data)
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'candidat Ajouter', life: 3000});
       this.getAllCandidats()
       this.hideDialog()
@@ -278,8 +228,8 @@ else {
     },
     error =>
    {
-  console.log(error.error.message);
-  this.messageService.add({severity:'error', summary: 'Erreur', detail: error.error.message, life: 3000});
+    if(error.error.message.includes("constraint"))
+    this.messageService.add( {severity:'error', summary:'Déja existant', detail: "Email et cin doit etre unique", life: 3000}); 
 });
    }
   }

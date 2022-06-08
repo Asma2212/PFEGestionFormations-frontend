@@ -40,6 +40,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { MatInputModule } from '@angular/material/input';
 import { InputMaskModule } from 'primeng/inputmask';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -85,7 +86,8 @@ FullCalendarModule.registerPlugins([
     FileUploadModule,
     MatInputModule,
     RadioButtonModule,
-    InputMaskModule
+    InputMaskModule,
+    MultiSelectModule
     /* FullCalendarModule,
      CalendarModule,*/
   ],

@@ -27,6 +27,7 @@ export class AuthService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
   private roleFormateur: string;
+  private roleCandidat: string;
   private p: void;
 
   constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router) {
@@ -89,11 +90,10 @@ export class AuthService {
   }
 
   loginCandidat(loginRequestPayload: loginRequestPayload):Observable<boolean> {
-    console.log("yeaaahhhhhhh b",loginRequestPayload)
     return this.http.post<LoginResponsePayload>(this.urlCandidat+"signin", loginRequestPayload)
       .pipe(map(data => {
-        console.log(data);
-        if (data.roles.includes("ROLE_CONDIDAT")){
+        this.roleCandidat="ROLE_CONDIDAT";
+        if (data.roles.includes(this.roleCandidat)){
           this.localStorage.store('authenticationToken', data.accessToken);
           this.localStorage.store('username', data.username);
           this.localStorage.store('role',"candidat");}

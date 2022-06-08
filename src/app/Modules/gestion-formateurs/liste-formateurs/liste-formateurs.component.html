@@ -342,7 +342,6 @@
                       </label>
                       </div>
                     </div>
-                    <small class="p-error" *ngIf="submitted && !formateur.genre">genre est requis</small>
                   </div>  
                   <div>  
                   <div class="field" *ngIf="formateur.id == null && !autre ">
@@ -365,7 +364,7 @@
                     <div >
                       <div style="display: flex;">
                           <span class="p-inputgroup-addon"><i class="pi pi-building"></i></span>
-                          <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="entrez l'etablissement" autofocus/>
+                          <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" placeholder="entrez l'etablissement" autofocus/>
                               
                       </div>
                       <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est requis.</small>
@@ -382,7 +381,7 @@
                       <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                       <button pButton pRipple type="button" class="p-button-outlined" icon ="pi pi-plus-circle" label="Autre specialité" (click)="openSpecialite()"></button>
                     </div>
-                      <small class="p-error" *ngIf="submitted && !formateur.lesSpecialites">specialité est requis.</small>
+
                   </div></div>    </div><br>
                     <div class="field">
                      
