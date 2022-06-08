@@ -67,7 +67,7 @@ export class GestionSpecialiteComponent implements OnInit {
         rejectLabel:"annuler",
         rejectButtonStyleClass:"p-button-info",
           message: 'Etes-vous sûr que vous voulez supprimer la specialité selectionnée ' + spec.titre + '?',
-          header: 'Confirm',
+          header: 'Confirmer',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
               this.specialiteService.deleteSpecialite(spec.id).subscribe( data => {
@@ -90,7 +90,7 @@ export class GestionSpecialiteComponent implements OnInit {
       rejectLabel:"annuler",
       rejectButtonStyleClass:"p-button-info",
         message: 'Etes-vous sûr que vous voulez supprimer les specialites selectionnées ?',
-      header: 'Confirm',
+      header: 'Confirmer',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
           this.specialiteService.deleteAllSpecialites(this.selectedspecialites).subscribe(

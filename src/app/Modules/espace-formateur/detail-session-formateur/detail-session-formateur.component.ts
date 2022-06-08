@@ -114,6 +114,10 @@ this.planningDialog = true ;
 
  deletePlanning(keyPlanning:string){
   this.confirmationService.confirm({
+    acceptLabel:"Supprimer",
+    acceptButtonStyleClass:"p-button-danger",
+    rejectLabel:"Annuler",
+    rejectButtonStyleClass:"p-button-info",
     message: 'etes-Vous sur vous voulez supprimer' + keyPlanning + '?',
     header: 'Confirmer',
     icon: 'pi pi-exclamation-triangle',

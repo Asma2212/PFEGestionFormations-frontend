@@ -8,7 +8,7 @@
 <div [hidden]="hideboolean">
 <div
      class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap" >
-  <div class="font-bold mr-8">🔥 Bonnes affaires!</div>
+  <div class="font-bold mr-8">🔥 Gagner plus d'experience ! 🔥</div>
   <div class="align-items-center hidden lg:flex">
     <span class="line-height-3">Développez vos compétences grâce à des cours,des formations proposés par l'ISET de Rades.</span>
   </div>
@@ -49,22 +49,17 @@
       <div class="flex align-items-center text-700 flex-wrap">
         <div class="mr-5 flex align-items-center mt-3">
           <i class="pi pi-users mr-2"></i>
-          <span style="background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);">{{AllCandidats}} Utilisateurs actifs</span>
+          <span style="background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);">{{session.listeFormateurs.length}} Formateurs</span>
         </div>
         <div class="mr-5 flex align-items-center mt-3">
           <i class="pi pi-globe mr-2"></i>
-          <span style="  background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);">{{numberOfSessionInFormation}} Sessions similaires</span>
+          <span style="  background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);">{{session.listeCandidat.length}} Candidats déja inscrits</span>
         </div>
         <div class="flex align-items-center mt-3">
           <i class="pi pi-clock mr-2"></i>
-          <span style=" background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);">3minutes Moy. Durée </span>
+          <span style=" background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);">{{duree}} jours dure la session </span>
         </div>
       </div>
-    </div>
-    <div class="mt-3 lg:mt-0">
-      <button pButton pRipple label="Add" class="p-button-outlined mr-2" icon="pi pi-user-plus"></button>
-      <button pButton pRipple label="Save" icon="pi pi-check"></button>
-
     </div>
   </div>
 </div>
@@ -75,7 +70,7 @@
     <ul style="">
       <li style=" border:2px outset #FC0;
     border-radius:5px;
-    background-color:#004680; color: #fff1e9" > Evaluation :<span style="color: #e8c92b">{{score}}stars</span>
+    background-color:#004680; color: #fff1e9;padding: 2px;" > Evaluation :<span style="color: #e8c92b;">{{score}}stars</span>
       </li>
       <li style="">
         <a target="_blank" href="#">
@@ -86,14 +81,14 @@
       <li>
         <a target="_blank" href="#" style="    border:2px outset #FC0;
     border-radius:5px;
-    background-color:#2f0080;">
+    background-color:#2f0080;padding: 2px;">
           {{nInscriCandidat}} participants
         </a>
       </li>
       <li>
         <a tagret="_blank" href="#" style="    border:2px outset #FC0;
     border-radius:5px;
-    background-color:navy;">
+    background-color:navy;padding: 2px;">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-left"
                viewBox="0 0 16 16">
             <path
@@ -123,10 +118,7 @@
         </p>
   </div>
     </ng-template>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
-      deserunt
-      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-      quas!</p>
+    <p [innerHTML]="session.descriptionSession | safeHtml"><p>
     <ng-template pTemplate="footer">
       <button  *ngIf="!inscrit" (click)="inscri()" pButton type="button" class="p-button-success" icon="pi pi-check" label="S'inscrire" id="bt-inscrire" [disabled]="disabled" ></button>
 <!--

@@ -36,7 +36,7 @@
 
         <p-table id="excel-table" #dt [value]="formations" [rows]="6" [paginator]="true" [globalFilterFields]="['titre','charge_horaire','listCategories']" responsiveLayout="scroll"
         [(selection)]="selectedFormations"  [rowHover]="true" dataKey="idFormation"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        currentPageReportTemplate="Montrant {first} à {last} des {totalRecords} formations" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div style="display:flex ;">
                 <h2>Gestion des formations</h2>

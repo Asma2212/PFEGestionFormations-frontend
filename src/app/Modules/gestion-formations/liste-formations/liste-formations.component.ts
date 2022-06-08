@@ -102,8 +102,12 @@ export class ListeFormationsComponent implements OnInit {
 
   deleteSelectedFormations() {
       this.confirmationService.confirm({
+        acceptLabel:"Supprimer",
+        acceptButtonStyleClass:"p-button-danger",
+        rejectLabel:"Annuler",
+        rejectButtonStyleClass:"p-button-info",
           message: 'vous etes sur vous voulez supprimer les formations selectionnées ?',
-          header: 'Confirm',
+          header: 'Confirmer',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
               this.formations = this.formations.filter(val => !this.selectedFormations.includes(val));

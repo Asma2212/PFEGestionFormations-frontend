@@ -134,7 +134,12 @@ export class NavbarComponent implements OnInit {
   confirm() {
       console.log("I entered")
     this.confirmationService.confirm({
+      acceptLabel:"Oui",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"Non",
+      rejectButtonStyleClass:"p-button-info",
       message: 'Êtes-vous sûr de vouloir quitter?',
+      header: 'Deconnexion',
       accept: () => {
        this.localStorage.clear("authenticationToken")
        this.localStorage.clear("username")

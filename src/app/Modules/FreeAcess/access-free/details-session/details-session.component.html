@@ -7,7 +7,7 @@
       <div  class="col-lg-8 col-md-12 left-box">
 
 
-        <div class="card single_post" style="" >
+     <!--   <div class="card single_post" style="" >
           <div class="body" >
             <div class="img-post">
             </div>
@@ -21,16 +21,16 @@
           </div>
         </div>
         <div class="card">
-          <!--  <div [ngClass]="{'limitTextHeight': isReadMore}">
+            <div [ngClass]="{'limitTextHeight': isReadMore}">
 
               This is long text replaced with reading more/less link example in Angular application paragraph text shown here continue THis is long text replaced with read more/less link example in Angular application paragraph text shown here continue continue
               This is long text replaced with reading more/less link example in Angular application paragraph text shown here continue THis is long text replaced with read more/less link example in Angular application paragraph text shown here continue
               continue THis is long text replaced with reading more/less link example in Angular application paragraph text shown here continue THis is long text replaced with read more/less link example in Angular application paragraph text shown here
               continue continue
-            </div>-->
-          <!--  <button type="button" (click)="showText()">
-              {{ isReadMore ? 'Read More': 'Read Less' }}-->
-          <!--  </button>-->
+            </div>
+            <button type="button" (click)="showText()">
+              {{ isReadMore ? 'Read More': 'Read Less' }}
+            </button>
         </div>
         <div class="card shadow-6" style="border: solid ;">
           <div class="header">
@@ -96,23 +96,24 @@
             </ul>
           </div>
 
-        </div>
+        </div>-->
 
         <div class="surface-card p-4  shadow-5 border-round">
           <div class="text-3xl font-medium text-900 mb-3">Description
             <button class="p-button-sm" (click)="showTexte()" pButton type="button"
-                    class="p-button-help"> {{ isReadMoree ? 'afficher plus' : 'afficher moins' }}</button>
+                    class="p-button-help"> {{ isReadMoree ? 'afficher moins' : 'afficher plus' }}</button>
           </div>
           <div [ngClass]="{'limitTextHeight': isReadMoree}">
 
           <h4 class="capitalize">
-       {{descriptionSession}}
+            <h4 [innerHTML]="descriptionSession | safeHtml"></h4>
+     
           </h4> </div>
         </div>
 
         <!-- time line open-->
 
-        <div class="main-container" style="">
+        <div class="main-container">
           <section id="timeline" class="timeline-outer">
             <div class="container" id="content">
               <div class="row">
@@ -166,11 +167,6 @@
           </div>
         </div>-->
         <!--formateur open-->
-        <div class="card shadow-6">
-          <div class="card-body">
-            This is some text within a card body.
-          </div>
-        </div>
         <!--formateur clos-->
 
       </div>
@@ -183,7 +179,7 @@
 <!--
         <div class="card"></div> <div class="card"></div>
 -->
-        <div class="card shadow-6 " style=" margin-top: 400px;margin-left: 20%;
+        <div class="card shadow-6 " style=" margin-top: 300px;margin-left: 20%;
         background: linear-gradient(135deg, #3e00bb, rgba(255,136,0,0.53)) fixed;" >
           <div class="header">
             <h2>Categories </h2>
@@ -208,7 +204,7 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
                 <div class="single_post">
                   <p class="m-b-0 text-xl" >  <img width="25" src="
            https://cdn-icons-png.flaticon.com/128/3652/3652191.png
-">dateDebSession</p>
+">Date debut</p>
                   <span class="fancy text-xl">{{dateDebSession}}</span>
                   <div class="img-post">
                   </div>
@@ -217,14 +213,14 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
                   <p class="m-b-0 text-xl" ><img width="25" src="
            https://cdn-icons-png.flaticon.com/128/3652/3652191.png
 ">
-                    dateDfinSession</p>
+                  Date fin</p>
                   <span class="fancy text-xl">{{dateFinSession}}</span>
                   <div class="img-post">
                   </div>
                 </div>
                 <div class="single_post">
                   <p class="m-b-0">
-                   <img width="25" src="https://cdn-icons.flaticon.com/png/128/3429/premium/3429402.png?token=exp=1653510155~hmac=917169941fafcdb786a1bcf8632521f5"> nombre max participant</p>
+                    Nombre maximale des participants</p>
                   <span class="fancy text-xl">{{nbMawParticipant}}</span>
                   <div class="img-post">
                   </div>
@@ -274,7 +270,7 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
         </div>
 
 
-        <div class="card shadow-6"  style="margin-left: 20%;">
+<!--        <div class="card shadow-6"  style="margin-left: 20%;">
           <div class="header">
             <h2>Email Newsletter <small>Get our products/news earlier than others, let’s get in touch.</small></h2>
           </div>
@@ -286,7 +282,7 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
 

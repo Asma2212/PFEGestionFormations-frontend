@@ -70,7 +70,7 @@ export class GestionCategorieComponent implements OnInit {
         rejectLabel:"annuler",
         rejectButtonStyleClass:"p-button-info",
           message: 'Etes-vous sûr que vous voulez supprimer ' + cat.titre + '?',
-          header: 'Confirm',
+          header: 'Confirmer',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
               this.categorieService.deleteCategorie(cat.id).subscribe( data => {
@@ -89,8 +89,12 @@ export class GestionCategorieComponent implements OnInit {
   }
   deleteSelectedCategories(){
     this.confirmationService.confirm({
-      message: 'vous etes sur vous voulez supprimer les categories selectionnées ?',
-      header: 'Confirm',
+      acceptLabel:"Supprimer",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"Annuler",
+      rejectButtonStyleClass:"p-button-info",
+      message: 'etes-vous sur vous voulez supprimer les categories selectionnées ?',
+      header: 'Confirmer',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
           this.categorieService.deleteAllCategories(this.selectedCategories).subscribe(

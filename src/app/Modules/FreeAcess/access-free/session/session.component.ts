@@ -43,6 +43,7 @@ export class SessionComponent implements OnInit {
    nInscriCandidat: number;
    numberOfSessionInFormation: number;
    AllCandidats: number;
+   duree : number ;
 
 
   constructor(private localStorage: LocalStorageService,
@@ -72,6 +73,7 @@ export class SessionComponent implements OnInit {
     this.sessionService.getSession(id).subscribe(data => {
       console.log("Message", data)
       this.session = data
+      this.duree = new Date(this.session.dateFinSession).getDate() - new Date(this.session.dateDebSession).getDate() + 1
 
 
     }, error => {
@@ -306,10 +308,13 @@ export class SessionComponent implements OnInit {
 
   confirm() {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to perform this action?',
+      acceptLabel:"Desinscrire",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"Annuler",
+      rejectButtonStyleClass:"p-button-info",
+      message: 'etes vous sure vous voulez desinscrire de la session : '+this.session.titreSession+' ?',
       accept: () => {
         this.sessionService.ToDesinscrire(this.username1, this.id).subscribe(data => {
-          console.log(data + "hettetetett")
           this.toast.success({detail: "success", summary: data.toString(), duration: 3000});
 
         })
@@ -323,16 +328,12 @@ export class SessionComponent implements OnInit {
 
   checkIfSessionInCandidat() {
     this.sessionService.getSession(this.id).subscribe(data => {
-      console.log("java date" + data.dateFinSession)
       const now = this.datepipe.transform(new Date(), 'yyyy-MM-dd')
 
       const nowDate = new Date(now)
       const dateFinSessionDate = new Date(this.datepipe.transform(data.dateFinSession, 'yyyy-MM-dd'))
-      console.log("todaayyy", now)
-      console.log("if true or false", data.dateFinSession < nowDate, "the ending of session", dateFinSessionDate, "today", nowDate)
       if (dateFinSessionDate < nowDate) {
         this.disabled = true
-        console.log("subscription is closeddddd");
         return;
       }
     })
@@ -344,9 +345,7 @@ export class SessionComponent implements OnInit {
         //console.log("daaataaaaa",data)
         this.ListSessionOfCandidat = data;
         // console.log("daaataaaaa8888",this.ListSessionOfCandidat)
-        console.log("list of sessions of a candidats" + this.ListSessionOfCandidat);
         if (this.ListSessionOfCandidat.length == 0) {
-          console.log("empty array of sessions inside a candidat")
           this.checkNmbMax();
           return;
         }

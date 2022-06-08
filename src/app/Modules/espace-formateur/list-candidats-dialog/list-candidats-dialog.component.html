@@ -1,5 +1,5 @@
 <p-table id="excel-table" #dt [value]="candidats" [rows]="8" [paginator]="true" [globalFilterFields]="['firstName','lastName','email','department.name','classe.name']" responsiveLayout="scroll" [rowHover]="true" dataKey="id"
-currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+currentPageReportTemplate="Montrant {first} à {last} des {totalRecords} candidat" [showCurrentPageReport]="true">
 <ng-template pTemplate="caption">
     <div style="display:flex ;">
         <span class="p-input-icon-left" style="margin-left: auto;margin-right: 0px;">

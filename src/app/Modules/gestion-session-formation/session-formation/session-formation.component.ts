@@ -274,8 +274,12 @@ saveSession(){
 
   deleteSession(session : SessionFormation) {
     this.confirmationService.confirm({
-        message: 'Are you sure you want to delete ?',//' + formateur.name + 'Are you sure you want to delete' + formateur.name + ' ?'
-        header: 'Confirm',
+      acceptLabel:"Supprimer",
+      acceptButtonStyleClass:"p-button-danger",
+      rejectLabel:"Annuler",
+      rejectButtonStyleClass:"p-button-info",
+        message: 'Etes-vous sur vous voulez supprimer la session : '+session.titreSession+' ?',
+        header: 'Confirmer',
         icon: 'pi pi-exclamateur-triangle',
         accept: () => {
            // this.formateurs = this.formateurs.filter(val => val.id !== formateur.id);

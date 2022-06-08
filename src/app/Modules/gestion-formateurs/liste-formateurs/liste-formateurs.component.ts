@@ -327,7 +327,7 @@ deleteFormateur(formateur: Formateur) {
       rejectLabel:"annuler",
       rejectButtonStyleClass:"p-button-info",
         message: 'Etes-vous sûr que vous voulez supprimer '+formateur.lastName+' '+formateur.firstName+' ?',//' + formateur.name + 'Are you sure you want to delete' + formateur.name + ' ?'
-        header: 'Confirm',
+        header: 'Confirmer',
         icon: 'pi pi-exclamateur-triangle',
         accept: () => {
             this.formateurs = this.formateurs.filter(val => val.id !== formateur.id);
