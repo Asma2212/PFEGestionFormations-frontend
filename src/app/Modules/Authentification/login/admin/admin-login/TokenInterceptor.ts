@@ -6,6 +6,9 @@ import {AuthService} from "../../../../../services/auth.service";
 import {Router} from "@angular/router";
 import {NgToastService} from "ng-angular-popup";
 import { MessageService } from 'primeng/api';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -13,7 +16,7 @@ export class TokenInterceptor implements HttpInterceptor {
     private isRefreshing = false;
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-    constructor(public authService: AuthService,private router: Router,private toast:NgToastService,private messageService : MessageService) { }
+    constructor(public authService: AuthService,private router: Router,private toast:NgToastService,private messageService : MessageService,private localStorage: LocalStorageService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
 
@@ -21,10 +24,17 @@ export class TokenInterceptor implements HttpInterceptor {
             request = this.addToken(request, this.authService.getJwtToken());
         }
 
-        return next.handle(request).pipe(catchError(error => {
+        return next.handle(request).pipe(
+            catchError(error => {
+            
             if (error instanceof HttpErrorResponse && error.status === 401) {
+                if(this.localStorage.retrieve("candidatCin")){
+                this.messageService.add({severity:'error', summary: 'Erreur', detail: "Données invalides", life: 3000});
+                this.localStorage.clear("candidatCin")    
+            }
                 return
             } else {
+                
                 return throwError(error);
             }
         }));

@@ -18,6 +18,7 @@ import { Candidat } from 'app/models/Candidat';
 import { Egenre } from 'app/models/GenreEnum';
 import {NgToastService} from "ng-angular-popup";
 import { CandidatService } from 'app/services/candidat.service';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-candidat-register',
@@ -74,6 +75,7 @@ export class CandidatRegisterComponent implements OnInit {
   password2 : string = ""
   confirm : boolean = true ;
   confirmCode : boolean = true;
+  conf : boolean = true
 
   candidat : Candidat = {
     id : 0,
@@ -94,7 +96,7 @@ export class CandidatRegisterComponent implements OnInit {
     sessionFormationList : []
   }
 
-  constructor(private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private toastr: ToastrService,private departementService : DepartementService,private candidatService : CandidatService,private messageService : MessageService) {
+  constructor(private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private toastr: ToastrService,private departementService : DepartementService,private candidatService : CandidatService,private messageService : MessageService,private localStorage: LocalStorageService) {
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
@@ -140,6 +142,7 @@ export class CandidatRegisterComponent implements OnInit {
     this.signupForm = new FormGroup({
       username_signup: new FormControl(''),
       password_signup: new FormControl(''),
+      password_signup2: new FormControl(''),
       email_signup: new FormControl(''),
       date_naiss: new FormControl(''),
       phone: new FormControl(''),
@@ -156,7 +159,15 @@ export class CandidatRegisterComponent implements OnInit {
       this.listDep = data ;
       console.log("departement :",data) });
   }
+  CofirmerPass(){
+if(this.signupForm.get('password_signup').value == this.signupForm.get('password_signup').value)
+  this.conf = true
+  else
+  this.conf = false
+
+  }
   login() {
+    this.localStorage.store("candidatCin",this.loginForm.get('username').value);
     this.loginRequest.username = this.loginForm.get('username').value;
     this.loginRequest.email = this.loginForm.get('email').value;
     this.loginRequest.password = this.loginForm.get('password').value;
@@ -166,13 +177,13 @@ export class CandidatRegisterComponent implements OnInit {
       this.router.navigate(['/candidat/myList']);
     }, error => {
       this.isError = true;
-      this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse Email inexistante", life: 3000});
       //this.isError = true;
       //throwError(error);
       //this.errors = error.error.message;
 
     });
-
+if(this.isError == false )
+this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse Email inexistante", life: 3000});
   }
   signup() {
    /* console.log("deeep",
@@ -417,5 +428,10 @@ this.submitted = false
             
           })
         }
+      }
+
+      test(){
+        if(this.isError == false)
+        this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse Email inexistante", life: 3000});
       }
 }

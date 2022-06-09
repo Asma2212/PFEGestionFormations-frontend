@@ -189,15 +189,15 @@
                     </div>
                   </div>
                   <button class="btn btn-success" [disabled]="!selectedFiles1" (click)="upload1()">
-                    Upload
+                    Télécharger
                   </button>
                   <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div>
                   
                     <div class="field">
                         <label for="name">CIN</label>
-                        <p-inputNumber id="cin" [(ngModel)]="candidat.username" required autofocus mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [maxlength]="8" >
-                      </p-inputNumber> 
-                        <small class="p-error" *ngIf="submitted && !candidat.username">cin est requis.</small>
+                        <input type="number" pInputText name="cin" id="cin" [(ngModel)]="candidat.username" required placeholder="Numero de carte d'identité" pattern = "[0-9]*" #cin="ngModel" maxlength="8"/>
+                        <small class="p-error" *ngIf="submitted && !candidat.username">cin est obligatoire.</small>
+                        <small class="p-error" *ngIf="submitted && candidat.username && candidat.username.toString().length != 8">cin doit etre composer de 8 chiffres.</small>
                     </div><br>
                     <div class="field">
                       <label for="nom">Nom</label>
@@ -205,7 +205,7 @@
                             <input type="text" pInputText id="nom" name="nom" [(ngModel)]="candidat.lastName" required placeholder="nom"  pattern="[a-zA-Z ]*" #lastname="ngModel"/>
                                
                   
-                    <small class="p-error" *ngIf="submitted && !candidat.lastName">nom est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !candidat.lastName">nom est obligatoire.</small>
                     <small class="p-error" *ngIf="candidat.lastName && (lastname.invalid && (lastname.dirty || lastname.touched))">nom invalide.</small>
                   </div>
                   <div class="field">
@@ -215,19 +215,19 @@
                                 
                   
                       
-                      <small class="p-error" *ngIf="submitted && !candidat.firstName.trim()">prenom est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !candidat.firstName.trim()">prenom est obligatoire.</small>
                       <small class="p-error" *ngIf="candidat.firstName && (name.invalid && (name.dirty || name.touched))">prenom invalide.</small>
                   </div>
                   <br>
                     <div class="field">
                         <label for="email">Email</label>
                         <input type="email" pInputText id="email" [(ngModel)]="candidat.email" required />
-                        <small class="p-error" *ngIf="submitted && !candidat.email">email est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !candidat.email">email est obligatoire.</small>
                     </div><br>
                     <div class="field">
                         <label for="numTel">N° téléphone</label>
                         <input type="number" pInputText id="numTel" [(ngModel)]="candidat.numTel" required />
-                        <small class="p-error" *ngIf="submitted && !candidat.numTel">num tel est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !candidat.numTel">num tel est obligatoire.</small>
                     </div><br>
                     <div class="field col-6">
                       <label for="dbDate">Date de Naissance</label>
@@ -262,10 +262,10 @@
                                           </p-multiSelect>-->
  
                       <p-multiSelect [options]="listDep" [(ngModel)]="listD" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected(listD)" ></p-multiSelect>
-                      <small class="p-error" *ngIf="submitted && !candidat.department">departement est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !candidat.department">departement est obligatoire.</small>
                       <br>
                       <p-multiSelect [options]="listClass" [(ngModel)]="listC" defaultLabel="Select classe" [selectionLimit]="1" optionLabel="name" display="chip" *ngIf="depSelected" (click)="classeSelected(listC)"></p-multiSelect>
-                      <small class="p-error" *ngIf="submitted && !candidat.classe">classe est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !candidat.classe">classe est obligatoire.</small>
                     </div>
             
 

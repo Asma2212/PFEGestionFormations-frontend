@@ -7,6 +7,7 @@ import {DatePipe} from "@angular/common";
 import { SessionService } from 'app/services/session.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { FormateurService } from 'app/services/formateur.service';
+import frLocale from '@fullcalendar/core/locales/fr';
 
 @Component({
   selector: 'app-calendar-formateur',
@@ -55,6 +56,7 @@ export class CalendarFormateurComponent implements OnInit {
       
           this.calendarOptions= {
             initialDate : '2022-05-05',
+            locales: [frLocale ],
             locale: 'fr' ,
             initialView: 'dayGridMonth',
             dateClick: this.handleDateClick.bind(this), // bind is important!
@@ -76,7 +78,7 @@ export class CalendarFormateurComponent implements OnInit {
             headerToolbar: {
               left: 'prev,next today',
               center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay',
+              right: 'dayGridMonth',
               
           },
           editable: true,

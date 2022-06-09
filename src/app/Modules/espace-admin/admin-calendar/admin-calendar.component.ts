@@ -3,6 +3,7 @@ import { Calendar, CalendarOptions, NowTimer } from '@fullcalendar/core';
 import { NivDifficulteEnum } from 'app/models/NivDifficulteEnum';
 import { SessionFormation } from 'app/models/SessionFormation';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
+import frLocale from '@fullcalendar/core/locales/fr';
 import { now } from 'jquery';
 
 @Component({
@@ -47,11 +48,11 @@ export class AdminCalendarComponent implements OnInit {
           borderColor: this.borderC
           })
         });
-      
           this.calendarOptions= {
             initialDate : '2022-05-05',
-            locale: 'fr' ,
             initialView: 'dayGridMonth',
+            locales: [frLocale ],
+            locale: 'fr',
             dateClick: this.handleDateClick.bind(this), // bind is important!
             eventSources: [
             
@@ -71,9 +72,10 @@ export class AdminCalendarComponent implements OnInit {
             headerToolbar: {
               left: 'prev,next today',
               center: 'title',
-              right: 'dayGridMonth,timeGridWeek,timeGridDay',
+              right: 'dayGridMonth',
               
           },
+         // locales : frLocale,
           editable: true,
           selectable:true,
           selectMirror: true,
@@ -83,71 +85,6 @@ export class AdminCalendarComponent implements OnInit {
           };
       }
         );
-    
-/**   this.sessions = [
-    {
-      idSession : 0,
-      titreSession : "Full 2",
-      lieuSession : "",
-      descriptionSession : "formation certifié", 
-      dateDebSession : new Date(2022,4,1),
-      dateFinSession : new Date(2022,4,4),
-      photoSession : "../../../../../assets/img/forma.jpg",
-      planning : null,
-      programme : "",
-      nivDifficulte : NivDifficulteEnum.avance ,
-      nbMaxCandidat : 10,
-      formationSession : null,
-      listeFormateurs : null,
-      listeCandidat : null,
-    },{
-      idSession : 1,
-      titreSession : "Full stack dev",
-      lieuSession : "",
-      descriptionSession : "formation certifié", 
-      dateDebSession : new Date(),
-      dateFinSession : new Date(),
-      photoSession : "../../../../../assets/img/forma.jpg",
-      planning : null,
-      programme : "",
-      nivDifficulte : NivDifficulteEnum.avance ,
-      nbMaxCandidat : 10,
-      formationSession : null,
-      listeFormateurs : null,
-      listeCandidat : null,
-    },{
-      idSession : 2,
-      titreSession : "Full stack dev",
-      lieuSession : "",
-      descriptionSession : "formation certifié", 
-      dateDebSession : new Date(),
-      dateFinSession : new Date(),
-      photoSession : "../../../../../assets/img/forma.jpg",
-      planning : null,
-      programme : "",
-      nivDifficulte : NivDifficulteEnum.avance ,
-      nbMaxCandidat : 10,
-      formationSession : null,
-      listeFormateurs : null,
-      listeCandidat : null,
-    },{
-      idSession : 3,
-      titreSession : "xxxxxx",
-      lieuSession : "",
-      descriptionSession : "formation certifié", 
-      dateDebSession : new Date(),
-      dateFinSession : new Date(),
-      photoSession : "../../../../../assets/img/forma.jpg",
-      planning : null,
-      programme : "",
-      nivDifficulte : NivDifficulteEnum.avance ,
-      nbMaxCandidat : 10,
-      formationSession : null,
-      listeFormateurs : null,
-      listeCandidat : null,
-    },
-  ] */
-
     
   }
   handleDateClick(arg) {

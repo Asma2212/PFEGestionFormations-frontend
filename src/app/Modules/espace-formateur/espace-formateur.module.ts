@@ -87,7 +87,7 @@ FullCalendarModule.registerPlugins([
     MatInputModule,
     RadioButtonModule,
     InputMaskModule,
-    MultiSelectModule
+    MultiSelectModule,
     /* FullCalendarModule,
      CalendarModule,*/
   ],

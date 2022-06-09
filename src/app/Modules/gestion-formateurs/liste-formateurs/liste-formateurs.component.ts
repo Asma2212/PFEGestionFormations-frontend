@@ -328,7 +328,7 @@ deleteFormateur(formateur: Formateur) {
 saveFormateur() {
   var inputNom = (<HTMLInputElement>document.getElementById("nom"))?.validity.valid;
   var inputPrenom = (<HTMLInputElement>document.getElementById("prenom"))?.validity.valid;
-  console.log(this.femme);
+  var inputCin = (<HTMLInputElement>document.getElementById("cin"))?.validity.valid;
   this.submitted = true;
 
  if (this.file)
@@ -345,7 +345,7 @@ saveFormateur() {
 if( this.selectedEtablissement[0].name!="Autre"){
   this.formateur.etablissement=this.selectedEtablissement[0].name.toString() ;
 }
-if((this.formateur.username)&&(this.formateur.email.trim())&&(this.formateur.etablissement)&&(inputNom)&&(inputPrenom)){
+if((this.formateur.username.toString().length == 8)&&(this.formateur.email.trim())&&(this.formateur.etablissement)&&(inputNom)&&(inputPrenom)){
   if (this.formateur.id) {
     //this.genre = this.formateur.genre ;
     console.log("before update",this.formateur);
@@ -354,8 +354,14 @@ if((this.formateur.username)&&(this.formateur.email.trim())&&(this.formateur.eta
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'formateur Updated', life: 3000});
       this.getAllFormateurs()
       this.hideDialog()
-    },
-
+    }, error =>
+    {
+       console.log("eerrrr",error)
+       if(error.error.message.includes("constraint"))
+       this.messageService.add( {severity:'error', summary:'Déja existant', detail: "Email et cin doit etre unique", life: 3000}); 
+     else
+     this.messageService.add( {severity:'error', summary:'Invalide', detail: error.error.message, life: 3000}); 
+    }
     );
     
 }
@@ -372,7 +378,8 @@ else {
       console.log("eerrrr",error)
       if(error.error.message.includes("constraint"))
       this.messageService.add( {severity:'error', summary:'Déja existant', detail: "Email et cin doit etre unique", life: 3000}); 
-    
+    else
+    this.messageService.add( {severity:'error', summary:'Invalide', detail: error.error.message, life: 3000}); 
     this.formateur.photo = null ;
   console.log("exception occured");});
 }
@@ -407,7 +414,8 @@ hideDialog() {
   this.progress1 = 0;
   this.message1 = '';
   this.femme = "";
-  this.homme=""
+  this.homme="";
+  this.selectedEtablissement = null
 }
 
 openSpecialite(){

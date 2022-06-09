@@ -193,6 +193,7 @@ saveCandidat() {
   this.submitted = true;
   var inputNom = (<HTMLInputElement>document.getElementById("nom"))?.validity.valid;
   var inputPrenom = (<HTMLInputElement>document.getElementById("prenom"))?.validity.valid;
+  var inputCin = (<HTMLInputElement>document.getElementById("cin"))?.validity.valid;
   if (this.file)
   this.candidat.photo=this.file.name ;
  // if(this.file)
@@ -206,7 +207,7 @@ if(this.homme){
 
  this.candidat.genre = {id : 1 , name : Egenre.HOMME} ;
 }
-if((this.candidat.username)&&(this.candidat.email.trim())&&(this.candidat.department)&&(this.candidat.classe)
+if((this.candidat.username.toString().length == 8)&&(this.candidat.email.trim())&&(this.candidat.department)&&(this.candidat.classe)
 &&(this.candidat.genre)&&(inputNom)&&(inputPrenom)){
   if (this.candidat.id) {
     this.candidatService.updateCandidat(this.candidat).subscribe( data => {

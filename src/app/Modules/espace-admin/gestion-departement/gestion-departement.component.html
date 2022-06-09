@@ -67,7 +67,7 @@ currentPageReportTemplate="montrant {first} à {last} de {totalRecords} departem
         <div class="field">
             <label for="nom">Nom du departement</label>
             <input type="text" pInputText id="nom" [(ngModel)]="dep.name" required autofocus />
-            <small class="p-error" *ngIf="submitted && !dep.name">nom est requis.</small>
+            <small class="p-error" *ngIf="submitted && !dep.name">nom est obligatoire.</small>
         </div><br>
 
     </ng-template>

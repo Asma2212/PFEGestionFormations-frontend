@@ -57,7 +57,7 @@
           </div>
 
           <div class="" style="transition-delay: 0.6s;margin-bottom: 20px;">
-            <button class="acceptBtn" (click)="login()" id="login"  type="submit" [disabled]="!loginForm.valid" >Login</button>
+            <button class="acceptBtn" (click)="login()" id="login"  type="submit" [disabled]="!loginForm.valid" >Se connecter</button>
 
 
 
@@ -69,7 +69,7 @@
             <div class="field">
                 <label for="email">Veuillez entrer votre adresse e-mail pour rechercher votre compte.</label>
                 <input type="text" pInputText id="email" [(ngModel)]="email" required autofocus />
-                <small class="p-error" *ngIf="submitted && !email">email est requis.</small>
+                <small class="p-error" *ngIf="submitted && !email">email est obligatoire.</small>
                 <small class="p-error" *ngIf="!testEmail && email">email inexistant.</small>
             </div><br>
     
@@ -113,7 +113,7 @@
         <div class="field">
             <label for="code">Merci de vérifier dans vos e-mails que vous avez reçu un message avec votre code. Celui-ci est composé de 8 chiffres</label>
             <input type="text" pInputText id="code" [(ngModel)]="code" required autofocus placeholder="entrer le code" maxlength="8"/>
-            <small class="p-error" *ngIf="submitted && !code">code est requis.</small>
+            <small class="p-error" *ngIf="submitted && !code">code est obligatoire.</small>
             <small class="p-error" *ngIf="!confirmCode && code">code Invalide.</small>
         </div><br>
         <label>Nous avons envoyé votre code à : <strong>{{email}}</strong></label>

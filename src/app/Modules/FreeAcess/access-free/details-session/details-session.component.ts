@@ -53,7 +53,7 @@ export class DetailsSessionComponent implements OnInit {
 
   }
   addRating(){
-    this.sessionService.addrating(this.username,83,this.score.toString()).subscribe(
+    this.sessionService.addrating(this.username,this.idSession,this.score.toString()).subscribe(
       data=>
       {
         console.log(data,"here$");
@@ -70,16 +70,18 @@ export class DetailsSessionComponent implements OnInit {
   }
 showRating(){
 
-  return ((
-    new Date(this.dateFinSession) < new Date() || this.localstorage.retrieve("role")!="candidat")
-  );
+  return (
+    (this.dateFinSession < new Date()) || (this.localstorage.retrieve("role") != "candidat"));
 
 }
   MyRating:number;
 PuTheRating(){
     this.sessionService.PutMyDefaultRating(this.username,this.idSession).subscribe(data=>
       {
-        this.score = data},error => {console.log(error)}
+        
+        this.score = data
+        console.log("we tried", this.score)},
+        error => {console.log(error)}
     )
 }
 

@@ -67,12 +67,12 @@
   <div class="card--content">
     <h1 style="font-family:'Segoe UI ';font-weight: bold;font-size: 1.6rem;margin-right: 1%">{{session.formationSession.titre}}</h1>
     <span style="font-family:'Segoe UI ';">{{session.formationSession.details}}</span>
-    <ul style="">
+    <ul>
       <li style=" border:2px outset #FC0;
     border-radius:5px;
-    background-color:#004680; color: #fff1e9;padding: 2px;" > Evaluation :<span style="color: #e8c92b;">{{score}}stars</span>
+    background-color:#004680; color: #fff1e9;padding: 2px;" > Evaluation :<span style="color: #e8c92b;">{{score}} etoiles</span>
       </li>
-      <li style="">
+      <li>
         <a target="_blank" href="#">
         <p-rating [iconOnStyle]="{'color':'#ffe539'}"[(ngModel)]="score" [cancel]="false" [readonly]="true" (onRate)="showGlobalRating()"></p-rating>
         </a>

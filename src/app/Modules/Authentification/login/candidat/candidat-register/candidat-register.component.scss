@@ -7,8 +7,7 @@ $color_alabaster_approx: #f8f9fa;
 $color_ship_gray_approx: #383d41;
 $color_science_blue_approx: #c90d0d;
 $color_abbey_approx: #495057;
-body{
-}
+
 .register {
   background: linear-gradient(to right, $color_governor_bay_approx 0, $color_bright_turquoise_approx 100%);
   margin-top: 3%;
@@ -31,7 +30,7 @@ body{
     background: $color_science_blue_approx;
     //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
     border-radius: 1.5rem;
-    width: 28%;
+    width: 40%;
     float: right;
     @media (max-width: 991px){
       width: 33%;
@@ -50,7 +49,7 @@ body{
         border: none;
       }
       &.active {
-        width: 100px;
+        width: 150px;
         color: $color_science_blue_approx;
         border: 2px solid $color_science_blue_approx;
         //Instead of the line below you could use @include border-top-left-radius($radius)

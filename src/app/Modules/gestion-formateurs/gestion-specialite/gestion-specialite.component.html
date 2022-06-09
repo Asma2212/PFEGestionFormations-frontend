@@ -62,7 +62,7 @@ currentPageReportTemplate="montrant {first} de {last} à {totalRecords} speciali
         <div class="field">
             <label for="titre">Titre</label>
             <input type="text" pInputText id="titre" [(ngModel)]="sp.titre" required autofocus />
-            <small class="p-error" *ngIf="submitted && !sp.titre">titre est requis.</small>
+            <small class="p-error" *ngIf="submitted && !sp.titre">titre est obligatoire.</small>
         </div><br>
 
     </ng-template>

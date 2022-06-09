@@ -23,19 +23,15 @@
       <div class="col-md-9 register-right">
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">signup</a>
+            <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Créer un compte</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">login</a>
+            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Se connecter</a>
           </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="tab-pane fade show" id="home" role="tabpanel" aria-labelledby="home-tab">
             <h1 class="register-heading">{{n}}</h1>
-            <h1 *ngIf="isError">
-              AAAAAAAAAAAAAAAAA
-               
-            </h1>
             <form class="row register-form" [formGroup]="signupForm">
               <div class="col-md-4">
                 <div class="form-group" >
@@ -65,6 +61,16 @@
                   <input  class="form-control" type="password"  [style]="{'height': '36px'}"   placeholder="mot de passe *"  [formControlName]="'password_signup'"  required  minlength="5" maxlength="100"/>
                   <span style="color: #ff3353" *ngIf="!signupForm.get('password_signup').valid && signupForm.get('password_signup').touched">
                  mot de passe invalide  <i class="fa-solid fa-circle-x"></i>
+                </span>
+                </div>
+                <div class="form-group">
+
+                  <input  class="form-control" type="password"  [style]="{'height': '36px'}"   placeholder="Confirme mot de passe *"  [formControlName]="'password_signup2'"  required  minlength="5" maxlength="100"/>
+                 <span style="color: #ff3353" *ngIf="(signupForm.get('password_signup2').value != signupForm.get('password_signup').value) && signupForm.get('password_signup2').touched">
+                  mot de passe differente  <i class="fa-solid fa-circle-x"></i>
+                </span>
+                <span style="color: #16920f" *ngIf="(signupForm.get('password_signup2').value == signupForm.get('password_signup').value) && signupForm.get('password_signup2').touched">
+                  <i class="fa fa-circle-x"></i>
                 </span>
                 </div>
 
@@ -118,7 +124,7 @@
                 </span>
                 </div>
                 <div class="form-group">
-                    <p-multiSelect required [options]="listDep" [formControlName]="'department'" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected()" ></p-multiSelect>
+                    <p-multiSelect required [options]="listDep" [formControlName]="'department'" [selectionLimit]="1" defaultLabel="Select departement" optionLabel="name" display="chip" (click)="departementSelected()" [style]="{width:'250px'}" ></p-multiSelect>
                     <span style="color: #ff3353" *ngIf="!signupForm.get('department').valid && signupForm.get('department').touched">
                       departement non selectionée!  <i class="fa-solid fa-circle-x"></i></span>
 
@@ -128,7 +134,7 @@
                     <span style="color: #ff3353" *ngIf="!signupForm.get('classe').valid && signupForm.get('classe').touched"></span>
                 </div>
 
-                <input type="submit" (click)="signup()"  [disabled]="!signupForm.valid"   [ngClass] = "{'my-color': !signupForm.valid}" class="btnRegister"  value="signup"/>
+                <input type="submit" (click)="signup()"  [disabled]="!signupForm.valid"   [ngClass] = "{'my-color': !signupForm.valid}" class="btnRegister"  value="Se connecter"/>
               </div>
 <div class="col-md-1">
   <div class="form-group">
@@ -157,9 +163,11 @@
 
 
 
-          <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <h1 class="register-heading">Espace Candidat</h1>
             <div class="row register-form" >
+              <div style="display: flex;">
+               
               <form class="col-md-6" [formGroup]="loginForm">
 
                 <div class="form-group">
@@ -176,6 +184,7 @@
                 </div>
 <!--
               <div class="col-md-6">
+
 -->
                 <div class="form-group">
                   <input  type="password" class="form-control" placeholder="mot de passe *" [formControlName]="'password'"  required  minlength="5" maxlength="20"/>
@@ -186,8 +195,9 @@
                 <div class="form-group">
                   <button pButton pRipple type="button" class="p-button-text" (click)="enterEmailDialog = true">mot de passe oublier ?</button>
                 </div>
-                <input type="submit" class="btnRegister" [disabled]="!loginForm.valid" [ngClass] = "{'my-color': !loginForm.valid}" (click)="login()" value="login"/>
  
+               <input type="submit" class="btnRegister" [disabled]="!loginForm.valid" [ngClass] = "{'my-color': !loginForm.valid}" (click)="login()" (click)="test()" value="Se connecter"/>
+            
 <!--
               </div>
 -->
@@ -196,13 +206,14 @@
                 <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
               </div>
               </form>
-
+              <div style="margin-top: -40px;"> 
+                <img src="../../../../../../assets/img/signin.png" ></div> </div>
               <p-dialog [(visible)]="enterEmailDialog" [style]="{width: '450px'}" header="Retrouvez votre compte" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
                 <ng-template pTemplate="content">
                     <div class="field">
                         <label for="email">Veuillez entrer votre adresse e-mail pour rechercher votre compte.</label>
                         <input type="text" pInputText id="email" [(ngModel)]="email" required autofocus />
-                        <small class="p-error" *ngIf="submitted && !email">email est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !email">email est obligatoire.</small>
                         <small class="p-error" *ngIf="!testEmail && email">email inexistant.</small>
                     </div><br>
             
@@ -246,7 +257,7 @@
                 <div class="field">
                     <label for="code">Merci de vérifier dans vos e-mails que vous avez reçu un message avec votre code. Celui-ci est composé de 8 chiffres</label>
                     <input type="text" pInputText id="code" [(ngModel)]="code" required autofocus placeholder="entrer le code" maxlength="8"/>
-                    <small class="p-error" *ngIf="submitted && !code">code est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !code">code est obligatoire.</small>
                     <small class="p-error" *ngIf="!confirmCode && code">code Invalide.</small>
                 </div><br>
                 <label>Nous avons envoyé votre code à : <strong>{{email}}</strong></label>

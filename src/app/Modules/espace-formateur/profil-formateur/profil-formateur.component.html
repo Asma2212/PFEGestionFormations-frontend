@@ -167,7 +167,7 @@
                                   </div>
                                 </div><br>
                                 <div  class="row">
-                                    <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Selectionner votre specialite" optionLabel="titre" display="chip" [style]="{maxWidth: '200px'}" name="spec" [style]="{width:'100%'}"></p-multiSelect>                                  
+                                    <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Selectionner votre specialite" optionLabel="titre" display="chip" name="spec" [style]="{width:'70%'}"></p-multiSelect>                                  
                                 </div>
                                 <div class="mb-2"><b>Etablissement</b></div>
                                 <div class="row">
@@ -190,7 +190,7 @@
                                       </div>
                       
                                       <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-                                        Upload
+                                       Télécharger
                                       </button>
                                       <div *ngIf="currentFile" class="progress">
                                         <div

@@ -24,7 +24,7 @@
                
                       
               </div>
-              <small class="p-error" *ngIf="submitted && !formateur.username">cin est requis.</small>
+              <small class="p-error" *ngIf="submitted && !formateur.username">cin est obligatoire.</small>
               <small class="p-error" *ngIf="submitted && formateur.username.toString().length < 8">cin doit etre composer de 8 chiffres.</small>
           </div>
               
@@ -39,7 +39,7 @@
                      <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
                     <input type="text" pInputText name="nom" id="nom" [(ngModel)]="formateur.lastName" required placeholder="nom" pattern="[a-zA-Z ]*" #name="ngModel"/> 
                 </div>
-            <small class="p-error block" *ngIf="!formateur.lastName.trim()">nom est requis.</small>
+            <small class="p-error block" *ngIf="!formateur.lastName.trim()">nom est obligatoire.</small>
             <small class="p-error block" *ngIf="formateur.lastName && (name.invalid && (name.dirty || name.touched))">nom invalide.</small>
           </div></div>
           
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <small class="p-error block" *ngIf="formateur.firstName && (firstName.invalid && firstName.dirty)">prenom invalide.</small>
-              <small class="p-error" *ngIf="!formateur.firstName.trim()">prenom est requis.</small>
+              <small class="p-error" *ngIf="!formateur.firstName.trim()">prenom est obligatoire.</small>
           </div></div>
         </div><br>
           <div class="field">
@@ -64,7 +64,7 @@
                     <input type="email"  pInputText id="email" [(ngModel)]="formateur.email" required placeholder="adresse e-mail" #email="ngModel" [email]="true"/>
                         
                 </div>
-                <small class="p-error" *ngIf="!formateur.email.trim()">email est requis.</small>
+                <small class="p-error" *ngIf="!formateur.email.trim()">email est obligatoire.</small>
                 <small class="p-error block" *ngIf="formateur.email && (email.invalid && email.dirty)"> adresse e-mail invalide.</small>
             </div>
               
@@ -79,7 +79,7 @@
               <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span>
                 <p-inputMask mask="99-999-999" [(ngModel)]="formateur.numTel" placeholder="99-999-999" ></p-inputMask>
               </div>
-                <small class="p-error" *ngIf="!formateur.numTel">num tel est requis.</small>
+                <small class="p-error" *ngIf="!formateur.numTel">num tel est obligatoire.</small>
               </div> </div><br>
               <div  class="col-12 md:col-6">
             <label for="dateNaiss">Date de naissance</label>
@@ -89,7 +89,7 @@
                   <p-calendar [(ngModel)]="date1"  [readonlyInput]="true" #dateNaiss="ngModel"></p-calendar>
                   <small class="p-error block" *ngIf="formateur.dateNaiss && (dateNaiss.invalid && dateNaiss.dirty)"> adresse e-mail invalide.</small>    
               </div>
-              <small class="p-error" *ngIf="!date1">date naissance est requis.</small>
+              <small class="p-error" *ngIf="!date1">date naissance est obligatoire.</small>
           </div>
               
              
@@ -128,7 +128,7 @@
                           </p-multiSelect>
             </div>
           </div>
-          <small class="p-error" *ngIf="!formateur.etablissement">etablissement est requis.</small>
+          <small class="p-error" *ngIf="!formateur.etablissement">etablissement est obligatoire.</small>
         </div>     
         <div class="col-12 md:col-6" *ngIf="formateur.id || autre">
           <div >
@@ -137,7 +137,7 @@
                 <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" required placeholder="saisi l'etablissement"/>
                     
             </div>
-            <small class="p-error" *ngIf="!formateur.etablissement">etablissement est requis.</small>
+            <small class="p-error" *ngIf="!formateur.etablissement">etablissement est obligatoire.</small>
         </div>
               
               
@@ -149,7 +149,7 @@
               <span class="p-inputgroup-addon"><i class="pi pi-sitemap"></i></span>
             <p-multiSelect [options]="specialites" [(ngModel)]="formateur.lesSpecialites" defaultLabel="Select a specialite" optionLabel="titre" display="chip" [style]="{maxWidth: '200px'}"></p-multiSelect>
           </div>
-            <small class="p-error" *ngIf="!formateur.lesSpecialites">specialité est requis.</small>
+            <small class="p-error" *ngIf="!formateur.lesSpecialites">specialité est obligatoire.</small>
         </div></div>    </div><br>
 
         <div class="col-12 md:col-6">
@@ -163,7 +163,7 @@
           </div><br>
           <small class="p-error" *ngIf="!formateur.cv">CV obligatoire.</small><br>
           <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-            Upload
+            Télécharger
           </button>
           <div *ngIf="currentFile" class="progress">
             <div

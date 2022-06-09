@@ -244,7 +244,7 @@
                       </div>
                     </div>
                     <button class="btn btn-success" [disabled]="!selectedFiles1" (click)="upload1()">
-                      Upload
+                      Télécharger
                     </button>
                     <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div>
                     <div class="field">
@@ -252,12 +252,13 @@
                       <div >
                         <div class="p-inputgroup">
                             <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
-                        <p-inputNumber name="cin" id="cin" [(ngModel)]="formateur.username" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" [maxlength]="8" placeholder="Numero de carte d'identité">
-                        </p-inputNumber>  
+
+                        <input type="number" pInputText name="cin" id="cin" [(ngModel)]="formateur.username" required placeholder="Numero de carte d'identité" pattern = "[0-9]*" #cin="ngModel" maxlength="8"/>
+                                     
                                 
                         </div>
-                        <small class="p-error" *ngIf="submitted && !formateur.username">cin est requis.</small>
-                        <small class="p-error" *ngIf="submitted && formateur.username.toString().length < 8">cin doit etre composer de 8 chiffres.</small>
+                        <small class="p-error" *ngIf="submitted && !formateur.username">cin est obligatoire.</small>
+                        <small class="p-error" *ngIf="submitted && formateur.username && formateur.username.toString().length != 8">cin doit etre composer de 8 chiffres.</small>
                     </div>
                         
                     </div><br>
@@ -271,7 +272,7 @@
                                      
                           </div>
                       </div>
-                      <small class="p-error" *ngIf="submitted && !formateur.lastName">nom est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !formateur.lastName">nom est obligatoire.</small>
                       <small class="p-error" *ngIf="formateur.lastName && (lastname.invalid && (lastname.dirty || lastname.touched))">nom invalide.</small>
                     </div>
                     <div class="field">
@@ -284,7 +285,7 @@
                           </div>
                       </div>
                         
-                        <small class="p-error" *ngIf="submitted && !formateur.firstName.trim()">prenom est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !formateur.firstName.trim()">prenom est obligatoire.</small>
                         <small class="p-error" *ngIf="formateur.firstName && (name.invalid && (name.dirty || name.touched))">prenom invalide.</small>
                     </div>
                   </div><br>
@@ -296,7 +297,7 @@
                               <input type="email" pInputText id="email" [(ngModel)]="formateur.email" required placeholder="adresse e-mail" #email="ngModel"/>
                                   
                           </div>
-                          <small class="p-error" *ngIf="submitted && !formateur.email.trim()">email est requis.</small>
+                          <small class="p-error" *ngIf="submitted && !formateur.email.trim()">email est obligatoire.</small>
                           <small class="p-error" *ngIf="formateur.email && (email.invalid && (email.dirty || email.touched))">nom invalide.</small>
                       </div>
                         
@@ -358,7 +359,7 @@
                                               </p-multiSelect>
                       </div>
                     </div>
-                    <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est obligatoire.</small>
                   </div>     
                   <div class="field" *ngIf="formateur.id || autre">
                     <div >
@@ -367,7 +368,7 @@
                           <input type="text" pInputText id="etab" [(ngModel)]="formateur.etablissement" placeholder="entrez l'etablissement" autofocus/>
                               
                       </div>
-                      <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !formateur.etablissement">etablissement est obligatoire.</small>
                   </div>
                         
                         
@@ -427,7 +428,7 @@
                     <div class="field">
                         <label for="titre">Titre</label>
                         <input type="text" pInputText id="titre" [(ngModel)]="spec.titre" required autofocus />
-                        <small class="p-error" *ngIf="submitted && !spec.titre">titre est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !spec.titre">titre est obligatoire.</small>
                     </div><br>
             
                 </ng-template>

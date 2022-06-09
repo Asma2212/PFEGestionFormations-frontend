@@ -105,7 +105,7 @@
                             <div class="field">
                                 <label for="titre">Titre</label>
                                 <input type="text" pInputText id="titre" [(ngModel)]="titre" required autofocus maxlength="15"/>
-                                <small class="p-error" *ngIf="submitted && !c.titre">titre est requis.</small>
+                                <small class="p-error" *ngIf="submitted && !c.titre">titre est obligatoire.</small>
                             </div><br>
                             <div class="field">
                                 <label for="description">Description</label>
@@ -133,7 +133,7 @@
                                 </label>
                 <br>
                                 <button class="btn btn-primary" [disabled]="!selectedFiles" (click)="upload()">
-                                    <i class="pi pi-plus-circle"></i> Upload
+                                    <i class="pi pi-plus-circle"></i>Télécharger
                                 </button>
                             </div>
                                 <div *ngIf="currentFile" class="progress">
@@ -196,7 +196,7 @@
                               </div>
                             </div>
                             <div class="media-body">
-                                <h6><br> {{f.lastName}} {{f.firstName}}</h6>
+                                <h6 style="font-size: 18px;"><br> {{f.lastName}} {{f.firstName}}</h6>
                             </div>
                         </div>
                         <p>le(s) formateur(s) de cette session </p>

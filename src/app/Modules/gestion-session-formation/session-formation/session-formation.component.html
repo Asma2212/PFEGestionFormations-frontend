@@ -118,7 +118,7 @@
                     <div class="field">
                         <label for="name">Titre</label>
                         <input type="text" pInputText id="titre" [(ngModel)]="session.titreSession" required autofocus maxlength="50" />
-                        <small class="p-error" *ngIf="submitted && !session.titreSession">titre est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !session.titreSession">titre est obligatoire.</small>
                     </div><br>
                     <div class="field">
                     <!--<p-fileUpload mode="basic" accept="image/*" label="Import" chooseLabel="Ajouter une image" class="p-mr-2 p-d-inline-block" (onUpload)="onUpload($event)">
@@ -149,7 +149,7 @@
                       </div>
                     </div>
                     <button class="btn btn-success" [disabled]="!selectedFile" (click)="upload()">
-                      Upload
+                      Télécharger
                     </button>
                     <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
                     </div>
@@ -169,7 +169,7 @@
                         <div class="field">
                             <label for="nbMaxCandidat">nombre maximal des candidats</label>
                             <input type="number" max="30" pInputText id="nbMaxCandidat" [(ngModel)]="session.nbMaxCandidat" required autofocus  />
-                            <small class="p-error" *ngIf="submitted && !session.nbMaxCandidat">nombre maximal des candidats est requis.</small>
+                            <small class="p-error" *ngIf="submitted && !session.nbMaxCandidat">nombre maximal des candidats est obligatoire.</small>
                             <small class="p-error" *ngIf="submitted && session.nbMaxCandidat && session.nbMaxCandidat>30">nombre maximal des candidats doit etre inférieur à 30</small>
                         </div>
                         <div style="display: flex;">
@@ -187,19 +187,19 @@
                                                 </ng-template>
                                             </p-multiSelect>
 
-                  <small class="p-error" *ngIf="submitted && !formSess[0]">formation est requis.</small>
+                  <small class="p-error" *ngIf="submitted && !formSess[0]">formation est obligatoire.</small>
                 </div><br>
                     <label> niveau de difficulté </label>
                     <div *ngFor="let niv of nivDifficulte" class="field-checkbox">
                         <p-radioButton name="nivDiff" [value]="niv" [(ngModel)]="session.nivDifficulte" required></p-radioButton>
                         <label for="nivDiff" style="color: black;">&nbsp;{{niv}}</label>
                     </div>
-                    <small class="p-error" *ngIf="submitted && !session.nivDifficulte">niveau de difficulté est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !session.nivDifficulte">niveau de difficulté est obligatoire.</small>
 
                     <label>Les Formateurs de cette formation :</label>
                    <div class="field col-8" style="text-align: center;">
                      <button pButton pRipple label="Ajouter Formateurs" icon="pi pi-user-plus" class="p-button-outlined"  (click)="suivantSession()" ></button>
-                    <small class="p-error" *ngIf="submitted && !selectedFormateurs">un formateur au minimum est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !selectedFormateurs">un formateur au minimum est obligatoire.</small>
                 </div>
                 <div class = "field" *ngIf="names">
                     <ul *ngFor="let n of names">
@@ -215,7 +215,7 @@
                           <input type="text" pInputText id="lieux" [(ngModel)]="session.lieuSession" required/>
 
                       </div>
-                      <small class="p-error" *ngIf="submitted && !session.lieuSession">le lieux du Session est requis.</small>
+                      <small class="p-error" *ngIf="submitted && !session.lieuSession">le lieux du Session est obligatoire.</small>
                   </div>
 
                 <div style="display: flex;">
@@ -227,7 +227,7 @@
                     <div class="field col-6">
                         <label for="finDate">Date Fin</label>
                         <p-calendar [(ngModel)]="dateFin" [minDate]="dateDeb" [showIcon]="true" [readonlyInput]="true" inputId="finDtate" [disabled]="!dateDeb" required></p-calendar>
-                        <small class="p-error" *ngIf="submitted && !dateFin">date fin est requis.</small>
+                        <small class="p-error" *ngIf="submitted && !dateFin">date fin est obligatoire.</small>
                     </div>
 
                 </div>

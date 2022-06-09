@@ -108,7 +108,7 @@
             <div class="field">
                 <label for="titre">Titre</label>
                 <input type="text" pInputText id="titre" [(ngModel)]="formation.titre" required autofocus />
-                <small class="p-error" *ngIf="submitted && !formation.titre.trim()">titre est requis.</small>
+                <small class="p-error" *ngIf="submitted && !formation.titre.trim()">titre est obligatoire.</small>
             </div><br>
             <div class="field">
             <!--<p-fileUpload mode="basic" accept="image/*" label="Import" chooseLabel="Ajouter une image" class="p-mr-2 p-d-inline-block" (onUpload)="onUpload($event)">
@@ -139,7 +139,7 @@
               </div>
             </div>
             <button class="btn btn-success" [disabled]="!selectedFiles1" (click)="upload1()">
-              Upload
+              Télécharger
             </button>
             <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div><br><br>
             </div>
@@ -158,7 +158,7 @@
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                 <button pButton pRipple type="button" class="p-button-outlined" icon ="pi pi-plus-circle" label="autre" (click)="openCategorie()"></button>
                </div>
-                <small class="p-error" *ngIf="submitted && !formation.listCategories">categorie est requis.</small>
+                <small class="p-error" *ngIf="submitted && !formation.listCategories">categorie est obligatoire.</small>
                 <!--<div class="formgrid grid">
                     <div class="field-radiobutton col-6">
                         <p-radioButton id="category1" name="category" value="DevWeb" [(ngModel)]="formation.categorie"></p-radioButton>
@@ -178,7 +178,7 @@
                 <div class="field">
                     <label for="chargeHorraire">charge Horraire</label>
                     <input type="text" pInputText id="chargeHorraire" [(ngModel)]="formation.charge_horaire" required autofocus />
-                    <small class="p-error" *ngIf="submitted && !formation.charge_horaire.trim()">charge Horraire est requis.</small>
+                    <small class="p-error" *ngIf="submitted && !formation.charge_horaire.trim()">charge Horraire est obligatoire.</small>
                 </div>
         </ng-template>
 
@@ -192,7 +192,7 @@
             <div class="field">
                 <label for="titre">Titre</label>
                 <input type="text" pInputText id="titre" [(ngModel)]="c.titre" required autofocus />
-                <small class="p-error" *ngIf="submitted1 && !c.titre">titre est requis.</small>
+                <small class="p-error" *ngIf="submitted1 && !c.titre">titre est obligatoire.</small>
             </div><br>
             <div class="field">
                 <label for="description">Description</label>

@@ -30,6 +30,7 @@ import { ProfilCandidatComponent } from './profil-candidat/profil-candidat.compo
 import { EditorModule } from 'primeng/editor';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { InputMaskModule } from 'primeng/inputmask';
       ProgressBarModule,
       EditorModule,
       MultiSelectModule,
-      InputMaskModule
+      InputMaskModule,
+      InputTextModule
 
     ]
 })
