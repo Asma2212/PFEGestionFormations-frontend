@@ -128,10 +128,10 @@
                           <input pFileUpload type="file" id="file" class="input-file" accept="image/*" label="Import" chooseLabel="Ajouter une image" (change)="onUpload($event)" [(ngModel)]="session.photoSession" required>
                           <br>
                           </div>
-                    <div *ngIf="imgURL && !session.idSession">
+                    <div *ngIf="imgURL">
                         <img [src]="imgURL" height="150">
                     </div>
-                    <div *ngIf="session.photoSession">
+                    <div *ngIf="session.photoSession && !imgURL">
                       <div *ngFor="let file of fileInfos | async">
                         <p class="list-group-item" *ngIf="testImage(file.type) && file.name == session.photoSession">
                           <img [src]="file.url" height="150">
@@ -155,7 +155,8 @@
                     </div>
                     <div class="field">
                         <label for="description">Description</label>
-                        <textarea id="description" pInputTextarea [(ngModel)]="session.descriptionSession" required rows="3" cols="20"></textarea>
+                        <p-editor [(ngModel)]="session.descriptionSession" [style]="{'height':'170px'}" id="description" ></p-editor>  
+                        
                     </div>
 <!--                    <p-editor [(ngModel)]="session.descriptionSession" [style]="{'height':'320px'}">
                         <ng-template pTemplate="header">

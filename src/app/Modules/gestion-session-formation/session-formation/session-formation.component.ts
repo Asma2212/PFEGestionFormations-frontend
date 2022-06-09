@@ -199,7 +199,7 @@ this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.fiel
     this.sessionDialog = true;
     this.session = {  idSession:  0,
       titreSession : "",
-      descriptionSession : "",
+      descriptionSession : " ",
       lieuSession : "",
     dateDebSession : null ,
     dateFinSession : null ,
@@ -266,7 +266,7 @@ saveSession(){
       },
       error =>
      {
-      this.messageService.add( {severity:'error', summary:'Erreur', detail: error.error.message, life: 3000});
+      this.messageService.add( {severity:'error', summary:'Erreur', detail: "un erreur est survenue", life: 3000});
       this.session.photoSession = null ;
     console.log("exception occured");});
   }}}
