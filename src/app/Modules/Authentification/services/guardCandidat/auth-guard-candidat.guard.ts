@@ -18,7 +18,10 @@ export class AuthGuardCandidatGuard implements CanActivate {
 
   canLoad() {
     if (!this.authService.isLoggedInCandidat()) {
-      this.router.navigate(['/register/candidat']);
+      this.router.navigate(['/candidat/myList']);
+    }
+    if (!this.authService.isLoggedInFormateur()) {
+      this.router.navigate(['/formateur/profil']);
     }
     return this.authService.isLoggedInCandidat();
   }

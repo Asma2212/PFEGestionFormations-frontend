@@ -10,7 +10,6 @@ export class SessionOnlineComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-console.log("heyyy malik")
 
     let videoList = document.querySelectorAll('.video-list-container .list') as  NodeListOf<HTMLMediaElement>;
 

@@ -11,7 +11,10 @@ export class CandidatGuard implements CanActivate {
 
   canActivate() {
     if (this.authService.isLoggedInCandidat()) {
-      this.router.navigate(['/candidat/dasboardCandidat']);
+      this.router.navigate(['/candidat/profil']);
+    }
+    if (this.authService.isLoggedInFormateur()) {
+      this.router.navigate(['/formateur/profil']);
     }
     return !this.authService.isLoggedInCandidat();
   }

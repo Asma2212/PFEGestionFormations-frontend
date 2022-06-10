@@ -3,7 +3,7 @@ import * as $ from 'jquery'
 import {SessionService} from "../../../../services/session.service";
 import {Subscription} from "rxjs/Subscription";
 import {sessionResponsePayload} from "../../../payload/session/session-response-payload";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NgToastService} from "ng-angular-popup";
 import {MatDialog} from "@angular/material/dialog";
 import {CandidatRegisterComponent} from "../../../Authentification/login/candidat/candidat-register/candidat-register.component";
@@ -48,7 +48,7 @@ export class SessionComponent implements OnInit {
 
   constructor(private localStorage: LocalStorageService,
               private  candidatService:CandidatService,
-              public sessionService: SessionService, private route: ActivatedRoute, private toast: NgToastService, public dialog: MatDialog, private confirmationService: ConfirmationService, private sessionFormationService: SessionFormationService, private formationService :FormationService,public datepipe: DatePipe, private uploadService: UploadFileService) {
+              public sessionService: SessionService, private route: ActivatedRoute, private toast: NgToastService, public dialog: MatDialog, private confirmationService: ConfirmationService, private sessionFormationService: SessionFormationService, private formationService :FormationService,public datepipe: DatePipe, private uploadService: UploadFileService,private router : Router) {
   }
 
   ngOnInit(): void {
@@ -77,6 +77,8 @@ export class SessionComponent implements OnInit {
 
 
     }, error => {
+      console.log("id invalide !!!")
+      //this.router.navigate(['/xxxx'])
       this.errors = error.error.message;
     })
 

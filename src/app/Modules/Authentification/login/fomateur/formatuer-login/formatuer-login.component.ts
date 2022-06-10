@@ -92,9 +92,7 @@ export class FormatuerLoginComponent implements OnInit {
 
   }
   login() {
-    console.log("username" + this.loginForm.get('username').value + "email" + this.loginForm.get('email').value + "password" + this.loginForm.get('password').value)
-
-         console.log("gggggghere")
+    this.localStorage.store("FormateurCin",this.loginForm.get('username').value);
     this.loginRequestPayload.username = this.loginForm.get('username').value;
     this.loginRequestPayload.email = this.loginForm.get('email').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;

@@ -141,6 +141,10 @@ export class AuthService {
     return (!!this.getJwtToken()&& this.localStorage.retrieve("role")=="candidat")
 
   }
+  isLoggedInFormateur():boolean{
+    return (!!this.getJwtToken()&& this.localStorage.retrieve("role")=="formateur")
+
+  }
   signup(signupRequestPayload: loginRequestPayload): Observable<any> {
     console.log(signupRequestPayload)
 

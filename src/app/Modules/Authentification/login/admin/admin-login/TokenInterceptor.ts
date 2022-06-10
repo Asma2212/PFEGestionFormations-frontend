@@ -32,6 +32,10 @@ export class TokenInterceptor implements HttpInterceptor {
                 this.messageService.add({severity:'error', summary: 'Erreur', detail: "Données invalides", life: 3000});
                 this.localStorage.clear("candidatCin")    
             }
+            if(this.localStorage.retrieve("FormateurCin")){
+                this.messageService.add({severity:'error', summary: 'Erreur', detail: "Données invalides", life: 3000});
+                this.localStorage.clear("formateurCin")    
+            }
                 return
             } else {
                 

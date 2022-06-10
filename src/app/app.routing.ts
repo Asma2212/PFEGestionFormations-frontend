@@ -55,9 +55,8 @@ const routes: Routes =[
   {path: 'home',
   loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
   },
-  {path:'formateur',
+  {path:'formateur',canActivate:[AuthGuardCandidatGuard],
     loadChildren: () => import('./Modules/espace-formateur/espace-formateur.module').then(m => m.EspaceFormateurModule)
-
   },
   {path:'candidat',canActivate:[AuthGuardCandidatGuard],
   loadChildren:() =>import('./Modules/espace-candidat/espace-candidat.module').then(m =>m.EspaceCandidatModule)},
