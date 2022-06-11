@@ -28,6 +28,8 @@ import { PhotoComponent } from './Modules/first-login/photo/photo.component';
 import {ChatComponent} from "./Modules/message/chat/chat.component";
 import {AuthGuardCandidatGuard} from "./Modules/Authentification/services/guardCandidat/auth-guard-candidat.guard";
 import {CandidatGuard} from "./Modules/Authentification/services/guardCandidat/candidat.guard";
+import {AuthGuardFormateurGuard} from "./Modules/Authentification/services/auth-guard-formateur.guard";
+import {AuthGuardGuardFormateurGuard} from "./Modules/Authentification/services/auth-guard-guard-formateur.guard";
 
 const routes: Routes =[
   {
@@ -43,7 +45,7 @@ const routes: Routes =[
     }]
   },
   {
-    path:'register/candidat',
+    path:'register/candidat',canActivate: [CandidatGuard],
     component:CandidatRegisterComponent,
   },
 
@@ -55,14 +57,14 @@ const routes: Routes =[
   {path: 'home',
   loadChildren: () => import('./Modules/FreeAcess/access-free/access-free.module').then(m => m.AccessFreeModule)
   },
-  {path:'formateur',canActivate:[AuthGuardCandidatGuard],
+  {path:'formateur',canActivate:[AuthGuardGuardFormateurGuard],
     loadChildren: () => import('./Modules/espace-formateur/espace-formateur.module').then(m => m.EspaceFormateurModule)
   },
   {path:'candidat',canActivate:[AuthGuardCandidatGuard],
   loadChildren:() =>import('./Modules/espace-candidat/espace-candidat.module').then(m =>m.EspaceCandidatModule)},
 
   {path:'login/admin', component :AdminLoginComponent,canActivate: [AuthGuard]},
-  {path:'login/formateur',component:FormatuerLoginComponent,canActivate:[CandidatGuard]},
+  {path:'login/formateur',component:FormatuerLoginComponent,canActivate:[AuthGuardFormateurGuard]},
  /* {path:"register/candidat",component:CandidatRegisterComponent},*/
  {path:'firstLogin',
 component:FirstLoginComponent,

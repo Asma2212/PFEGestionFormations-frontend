@@ -31,7 +31,9 @@ export class NavBarComponent implements OnInit {
     this.fileInfos = this.uploadService.getFiles();
 
     this.slideMenu()
-    this.currentUserData()}
+
+    this.currentUserData()
+    }
 
 
 
@@ -86,6 +88,7 @@ export class NavBarComponent implements OnInit {
     this.display = true;
   }
   currentUserData(){
+    if(this.localStorage1.retrieve("role")!=null)
     this.authService.currentUserDetail().subscribe(data=> {
       this.TheCurrentUser=data ;
 

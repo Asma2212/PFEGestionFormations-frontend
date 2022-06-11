@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
 import {HttpClient} from "@angular/common/http";
-import {AuthService} from "../../../../services/auth.service";
+import {AuthService} from "../../../services/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardCandidatGuard implements CanActivate {
+export class AuthGuardGuardFormateurGuard implements CanActivate {
   constructor(private http: HttpClient,private authService: AuthService, private router: Router) { }
 
   canActivate() {
@@ -17,12 +17,10 @@ export class AuthGuardCandidatGuard implements CanActivate {
   }
 
   canLoad() {
-    if (!this.authService.isLoggedInCandidat()) {
-      this.router.navigate(['/register/candidat']);
+    if (!this.authService.isLoggedInFormateur()) {
+      this.router.navigate(['/login/formateur']);
     }
-   /* if (!this.authService.isLoggedInFormateur()) {
-      this.router.navigate(['/formateur/profil']);
-    }*/
-    return this.authService.isLoggedInCandidat();
+    return this.authService.isLoggedInFormateur();
   }
+
 }

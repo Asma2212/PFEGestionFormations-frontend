@@ -134,7 +134,7 @@
                     <span style="color: #ff3353" *ngIf="!signupForm.get('classe').valid && signupForm.get('classe').touched"></span>
                 </div>
 
-                <input type="submit" (click)="signup()"  [disabled]="!signupForm.valid"   [ngClass] = "{'my-color': !signupForm.valid}" class="btnRegister"  value="Se connecter"/>
+                <input type="submit" (click)="signup()"  [disabled]="!signupForm.valid"   [ngClass] = "{'my-color': !signupForm.valid}" class="btnRegister"  value="S'inscrire"/>
               </div>
 <div class="col-md-1">
   <div class="form-group">
@@ -167,7 +167,7 @@
             <h1 class="register-heading">Espace Candidat</h1>
             <div class="row register-form" >
               <div style="display: flex;">
-               
+
               <form class="col-md-6" [formGroup]="loginForm">
 
                 <div class="form-group">
@@ -195,9 +195,9 @@
                 <div class="form-group">
                   <button pButton pRipple type="button" class="p-button-text" (click)="enterEmailDialog = true">mot de passe oublier ?</button>
                 </div>
- 
+
                <input type="submit" class="btnRegister" [disabled]="!loginForm.valid" [ngClass] = "{'my-color': !loginForm.valid}" (click)="login()" (click)="test()" value="Se connecter"/>
-            
+
 <!--
               </div>
 -->
@@ -206,7 +206,7 @@
                 <p-message *ngIf="errors" severity="error" text="{{errors}}"></p-message>
               </div>
               </form>
-              <div style="margin-top: -40px;"> 
+              <div style="margin-top: -40px;">
                 <img src="../../../../../../assets/img/signin.png" ></div> </div>
               <p-dialog [(visible)]="enterEmailDialog" [style]="{width: '450px'}" header="Retrouvez votre compte" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
                 <ng-template pTemplate="content">
@@ -216,9 +216,9 @@
                         <small class="p-error" *ngIf="submitted && !email">email est obligatoire.</small>
                         <small class="p-error" *ngIf="!testEmail && email">email inexistant.</small>
                     </div><br>
-            
+
                 </ng-template>
-            
+
                 <ng-template pTemplate="footer">
                     <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
                     <button pButton pRipple label="Rechercher" icon="pi pi-check" class="p-button-text" (click)="valider(email)"></button>
@@ -242,11 +242,11 @@
                   </div>
                   <p style="text-align : center">{{cand.firstName}} {{cand.lastName}}</p></div>
               </div>
-                  
+
                   <br>
-          
+
               </ng-template>
-          
+
               <ng-template pTemplate="footer">
                   <button pButton pRipple label="Ce n'est pas vous" icon="pi pi-times" class="p-button-text" (click)="PasMoiDialog()"></button>
                   <button pButton pRipple label="Continuer" icon="pi pi-check" class="p-button-text" (click)="envoyer(cand)"></button>
@@ -263,7 +263,7 @@
                 <label>Nous avons envoyé votre code à : <strong>{{email}}</strong></label>
                 <button pButton pRipple type="button" class="p-button-text" (click)="envoyer(cand)">Renvoyer le code</button>
             </ng-template>
-        
+
             <ng-template pTemplate="footer">
                 <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="annuler()"></button>
                 <button pButton pRipple label="Ajouter" icon="pi pi-check" class="p-button-text" (click)="verifierCode(code)"></button>
@@ -294,18 +294,18 @@
            <small class="p-error" *ngIf="!password2 && submitted">&nbsp;mot de pass est requis</small>
            <p-message severity="success" *ngIf="confrimPassword.valid && confirm"> mot de pass valide</p-message>
            <br><small class="p-error" *ngIf="!confirm">mot de pass incorrecte</small>
-           
+
        </div>
               <br>
-              
+
           </ng-template>
-      
+
           <ng-template pTemplate="footer">
               <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text" (click)="Retour()"></button>
               <button pButton pRipple label="Ajouter" icon="pi pi-check" class="p-button-text" (click)="ChangePassword()"></button>
           </ng-template>
       </p-dialog>
-        
+
             </div>
 
 

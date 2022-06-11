@@ -167,7 +167,7 @@ if(this.signupForm.get('password_signup').value == this.signupForm.get('password
 
   }
   login() {
-    this.localStorage.store("candidatCin",this.loginForm.get('username').value);
+
     this.loginRequest.username = this.loginForm.get('username').value;
     this.loginRequest.email = this.loginForm.get('email').value;
     this.loginRequest.password = this.loginForm.get('password').value;
@@ -175,6 +175,8 @@ if(this.signupForm.get('password_signup').value == this.signupForm.get('password
     this.authService.loginCandidat(this.loginRequest).subscribe(data => {
       this.isError = false;
       this.router.navigate(['/candidat/myList']);
+      this.toast.success({detail:"Bienvenu "+this.signupForm.get('username').value+"!",duration:3000});
+
     }, error => {
       this.isError = true;
       //this.isError = true;
@@ -237,8 +239,10 @@ if(this.signupForm.get('genre').value == "homme"){
     this.authService.loginCandidat(this.loginRequest).subscribe(data => {
 
       this.isError = false;
-      console.log("you are here")
+      //console.log("you are here")
       this.router.navigate(['/candidat/myList']);
+      this.toast.success({detail:"Bienvenu "+this.signupForm.get('first_name').value+"!",duration:3000});
+
     }, error => {
 
       this.toast.error({detail:"enter vos informations correctements !",duration:3000});
@@ -365,9 +369,9 @@ this.testEmail = false ;
     envoyer(cand){
       this.messageService.add({severity:'success', summary:'Code de validation', detail: 'le code de confirmation est envoyer à votre e-mail', life: 3000});
       if(this.verifierCodeDialog == false )
-      this.verifierCodeDialog = true ; 
+      this.verifierCodeDialog = true ;
       this.candidatService.envoyerCodeCandidat(cand).subscribe(data =>{
-this.codeValide = data 
+this.codeValide = data
 this.verifierEmailDialog = false;
 this.submitted = false
       })
@@ -377,14 +381,14 @@ this.submitted = false
 this.code = ""
 this.password =""
 this.password2=""
-this.verifierCodeDialog = false ; 
+this.verifierCodeDialog = false ;
 this.submitted = false
 
     }
     verifierCode(code){
       this.submitted = true
 if(this.codeValide == code){
-this.verifierCodeDialog = false ; 
+this.verifierCodeDialog = false ;
 this.changePasswordDialog = true
 this.submitted = false
     }
@@ -425,7 +429,7 @@ this.submitted = false
             this.password2=""
             this.Retour()
             this.messageService.add({severity:'success', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec le nouveau mot de passe", life: 3000});
-            
+
           })
         }
       }

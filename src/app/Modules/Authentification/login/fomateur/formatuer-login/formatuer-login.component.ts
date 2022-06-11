@@ -92,7 +92,6 @@ export class FormatuerLoginComponent implements OnInit {
 
   }
   login() {
-    this.localStorage.store("FormateurCin",this.loginForm.get('username').value);
     this.loginRequestPayload.username = this.loginForm.get('username').value;
     this.loginRequestPayload.email = this.loginForm.get('email').value;
     this.loginRequestPayload.password = this.loginForm.get('password').value;
@@ -165,9 +164,9 @@ this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse E
   envoyer(forma){
     this.messageService.add({severity:'success', summary:'Code de validation', detail: 'le code de confirmation est envoyer à votre e-mail', life: 3000});
     if(this.verifierCodeDialog == false )
-    this.verifierCodeDialog = true ; 
+    this.verifierCodeDialog = true ;
     this.formateurService.envoyerCodeFormateur(forma).subscribe(data =>{
-this.codeValide = data 
+this.codeValide = data
 this.verifierEmailDialog = false;
 this.submitted = false
     })
@@ -177,14 +176,14 @@ this.submitted = false
 this.code = ""
 this.password =""
 this.password2=""
-this.verifierCodeDialog = false ; 
+this.verifierCodeDialog = false ;
 this.submitted = false
 
   }
   verifierCode(code){
     this.submitted = true
 if(this.codeValide == code){
-this.verifierCodeDialog = false ; 
+this.verifierCodeDialog = false ;
 this.changePasswordDialog = true
 this.submitted = false
   }
@@ -225,7 +224,7 @@ confirmPass(){
           this.password2=""
           this.Retour()
           this.messageService.add({severity:'success', summary: 'Votre mot de passe est changé', detail: " vous pouvez vous connecter avec le nouveau mot de passe", life: 3000});
-          
+
         })
       }
     }

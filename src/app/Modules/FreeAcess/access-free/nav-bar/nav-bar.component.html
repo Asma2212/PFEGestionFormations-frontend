@@ -34,7 +34,7 @@
     <a [routerLink]="['/home/home1']" class="active">Accueil</a>
     <a [routerLink]="['/home/formation']" class="active">Liste des formations</a>
     <a [routerLink]="['/register/candidat']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin'">Espace Candidat</a>
-    <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Ma liste</a>
+    <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Apprantisage</a>
 
     <a [routerLink]="['/login/formateur']" class="active"  *ngIf="this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin' &&this.localStorage1.retrieve('role')!='formateur'">Espace Formateur</a>
     <a [routerLink]="['/formateur/sessions']" class="active" *ngIf="this.localStorage1.retrieve('role')=='formateur'">Mes Sessions de formations</a>
