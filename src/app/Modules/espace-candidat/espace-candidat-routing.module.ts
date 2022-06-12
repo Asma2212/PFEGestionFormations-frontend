@@ -10,6 +10,7 @@ import {CalendarComponent} from "./calendar/calendar.component";
 import {FavorisComponent} from "./favoris/favoris.component";
 import {EmptyListComponent} from "./empty-list/empty-list.component";
 import { ProfilCandidatComponent } from './profil-candidat/profil-candidat.component';
+import {RecommandedComponent} from "./recommanded/recommanded.component";
 
 const routes: Routes = [{
   path: '',
@@ -26,15 +27,15 @@ const routes: Routes = [{
       component:EmptyListComponent},
 
     {
-    path:'dasboardCandidat',
-      component:DashboardCandidatComponent,
-    },{
     path:"n",
       component:NavComponent
     },{
       path:"profil",
         component:ProfilCandidatComponent
-      }
+      },{
+    path:"suggestion",
+      component:RecommandedComponent
+    }
     ]
 }];
 

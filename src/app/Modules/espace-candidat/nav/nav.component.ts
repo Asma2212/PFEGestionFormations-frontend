@@ -20,6 +20,10 @@ export class NavComponent implements OnInit {
       {label: 'Ma calendrier', icon: 'pi pi-calendar',routerLink:'/candidat/calendar'},
       {label: 'Settings', icon: 'pi pi-fw pi-cog'}
     ];
+
+
+
+
   }
 
 }
