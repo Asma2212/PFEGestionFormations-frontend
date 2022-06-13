@@ -172,7 +172,7 @@ upload1() {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
-        this.message = event.body.message;
+        this.message = "télécharger avec succées";
       }
     },
     err => {
@@ -221,7 +221,7 @@ upload() {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
-        this.message = event.body.message;
+        this.message = "télécharger avec succées";
         this.fileInfos = this.uploadService.getFiles();
       }
     },

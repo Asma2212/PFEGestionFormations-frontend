@@ -30,6 +30,7 @@ import { ChartModule } from 'primeng/chart';
 import {DialogModule} from "primeng/dialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { RatingModule } from 'primeng/rating';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { RatingModule } from 'primeng/rating';
     ChartModule,
     DialogModule,
     RatingModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TooltipModule
   ],
   declarations: [
     DashboardComponent,

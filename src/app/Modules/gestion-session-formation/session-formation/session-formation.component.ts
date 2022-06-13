@@ -232,6 +232,8 @@ hideDialog() {
 }
 saveSession(){
   this.submitted = true ;
+  if(this.session.descriptionSession == null)
+  this.session.descriptionSession = " "
   this.session.formationSession = this.formSess[0];
   if(this.session.nbMaxCandidat<=30){ // && this.session.
   console.log("session bch tetbaath :",this.session)
@@ -323,7 +325,7 @@ editSession(session: SessionFormation) {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
+          this.message = "télécharger avec succées";
         }
       },
       err => {

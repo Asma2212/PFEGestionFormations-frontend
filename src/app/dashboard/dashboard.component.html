@@ -20,7 +20,7 @@
                                     </h2>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <span> {{nbFormationMonth}} <i class="fa fa-arrow-up"></i></span>
+                                    <span pTooltip="créer ce mois" tooltipPosition="top"> {{nbFormationMonth}} <i class="fa fa-arrow-up"></i></span>
                                 </div>
                             </div>
                             <div class="progress mt-1 " data-height="8" style="height: 8px;">
@@ -43,7 +43,7 @@
                                       </h2>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <span>{{nbSessionMonth}} <i class="fa fa-arrow-up"></i></span>
+                                    <span pTooltip="créer ce mois" tooltipPosition="bottom">{{nbSessionMonth}} <i class="fa fa-arrow-up"></i></span>
                                 </div>
                             </div>
                             <div class="progress mt-1 " data-height="8" style="height: 8px;">
@@ -66,7 +66,7 @@
                                       </h2>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <span>{{nbFormateurMonth}} <i class="fa fa-arrow-up"></i></span>
+                                    <span pTooltip="inscrits ce mois" tooltipPosition="top">{{nbFormateurMonth}} <i class="fa fa-arrow-up"></i></span>
                                 </div>
                             </div>
                             <div class="progress mt-1 " data-height="8" style="height: 8px;">
@@ -89,7 +89,7 @@
                                       </h2>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <span>{{nbCandidatMonth}} <i class="fa fa-arrow-up"></i></span>
+                                    <span pTooltip="inscrits ce mois" tooltipPosition="bottom">{{nbCandidatMonth}} <i class="fa fa-arrow-up"></i></span>
                                 </div>
                             </div>
                             <div class="progress mt-1 " data-height="8" style="height: 8px;">
@@ -104,7 +104,7 @@
         <div class="col-lg-6 col-md-12">
             <br>
             <div class="card">
-                <h2> &nbsp;Statistique des sessions de formations par mois</h2>
+                <h2> &nbsp; Nombre des sessions de formations par mois</h2>
                 <p-chart type="bar" [data]="multiAxisData" [options]="multiAxisOptions"></p-chart>
             </div>
         </div>

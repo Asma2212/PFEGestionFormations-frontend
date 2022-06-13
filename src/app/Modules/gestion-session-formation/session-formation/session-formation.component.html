@@ -44,14 +44,16 @@
                                     <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
                                 </div>
                                     <div style="margin-left: 20%;">
-                                        <strong>Formateurs :</strong> <br>
-                                        <i class="pi pi-users session-category-icon"></i>
+                                        <i class="pi pi-users session-category-icon"></i> <strong>Formateurs :</strong> <br>
+                                       
                                         <span *ngFor="let formateur of session.listeFormateurs">
+                                           
                                             <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>
                                         <span class="session-category" *ngIf="formateur.genre.name=='FEMME'">MMe. {{formateur.lastName}} {{formateur.firstName}}</span>
                                     <br>
                                     </span>
                                     </div>
+                                    
                                 </div>
                                 <div class="session-list-action">
                                     <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="top">{{session.nbMaxCandidat}}</span>
@@ -59,6 +61,7 @@
                                         <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success mr-2" (click)="editSession(session)"></button>
                                         <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger" (click)="deleteSession(session)"></button>
                                         </div><span [ngStyle]="{'background-color':getColor(session.nivDifficulte)}" style="text-align: center;font-weight: bold;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{session.nivDifficulte}}</span>
+                                    <span style="text-align: center;font-weight: bold;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{session.listeCandidat.length}} inscrits</span>
                                 </div>
                             </div>
                         </div>
