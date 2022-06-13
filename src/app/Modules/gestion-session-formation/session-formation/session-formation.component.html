@@ -22,7 +22,7 @@
                             <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="filtre : nbr candidats" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
                             <span class="p-input-icon-left mb-2 md:mb-0">
                                 <i class="pi pi-search"></i>
-                                <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+                                <input type="search" pInputText placeholder="Recherche par titre" (input)="dv.filter($event.target.value)">
                             </span>
                             <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                         </div>

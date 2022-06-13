@@ -54,6 +54,7 @@ import {VirtualScrollerModule} from "primeng/virtualscroller";
 import {DialogModule} from "primeng/dialog";
 import { EspaceFormateurModule } from './Modules/espace-formateur/espace-formateur.module';
 import { InputTextModule } from 'primeng/inputtext';
+import { RatingModule } from 'primeng/rating';
 //import { ChatComponent } from './Modules/message/chat/chat.component';
 
 @NgModule({
@@ -93,6 +94,7 @@ import { InputTextModule } from 'primeng/inputtext';
     MatDialogModule,
     DialogModule,
     InputTextModule,
+    RatingModule,
     NgxWebstorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'

@@ -179,16 +179,15 @@
 <!--
         <div class="card"></div> <div class="card"></div>
 -->
-        <div class="card shadow-6 " style=" margin-top: 300px;margin-left: 20%;
-        background: linear-gradient(135deg, #3e00bb, rgba(255,136,0,0.53)) fixed;" >
+        <div class="card shadow-6 " style=" margin-top: 85%;margin-left: 20%;
+        background: linear-gradient(135deg, #3e00bb, rgba(255,136,0,0.53)) fixed;"  >
           <div class="header">
             <h2>Categories </h2>
           </div>
           <div class="body widget">
             <!--<ul class="list-unstyled categories-clouds m-b-0">-->
-           <ul>
-              <li *ngFor="let obj of categories"><a href=""> <p-chip label="{{obj.titre}}"></p-chip></a></li>
-
+           <ul style="display: flex;">
+              <li *ngFor="let obj of categories"><a> <p-chip label="{{obj.titre}}"></p-chip></a></li>
             </ul>
           </div>
         </div>

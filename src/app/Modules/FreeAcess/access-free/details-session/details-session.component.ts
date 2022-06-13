@@ -9,6 +9,7 @@ import {ConfirmationService} from "primeng/api";
 import {SessionFormationService} from "../../../../services/SessionFormation.service";
 import {DatePipe} from "@angular/common";
 import {UploadFileService} from "../../../../services/upload-file.service";
+import { SessionFormation } from 'app/models/SessionFormation';
 
 @Component({
   selector: 'app-details-session',
@@ -18,7 +19,7 @@ import {UploadFileService} from "../../../../services/upload-file.service";
 })
 export class DetailsSessionComponent implements OnInit {
 
-
+  ListSessionOfCandidat : SessionFormation[];
   @Input() dateDebSession: Date;
   @Input() dateFinSession: Date;
   @Input() planning: Map<string,string>;
@@ -48,7 +49,12 @@ export class DetailsSessionComponent implements OnInit {
   ngOnInit(): void {
     this.username=this.localstorage.retrieve("username");
     this.idSession = this.route.snapshot.params['id'];
-
+    if (this.localstorage.retrieve("role") == "candidat") {
+      this.sessionService.getCandidaSession(this.username).subscribe(data => {
+        //console.log("daaataaaaa",data)
+        this.ListSessionOfCandidat = data;
+        this.ListSessionOfCandidat = this.ListSessionOfCandidat.filter(s=> s.idSession == this.idSession)
+      })}
     this.PuTheRating();
 
   }
@@ -71,7 +77,7 @@ export class DetailsSessionComponent implements OnInit {
 showRating(){
 
   return (
-    (this.dateFinSession < new Date()) || (this.localstorage.retrieve("role") != "candidat"));
+    (new Date(this.dateFinSession) >= new Date()) || this.ListSessionOfCandidat.length == 0 || (this.localstorage.retrieve("role") != "candidat"));
 
 }
   MyRating:number;

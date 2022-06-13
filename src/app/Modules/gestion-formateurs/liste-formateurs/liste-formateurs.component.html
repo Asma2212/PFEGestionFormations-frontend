@@ -253,12 +253,13 @@
                         <div class="p-inputgroup">
                             <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
 
-                        <input type="number" pInputText name="cin" id="cin" [(ngModel)]="formateur.username" required placeholder="Numero de carte d'identité" pattern = "[0-9]*" #cin="ngModel" maxlength="8"/>
+                            <input type="tel" pInputText name="cin" id="cin" [(ngModel)]="formateur.username" required placeholder="Numero de carte d'identité"  pattern="[0-9]*"
+                            [minlength]="8" min="0" [maxlength]="8" #cin="ngModel"/>
                                      
                                 
                         </div>
                         <small class="p-error" *ngIf="submitted && !formateur.username">cin est obligatoire.</small>
-                        <small class="p-error" *ngIf="submitted && formateur.username && formateur.username.toString().length != 8">cin doit etre composer de 8 chiffres.</small>
+                        <small class="p-error" *ngIf="submitted && formateur.username && !cin.valid">cin invalide.</small>
                     </div>
                         
                     </div><br>

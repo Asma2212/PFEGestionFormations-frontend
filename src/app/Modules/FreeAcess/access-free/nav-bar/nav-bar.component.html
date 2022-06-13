@@ -31,7 +31,7 @@
       </a>
 
     </a>&ndash;&gt;-->
-    <a [routerLink]="['/home/home1']" class="active">Accueil</a>
+    <a [routerLink]="['/home']" class="active">Accueil</a>
     <a [routerLink]="['/home/formation']" class="active">Liste des formations</a>
     <a [routerLink]="['/register/candidat']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin'">Espace Candidat</a>
     <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Apprentissage</a>
@@ -87,8 +87,8 @@
   </div>
 </div>
 <button style="float: right;position: fixed;
-margin-top: 560px;
-    margin-left: 1400px;z-index: 99999999999999999999;background-color: rgba(255, 255, 255, 0);border: none;"  (click)="showDialog()" *ngIf="this.localStorage1.retrieve('role')=='formateur'|| this.localStorage1.retrieve('role')=='candidat' ">
+margin-top: 36%;
+    margin-left: 92%;z-index: 99999999999999999999;background-color: rgba(255, 255, 255, 0);border: none;"  (click)="showDialog()" *ngIf="this.localStorage1.retrieve('role')=='formateur'|| this.localStorage1.retrieve('role')=='candidat' ">
   <img src="../../../../../assets/img/chatGi.gif" width="80px"  >
   </button>
 </body>

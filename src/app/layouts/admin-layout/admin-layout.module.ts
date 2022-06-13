@@ -29,6 +29,7 @@ import { EspaceAdminModule } from 'app/Modules/espace-admin/espace-admin.module'
 import { ChartModule } from 'primeng/chart';
 import {DialogModule} from "primeng/dialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import { RatingModule } from 'primeng/rating';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
     EspaceAdminModule,
     ChartModule,
     DialogModule,
+    RatingModule,
     ConfirmDialogModule
   ],
   declarations: [

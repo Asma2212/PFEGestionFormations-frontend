@@ -5,6 +5,7 @@ import {LoginResponsePayload} from "../Modules/Authentification/payload/login-re
 import {sessionResponsePayload} from "../Modules/payload/session/session-response-payload";
 import {delay, map} from "rxjs/operators";
 import {SessionFormation} from "../models/SessionFormation";
+import { Rating } from 'app/models/Rating';
 
 @Injectable({
   providedIn: 'root'
@@ -59,8 +60,8 @@ ListFavoris(UserName:string):Observable<SessionFormation[]>{
     return this.http.get<number>(this.urlEvaluation+"All/"+idSession)
   }
 
-  showAllratings():Observable<any> {
-    return this.http.get<any>(this.urlEvaluation+"All");
+  showAllratings():Observable<Rating[]> {
+    return this.http.get<Rating[]>(this.urlEvaluation+"All");
 
   }
 

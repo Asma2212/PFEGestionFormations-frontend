@@ -195,9 +195,10 @@
                   
                     <div class="field">
                         <label for="name">CIN</label>
-                        <input type="number" pInputText name="cin" id="cin" [(ngModel)]="candidat.username" required placeholder="Numero de carte d'identité" pattern = "[0-9]*" #cin="ngModel" maxlength="8"/>
+                        <input type="tel" pInputText name="cin" id="cin" [(ngModel)]="candidat.username" required placeholder="Numero de carte d'identité"  pattern="[0-9]*"
+                        [minlength]="8" min="0" [maxlength]="8" #cin="ngModel"/>
                         <small class="p-error" *ngIf="submitted && !candidat.username">cin est obligatoire.</small>
-                        <small class="p-error" *ngIf="submitted && candidat.username && candidat.username.toString().length != 8">cin doit etre composer de 8 chiffres.</small>
+                        <small class="p-error" *ngIf="submitted && candidat.username && !cin.valid">cin invalide.</small>
                     </div><br>
                     <div class="field">
                       <label for="nom">Nom</label>
@@ -221,12 +222,12 @@
                   <br>
                     <div class="field">
                         <label for="email">Email</label>
-                        <input type="email" pInputText id="email" [(ngModel)]="candidat.email" required />
+                        <input type="email" pInputText id="email" [(ngModel)]="candidat.email" required placeholder="adresse email" />
                         <small class="p-error" *ngIf="submitted && !candidat.email">email est obligatoire.</small>
                     </div><br>
                     <div class="field">
                         <label for="numTel">N° téléphone</label>
-                        <input type="number" pInputText id="numTel" [(ngModel)]="candidat.numTel" required />
+                        <input type="number" pInputText id="numTel" [(ngModel)]="candidat.numTel" placeholder="numero de telephone" required />
                         <small class="p-error" *ngIf="submitted && !candidat.numTel">num tel est obligatoire.</small>
                     </div><br>
                     <div class="field col-6">

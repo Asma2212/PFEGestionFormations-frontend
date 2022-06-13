@@ -10,7 +10,7 @@
      class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap" >
   <div class="font-bold mr-8">🔥 Gagner plus d'experience ! 🔥</div>
   <div class="align-items-center hidden lg:flex">
-    <span class="line-height-3">Développez vos compétences grâce à des cours,des formations proposés par l'ISET de Rades.</span>
+    <span class="line-height-3">Développez vos compétences grâce à des cours et des formations proposés par l'ISET de Rades.</span>
   </div>
   <a class="flex align-items-center ml-2 mr-8">
     <a class="text-white" href="#"><span class="underline font-bold">Apprendre encore plus</span></a>
@@ -35,13 +35,11 @@
 
 
 
-    <li *ngFor=" let categorie of session.formationSession.listCategories;  index as indexOfelement;">
       <span class="text-500 no-underline line-height-3 cursor-pointer">
-{{categorie.titre}}  <i  *ngIf="indexOfelement!=session.formationSession.listCategories.length" class="pi pi-angle-right text-500 line-height-3"></i>     </span>
+{{session.formationSession.titre}}  <i class="pi pi-angle-right text-500 line-height-3"></i>  {{session.titreSession}}   </span>
    <!-- <li class="px-2">
       <i class="pi pi-angle-right text-500 line-height-3"></i>-->
 
-    </li>
   </ul>
   <div class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
     <div>
@@ -119,7 +117,9 @@
   </div>
     </ng-template>
     <p [innerHTML]="session.descriptionSession | safeHtml"><p>
-    <ng-template pTemplate="footer">
+      
+
+
       <button  *ngIf="!inscrit" (click)="inscri()" pButton type="button" class="p-button-success" icon="pi pi-check" label="S'inscrire" id="bt-inscrire" [disabled]="disabled" ></button>
 <!--
       <Button *ngIf="!inscrit" (click)="inscri()">S'inscrire</Button>
@@ -134,7 +134,7 @@
 
       <!--  <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" class="scalein animation-linear animation-duration-2000 animation-iteration-infinite
        "></p-button>-->
-    </ng-template>
+
   </p-card>
 </div>
 

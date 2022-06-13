@@ -27,7 +27,7 @@ const routes: Routes = [{
     {  path: 'contact',
     component: ContactComponent,
   },
-    {  path: 'home1',
+    {  path: '',
       component: HomePage1Component,
     },
     {path:'detailsHome',

@@ -9,7 +9,10 @@ import { FormateurService } from 'app/services/formateur.service';
 import { CandidatService } from 'app/services/candidat.service';
 import { SessionFormationService } from 'app/services/SessionFormation.service';
 import * as Chartist from 'chartist';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { SessionService } from 'app/services/session.service';
+import { Rating } from 'app/models/Rating';
+import { UploadFileService } from 'app/services/upload-file.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +20,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  sessRating : SessionFormation ;
+  seRate : SessionFormation[] = [] ;
 
   multiAxisData: any;
 
@@ -63,16 +69,31 @@ candidatsThisMonth : Candidat[]
 nbCandidatMonth : number ;
 sessionsThisMonth : SessionFormation[]
 nbSessionMonth : number ;
+rat : Rating[];
+resSess : Rating[] = []  ;
+r : Rating = {
+  id : 0 ,
+  sessionId : 0 ,
+    username : "",
+    rating : 0
+};
+idSE : number;
+somme : number = 0;
+rat1 : Rating[];
+nb : number = 0;
+n : number = 0 ;
+fileInfos: Observable<any>;
+s1 : number = 0 ;
   //config: AppConfig;
 
-  constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService) {}
+  constructor(private formationService : FormationService, private sessionService : SessionFormationService,private formateurService : FormateurService,private candidatService : CandidatService,private sessionS : SessionService,private uploadService: UploadFileService) {}
 
   ngOnInit() {
+    this.fileInfos = this.uploadService.getFiles();
 this.formationService.getAllFormations().subscribe(d=>{
   this.formations = d
 this.formationsThisMonth = this.formations.filter(f => new Date(f.createdDate) <= new Date() && new Date(f.createdDate).getMonth()==new Date().getMonth() )
 this.nbFormationMonth = this.formationsThisMonth.length
-console.log(this.formationsThisMonth)
   this.nbFormations = d.length;
 })
   this.sessionService.getSessions().subscribe(d=>{
@@ -89,7 +110,6 @@ this.nbSessionMonth = this.sessionsThisMonth.length
       this.sessList = this.sessList.filter(s => new Date(s.dateDebSession).getMonth() != this.m)
       this.nbCand = 0
       this.sessListFilter.forEach(s => {
-        console.log(s,"lll",s.listeCandidat)
         this.nbCand = this.nbCand+s.listeCandidat.length
       });
       this.monthDataCand.push(this.nbCand)
@@ -157,6 +177,50 @@ this.nbCandidatMonth = this.candidatsThisMonth.length
 this.nbFormateurMonth = this.formateursThisMonth.length
     this.nbFormateurs = d.length
 })
+this.resSess = []
+this.sessionS.showAllratings().subscribe(d=>{
+  this.rat = d ;
+  console.log(this.rat)
+  this.rat.forEach(element => {
+    
+  this.idSE = element.sessionId;
+  this.nb = 0
+  this.somme = 0
+  this.r = {
+    id : 0 ,
+    sessionId : 0 ,
+      username : "",
+      rating : 0
+  };
+this.rat1 = this.rat.filter(r => r.sessionId == this.idSE)
+this.rat1.forEach(e => {
+  this.nb += 1 
+  this.somme += e.rating
+});
+this.sessRating = null
+this.somme = this.somme / this.nb
+console.log(this.idSE,this.somme)
+this.r.sessionId = this.idSE ;
+this.r.rating = this.somme
+this.resSess.push(this.r);
+console.log("raaat",this.r)
+this.sessionS.getSession(this.idSE).subscribe(d =>{
+  this.sessRating = d 
+  this.sessRating.nbMaxCandidat = this.resSess[this.s1].rating
+  this.seRate.push(this.sessRating)
+  console.log("ssss",this.sessRating)
+  this.s1 += 1 
+})
+
+this.rat = this.rat.filter(r1 => r1.sessionId != this.idSE)
+this.n +=1
+
+if( this.n == 5)
+this.rat = []
+  });
+
+})
+
     /*
     this.multiAxisData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -434,6 +498,8 @@ this.nbFormateurMonth = this.formateursThisMonth.length
 
       seq2 = 0;
   };
-
+  testImage(t : string){
+    return t.includes("image") ;
+ }
 
 }

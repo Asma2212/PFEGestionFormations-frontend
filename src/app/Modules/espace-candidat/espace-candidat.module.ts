@@ -31,6 +31,7 @@ import { EditorModule } from 'primeng/editor';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { InputTextModule } from 'primeng/inputtext';
     EmptyListComponent,
     EmptyArchiveComponent,
     ProfilCandidatComponent,
+    SafeHtmlPipe
   ],
     imports: [
         CommonModule,
