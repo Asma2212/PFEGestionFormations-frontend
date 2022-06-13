@@ -65,7 +65,7 @@
                 </li>
             </ul>
 
-                     <span class="nav-item" class="nav-link"> {{TheCurrentUser.firstName}} {{TheCurrentUser.lastName}}</span>
+                     <span class="nav-item" class="nav-link" style="cursor: pointer;" (click)="nav()"> {{TheCurrentUser.firstName}} {{TheCurrentUser.lastName}}</span>
 
           <button badge="8" class="p-button-danger" type="button" (click)="confirm()" pButton icon="pi pi-sign-out" > </button>
         </div>

@@ -41,6 +41,9 @@ export class NavbarComponent implements OnInit {
        */
       this.detailsUserAdmin();
     }
+    nav(){
+      this.router.navigate(["/user-profile"])
+    }
 
     sidebarOpen() {
         const toggleButton = this.toggleButton;
