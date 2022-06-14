@@ -178,6 +178,9 @@ if(this.signupForm.get('password_signup').value == this.signupForm.get('password
       this.toast.success({detail:"Bienvenu "+this.signupForm.get('username').value+"!",duration:3000});
 
     }, error => {
+      if(error.error.message == "Vous n'etes pas un candidat")
+      this.messageService.add({severity:'error', summary: 'Erreur', detail: "Vous n'etes pas un candidat", life: 3000});
+      else
       this.isError = true;
       //this.isError = true;
       //throwError(error);
