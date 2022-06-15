@@ -18,7 +18,7 @@ export class NavComponent implements OnInit {
       {label: 'Archivés', icon: 'pi pi-fw pi-file',routerLink:'/candidat/myArchives'},
       {label: 'Mes favoris', icon: 'pi pi-bookmark-fill',routerLink:'/candidat/MyFavorites'},
       {label: 'Ma calendrier', icon: 'pi pi-calendar',routerLink:'/candidat/calendar'},
-      {label: 'Settings', icon: 'pi pi-fw pi-cog'}
+
     ];
 
 

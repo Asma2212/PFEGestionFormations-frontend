@@ -38,22 +38,22 @@
                                   </div>
                                    <div class="session-list-detail" style="display: flex;">
                                     <div>
-                                        
+
                                     <div class="session-name">{{session.titreSession}}</div>
                                     <div class="session-description"><div [innerHTML]="session.descriptionSession | safeHtml"></div></div>
                                     <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
                                 </div>
                                     <div style="margin-left: 20%;">
                                         <i class="pi pi-users session-category-icon"></i> <strong>Formateurs :</strong> <br>
-                                       
+
                                         <span *ngFor="let formateur of session.listeFormateurs">
-                                           
+
                                             <span class="session-category" *ngIf="formateur.genre.name=='HOMME'">M. {{formateur.lastName}} {{formateur.firstName}}</span>
                                         <span class="session-category" *ngIf="formateur.genre.name=='FEMME'">MMe. {{formateur.lastName}} {{formateur.firstName}}</span>
                                     <br>
                                     </span>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="session-list-action">
                                     <span class="session-price" pTooltip="nombre des candidats" tooltipPosition="top">{{session.nbMaxCandidat}}</span>
@@ -67,7 +67,7 @@
                         </div>
 
                     </ng-template>
-        
+
 
                     <ng-template let-session pTemplate="gridItem">
                         <div class="p-col-12 p-md-3">
@@ -90,7 +90,7 @@
                                           <img [src]="file.url"  alt="file.name" />
                                         </p>
                                       </div>
-                                      
+
                                     <div class="session-name">{{session.titreSession}}</div>
                                     <div class="session-description"><div [innerHTML]="session.descriptionSession | safeHtml"></div></div>
                                  <span> De <strong>{{session.dateDebSession}}</strong></span><span> jusqu'a <strong>{{session.dateFinSession}}</strong></span>
@@ -108,15 +108,15 @@
                             </div>
                         </div>
                     </ng-template>
-                    
+
                 </p-dataView>
                     <div class="flex align-items-center justify-content-between" style="font-weight: bold; font-size: 15px;">
                         En total il y'a {{sessions ? sessions.length : 0 }} Sessions.
-    
+
                     </div>
             </div>
 
-            <p-dialog [(visible)]="sessionDialog" [style]="{width: '450px'}" header="Session Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
+            <p-dialog [(visible)]="sessionDialog" [style]="{width: '900px'}" header="Session Details" [modal]="true" styleClass="p-fluid" [closable]="false" [responsive]="true">
                 <ng-template pTemplate="content">
                     <div class="field">
                         <label for="name">Titre</label>
@@ -158,8 +158,8 @@
                     </div>
                     <div class="field">
                         <label for="description">Description</label>
-                        <p-editor [(ngModel)]="session.descriptionSession" [style]="{'height':'170px'}" id="description" ></p-editor>  
-                        
+                        <p-editor [(ngModel)]="session.descriptionSession" [style]="{'height':'170px'}" id="description" ></p-editor>
+
                     </div>
 <!--                    <p-editor [(ngModel)]="session.descriptionSession" [style]="{'height':'320px'}">
                         <ng-template pTemplate="header">
