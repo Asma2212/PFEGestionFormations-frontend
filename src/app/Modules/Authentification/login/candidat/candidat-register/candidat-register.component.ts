@@ -164,22 +164,19 @@ if(this.signupForm.get('password_signup').value == this.signupForm.get('password
   this.conf = true
   else
   this.conf = false
-
   }
   login() {
-
     this.loginRequest.username = this.loginForm.get('username').value;
     this.loginRequest.email = this.loginForm.get('email').value;
     this.loginRequest.password = this.loginForm.get('password').value;
-
     this.authService.loginCandidat(this.loginRequest).subscribe(data => {
-      this.isError = false;
-      this.router.navigate(['/candidat/myList']);
-      this.toast.success({detail:"Bienvenu "+this.signupForm.get('username').value+"!",duration:3000});
+    this.isError = false;
+    this.router.navigate(['/candidat/myList']);
+    this.toast.success({detail:"Bienvenu "+this.signupForm.get('username').value+"!",duration:3000});
 
     }, error => {
       if(error.error.message == "Vous n'etes pas un candidat")
-      this.messageService.add({severity:'error', summary: 'Erreur', detail: "Vous n'etes pas un candidat", life: 3000});
+      this.messageService.add({severity:'error', summary: 'Erreur', detail: "Verifier vos informations", life: 3000});
       else
       this.isError = true;
       //this.isError = true;
