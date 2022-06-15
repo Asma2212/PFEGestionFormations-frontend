@@ -257,7 +257,7 @@ this.namePhoto=this.file.name ;
 }
 
 upload1() {
-  this.progress = 0;
+ // this.progress = 0;
   this.currentFile = this.selectedFile.item(0);
   console.log("current file",this.currentFile);
 
@@ -270,7 +270,7 @@ upload1() {
       }
     },
     err => {
-      this.progress = 0;
+     // this.progress = 0;
       console.log(err);
       if(err.error.message.includes("constraint"))
       this.message =" Cette image existe deja"

@@ -247,7 +247,7 @@
                                 </div>
                                 <div class="lpa-meta">
                                     <a class="name">
-                                        {{sess.descriptionSession}}
+                                       <p [innerHTML]="sess.descriptionSession | safeHtml"></p>
                                     </a><br>
                                     <a class="date">
                                         debut : {{sess.dateDebSession}}

@@ -16,7 +16,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/sessionsFormation', title: 'Sessions de formation',  icon:'add', class: '' },
     { path: '/Admin/Calendar', title: 'Calendar',  icon:'calendar_today', class: '' },
     { path: '/Admin/Architecture', title: 'Departement',  icon:'table_chart', class: '' },
-  { path: '/Admin/Suggestions', title: 'Suggestions candidats',  icon:'view_list', class: '' }
+
 
 ];
 

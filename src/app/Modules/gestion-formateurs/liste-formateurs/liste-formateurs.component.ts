@@ -342,7 +342,7 @@ saveFormateur() {
 
   this.formateur.genre = {id : 1 , name : Egenre.HOMME} ;
 } 
-if( this.selectedEtablissement[0].name!="Autre"){
+if( this.selectedEtablissement && this.selectedEtablissement[0].name!="Autre"){
   this.formateur.etablissement=this.selectedEtablissement[0].name.toString() ;
 }
 if((this.formateur.username.toString().length == 8)&&(this.formateur.email.trim())&&(this.formateur.etablissement)&&(inputNom)&&(inputPrenom)){
