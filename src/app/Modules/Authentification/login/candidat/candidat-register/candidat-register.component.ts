@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, Optional} from '@angular/core';
 import * as $ from 'jquery';
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from "../../../../../services/auth.service";
@@ -19,6 +19,7 @@ import { Egenre } from 'app/models/GenreEnum';
 import {NgToastService} from "ng-angular-popup";
 import { CandidatService } from 'app/services/candidat.service';
 import { LocalStorageService } from 'ngx-webstorage';
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-candidat-register',
@@ -96,7 +97,8 @@ export class CandidatRegisterComponent implements OnInit {
     sessionFormationList : []
   }
 
-  constructor(private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private toastr: ToastrService,private departementService : DepartementService,private candidatService : CandidatService,private messageService : MessageService,private localStorage: LocalStorageService) {
+  constructor( private cd: ChangeDetectorRef,  @Optional() public dialogRef: MatDialogRef<CandidatRegisterComponent>
+    ,private toast:NgToastService,private authService: AuthService, private router: Router,private uploadService : UploadFileService, private toastr: ToastrService,private departementService : DepartementService,private candidatService : CandidatService,private messageService : MessageService,private localStorage: LocalStorageService) {
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
@@ -175,7 +177,10 @@ if(this.signupForm.get('password_signup').value == this.signupForm.get('password
     this.toast.success({detail:"Bienvenu "+this.signupForm.get('username').value+"!",duration:3000});
 
     }, error => {
-      if(error.error.message == "Vous n'etes pas un candidat")
+      if(error.status===400){      this.toast.error({summary: 'Verifier vos informations"',detail: "Erreur",duration:3000});
+      }
+
+        if(error.error.message == "Vous n'etes pas un candidat")
       this.messageService.add({severity:'error', summary: 'Erreur', detail: "Verifier vos informations", life: 3000});
       else
       this.isError = true;
@@ -218,9 +223,13 @@ if(this.signupForm.get('genre').value == "homme"){
 /*
       console.log("registred")
 */
+      this.cd.detectChanges();
+
       this.isError_signup = false;
       this.loginAfterSignup( this.loginRequestPayload.username, this.loginRequestPayload.email, this.loginRequestPayload.password)
+
       this.router.navigate(['/candidat/myList']);
+
 
     }, error => {
       console.log(error.error.message)
@@ -438,4 +447,8 @@ this.submitted = false
         if(this.isError == false)
         this.messageService.add({severity:'error', summary: 'Erreur', detail: "adresse Email inexistante", life: 3000});
       }
+
+  closing() {
+
+  }
 }

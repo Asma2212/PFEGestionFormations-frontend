@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Optional} from '@angular/core';
+import {MatDialogRef} from "@angular/material/dialog";
+import {CandidatRegisterComponent} from "../../Authentification/login/candidat/candidat-register/candidat-register.component";
 
 @Component({
   selector: 'app-container',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContainerComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Optional() public dialogRef: MatDialogRef<CandidatRegisterComponent>,) { }
 
   ngOnInit(): void {
+    this.dialogRef.close();
   }
 
 }

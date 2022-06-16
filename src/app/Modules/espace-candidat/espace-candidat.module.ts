@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import { EspaceCandidatRoutingModule } from './espace-candidat-routing.module';
 import { ContainerComponent } from './container/container.component';
@@ -15,7 +15,7 @@ import {FormsModule} from "@angular/forms";
 import {ToolbarModule} from "primeng/toolbar";
 import { ArchiveComponent } from './archive/archive.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import {MatDialogModule} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogModule} from "@angular/material/dialog";
 import {TabMenuModule} from "primeng/tabmenu";
 import {NgProgressModule} from "ngx-progressbar";
 import {CardModule} from "primeng/card";
@@ -32,6 +32,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -63,8 +64,9 @@ import { SafeHtmlPipe } from './safe-html.pipe';
       EditorModule,
       MultiSelectModule,
       InputMaskModule,
-      InputTextModule
+      InputTextModule,
 
-    ]
+    ],providers: [
+    DatePipe,{provide:MAT_DIALOG_DATA,useValue:{}}]
 })
 export class EspaceCandidatModule { }

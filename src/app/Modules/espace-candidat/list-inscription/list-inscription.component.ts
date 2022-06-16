@@ -1,10 +1,13 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Optional, ViewEncapsulation} from '@angular/core';
 import {SessionFormation} from "../../../models/SessionFormation";
 import {SessionService} from "../../../services/session.service";
 import {LocalStorageService} from "ngx-webstorage";
 import {SelectItem} from "primeng/api";
 import {Observable} from "rxjs";
 import {UploadFileService} from "../../../services/upload-file.service";
+import {MatDialogRef} from "@angular/material/dialog";
+import {CandidatRegisterComponent} from "../../Authentification/login/candidat/candidat-register/candidat-register.component";
+
 
 @Component({
   selector: 'app-list-inscription',
@@ -32,16 +35,19 @@ export class ListInscriptionComponent implements OnInit {
   private fileInfos: Observable<any>;
   sortKey: any;
 
-  constructor(private uploadService: UploadFileService,private sessionService: SessionService, public localstorage:LocalStorageService) { }
+  constructor(    private uploadService: UploadFileService,private sessionService: SessionService, public localstorage:LocalStorageService) { }
 
   ngOnInit() {
+
+
     this.fileInfos = this.uploadService.getFiles();
 
     this.sessionService.ListInscription(this.localstorage.retrieve("username")).subscribe(data => {
 
-        this.sessions = data
-      console.log("all the inscription sessions of the condidat",this.sessions)
-    }
+        this.sessions = data;
+
+      }
+
     );
     this.cols = [
       { field: 'idSession', header: 'Code', customExportHeader: 'Session Code' },
@@ -58,6 +64,7 @@ export class ListInscriptionComponent implements OnInit {
     ];
 
     this.minDate = new Date()
+
   }
 
   onSortChange(event) {

@@ -142,7 +142,7 @@ this.username = this.localStorage.retrieve("username")
        });
       })
     }
-         
+
       this.filterSessions = this.sessions;
       this.toutCours = this.sessions.length;
       this.sessions.forEach(s => {
@@ -531,7 +531,7 @@ this.username = this.localStorage.retrieve("username")
                     console.log("the data" + data);
                     self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
                     self.inscrit = true
-                   
+
                   }), error => {
                     self.toast.error({detail: "Échec!", summary: error.error.message, duration: 3000});
                   }
@@ -562,12 +562,12 @@ this.username = this.localStorage.retrieve("username")
           this.sessionservice.ToDesinscrire(this.username1, sess.idSession).subscribe(data => {
             console.log(data + "hettetetett")
             this.toast.success({detail: "success", summary: data.toString(), duration: 3000});
-  
+
           })
           this.inscrit = false
           // location.reload();
           // this.ngOnInit()
-  
+
         }
       });
 
@@ -695,19 +695,19 @@ this.sessionservice.ListFavoris("00000006").pipe(
 
   testInscrit(sess : SessionFormation){
     if(this.candidat){
-      this.testInscritVar = false ; 
+      this.testInscritVar = false ;
 return false ;
     }else{
-  this.testInscritVar = true ; 
+  this.testInscritVar = true ;
   return true
 }
 
   }
-  testFavoris(sess : SessionFormation){    
+  testFavoris(sess : SessionFormation){
     this.sessionservice.ListFavoris(this.username).subscribe(data =>{
       this.listFav = data
       console.log("candidat fav",this.listFav.includes)
-   
+
     if(this.listFav.includes(sess)){
       this.testFavorisVar = true
       return true
@@ -720,4 +720,8 @@ else
 })
 }
 
+  closing() {
+    this.dialog.closeAll()
+
+  }
 }

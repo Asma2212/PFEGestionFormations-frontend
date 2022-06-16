@@ -48,7 +48,7 @@ import {PasswordModule} from "primeng/password";
 import {MultiSelectModule} from "primeng/multiselect";
 import {AccessFreeModule} from "./Modules/FreeAcess/access-free/access-free.module";
 import {NgToastModule} from "ng-angular-popup";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {ChatComponent} from "./Modules/message/chat/chat.component";
 import {VirtualScrollerModule} from "primeng/virtualscroller";
 import {DialogModule} from "primeng/dialog";
@@ -95,6 +95,7 @@ import { RatingModule } from 'primeng/rating';
     DialogModule,
     InputTextModule,
     RatingModule,
+
     NgxWebstorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
@@ -108,9 +109,10 @@ import { RatingModule } from 'primeng/rating';
     FormatuerLoginComponent,
     CandidatRegisterComponent,
     ChatComponent,
-    
+
   ],
   providers: [MessageService, HttpClient,
+    {provide: MatDialogRef, useValue:{}},
 
     ConfirmationService, [{
       provide: HTTP_INTERCEPTORS,

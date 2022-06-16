@@ -1,7 +1,7 @@
 import {AccessFreeRoutingModule} from "./access-free-routing.module";
 import {NgModule} from "@angular/core";
 import {SessionComponent} from "./session/session.component";
-import {CommonModule, DatePipe} from "@angular/common";
+import {APP_BASE_HREF, CommonModule, DatePipe, LocationStrategy, PathLocationStrategy} from "@angular/common";
 import { HomePageComponent } from './home-page/home-page.component';
 import {CardModule} from "primeng/card";
 import {ButtonModule} from "primeng/button";
@@ -34,6 +34,7 @@ import { ReviewingComponent } from './reviewing/reviewing.component';
 import {BlockUIModule} from "primeng/blockui";
 import {PanelModule} from "primeng/panel";
 import { ContactComponent } from './contact/contact.component';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 
 
 
@@ -82,11 +83,12 @@ import { ContactComponent } from './contact/contact.component';
     SharedModule,
     BlockUIModule,
     PanelModule,
+    MatDialogModule,
 
   ],
     exports: [
       NavBarComponent
   ],providers: [
-    DatePipe]
+    DatePipe,{provide:MAT_DIALOG_DATA,useValue:{}}]
 })
 export class AccessFreeModule { }

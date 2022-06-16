@@ -1,13 +1,14 @@
+<!--
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<body >
-<div id="main-content" class="blog-page" style="margin-top: 3%; margin-left: 6%" >
+<body style=" background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%); ">
+<div id="main-content" class="blog-page" style="margin-top: 3%; margin-left: 6%; background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);" >
   <div class="container">
 
     <div class="row clearfix">
       <div  class="col-lg-8 col-md-12 left-box">
 
 
-     <!--   <div class="card single_post" style="" >
+     &lt;!&ndash;   <div class="card single_post" style="" >
           <div class="body" >
             <div class="img-post">
             </div>
@@ -96,10 +97,10 @@
             </ul>
           </div>
 
-        </div>-->
+        </div>&ndash;&gt;
 
         <div class="surface-card p-4  shadow-5 border-round">
-          <div class="text-3xl font-medium text-900 mb-3">Description
+          <div class="gradient" class="text-3xl font-medium text-900 mb-3">Description
             <button class="p-button-sm" (click)="showTexte()" pButton type="button"
                     class="p-button-help"> {{ isReadMoree ? 'afficher moins' : 'afficher plus' }}</button>
           </div>
@@ -107,13 +108,13 @@
 
           <h4 class="capitalize">
             <h4 [innerHTML]="descriptionSession | safeHtml"></h4>
-     
+
           </h4> </div>
         </div>
 
-        <!-- time line open-->
+        &lt;!&ndash; time line open&ndash;&gt;
 
-        <div class="main-container">
+        <div class="main-container" style="color: red ;background-color: whitesmoke">
           <section id="timeline" class="timeline-outer">
             <div class="container" id="content">
               <div class="row">
@@ -136,9 +137,9 @@
           </section>
 
         </div>
-        <!-- time line close-->
+        &lt;!&ndash; time line close&ndash;&gt;
 
-        <!--<div class="card">
+        &lt;!&ndash;<div class="card">
           <div class="header">
             <h2>Leave a reply <small>Your email address will not be published. Required fields are marked*</small></h2>
           </div>
@@ -165,29 +166,29 @@
               </form>
             </div>
           </div>
-        </div>-->
-        <!--formateur open-->
-        <!--formateur clos-->
+        </div>&ndash;&gt;
+        &lt;!&ndash;formateur open&ndash;&gt;
+        &lt;!&ndash;formateur clos&ndash;&gt;
 
       </div>
       <div class="col-lg-4 col-md-12 right-box ">
-      <!--  <div class="card"></div>
+      &lt;!&ndash;  <div class="card"></div>
         <div class="card"></div>
         <div class="card"></div>
         <div class="card"></div>
-        <div class="card"></div>-->
-<!--
+        <div class="card"></div>&ndash;&gt;
+&lt;!&ndash;
         <div class="card"></div> <div class="card"></div>
--->
-        <div class="card shadow-6 " style=" margin-top: 85%;margin-left: 20%;
+&ndash;&gt;
+        <div class="card shadow-6 " style=" margin-top: 30%;margin-left: 20%;
         background: linear-gradient(135deg, #3e00bb, rgba(255,136,0,0.53)) fixed;"  >
           <div class="header">
             <h2>Categories </h2>
           </div>
           <div class="body widget">
-            <!--<ul class="list-unstyled categories-clouds m-b-0">-->
+            &lt;!&ndash;<ul class="list-unstyled categories-clouds m-b-0">&ndash;&gt;
            <ul style="display: flex;">
-              <li *ngFor="let obj of categories"><a> <p-chip label="{{obj.titre}}"></p-chip></a></li>
+              <li *ngFor="let obj of categories"><a> <p-chip  label="{{obj.titre}}"></p-chip></a></li>
             </ul>
           </div>
         </div>
@@ -230,10 +231,10 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
         </div>
         <div class="ratee" style="margin-left: 20%;  background:#31394D;
 ">
-         <!-- <div class="header">
+         &lt;!&ndash; <div class="header">
             <h2>Avis</h2>
           </div>
-          <div class="body widget">-->
+          <div class="body widget">&ndash;&gt;
             <p-blockUI [target]="pnl" [blocked]="showRating()">
               <i class="pi pi-lock" style="font-size: 3rem"></i>
             </p-blockUI>
@@ -243,7 +244,7 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
 
             </p-panel>
 
-            <!--<ul class="list-unstyled instagram-plugin m-b-0">
+            &lt;!&ndash;<ul class="list-unstyled instagram-plugin m-b-0">
               <li><a href="javascript:void(0);"><img src="https://via.placeholder.com/100x100/87CEFA/000000"
                                                      alt="image description"></a></li>
               <li><a href="javascript:void(0);"><img src="https://via.placeholder.com/100x100/87CEFA/000000"
@@ -262,14 +263,14 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
                                                      alt="image description"></a></li>
               <li><a href="javascript:void(0);"><img src="https://via.placeholder.com/100x100/87CEFA/000000"
                                                      alt="image description"></a></li>
-            </ul>-->
-<!--
+            </ul>&ndash;&gt;
+&lt;!&ndash;
           </div>
--->
+&ndash;&gt;
         </div>
 
 
-<!--        <div class="card shadow-6"  style="margin-left: 20%;">
+&lt;!&ndash;        <div class="card shadow-6"  style="margin-left: 20%;">
           <div class="header">
             <h2>Email Newsletter <small>Get our products/news earlier than others, let’s get in touch.</small></h2>
           </div>
@@ -281,10 +282,183 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
               </div>
             </div>
           </div>
-        </div>-->
+        </div>&ndash;&gt;
       </div>
     </div>
 
   </div>
 </div>
 </body>
+-->
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!--Content: https://branch.climateaction.tech/-->
+<main>
+  <div class="grid">
+    <div class="grid__item-wrapper">
+      <div class="item">
+        <p class="card__top">Description</p>
+        <div class="card__inner">
+          <div class="surface-card p-4  shadow-5 border-round">
+            <div class="text-3xl font-medium text-900 mb-3">Description
+              <button class="p-button-sm" (click)="showTexte()" pButton type="button"
+                      class="p-button-help"> {{ isReadMoree ? 'afficher moins' : 'afficher plus' }}</button>
+            </div>
+            <div [ngClass]="{'limitTextHeight': isReadMoree}">
+
+              <h4 class="capitalize">
+                <h4 [innerHTML]="descriptionSession | safeHtml"></h4>
+
+              </h4> </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid__item-wrapper">
+      <div class="item" style="--c: darkorchid">
+        <p class="card__top">planning session :</p>
+
+        <div class="card__inner">
+
+          <div class="main-container" style="">
+            <section id="timeline" class="timeline-outer">
+              <div class="container" id="content">
+                <div class="row">
+                  <div class="col s12 m12 l12">
+                    <h1 class="blue-text lighten-1 header"></h1>
+
+
+                    <ul  [ngClass]="{'limitTextHeight': isReadMoreee}"class="timeline"(click)="showTextee()"  type="button"
+                    > {{ isReadMoreee ? '' : '' }}
+                      <div  *ngFor="let obj of planning| keyvalue">  <li class="event"  >
+                        <h3> {{obj.key}} </h3>
+                        <p>
+                          {{obj.value}}                </p>
+                      </li></div>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+
+        </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="grid__item-wrapper">
+      <div class="item" style="--c: orange">
+        <p class="card__top">Climate Misinformation</p>
+        <div class="card__inner">
+          <ul class="inlineList">
+            <li><img  style=" width: 50px;"
+                      src="
+           https://cdn-icons-png.flaticon.com/128/3652/3652191.png"></li>
+            <li> date Debut Session</li>
+            <li> <span class="fancy text-xl">{{dateDebSession}}</span></li>
+          </ul>
+<ul class="inlineList">
+
+  <li><img  style=" width: 50px;" src="
+           https://cdn-icons-png.flaticon.com/128/3652/3652191.png
+"></li>
+  <li>Date fin Session</li>
+  <li> <span class="fancy text-xl">{{dateFinSession}}</span></li>
+
+</ul>
+          <ul class="inlineList">
+            <li>                    <img width="25" src="
+
+            https://cdn-icons.flaticon.com/png/128/3429/premium/3429402.png"> </li>
+            <li>Nombre max candidat</li>
+            <li>     <span class="fancy text-xl">{{nbMawParticipant}}</span></li>
+            <li></li>
+          </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<aside>
+  <div class="grid">
+    <div class="grid__item-wrapper">
+      <div class="item" style="--c: turquoise">
+        <p class="card__top">Catégories de session</p>
+        <img src='assets/img/categorie.png'>
+        <div class="card__inner">
+          <div class="body widget">
+            <ul class="list-unstyled categories-clouds m-b-0">
+            <ul style="display: flex;">
+              <li *ngFor="let obj of categories"><a> <p-chip  label="{{obj.titre}}"></p-chip></a></li>
+            </ul></ul>
+          </div>
+         <!-- <h3>The Handbook Every Worker in Tech Needs to Read</h3>
+          <p>Ifeoma Ozoma</p>
+          <a href="">Read the article</a>-->
+        </div>
+      </div>
+    </div>
+    <div class="grid__item-wrapper">
+      <div class="item" style="--c: teal">
+        <p class="card__top">Sustainable Web Craft</p>
+
+        <div class="card__inner">
+
+          <div class="ratee" style="margin-left: 0%;  background:#31394D;
+">
+
+            <p-blockUI [target]="pnl" [blocked]="showRating()">
+              <i class="pi pi-lock" style="font-size: 3rem"></i>
+            </p-blockUI>
+            <p-panel #pnl header="Noter cette session" styleClass="mt-4">
+              <p class="m-0">.</p>
+              <p-rating [(ngModel)]="score" [cancel]="false" (onRate)="addRating()"></p-rating>
+
+            </p-panel>
+
+          </div>
+          <!--<h3>Green Tech: What Solutions Are Being Advocated?</h3>-->
+          <p>Anne Currie</p>
+          <a href="">Read the article</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+<!-- partial -->
+
+</body>
+</html>
