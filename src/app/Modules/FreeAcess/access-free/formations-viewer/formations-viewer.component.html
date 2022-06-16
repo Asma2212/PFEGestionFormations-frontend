@@ -130,6 +130,9 @@
             </div>
 
             <div class="job-card-title">{{session.titreSession}}</div>
+            <div style="margin-top: 10px;">
+              <h5 class="mt-0 mb-3">De <strong>{{session.dateDebSession}}</strong> jusqu'à <strong>{{session.dateFinSession}}</strong></h5>
+            </div>
             <div class="job-card-subtitle">
               <div style="font-size: 19px" [innerHTML]="session.descriptionSession | safeHtml"></div>
 

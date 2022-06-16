@@ -235,7 +235,7 @@ else {
     },
     error =>
    {
-    if(error.error.message.includes("constraint"))
+    if(error.status == 400)
     this.messageService.add( {severity:'error', summary:'Déja existant', detail: "Email et cin doit etre unique", life: 3000}); 
 });
    }

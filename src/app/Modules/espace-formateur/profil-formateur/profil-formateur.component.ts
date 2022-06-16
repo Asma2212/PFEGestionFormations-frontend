@@ -95,6 +95,7 @@ export class ProfilFormateurComponent implements OnInit {
  })
 }
  saveChanges(){
+  
    console.log("***",this.formateur)
    if(this.imgURL)
    this.upload1();
@@ -112,33 +113,39 @@ export class ProfilFormateurComponent implements OnInit {
  if(this.nouvPass == this.nouvPass2){
    this.formateur.password = this.nouvPass
   this.formateurService.updateFormateurPassword(this.formateur,this.ancPass,this.nouvPass).subscribe(data =>{
+    //window.location.reload()
+    this.nouvPass = ""
+    this.nouvPass2 = ""
+    this.ancPass = ""
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
-    this.getFormateur()
-
   },
   error =>{
-    console.log(error)
+    console.log("aa",error)
+    if(error.error.text && error.error.text.includes("modifiée")){
+window.location.reload()
+this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
+    }
+    else {
 if(error.error.includes("invalide"))
 this.confAnc = false ;
 if(error.error.includes("differente"))
 this.diffPass = false ;
-  }
+  }}
   )
 }}
 else{
 this.formateurService.updateFormateur(this.formateur).subscribe( data =>{
   console.log("photooo",this.formateur.photo)
   console.log(data)
-  this.messageService.add({severity:'success', summary: 'Successful', detail: 'vos informations sont bien modifier', life: 3000});
-  this.router.navigate(["formateur/profil"]) 
+  this.messageService.add({severity:'success', summary: 'Succés', detail: 'vos informations sont bien modifier', life: 3000});
+  window.location.reload()
 },
 error =>{
   this.messageService.add({severity:'error', summary: 'Echoué', detail: error.error.message, life: 3000});
 }
   )
- }
-
-}
+ 
+}}
 initialiseDonn(){
   this.ancPass = ""
   this.nouvPass = ""

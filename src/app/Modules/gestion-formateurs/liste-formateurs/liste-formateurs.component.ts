@@ -48,6 +48,7 @@ export class ListeFormateursComponent implements OnInit {
   allFormateurs : Formateur[];
   filterValue : string
   filterEtab : Etablissement[] ;
+  filterEtab1 : Etablissement ;
 filterSpecialite : Specialite[] ;
   sortOrder: number;
 
@@ -179,8 +180,12 @@ getAllFormateurs(){
       this.formateurs = this.formateurs.filter(f => f.firstName.toLowerCase().includes(filterValueLower) || f.lastName.toLowerCase().includes(this.filterValue));
     }
     if(this.filterEtab){
+     
       let filterValueLower = this.filterEtab[0].name.toLowerCase();
       console.log("ff1",this.filterEtab[0].name);
+      if(this.filterEtab[0].name == "Autre")
+      this.formateurs = this.formateurs.filter(f => !f.etablissement.toLowerCase().includes("iset") && !f.etablissement.toLowerCase().includes("esprit"));
+    else
     this.formateurs = this.formateurs.filter(f => f.etablissement.toLowerCase().includes(filterValueLower));
     }
     if(this.filterSpecialite){

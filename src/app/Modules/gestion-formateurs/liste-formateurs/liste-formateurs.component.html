@@ -248,21 +248,12 @@
                     </button>
                     <div class="alert alert-light" role="alert" *ngIf="message1 != ''">{{ message1 }}</div>
                     <div class="field">
-                      <label for="cin">CIN</label>
-                      <div >
-                        <div class="p-inputgroup">
-                            <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
-
-                            <input type="tel" pInputText name="cin" id="cin" [(ngModel)]="formateur.username" required placeholder="Numero de carte d'identité"  pattern="[0-9]*"
-                            [minlength]="8" min="0" [maxlength]="8" #cin="ngModel"/>
-                                     
-                                
-                        </div>
-                        <small class="p-error" *ngIf="submitted && !formateur.username">cin est obligatoire.</small>
-                        <small class="p-error" *ngIf="submitted && formateur.username && !cin.valid">cin invalide.</small>
-                    </div>
-                        
-                    </div><br>
+                      <label for="name">CIN</label>
+                      <input type="text" pInputText name="cin" id="cin" [(ngModel)]="formateur.username" required placeholder="Numero de carte d'identité"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                      [minlength]="8" min="0" [maxlength]="8" #cin="ngModel"/>
+                      <small class="p-error" *ngIf="submitted && !formateur.username">cin est obligatoire.</small>
+                      <small class="p-error" *ngIf="submitted && formateur.username && !cin.valid">cin invalide.</small>
+                  </div>
                     <div style="display: flex;">
                     <div class="field">
                         <label for="nom">Nom</label>
