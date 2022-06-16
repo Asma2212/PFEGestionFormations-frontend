@@ -495,23 +495,24 @@ this.username = this.localStorage.retrieve("username")
           } else {
             const username = this.localStorage.retrieve("username")
             console.log("username" + username)
-
+ 
 
             this.sessionservice.getCandidaSession(username).subscribe(data => {
               this.ListSessionOfCandidat = data;
               console.log("list of sessions of a candidats" + this.ListSessionOfCandidat);
-              if (this.ListSessionOfCandidat.length == 0) {
+              
                 console.log("say hii")
                 this.sessionsCandidat.push(sess);
                 self.sessionservice.ToInscrire(username, sess.idSession).subscribe(data => {
+                  self.inscrit = true
                   console.log("xxxxx " + data);
                   self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
 
-                  self.inscrit = true
+                  
                 }), error => {
                   self.toast.error({detail: "Échec!", summary: error.error.message, duration: 3000});
                 }
-              }
+              
               this.ListSessionOfCandidat.forEach(function (value) {
 
                 if (value.idSession == sess.idSession) {
@@ -525,18 +526,7 @@ this.username = this.localStorage.retrieve("username")
                   });
 
                   return;
-                } else {
-                  console.log("say hii")
-                  self.sessionservice.ToInscrire(username, sess.idSession).subscribe(data => {
-                    console.log("the data" + data);
-                    self.toast.success({detail: "success", summary: data.toString(), duration: 3000});
-                    self.inscrit = true
-
-                  }), error => {
-                    self.toast.error({detail: "Échec!", summary: error.error.message, duration: 3000});
-                  }
-
-                }
+                } 
               });
             })
 
@@ -555,7 +545,7 @@ this.username = this.localStorage.retrieve("username")
         acceptButtonStyleClass:"p-button-danger",
         rejectLabel:"Non",
         rejectButtonStyleClass:"p-button-info",
-        message: "etes vous d'annuler votre inscription pour la session?"+sess.titreSession,
+        message: "etes vous sur d'annuler votre inscription pour la session?"+sess.titreSession,
         header: 'Annuler inscription',
         accept: () => {
           this.sessionsCandidat = this.sessionsCandidat.filter(a=> a.idSession != sess.idSession)

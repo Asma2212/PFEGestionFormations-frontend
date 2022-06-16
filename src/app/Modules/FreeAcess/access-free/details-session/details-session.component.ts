@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
 })
 export class DetailsSessionComponent implements OnInit {
 
-  ListSessionOfCandidat : SessionFormation[];
+  ListSessionOfCandidat : SessionFormation[] = [];
   @Input() dateDebSession: Date;
   @Input() dateFinSession: Date;
   @Input() planning: Map<string,string>;

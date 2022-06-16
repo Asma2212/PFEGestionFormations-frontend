@@ -303,8 +303,8 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
 <!--Content: https://branch.climateaction.tech/-->
 <main>
   <div class="grid">
-    <div class="grid__item-wrapper">
-      <div class="item">
+    <div class="grid__item-wrapper" style="display: flex;">
+      <div class="item" style="margin-right:10px ;">
         <p class="card__top">Description</p>
         <div class="card__inner">
           <div class="surface-card p-4  shadow-5 border-round">
@@ -318,6 +318,38 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
                 <h4 [innerHTML]="descriptionSession | safeHtml"></h4>
 
               </h4> </div>
+        </div>
+      </div>
+    </div>
+ 
+   
+      <div class="item" style="--c: orange">
+        <p class="card__top">Climate Misinformation</p>
+        <div class="card__inner">
+          <ul class="inlineList">
+            <li><img  style=" width: 50px;"
+                      src="
+           https://cdn-icons-png.flaticon.com/128/3652/3652191.png"></li>
+            <li> date Debut Session</li>
+            <li> <span class="fancy text-xl">{{dateDebSession}}</span></li>
+          </ul>
+<ul class="inlineList">
+
+  <li><img  style=" width: 50px;" src="
+           https://cdn-icons-png.flaticon.com/128/3652/3652191.png
+"></li>
+  <li>Date fin Session</li>
+  <li> <span class="fancy text-xl">{{dateFinSession}}</span></li>
+
+</ul>
+          <ul class="inlineList">
+            <li>                    <img width="25" src="
+
+            https://cdn-icons.flaticon.com/png/128/3429/premium/3429402.png"> </li>
+            <li>Nombre max candidat</li>
+            <li>     <span class="fancy text-xl">{{nbMawParticipant}}</span></li>
+            <li></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -355,60 +387,9 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
         </div>
 
         </div>
-      </div>
+      
     </div>
-    <div class="grid__item-wrapper">
-      <div class="item" style="--c: orange">
-        <p class="card__top">Climate Misinformation</p>
-        <div class="card__inner">
-          <ul class="inlineList">
-            <li><img  style=" width: 50px;"
-                      src="
-           https://cdn-icons-png.flaticon.com/128/3652/3652191.png"></li>
-            <li> date Debut Session</li>
-            <li> <span class="fancy text-xl">{{dateDebSession}}</span></li>
-          </ul>
-<ul class="inlineList">
-
-  <li><img  style=" width: 50px;" src="
-           https://cdn-icons-png.flaticon.com/128/3652/3652191.png
-"></li>
-  <li>Date fin Session</li>
-  <li> <span class="fancy text-xl">{{dateFinSession}}</span></li>
-
-</ul>
-          <ul class="inlineList">
-            <li>                    <img width="25" src="
-
-            https://cdn-icons.flaticon.com/png/128/3429/premium/3429402.png"> </li>
-            <li>Nombre max candidat</li>
-            <li>     <span class="fancy text-xl">{{nbMawParticipant}}</span></li>
-            <li></li>
-          </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-    </div>
+    
   </div>
 
 </main>

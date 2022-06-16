@@ -173,6 +173,12 @@ if(this.signupForm.get('password_signup').value == this.signupForm.get('password
     this.loginRequest.password = this.loginForm.get('password').value;
     this.authService.loginCandidat(this.loginRequest).subscribe(data => {
     this.isError = false;
+   try {
+    this.dialogRef.close()
+   } catch (error) {
+    true
+   }
+    
     this.router.navigate(['/candidat/myList']);
     this.toast.success({detail:"Bienvenu "+this.signupForm.get('username').value+"!",duration:3000});
 
@@ -227,7 +233,7 @@ if(this.signupForm.get('genre').value == "homme"){
 
       this.isError_signup = false;
       this.loginAfterSignup( this.loginRequestPayload.username, this.loginRequestPayload.email, this.loginRequestPayload.password)
-
+      this.dialogRef.close()
       this.router.navigate(['/candidat/myList']);
 
 
