@@ -456,6 +456,21 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
         </div>
       </div>
     </div>
+    <div *ngIf="programme != ''">
+    <div class="grid__item-wrapper">
+      <div class="item" style="--c: teal;background-color: white;padding-left: 9px;">
+        <p class="card__top" style="color: rgb(46, 23, 137);" >Programme de session</p>
+       <span> <hr> </span>
+  
+      <span>Télecharger le programme (PDF)</span>
+  <div *ngFor="let file of fileInfos | async">
+      <p class="list-group-item" *ngIf="file.name == programme">
+        <a href="{{ file.url }}" style="color: rgb(89, 92, 238);"> <i class="pi pi-download"></i> {{ file.name }}</a>
+      </p>
+    </div>
+  </div>
+  </div>
+</div>
   </div>
 </aside>
 <!-- partial -->

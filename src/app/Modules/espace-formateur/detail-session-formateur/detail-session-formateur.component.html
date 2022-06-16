@@ -149,7 +149,7 @@
                                   <div class="alert alert-light" role="alert" *ngIf="message != ''">{{ message }}</div>
                                 </div>
                         <div *ngIf="session.programme">
-                            <h4>Importer le programme (PDF)</h4>
+                            <h4>Téléchargerle programme (PDF)</h4>
                         <div *ngFor="let file of fileInfos | async">
                             <p class="list-group-item" *ngIf="file.name == session.programme">
                               <a href="{{ file.url }}"> <i class="pi pi-download"></i> {{ file.name }}</a>

@@ -119,7 +119,7 @@
             <div class="product-item-content" style="padding-right: 3%;">
                 <div  *ngFor="let file of fileInfos | async">
                  <p *ngIf="testImage(file.type) && file.name == session.photoSession">
-                   <img [src]="file.url"  alt="file.name" width="80%"/>
+                   <img [src]="file.url"  alt="file.name" width="80%" (click)="detailSession(session)" style="cursor: pointer;"/>
                  </p>
                </div>
       <br>
@@ -136,7 +136,10 @@
                   </button>
                 </div>
                 <div>
-                  <button class="search-buttons card-buttons-msg" style="background-color: #c2b7b7cb; color: rgb(109, 109, 109);"  (click)="detailSession(session)">plus de details</button>
+                  <h5 class="mt-0 mb-3">De <strong>{{session.dateDebSession}}</strong> jusqu'à <strong>{{session.dateFinSession}}</strong></h5>
+                </div>
+                <div>
+                  <button class="search-buttons card-buttons-msg"   (click)="detailSession(session)">plus de details</button>
                 </div>
               </div>
             </div>
@@ -187,12 +190,11 @@
               <div class="product-item-content" style="background-color: rgba(255, 255, 255, 0.479);">
                 <div class="mb-3"  *ngFor="let file of fileInfos | async">
                   <p *ngIf="testImage(file.type) && file.name == session.photoSession">
-                    <img [src]="file.url"  alt="file.name" class="product-image" width="70%"/>
+                    <img [src]="file.url"  alt="file.name" class="product-image" width="70%" (click)="detailSession(session)" style="cursor: pointer;"/>
                   </p>
                 </div>
                   <div>
                       <h2 class="mb-1">{{session.titreSession}}</h2>
-                      <span >{{session.titreSession}}</span>
                       <h5 class="mt-0 mb-3">De <strong>{{session.dateDebSession}}</strong> jusqu'à <strong>{{session.dateFinSession}}</strong></h5>
                       <div >
                         <button class="search-buttons card-buttons-msg" (click)="detailSession(session)" style="width: 40%;">plus de details</button>
@@ -214,7 +216,7 @@
           <div>
            <div  *ngFor="let file of fileInfos | async">
             <p *ngIf="testImage(file.type) && file.name == session.photoSession">
-              <img [src]="file.url"  alt="file.name" />
+              <img [src]="file.url"  alt="file.name" style="cursor: pointer;" (click)="detailSession(session)"/>
             </p>
           </div>
     </div>

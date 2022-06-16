@@ -31,8 +31,8 @@
       </a>
 
     </a>&ndash;&gt;-->
-    <a [routerLink]="['/home']" class="active">Accueil</a>
-    <a [routerLink]="['/home/formation']" class="active">Liste des formations</a>
+    <a [routerLink]="['/home']" class="active" style="cursor: pointer;">Accueil</a>
+    <a [routerLink]="['/home/formation']" class="active" style="cursor: pointer;">Liste des formations</a>
     <a [routerLink]="['/register/candidat']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')!='candidat' && this.localStorage1.retrieve('role')!='admin'">Espace Candidat</a>
     <a [routerLink]="['/candidat/myList']" class="active" *ngIf="this.localStorage1.retrieve('role')!='formateur' && this.localStorage1.retrieve('role')=='candidat'">Apprentissage</a>
 

@@ -10,6 +10,7 @@ import {SessionFormationService} from "../../../../services/SessionFormation.ser
 import {DatePipe} from "@angular/common";
 import {UploadFileService} from "../../../../services/upload-file.service";
 import { SessionFormation } from 'app/models/SessionFormation';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-details-session',
@@ -26,10 +27,12 @@ export class DetailsSessionComponent implements OnInit {
   @Input()descriptionSession:string
   @Input()categories:Categorie[]
   @Input()nbMawParticipant:number
+  @Input()programme:string
   isReadMore = true
   isReadMoree = true
   isReadMoreee = true
   score: number;
+  fileInfos : Observable<any>
 
   showText() {
     this.isReadMore = !this.isReadMore
@@ -47,6 +50,7 @@ export class DetailsSessionComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.fileInfos = this.uploadService.getFiles();
     this.username=this.localstorage.retrieve("username");
     this.idSession = this.route.snapshot.params['id'];
     if (this.localstorage.retrieve("role") == "candidat") {

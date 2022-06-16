@@ -179,7 +179,7 @@ if(this.signupForm.get('password_signup').value == this.signupForm.get('password
     }, error => {
       if(error.status===400){      this.toast.error({summary: 'Verifier vos informations"',detail: "Erreur",duration:3000});
       }
-
+else
         if(error.error.message == "Vous n'etes pas un candidat")
       this.messageService.add({severity:'error', summary: 'Erreur', detail: "Verifier vos informations", life: 3000});
       else
