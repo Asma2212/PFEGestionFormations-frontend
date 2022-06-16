@@ -353,7 +353,8 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
         </div>
       </div>
     </div>
-    <div class="grid__item-wrapper">
+    <div  class="grid__item-wrapper">
+  
       <div class="item" style="--c: darkorchid">
         <p class="card__top">planning session :</p>
 
@@ -365,7 +366,6 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
                 <div class="row">
                   <div class="col s12 m12 l12">
                     <h1 class="blue-text lighten-1 header"></h1>
-
 
                     <ul  [ngClass]="{'limitTextHeight': isReadMoreee}"class="timeline"(click)="showTextee()"  type="button"
                     > {{ isReadMoreee ? '' : '' }}
@@ -389,7 +389,6 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
         </div>
       
     </div>
-    
   </div>
 
 </main>
@@ -414,11 +413,11 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
     </div>
     <div class="grid__item-wrapper">
       <div class="item" style="--c: teal">
-        <p class="card__top">Sustainable Web Craft</p>
+        <p class="card__top">Evaluation</p>
 
         <div class="card__inner">
 
-          <div class="ratee" style="margin-left: 0%;  background:#31394D;
+          <div class="ratee" style="margin-left: 0%;  margin-top: -5%;margin-bottom: 3%;
 ">
 
             <p-blockUI [target]="pnl" [blocked]="showRating()">
@@ -431,16 +430,13 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
             </p-panel>
 
           </div>
-          <!--<h3>Green Tech: What Solutions Are Being Advocated?</h3>-->
-          <p>Anne Currie</p>
-          <a href="">Read the article</a>
         </div>
       </div>
     </div>
     <div *ngIf="programme != ''">
     <div class="grid__item-wrapper">
-      <div class="item" style="--c: teal;background-color: white;padding-left: 9px;">
-        <p class="card__top" style="color: rgb(46, 23, 137);" >Programme de session</p>
+      <div class="item" style="--c: teal;background-color: white;padding: 13px;">
+        <p class="card__top" style="color: rgb(46, 23, 137);margin-top:-15px;margin-bottom: -15px;" >Programme de session</p>
        <span> <hr> </span>
   
       <span>Télecharger le programme (PDF)</span>

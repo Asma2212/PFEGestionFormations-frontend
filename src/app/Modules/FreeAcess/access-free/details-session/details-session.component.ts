@@ -23,7 +23,7 @@ export class DetailsSessionComponent implements OnInit {
   ListSessionOfCandidat : SessionFormation[] = [];
   @Input() dateDebSession: Date;
   @Input() dateFinSession: Date;
-  @Input() planning: Map<string,string>;
+  @Input() planning: Map<string,string> = new Map();
   @Input()descriptionSession:string
   @Input()categories:Categorie[]
   @Input()nbMawParticipant:number
