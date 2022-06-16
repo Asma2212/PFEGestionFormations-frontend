@@ -79,6 +79,8 @@ dateFin : Date;
   minDate1 : Date ;
   maxDate1 : Date ;
   more : boolean = false ;
+  changeDeb : boolean = false ;
+  changeFin : boolean = false ;
 
   constructor(private sessionService: SessionFormationService,private confirmationService: ConfirmationService ,private formationService: FormationService ,private uploadService: UploadFileService, private dialogService: DialogService, private messageService: MessageService) { }
 
@@ -229,6 +231,8 @@ hideDialog() {
   this.selectedFormateurs = [] ;
   this.dateDeb = null ;
   this.dateFin = null ;
+  this.changeDeb = false
+  this.changeFin = false
 }
 saveSession(){
   this.submitted = true ;
@@ -240,6 +244,10 @@ saveSession(){
   if(this.file){
     this.session.photoSession=this.file.name ;
   }
+  if(this.changeDeb)
+  this.dateDeb.setDate(this.dateDeb.getDate()+1)
+  if(this.changeFin)
+  this.dateFin.setDate(this.dateFin.getDate()+1)
   this.session.dateDebSession = this.dateDeb
   this.session.dateFinSession = this.dateFin ;
   if(this.selectedFormateurs)
@@ -295,6 +303,8 @@ saveSession(){
 
         }
     });
+    this.changeDeb = false
+    this.changeFin = false
 
 }
 
@@ -368,6 +378,9 @@ editSession(session: SessionFormation) {
     console.log("chaging date")
     if(this.dateDeb > this.dateFin)
     this.dateFin = null ;
+    this.changeDeb = true ;
+    
+    
   }
 }
 

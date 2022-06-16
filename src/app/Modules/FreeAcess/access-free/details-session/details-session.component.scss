@@ -143,9 +143,6 @@ aside {
   padding: var(--pad);
 }
 
-aside {
-  background: cornflowerblue;
-}
 
 @media (min-width: 60em) {
   body {
@@ -182,7 +179,7 @@ h3 {
 
 @media (min-width: 75em) {
   .grid {
-    border: 0.2rem solid aliceblue;
+    border: 0.1rem solid rgba(70, 131, 185, 0.674);
     padding: var(--pad);
   }
 }
@@ -191,7 +188,7 @@ h3 {
   background: var(--c, deeppink);
   width: 100%;
   border-radius: var(--pad);
-  border: 0.4rem solid;
+  border: 0.1rem solid;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -212,6 +209,7 @@ h3 {
 .card__top {
   color: white;
   font-weight: 700;
+  text-align: center;
 }
 
 .card__inner > * + * {
@@ -280,12 +278,11 @@ h3 {
   }
 }
 .ratee{
+  position: relative;
   background: #fff;
   transition: .5s;
   border: 0;
-  margin-bottom: 30px;
   border-radius: .55rem;
-  position: relative;
   width: 100%;
 }
 .inlineList {

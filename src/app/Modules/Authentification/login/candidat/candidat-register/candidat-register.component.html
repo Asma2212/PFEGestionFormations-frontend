@@ -146,7 +146,8 @@
     </div>
 
     <label for="file" class="p-image"><i class="fa fa-camera upload-button"></i></label>
-        <input  type="file" id="file" class="input-file" accept="image/*" (change)="onUpload($event)" >
+        <input  type="file" id="file" class="input-file" accept="image/*" (change)="onUpload($event)" required [formControlName]="'photo'">
+        <span style="color: #ff3353" *ngIf="!signupForm.get('photo').valid && signupForm.get('photo').touched" >Photo<i class="fa-solid fa-circle-x"></i></span>
 
 
 </div>
@@ -240,6 +241,7 @@
                       />
                     </p>
                   </div>
+                 
                   <p style="text-align : center">{{cand.firstName}} {{cand.lastName}}</p></div>
               </div>
 

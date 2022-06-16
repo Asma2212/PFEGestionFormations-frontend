@@ -150,12 +150,14 @@ export class CandidatRegisterComponent implements OnInit {
       phone: new FormControl(''),
       first_name: new FormControl('')
       , last_name: new FormControl(''),
+     
 /*
       repassword : new FormControl(''),
 */
       genre : new  FormControl(''),
       department : new  FormControl(''),
-      classe : new FormControl(''),
+      classe : new FormControl('')
+      , photo: new FormControl(''),
     })
     this.departementService.getAllDepartements().subscribe( data =>{
       this.listDep = data ;
@@ -238,6 +240,8 @@ if(this.signupForm.get('genre').value == "homme"){
 
 
     }, error => {
+      if(error.error.message.includes("constraint")){      this.toast.error({summary: 'Cin ou email deja existants',detail: "Erreur",duration:3000});
+    }
       console.log(error.error.message)
       throwError(error);
       this.errors = error.error.message;

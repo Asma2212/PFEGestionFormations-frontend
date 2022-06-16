@@ -56,6 +56,8 @@ export class ListeCandidatsComponent implements OnInit {
   filterDep : Department;
   filterClass : Classe;
   filterValue : string ="";
+  dateNaiss :Date = null;
+  dateChange :boolean = false ;
 
   constructor(private candidatService : CandidatService ,private uploadService : UploadFileService ,private departementService : DepartementService, private router: Router, private confirmationService : ConfirmationService , private messageService : MessageService,private route: ActivatedRoute) { }
 
@@ -166,6 +168,7 @@ this.getAllCandidats()
     this.candidat = {...candidat};
     //this.imgURL = candidat.photo ;
     this.candidatDialog = true;
+    this.dateNaiss = new Date(candidat.dateNaiss)
 
 }
 
@@ -207,6 +210,9 @@ if(this.homme){
 
  this.candidat.genre = {id : 1 , name : Egenre.HOMME} ;
 }
+if(this. dateChange)
+this.dateNaiss.setDate(this.dateNaiss.getDate()+1)
+this.candidat.dateNaiss = this.dateNaiss
 if((this.candidat.username.toString().length == 8)&&(this.candidat.email.trim())&&(this.candidat.department)&&(this.candidat.classe)
 &&(this.candidat.genre)&&(inputNom)&&(inputPrenom)){
   if (this.candidat.id) {
@@ -236,7 +242,7 @@ else {
   }
       //this.candidats = [...this.candidats];
 
-
+this.dateChange = false
 }
 
 counter(i: number) {
@@ -266,6 +272,8 @@ hideDialog() {
   this.homme="";
   this.listD = []
   this.listC = []
+  this.dateChange = false
+  this.dateNaiss = null
 
 }
 

@@ -232,7 +232,7 @@
                     </div><br>
                     <div class="field col-6">
                       <label for="dbDate">Date de Naissance</label>
-                      <p-calendar [(ngModel)]="candidat.dateNaiss" [maxDate]="maxDate1" [showIcon]="true" [readonlyInput]="true" inputId="dbDate"></p-calendar>
+                      <p-calendar [(ngModel)]="dateNaiss" [maxDate]="maxDate1" [minDate]="" [showIcon]="true" [readonlyInput]="true" inputId="dbDate" (onSelect)="dateChange = true"></p-calendar>
                       <small class="p-error" *ngIf="submitted && !candidat.dateNaiss">date Naissance est requis</small>
                   </div><br>
                     <div class="field">

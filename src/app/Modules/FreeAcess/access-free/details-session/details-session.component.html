@@ -298,20 +298,17 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 </head>
-<body>
+<body  style="background-color: rgba(208, 231, 255, 0.51);">
 <!-- partial:index.partial.html -->
 <!--Content: https://branch.climateaction.tech/-->
 <main>
   <div class="grid">
     <div class="grid__item-wrapper" style="display: flex;">
       <div class="item" style="margin-right:10px ;">
-        <p class="card__top">Description</p>
+        <p class="card__top" style="background-color: rgb(191, 95, 95);">Description</p>
         <div class="card__inner">
           <div class="surface-card p-4  shadow-5 border-round">
-            <div class="text-3xl font-medium text-900 mb-3">Description
-              <button class="p-button-sm" (click)="showTexte()" pButton type="button"
-                      class="p-button-help"> {{ isReadMoree ? 'afficher moins' : 'afficher plus' }}</button>
-            </div>
+            
             <div [ngClass]="{'limitTextHeight': isReadMoree}">
 
               <h4 class="capitalize">
@@ -322,32 +319,31 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
       </div>
     </div>
  
-   
-      <div class="item" style="--c: orange">
-        <p class="card__top">Climate Misinformation</p>
+      <div class="item">
+        <p class="card__top" style="background-color: rgb(95, 95, 191);">Informations</p>
         <div class="card__inner">
           <ul class="inlineList">
             <li><img  style=" width: 50px;"
                       src="
            https://cdn-icons-png.flaticon.com/128/3652/3652191.png"></li>
-            <li> date Debut Session</li>
-            <li> <span class="fancy text-xl">{{dateDebSession}}</span></li>
+            <li> date Debut Session
+            <br> <span class="fancy text-xl">{{dateDebSession}}</span></li>
           </ul>
 <ul class="inlineList">
 
   <li><img  style=" width: 50px;" src="
            https://cdn-icons-png.flaticon.com/128/3652/3652191.png
 "></li>
-  <li>Date fin Session</li>
-  <li> <span class="fancy text-xl">{{dateFinSession}}</span></li>
+  <li>Date fin Session
+  <br> <span class="fancy text-xl">{{dateFinSession}}</span></li>
 
 </ul>
           <ul class="inlineList">
-            <li>                    <img width="25" src="
+            <li style="width: 40px;">                    <img width="25" src="
 
-            https://cdn-icons.flaticon.com/png/128/3429/premium/3429402.png"> </li>
-            <li>Nombre max candidat</li>
-            <li>     <span class="fancy text-xl">{{nbMawParticipant}}</span></li>
+              ../../../../../../../assets/img/cap.png"> </li>
+            <li>Nombre max candidat
+            <br>     <span class="fancy text-xl">{{nbMawParticipant}}</span></li>
             <li></li>
           </ul>
         </div>
@@ -355,8 +351,8 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
     </div>
     <div  class="grid__item-wrapper">
   
-      <div class="item" style="--c: darkorchid">
-        <p class="card__top">planning session :</p>
+      <div class="item">
+        <p class="card__top" style="background-color: rgb(193, 121, 193);">planning session :</p>
 
         <div class="card__inner">
 
@@ -417,8 +413,7 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
 
         <div class="card__inner">
 
-          <div class="ratee" style="margin-left: 0%;  margin-top: -5%;margin-bottom: 3%;
-">
+          <span class="ratee" style="margin-left: 0%;  margin-top: 0%;margin-bottom: 3%;">
 
             <p-blockUI [target]="pnl" [blocked]="showRating()">
               <i class="pi pi-lock" style="font-size: 3rem"></i>
@@ -429,7 +424,7 @@ https://cdn-icons-png.flaticon.com/128/6967/6967743.png">
 
             </p-panel>
 
-          </div>
+          </span>
         </div>
       </div>
     </div>
